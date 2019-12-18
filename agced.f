@@ -32,12 +32,12 @@ C           LARGER THAN FNO IN EACH LIST AND MUST INCREASE LIST TO LIST.
 C           DEFAULT=FNO
 C  WINLEN - THE AGC WINDOW LENGTH IN SECONDS.
 C           PRESET=.100
-c  PCTAGC - Percent AGC.  The percentage of the computed multiplier to 
+c  PCTAGC - Percent AGC.  The percentage of the computed multiplier to
 c           use in each AGC window.  A PCTAGC < 100."softens" the
 c           effect the AGC.
 c           PRESET = 100.        e.g.    pctagc 50
-c  CENTER - The center point, in seconds,  of the AGC window that 
-c           receives the multiplier of the window.  
+c  CENTER - The center point, in seconds,  of the AGC window that
+c           receives the multiplier of the window.
 c           PRESET = winlen / 2
 C  END    - TERMINATES EACH PARAMETER LIST.
 C
@@ -164,7 +164,7 @@ C****
 C****  FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
  1000 CONTINUE
-      
+
       IF(LNO.EQ.32768) LNO=FNO                                          /* DEFAULT LNO TO FNO
       IF(FNO.GT.LLNO) GO TO 1020                                        /*  IS FNO LARGER THAN THE LAST LNO
       PRINT 1010

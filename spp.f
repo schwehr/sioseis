@@ -129,12 +129,12 @@ c                                   ICHAR('0') is 48 (decimal or 30 hex)
                   j = (ICHAR(cc(i:i))-48)*16                             ! get the index of the char
                   IF( j .LT. 0 .OR. j .GT. 144 ) GOTO 120
                   IF( rnibs .GT. 100. ) THEN
-                      DO 110, k=1,16                                    ! store each character raster line 
+                      DO 110, k=1,16                                    ! store each character raster line
                          iorbuf(i,k) = ifonts(j+k)
   110                 CONTINUE
                   ELSE
                       j = j / 2
-                      DO 115, k=1,8                                     ! store each character raster line 
+                      DO 115, k=1,8                                     ! store each character raster line
                          jorbuf(i,k) = jfonts(j+k)
   115                CONTINUE
                   ENDIF
@@ -182,12 +182,12 @@ c             ibuf(i) = IOR( ibuf(i), iorbuf(i,1) )                       ! only
                      itemp1 = IOR( itemp, LSHIFT(jorbuf(j,1),8))
                  ENDIF
              ENDIF
-c             ibuf(i) = IOR( ibuf(i), itemp1 ) 
+c             ibuf(i) = IOR( ibuf(i), itemp1 )
              ibuf(i) = itemp1
              j = j + 1
   300     CONTINUE
       ENDIF
-  
+
       IF( rnibs .GT. 100. ) THEN
           DO 320 j=1,15                                                 ! move the or buffer up 1 raster line
              DO 310 i=1,8                                               ! do each character
@@ -211,6 +211,6 @@ c             ibuf(i) = IOR( ibuf(i), itemp1 )
               jorbuf(i,8)=0
           ENDIF
   400 CONTINUE
-    
+
       RETURN
       END

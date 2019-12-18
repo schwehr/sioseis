@@ -17,7 +17,7 @@ C
       CHARACTER*80 line
       SAVE
       DATA FIRST /.TRUE./
- 
+
       IF( first ) THEN
           first = .FALSE.
           iprint = 0                                                   ! turnoff printing in rline
@@ -29,7 +29,7 @@ C
   200     jobnum = jobnum + 1
           cbuf = ' '
           CALL getdate1( line )
-          WRITE( cbuf, '(4HJob ,I6,12H started on ,A24,1H,,A32)' ) 
+          WRITE( cbuf, '(4HJob ,I6,12H started on ,A24,1H,,A32)' )
      &      jobnum, line(1:24), ver(1:32)
           ncinline = 46 + 33
           cbuf(ncinline+1:ncinline+1) = ' '
@@ -62,7 +62,7 @@ C
       ENDIF
       IF( istop .NE. 0 ) THEN
           CALL getdate1( line )
-          WRITE( cbuf, '(4HJob ,I6,13H finished on ,A24)' ) 
+          WRITE( cbuf, '(4HJob ,I6,13H finished on ,A24)' )
      &      jobnum, line(1:24)
           ncinline = 47
           cbuf(ncinline+1:ncinline+1) = ' '

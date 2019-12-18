@@ -21,6 +21,6 @@ C
       BUF(J+1)=A(3)
       BUF(J+2)=A(2)
       BUF(J+3)=A(1)
-  200 J=J+4 
+  200 J=J+4
       RETURN
       END

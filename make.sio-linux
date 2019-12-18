@@ -1,5 +1,5 @@
 FFLAGS=  -Bstatic -O -dn -static
-LIBS = 
+LIBS =
 CC = cc
 OBJECTS=contro.o setptr.o upcase.o getpro.o dcode.o lcode.o ddcode.o ebcasc.o\
 is_big_endian.o tohex.o secsdms.o ascebc.o getoke.o rdline.o rline.o \
@@ -41,4 +41,4 @@ grdouted.o grdoutex.o xstared.o xstarex.o \
 segdded.o segddex.o i24i32.o bldgname.o gpgga.o leeshdr.o
 
 sioseis:$(OBJECTS)
-	f77 $(FFLAGS) $(OBJECTS) $(LIBS) -o sioseis 
+	f77 $(FFLAGS) $(OBJECTS) $(LIBS) -o sioseis

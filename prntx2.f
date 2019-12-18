@@ -4,7 +4,7 @@ C  ON OR OFF, EACH BIT REPRESENTING A DOT) TO A PRINTRONIX PLOT MODE
 C  CHARACTER STRING.  THE PRINTRONIX EXPECTS an UPPER BIT ON to indicate
 C  THE PLOT MODE).  THIS ROUTINE THUS TAKES 6 BIT BYTES FROM THE INPUT,
 C  CONVERTS IT TO AN 8 BIT BYTE, AND PUTS ON THE appropriate HIGH ORDER BIT.
-c  PRNTX1 does not swap the bit order as PRNTX2 does. 
+c  PRNTX1 does not swap the bit order as PRNTX2 does.
 c     Use INTEGER*2 rather than CHARACTER*1 because ANSII standard character
 c handling may be different on different machines.
 C
@@ -17,7 +17,7 @@ C  NOUT  - THE NUMBER OF INTEGER*2 WORDS RETURNED IN IOUT.  NOUT*2 BYTES WILL
 C          BE IN IOUT.  ***  NOTE  *** THIS IS A RETURN ARGUMENT!!
 C
 C  COPYRIGHT (C) BY:
-C  PAUL HENKART, SEISMIC REFLECTION PROCESSORS, SAN DIEGO, 13 August 1987 
+C  PAUL HENKART, SEISMIC REFLECTION PROCESSORS, SAN DIEGO, 13 August 1987
 C  ALL RIGHTS RESERVED.
 c mod 14 Aug 07 - g95 IAND requires arguments to be same type and kind.
 C
@@ -53,7 +53,7 @@ C     7            :107,:147,:127,:167,:117,:157,:137,:177/
      *          120,121,122,123,124,125,126,127/
 
 
-      
+
       i = 1
 c  start the string with a 5 - put the printronix in plot mode
       itemp = 5

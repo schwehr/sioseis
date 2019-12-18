@@ -33,7 +33,7 @@ c  modifications:
 c  17 apr 89 - add double
 c  28 Nov 89 - check for the autocorrelation being zero
 c  16 Jul 10 - Add lprint to print the filter points.
-c  2 Feb 11 - Add igap 
+c  2 Feb 11 - Add igap
 c             This was always setting the gap to the prediction distance
 C
       COMMON /APMEM/A(32766)
@@ -69,7 +69,7 @@ c	print *,' ipredi=',ipredi,' nfpts=',nfpts,' n=',n
           ENDDO
       ENDIF
 c**** the filter points are in a(iscr)
-c*****  gapped decon, 
+c*****  gapped decon,
 c      J=IFILT+IPREDI-1
 c      IF(IPREDI.LE.1) GO TO 115
 c      ITEMP=IPREDI-1

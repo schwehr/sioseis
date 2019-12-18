@@ -125,7 +125,7 @@ C****
       ISCR1=NEXTAD+3
        ISCR2=ISCR1+NSAMPS
       CALL FRSTNZ(IN,NSAMPS,N,ISCR1)                                    /*  FIND THE FIRST LIVE VALUE
-      IF( IAND(LPRINT,2) .NE. 0 ) 
+      IF( IAND(LPRINT,2) .NE. 0 )
      &    PRINT *,IN,INLEN,NSAMPS,NEXTAD,ISCR1,ISCR2,midpt,agcpct
       CALL APWD
       CALL AGCAP(IN,0,INLEN,IN,NSAMPS,NEXTAD,ISCR1,ISCR2)
@@ -146,7 +146,7 @@ C****
       SPEC=0.
       IEND = NSAMPS
       IF(ISTART.GE.IEND) RETURN
-      IF( IAND(LPRINT,2) .NE. 0 ) 
+      IF( IAND(LPRINT,2) .NE. 0 )
      &    PRINT *, ISTART,IEND,OLEVEL,CLIP,NDEAD,DEAD,MIDPT,SPEC,NPTS,
      &               agcpct
 c****  Subroutine AGC is weird, it uses indeces ISTART and INDEX of the array

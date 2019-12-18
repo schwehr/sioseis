@@ -24,7 +24,7 @@ c               - Decode the number of General Header blocks
 c               - Partially set up the SIO-RT nav and depth files
 c mod 4 May 04 - nsamps calculated from GH#2 on PC-Linux need explicit
 c                NINT(FLOAT(length)/si*1000.)
-c mod 5 May 04 - Get the nav from the extended header if its starts 
+c mod 5 May 04 - Get the nav from the extended header if its starts
 c                with $GPGGA
 c mod 6 June 04 - Honor SEG-D Rev. 1 Expanded file number
 c               - Start looking at the MP Factor - descaling factor.
@@ -122,7 +122,7 @@ c**** writet is needed so we can signal output to write a new segy file
       DATA ship_lat/0./, ship_long/0./, rev/0./
       DATA milsg/9999/
 c****
-c****  format = 1, 
+c****  format = 1,
 c****  format = 2, Seisnet/LDEOLIST
 c****  format = 3, Hydroscience with extra 32 byte header
 c****  format = 4, SIO-RT ---  This never came to fruition - where
@@ -211,7 +211,7 @@ c****  ibuf, the SEGY header, was created by the edit (segded.f).
       IF( getnewshot .GT. 0 ) GOTO 1000
       IF( itrcno .GT. 0 ) GOTO 200
       CALL podisc( iunit, 1, 0 )
-c**** 
+c****
 c****    get a general headers
 c****
   100 CONTINUE
@@ -220,13 +220,13 @@ c****  little endian (pc byte order).
 c   word 2 = number of channels
 c        3 = number of bytes in the Seisnet header
 c        4 = number of bytes in the General header
-c        5 = 3+4 = address of 
+c        5 = 3+4 = address of
       IF( iformat .EQ. 2 ) THEN
           CALL rddisc( iunit, lscr, 3, istat )
           IF( icompt .NE. 2 .AND. icompt .NE. 4 ) CALL swap32(lscr(3),1)
           nbytes = lscr(3)
           CALL podiscb( iunit, 1, nbytes )
-      ENDIF          
+      ENDIF
   130 CALL rddiscb( iunit, iscr(1), 32, istat )
       IF( istat .NE. 32 ) GOTO 980
       indx = 17
@@ -239,7 +239,7 @@ c        5 = 3+4 = address of
       ifilen = IAND( rshift(iscr(1),12), i15) * 1000 +                    ! file number
      *         IAND( rshift(iscr(1),8), i15) * 100 +
      *         IAND( rshift(iscr(1),4), i15) * 10 +
-     *         IAND(iscr(1),i15)  
+     *         IAND(iscr(1),i15)
       ns_done = ns_done + 1
       newfile = 0
       ifmt = IAND( rshift(iscr(2),12), i15) * 1000 +
@@ -252,7 +252,7 @@ c      IF( ifmt .EQ. 3336 .AND. iformat .EQ. 3 ) THEN
           IF( icompt .NE. 2 .AND. icompt .NE. 4 ) THEN
               CALL swap32( lscr(1), 8 )
           ELSE
-              CALL swap16( iscr(1), 32 )                                
+              CALL swap16( iscr(1), 32 )
           ENDIF
           itrsize = lscr(4)
           GOTO 130
@@ -281,7 +281,7 @@ c****         watch out - token is character*80
               CALL tohex( iscr(indx), 40, token )
               PRINT *,' additional General Headers: ',token(1:80)
           ENDIF
-          rev = IAND(rshift(iscr(22),8),i255) + 
+          rev = IAND(rshift(iscr(22),8),i255) +
      &          REAL(IAND(iscr(22),i255))/10.
           ntrailer = iscr(23) * 32
 c****     16665 = 15000 + 1500 + 150 + 15 = FFFF
@@ -333,7 +333,7 @@ c****             it was 16 bit swapped earlier, so swap the short word order
           RETURN                                                        ! day change occurs. GMK
       ENDIF
       isec = IAND( rshift(iscr(8),4), i15) * 10 +
-     *       IAND(iscr(8), i15) 
+     *       IAND(iscr(8), i15)
       manuf = IAND( rshift(iscr(9),12), i15) * 10 +
      *        IAND( rshift(iscr(9),8), i15)
       serial = IAND( rshift(iscr(9),4), i15) * 1000 +
@@ -491,10 +491,10 @@ c****         It's Lee's 2005 external header
               cbufin = ldeo_ascii(1:ntodo)
               jchar = 1
               ncbuf = ntodo
-c****         itemp, itemp1, temp are the time of shot 
+c****         itemp, itemp1, temp are the time of shot
 c****         ihourg, iming, secg are the $GPGGA (time of the fix)
-              CALL leeshdr( itemp, itemp1, temp, 
-     &            ihourg, iming, secg, ship_lat, ship_long, 
+              CALL leeshdr( itemp, itemp1, temp,
+     &            ihourg, iming, secg, ship_lat, ship_long,
      &            wdepth, rmaggie)
               IF( IAND(lprint,8) .NE. 0 ) THEN
                   PRINT *,  ' SIO nav times: ',
@@ -519,7 +519,7 @@ c**** This one is in mils
       IF( IAND(lprint,2) .NE. 0 ) THEN
           PRINT *,' ncsets=',ncsets,' nskew=',nskew,' nextend=',nextend,
      &      ' nexternal=',nexternal,' naddblks=',naddblks
-          PRINT *,' total general header blocks ',ntotal 
+          PRINT *,' total general header blocks ',ntotal
           PRINT *,' SEG-D rev ',rev
           PRINT *,' ntrailer=',ntrailer
       ENDIF
@@ -612,12 +612,12 @@ c****         The old Digicon Trace 0
      &              ' ',ldeo_ascii(1:6),' ',ldeo_ascii(229:314)
                   line_name = ldeo_ascii(140:149)
               ENDIF
-c****     make it look like the old Digicon trace 0, which starts with 
+c****     make it look like the old Digicon trace 0, which starts with
 c****     24 bytes of the SEG-D record header and followed by a series of
 c****     block or sections.   INT*2 word 1 of the section is the section
 c****     number and word 2 is the number of bytes in the section (including
 c****     the 4 byte section header).
-c****     Section 11 was an LDEO ASCII header with 214 bytes 
+c****     Section 11 was an LDEO ASCII header with 214 bytes
 c****     Section 13 with the Digicourse ASCII birds
 c          IF( lunldeo .NE. 0 ) THEN
 c              CALL podiscb( lunldeo, 0, 0 )
@@ -661,7 +661,7 @@ c****     Make it consistent with SEGDIN
               ldgo_shotno = lastshot + 1
           ENDIF
 c****     Check that the multibeam is working and passing depths
-          DO i = 1, maxndeps 
+          DO i = 1, maxndeps
              IF( wdepth .NE. H2O_depths(i) ) GOTO 160
           ENDDO
           IF( wdepth .EQ. -1 ) THEN
@@ -677,14 +677,14 @@ c****     Check that the multibeam is working and passing depths
              H2O_depths(i) = H2O_depths(i+1)
           ENDDO
           H2O_depths(maxndeps) = wdepth
-c**** 
+c****
           IF( IAND(lprint,4) .NE. 0 ) THEN
               PRINT *,' Shot number: ', ldgo_shotno,
      &            ' byte index=',index*2
               PRINT *,' Joe date: ',ldgo_yr, ldgo_day,
      &                 ldgo_hr, ldgo_min, ldgo_sec, ldgo_mil
               PRINT *,' ship lat: ',ship_lat, ' ship long: ',ship_long
-              PRINT *,' water depth: ',wdepth, 
+              PRINT *,' water depth: ',wdepth,
      &               ' tail pos: ',tail_lat, tail_long
               PRINT *,' tail dist and bearing: ',tail_dist, tail_bear
           ENDIF
@@ -735,7 +735,7 @@ c****
       IF( istat .NE. 20 ) GOTO 1000
       IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) CALL swap16( iscr, 10 )
       nmore = IAND(iscr(5),i255) * 32    !  number of extra trace header extension blocks
-      IF( nmore .NE. 0 .AND. IAND(lprint,16) .NE. 0 ) 
+      IF( nmore .NE. 0 .AND. IAND(lprint,16) .NE. 0 )
      &    PRINT *,' Number of trace header extensions =',nmore
       IF( nmore .GT. 0 ) CALL rddiscb( iunit, scr(11), nmore, istat )
       nbytes = nsamps * 4
@@ -747,7 +747,7 @@ c**** The file number in the trace header might be bogus because it's only 4 BCD
 c**** long and the real file number might be in the extended general header
       icsn = IAND( rshift(iscr(2),4), i15) * 10 + IAND(iscr(2),i15)         ! channel set number
 c****  Remember this is packed BCD, not HEX. FF in BCD is 165 (150 + 15)
-      IF( icsn .EQ. 165 ) THEN                       
+      IF( icsn .EQ. 165 ) THEN
           itemp = IAND( rshift(iscr(9),8), i255)
           icsn = IAND( iscr(8),i255 ) * 256 + itemp
       ENDIF
@@ -756,10 +756,10 @@ c****  Remember this is packed BCD, not HEX. FF in BCD is 165 (150 + 15)
       itrcno = IAND( rshift(iscr(3),12), i15) * 1000 +                    ! trace number
      *         IAND( rshift(iscr(3),8), i15) * 100 +
      *         IAND( rshift(iscr(3),4), i15) * 10 +
-     *         IAND(iscr(3),i15)  
+     *         IAND(iscr(3),i15)
       IF( icsn .EQ. 1 .AND. itrcno .EQ. 1 ) trcount = 0
       trcount = trcount + 1
-      IF( IAND(lprint,2) .NE. 0 ) 
+      IF( IAND(lprint,2) .NE. 0 )
      *     PRINT *,' ifilen=',ifilen,' trace=',itrcno,' fftr=',fftr,
      *       ' ltr=',ltr,' cn=',icsn,' igmt=',igmt,' ffilen=',ffilen,
      *       ' trcount=',trcount
@@ -779,7 +779,7 @@ c****     This statement allows all traces numbered between ftr and ltr
       itemp = IAND( rshift(iscr(5),8), i255)
       tword = itword + FLOAT(itemp)/256.
       ithext = IAND(iscr(5),i255)
-      itemp = IAND( rshift(iscr(6),8), i255 )                             ! sample skew 
+      itemp = IAND( rshift(iscr(6),8), i255 )                             ! sample skew
       skew = FLOAT(itemp) / 256.
       itimeb = iscr(7)                                                  ! time break
       itemp = IAND( rshift(iscr(8),8), i255)
@@ -787,10 +787,10 @@ c****     This statement allows all traces numbered between ftr and ltr
 c****
 c****    GOT A TRACE TO KEEP!   unpack the data and create an SEGY trace header
 c**** seisnet data is swapped
-      IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND. iformat .NE. 2 ) 
-     &    CALL swap32( buf(numhdr+1), nsamps ) 
+      IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND. iformat .NE. 2 )
+     &    CALL swap32( buf(numhdr+1), nsamps )
       IF( icompt .NE. 2 .AND. icompt .NE. 4 .AND. iformat .EQ. 2 )
-     &    CALL swap32( buf(numhdr+1), nsamps ) 
+     &    CALL swap32( buf(numhdr+1), nsamps )
 c  8015 = 20 bit SEGD floating point (4 bit hex exponent)
 c  8022 = 8 bit integer
 c  8036 = 24 bit integer (new in rev 2)
@@ -814,7 +814,7 @@ c          CALL segd20
              buf(numhdr+i) = FLOAT(lbuf(numhdr+i))
           ENDDO
       ENDIF
-      IF( ifmt .EQ. 8048 ) 
+      IF( ifmt .EQ. 8048 )
      &    CALL ibm2fp( buf(numhdr+1),nsamps,buf(numhdr+1))
       numdat = nsamps
       IF( stime .GT. 0. .AND. stime .GT. delay(icsn) ) THEN             ! should we get rid of the front of the data trace?
@@ -832,15 +832,15 @@ c          idelay(icsn) = stime * 1000.
              buf(numhdr+j) = buf(numhdr+i)
              j = j + 1
   450     CONTINUE
-          numdat = numdat / decimf 
+          numdat = numdat / decimf
 c****     Don't change si for decimf because it's set only once per shot
-      ENDIF 
+      ENDIF
       IF( secs .NE. 0 ) THEN
 c****     numdat has been reduced by stime and decimf
           itemp = NINT(secs/(si*decimf))
           numdat = MIN0(numdat,itemp)
       ENDIF
-c**** Descale by the MP factor if the user asks for it.  icsn is the 
+c**** Descale by the MP factor if the user asks for it.  icsn is the
 c**** current trace's channel set number (I think).
       IF( descale .EQ. 1 .AND. descalar(icsn) .NE. 0 ) THEN
           temp = descalar(icsn)
@@ -848,7 +848,7 @@ c**** current trace's channel set number (I think).
              buf(numhdr+i) = buf(numhdr+i) * temp
           ENDDO
       ENDIF
-      DO 500 i = 1, 60 
+      DO 500 i = 1, 60
   500 lbuf(i) = 0
       lbuf(3) = ishotno
       IF( ldgo_shotno .NE. 0 ) lbuf(3) = ldgo_shotno
@@ -963,11 +963,11 @@ c****
       IF( ftr .NE. 99999 ) THEN
           fftr = fftr + trinc
 c     ltr is set to intrcs if it wasn't given
-c****   Check itrcno too since fftr is just a count, whereas itrcno 
+c****   Check itrcno too since fftr is just a count, whereas itrcno
 c****   comes from the data!
           IF( fftr .GT. ltr .OR. itrcno .GE. ltr ) THEN                     ! past the last trace requested?
               fftr = ftr
-              IF( ffilen .NE. 99999 .AND. filinc .NE. 99999 ) 
+              IF( ffilen .NE. 99999 .AND. filinc .NE. 99999 )
      &            ffilen = ffilen + filinc
               IF( ifilen .GE. lfilen ) THEN
                   IF( mlists .EQ. nlists ) THEN
@@ -986,7 +986,7 @@ c****  the count of the output traces (assumes ftr was not given).
 c	print *,' ftr=',ftr,' ltr=',ltr,' intrcs=',intrcs,' lb=',lbuf(4)
 c	print *,' ifilen=',ifilen,' lfilen=',lfilen,' list=',list
 c	print *,' istop=',istop,' stack=',stack
-      IF( ftr .EQ. 99999 .AND. ltr .EQ. intrcs .AND. 
+      IF( ftr .EQ. 99999 .AND. ltr .EQ. intrcs .AND.
      &    lbuf(4) .EQ. ltr ) THEN
           IF( ifilen .EQ. lfilen ) THEN
               istop = 1
@@ -1152,7 +1152,7 @@ c****     crap.  There might be other crap in the seisnet directory
               CALL sleep(1)
               GOTO 1010
           ENDIF
-          IF( IAND(lprint,8) .NE. 0 ) 
+          IF( IAND(lprint,8) .NE. 0 )
      &        PRINT *,' opened file: ',filename(1:nchars)
           GOTO 100
       ENDIF

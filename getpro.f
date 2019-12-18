@@ -39,7 +39,7 @@ C    iok array is to signal that a process' parameters are required
 c
 C
 
-      NUM=0                                                             /* THE NUMBER OF PROCESS TO PROCESS 
+      NUM=0                                                             /* THE NUMBER OF PROCESS TO PROCESS
 C****
 C****    GET A PROCESS NAME FROM THE USER
 C****
@@ -69,7 +69,7 @@ C****
       IF( n .EQ. 0 ) GOTO 60
       J=I
       IF(CTOKEN(1:NCHARS).EQ.NAMES(I)(1:N).AND.N.EQ.NCHARS) GO TO 100
-   60 CONTINUE                                                           /* STILL LOOKING FOR THE NAMES 
+   60 CONTINUE                                                           /* STILL LOOKING FOR THE NAMES
       IF(CTOKEN(1:NCHARS).NE.'EDIT') GO TO 61
       IRUN=0
       GO TO 10
@@ -155,7 +155,7 @@ C****     THE PARAMETER FILE EXIST.
       IF(J.EQ.15) IOK(15)=1                                             /* PRINTER OUTPUT
       IF(J.EQ.16) IOK(16)=1                                              /* REQUIRE WEIGHT PARAMTERS TO BE GIVEN
       IF(J.EQ.17) IOK(17)=1                                              /* SHIFT
-      IF(J.EQ.19) IOK(19)=1 
+      IF(J.EQ.19) IOK(19)=1
       IF(J.EQ.20) IOK(20)=1                                              /* MIX
       IF(J.EQ.21) IOK(21)=1                                              /* VELAN
       IF(J.EQ.22) IOK(22)=1                                              /* DISKO
@@ -173,7 +173,7 @@ C****     THE PARAMETER FILE EXIST.
       IF(J.EQ.26) IOK(26)=1                                              /* COMPEN
       IF(J.EQ.27) IOK(27)=1                                              /* SPECTR
       IF(J.EQ.28) IOK(28)=1                                              /* UFILTR
-      IF(J.EQ.29) IOK(29)=1 
+      IF(J.EQ.29) IOK(29)=1
       IF(J.EQ.30) IOK(J)=1                                                /* PLOT
       IF(J.EQ.31) IOK(J)=1                                                /* TX2FK
       IF( j .EQ. 41 ) THEN
@@ -193,7 +193,7 @@ c**** don't require parameters to 0.
       DO i = 33, namess
          IF( j .EQ. i ) iok(j) = 1
       ENDDO
-      iok(35) = 0                                                         ! F2T 
+      iok(35) = 0                                                         ! F2T
       iok(49) = 0                                                         ! TP2TX
       iok(50) = 0                                                         ! IRIS
       iok(86) = 0                                                         ! XSTAR

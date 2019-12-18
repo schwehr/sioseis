@@ -87,7 +87,7 @@ c mod 2 Nov 92 - Add HP 2847 - nib 2848 HP B&W 24.in.
 c mod 4 Feb 93 - Add CYM (versus RGB) plotters.
 c mod 5 Feb 93 - Add Versatec 3444
 c mod 3 Mar 93 - Make ltr and rtl treat zero the same.  Assume ltr is
-c                when pltfil < 0. 
+c                when pltfil < 0.
 c mod 16 Mar 93 - Drop the first 250 and last 250 raster lines on the
 c                 Sun raster files.  (it's just timing lines).
 c mod 12 May 93 - Add HP 650 color InkJets
@@ -217,7 +217,7 @@ C****
 c      print *,' in trplot, sr=',sr,' nsampsin=',nsampsin,' isig=',isig,
 c     &      ' jdens=',jdens,' itag=',itag,' lanno2=',lanno2,' f',cfirst,
 c     &      ' ndone=',ndone,' iunplt=',iunplt
-      IF(.NOT.FIRST) GO TO 100 
+      IF(.NOT.FIRST) GO TO 100
       FIRST=.FALSE.
       nsamps = nsampsin
       nsamps1 = nsampsin
@@ -272,7 +272,7 @@ c**** the problem is whether it is in inches or centimenters
      *   ' DECREASE DEF.'
           STOP
       ENDIF
-      BIGIST = rnibs * clip                                             ! THE BIGGIST TRACE VALUE WITHOUT OVERFLOW IN UNITS OF NIBS 
+      BIGIST = rnibs * clip                                             ! THE BIGGIST TRACE VALUE WITHOUT OVERFLOW IN UNITS OF NIBS
       ADD=BIAS*DEF*DOTSX/100.
       ipos = 1
       DO i = ncolors, 1, -1                                             ! convert color deflections to dots
@@ -303,7 +303,7 @@ c      IF(ABS(WIGGLE).GT.99.) WIGMAX=WIGMAX*10.
       temp = SR*(VSCALE+.001)*DOTSY                                     ! INCREMENT IN DOTS BETWEEN DATA SAMPLES
       iinc = temp
       IF( temp - iinc .GT. .01 ) THEN
-          PRINT *, 
+          PRINT *,
      *        ' ***  WARNING  ***  Uneven spacing between plot samples.'
           PRINT *,'                  Interpolation will be done.'
           temp = 1. / (sr*dotsy)
@@ -426,7 +426,7 @@ c          IF( rnibs .GT. 450 ) itemp = 50
           itemp1 = noff
           IF( idir .GE. 0 ) THEN
               IF( itrim .EQ. 1 .OR. itrim .EQ. 2 ) itemp1 = 17
-              CALL tlann( ibuf(1,itemp), itemp1, mwrds, vscale, rnibs, 
+              CALL tlann( ibuf(1,itemp), itemp1, mwrds, vscale, rnibs,
      &           temp, stimel, timel, ncolors * rgb, idir, 0, idecimal )
               IF( ncolors .NE. 0 ) THEN
                  CALL tlann( ibuf2(1,itemp), itemp1, mwrds,vscale,rnibs,
@@ -437,7 +437,7 @@ c          IF( rnibs .GT. 450 ) itemp = 50
           ELSEIF( rnibs .GE. 200 ) THEN
               itemp = 350
 c              IF( itrim .EQ. 1 .OR. itrim .EQ. 3 ) itemp1 = noff
-              CALL tlann( ibuf(1,itemp), itemp1, mwrds, vscale, rnibs, 
+              CALL tlann( ibuf(1,itemp), itemp1, mwrds, vscale, rnibs,
      &           temp, stimel, timel, ncolors * rgb, idir, 0, idecimal )
               IF( ncolors .NE. 0 ) THEN
                  CALL tlann( ibuf2(1,itemp), itemp1, mwrds,vscale,rnibs,
@@ -552,7 +552,7 @@ c  i=  30 x=    85.9259 a=    83.0000 dex  0  83
 c  i=  31 x=    88.8889 a=    86.0000 dex  0  86
           DO 240 i = 1, ksamps
              xx = FLOAT(i-1) * spacing
-             CALL polint( a(index1+injex-1), trace(injex), iorder, xx, 
+             CALL polint( a(index1+injex-1), trace(injex), iorder, xx,
      &               a(index2+i-1), a(index3+i-1) )
 c     given a(index1+injex-1) and trace(injex) and xx it returns
 c     a point a(index2+i-1) and error estimate a(index3+i-1)
@@ -620,14 +620,14 @@ C****
                  ENDIF
              ENDIF
   290     CONTINUE
-          lastbit = (ii+ndotsc+ndotsc) / 16 
+          lastbit = (ii+ndotsc+ndotsc) / 16
       ENDIF
 C****
 C     FIGURE OUT WHAT BIT (AND WORD) NEEDS TO BE TURNED ON FOR EACH SAMPLE
 C****
   300 DO 1000 I=1,KSAMPS                                                ! NOW FIND THE BIT POSITION WITHIN IBUF
 c*****        if wiggle is 100%, everything is plotted
-         IF( wiggle .LT. 0 .AND. trace(i) .LT. wigmax .AND. 
+         IF( wiggle .LT. 0 .AND. trace(i) .LT. wigmax .AND.
      &       wiggle .GT. -100. ) GOTO 1000
          IF( wiggle .GT. 0 .AND. trace(i) .GT. wigmax .AND.
      &       wiggle .LT. 100. ) GOTO 1000
@@ -644,7 +644,7 @@ c**** If noff=0, then ii = 0, and iword becomes negative.
          JJ = NINT(TRACE(I)) + MIDJ
          K = JTABLE(JJ)
 C****    PUT THE WIGGLE TRACE DOWN
-         IF( WIGGLE .NE. 0. .AND. ncolors .EQ. 0 ) 
+         IF( WIGGLE .NE. 0. .AND. ncolors .EQ. 0 )
      &       IBUF(IWORD,K)=IOR(IBUF(IWORD,K),ITABLE(IBIT))
 C****    connect the dots by filling each sample halfway from the previous sample
          IF( ICDOTS .EQ. 1 .AND. i .NE. 1 .AND. wiggle .NE. 0 .AND.
@@ -686,14 +686,14 @@ C****            ADD FILL TO THE NEGATIVE NUMBERS
                  IF( apctfil .EQ. 100. ) THEN
                      M = MIDJ  + itrace
                  ELSE
-                     M = MIDJ + 
+                     M = MIDJ +
      &                 NINT(SIGN(trace(i),AMIN1(ABS(TRACE(I)),FMAXABS)))
                  ENDIF
                  IF( ndptr .NE. 0 ) m = midj + ndptr - 1
 c****  I give up, kludge for ltr, wiggle 0, trace=0
                  IF( m .EQ. midj .AND. ndptr+wiggle .EQ. 0) GOTO 1000
 c****   see the discussion later about M .NE. vs M .GE.
-c                 IF( ( M .NE. MIDJ .AND. ncolors .EQ. 0 ) .OR. 
+c                 IF( ( M .NE. MIDJ .AND. ncolors .EQ. 0 ) .OR.
              IF( ( M .NE. MIDJ .AND. ncolors .EQ. 0 .AND. ndptr .NE. 0 )
      &           .OR. ( M .LE. MIDJ .AND. ncolors .EQ. 0.AND.ndptr.EQ.0)
      &           .OR. ( ncolors .GT. 0 ) ) THEN
@@ -762,11 +762,11 @@ c     &                     ' icolor=',icolor,ired,igreen,iblue
                             ibuf(iword,k)=IAND(ibuf(iword,k),ioff(ibit))
                           ibuf2(iword,k)=IAND(ibuf2(iword,k),ioff(ibit))
                           ibuf3(iword,k)=IAND(ibuf3(iword,k),ioff(ibit))
-                            IF( ired .EQ. 1 ) ibuf(iword,k) = 
+                            IF( ired .EQ. 1 ) ibuf(iword,k) =
      &                          IOR( ibuf(iword,k), itable(ibit) )
-                            IF( igreen .EQ. 1 ) ibuf2(iword,k) = 
+                            IF( igreen .EQ. 1 ) ibuf2(iword,k) =
      &                          IOR( ibuf2(iword,k), itable(ibit) )
-                            IF( iblue .EQ. 1 ) ibuf3(iword,k) = 
+                            IF( iblue .EQ. 1 ) ibuf3(iword,k) =
      &                          IOR( ibuf3(iword,k), itable(ibit) )
                          ENDIF
   340                CONTINUE
@@ -787,8 +787,8 @@ c                 temp = MIN(FLOAT(itrace),fmax) + MIDJ
              IF( ndptr .GT. 0 ) m = midj + ndptr - 1
 c****  was M .NE. MIDJ which means the thing must be at least 2 dots wide.
 c****  True, but the "wiggle" was laid down earlier.  This is just fill.
-c             IF( ( M .NE. MIDJ .AND. ncolors .EQ. 0 ) .OR. 
-c             IF( ( M .GE. MIDJ .AND. ncolors .EQ. 0 ) .OR. 
+c             IF( ( M .NE. MIDJ .AND. ncolors .EQ. 0 ) .OR.
+c             IF( ( M .GE. MIDJ .AND. ncolors .EQ. 0 ) .OR.
 c**** True, but M .NE. MIDJ caused negatives to be filled
 c       print *,' trce=',trace(i),' midj=',midj,' m=',m,' pctfil=',pctfil
 c	print *,' ndptr=',ndptr,' wiggle=',wiggle
@@ -799,7 +799,7 @@ c	print *,' ndptr=',ndptr,' wiggle=',wiggle
 c****  Damn.  Now B&W, wiggle 0 doesn't work.
                  IF( m .EQ. midj .AND. ndptr+wiggle .EQ. 0 ) GOTO 1000
 c****  Now. ltr (pctfil < 0) fills
-                 IF( ncolors .EQ. 0 .AND. pctfil .LT. 0 .AND. 
+                 IF( ncolors .EQ. 0 .AND. pctfil .LT. 0 .AND.
      &               trace(i) .GT. 0 ) GOTO 1000
                  IF( ncolors .GT. 0 ) THEN
                      IF( ngray .EQ. 0 ) THEN
@@ -862,11 +862,11 @@ c     &                ' iword=',iword,' ibit=',ibit
                         ibuf(iword,k) = IAND(ibuf(iword,k),ioff(ibit))
                         ibuf2(iword,k) = IAND(ibuf2(iword,k),ioff(ibit))
                         ibuf3(iword,k) = IAND(ibuf3(iword,k),ioff(ibit))
-                        IF( ired .EQ. 1 ) ibuf(iword,k) = 
+                        IF( ired .EQ. 1 ) ibuf(iword,k) =
      &                      IOR( ibuf(iword,k), itable(ibit) )
-                        IF( igreen .EQ. 1 ) ibuf2(iword,k) = 
+                        IF( igreen .EQ. 1 ) ibuf2(iword,k) =
      &                      IOR( ibuf2(iword,k), itable(ibit) )
-                        IF( iblue .EQ. 1 ) ibuf3(iword,k) = 
+                        IF( iblue .EQ. 1 ) ibuf3(iword,k) =
      &                      IOR( ibuf3(iword,k), itable(ibit) )
                         IF( rgb .EQ. 0 ) THEN
                           ibuf(iword,k) = IOR(ibuf(iword,k),jbuf(iword))
@@ -1032,7 +1032,7 @@ c          WRITE( line1, '(I4,I4,I6)' ) nibs, iwrdcount, ndone
           CALL podiscb( iunplt, 0, 66 )
           CALL wrdiscb( iunplt, line1, 14 )
       ENDIF
-c**** Old color vplot program wants to know the plot size, so stuff it 
+c**** Old color vplot program wants to know the plot size, so stuff it
 c**** in the first 8 bytes of the header.
       IF( nibs .EQ. 3444 .AND. iunplt .NE. 0) THEN
           IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
@@ -1062,8 +1062,8 @@ c****     if too close to the edge, so skip it!
 c              CALL tlann( ibuf(1,1), itemp1, mwrds, vscale, rnibs,
      &           temp, stimel, timel, ncolors * rgb, idir, 1, idecimal )
               IF( ncolors .NE. 0 ) THEN
-                 CALL tlann( ibuf2(1,itemp),itemp1,mwrds, vscale, rnibs, 
-c                 CALL tlann( ibuf2(1,1),itemp1,mwrds, vscale, rnibs, 
+                 CALL tlann( ibuf2(1,itemp),itemp1,mwrds, vscale, rnibs,
+c                 CALL tlann( ibuf2(1,1),itemp1,mwrds, vscale, rnibs,
      &           temp, stimel, timel, ncolors * rgb, idir, 1, idecimal )
                  CALL tlann( ibuf3(1,itemp),itemp1,mwrds, vscale, rnibs,
 c                 CALL tlann( ibuf3(1,1),itemp1,mwrds, vscale, rnibs,

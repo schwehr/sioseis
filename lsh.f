@@ -1,4 +1,4 @@
-      PROGRAM LSH 
+      PROGRAM LSH
 c     Special lsd for listing chirps
       INTEGER*2 ibuf
       CHARACTER*200 name, token
@@ -70,7 +70,7 @@ c   571663. 158 47  42.9820786
           IF( latdeg1 .NE. 0 .AND. longdeg1 .NE. 0 .AND.
      &        IABS(latdeg1) .LT. 91 .AND. IABS(longdeg1) .LT. 181 ) THEN
               PRINT 900,name, jday1, ihour1, min1, isec1,
-     &           latdeg1, latmin1, seclat1, longdeg1, longmin1, seclong1 
+     &           latdeg1, latmin1, seclat1, longdeg1, longmin1, seclong1
   900            FORMAT(A25,' Begins: day',I3,1x,I2.2,1H:,I2.2,1H:,I2.2,
      &           ', lat: ', I4,1x,I2,1x,F6.3,' long: ',I4,1x,I2,1x,F6.3)
               PRINT 910,name,jday, ihour, min, isec,
@@ -81,7 +81,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
      &           ', lat: ', I4,1x,I2,1x,F6.3,' long: ',I4,1x,I2,1x,F6.3,
      &           ' data times: ',F5.3,' to ',F6.3,' secs.')
           ELSE
-              PRINT 950, name, jday1, ihour1, min1, isec1, 
+              PRINT 950, name, jday1, ihour1, min1, isec1,
      &                   jday, ihour, min, isec, stime, etime
   950            FORMAT(A25,' Begins: day',I3,1x,I2.2,1H:,I2.2,1H:,I2.2,
      &                      ' Ends: day',I3,1x,I2.2,1H:,I2.2,1H:,I2.2,
@@ -106,7 +106,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
           CALL swap16( ibuf(79), 6 )
       ENDIF
 c      nsamps = ibuf(58)
-c      IF( IAND(ibuf(58),32768) .NE. 0 ) 
+c      IF( IAND(ibuf(58),32768) .NE. 0 )
 c     &    nsamps = IAND(ibuf(58),32767) + 32768
 c      IF( ibuf(58) .EQ. 32767 ) nsamps = lbuf(58)
       CALL ushort2long( ibuf(58), nsamps )
@@ -115,7 +115,7 @@ c      IF( ibuf(58) .EQ. 32767 ) nsamps = lbuf(58)
       IF( idelay .LT. 0 ) idelay = 65536 + ibuf(55)
       delay = FLOAT(idelay) / 1000.
       IF( ndone .EQ. 1 ) THEN
-          stime = delay 
+          stime = delay
           etime = delay + si * FLOAT(nsamps)
           jday1 = ibuf(80)
           ihour1 = ibuf(81)

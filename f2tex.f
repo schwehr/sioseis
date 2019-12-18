@@ -38,13 +38,13 @@ c        = 9, complex time domain or real Analytic trace
       COMMON /APMEM/AP(500000)                                            /* THE AP SIMULATOR DATA ARRAY
       COMMON /f2t/ osi, lprint, iofmt
 c iofmt = 1 means real time domain,
-c       = 2 means complex time domain, 
+c       = 2 means complex time domain,
 c       = 3 means Hilbert (real time domain)
 c       = 4 means Analytic (complex time domain)
       COMMON /segyptr/ llsegptr, lrseqptr, lshotptr, lshtrptr, lrpnptr,
      *                 lrptrptr, itridptr, ldisptr,  lwbdptr,  lsxcoptr,
      *                 lrxcoptr, idelmptr, istmptr,  iendmptr, isampptr,
-     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr, 
+     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr,
      *                 isecptr,  igmtptr,  ldelsptr, lsmusptr,lemusptr,
      *                 lsisptr,  lwbtsptr, lgatptr,  lssmsptr, lesmsptr,
      *                 lsbptr,   ifoldptr, icvleptr, lespnptr, ilagaptr,

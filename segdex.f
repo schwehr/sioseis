@@ -43,7 +43,7 @@ c  mod 25 Sep 96 - Check each trace to see if it's an unexpected SEG-D
 c                  general header (96 bytes).  (DSS says "SQRT error 84"
 c                  where SQRT means square tape (3480 is square))
 c  mod 26 Sep 96 - Get rid of the bad traces dues to the LDGO cable
-c                  "rebuild" 
+c                  "rebuild"
 c                - Detect the LDGO error which causes the LDGO header
 c                  to be repeated (not updated) for numerous shots.  The
 c                  file number increments, but the shot number and time
@@ -66,7 +66,7 @@ c     set header.
 c    a) The additional general header block count is the number of 32
 c       byte blocks in addition to general header #1.  I guess Rev. 0
 c       had 1 general header block and Rev. 1 has 2, because the doc
-c       for Rev 1 says the additional blocks counter must be > 0. 
+c       for Rev 1 says the additional blocks counter must be > 0.
 c       e.g. when the additional block count is 2, there are 3 blocks!
 c    b) Syntron is using the extended trace header.
 c  Mod 18 Feb. 99 - The LDEO "trace 0" starts in byte 1883 after
@@ -242,7 +242,7 @@ c****  skip to them after the last trace (intrcs is the number of
 c****  traces per shot).
 c**** When fftr = ftr, then look for the general header
       IF( fftr .NE. ftr .OR. ftr .EQ. 99999 ) GOTO 200
-c**** 
+c****
 c****    get a shot/general header ( right after a file mark )
 c****
   100 CONTINUE
@@ -278,7 +278,7 @@ c     Some devices seem to return parity (-6) on the second file mark!
           CALL magtap( iunit, scr, 0, 30, istat )
           IF( loader .EQ. 0 ) THEN                                      ! not using stacker, so change tape
               IF( offline .NE. 0 ) THEN
-                  CALL offlmt( iunit )  
+                  CALL offlmt( iunit )
 c                 offlmt put the drive offline, subsequent usage will
 c                 bomb out until a new tape is loaded, so signal tpchng
 c                 to NOT check status or do anything to the drive.
@@ -303,7 +303,7 @@ c                  CALL astape( iunit, scr, 0 )
                   CALL magtap( iunit, scr, 0, 30, istat )
                   GOTO 120
               ELSE                                                      ! this is first eot since a good record
-                  nchanges = nchanges + 1                               ! set eot flag 
+                  nchanges = nchanges + 1                               ! set eot flag
                   CALL offlmt( iunit )                                  ! eject tape
                   CALL sleep( loader )                                  ! sleep while loader loads next tape
 c     move the tape and then rewind because of load problems at UTIG/Ewing.
@@ -320,7 +320,7 @@ c     move the tape and then rewind because of load problems at UTIG/Ewing.
       ifilen = IAND( rshift(iscr(1),12), i15) * 1000 +                    ! file number
      *         IAND( rshift(iscr(1),8), i15) * 100 +
      *         IAND( rshift(iscr(1),4), i15) * 10 +
-     *         IAND(iscr(1),i15)  
+     *         IAND(iscr(1),i15)
       format = IAND( rshift(iscr(2),12), i15) * 1000 +
      *         IAND( rshift(iscr(2),8), i15) * 100 +
      *         IAND( rshift(iscr(2),4), i15) * 10 +
@@ -353,7 +353,7 @@ c     move the tape and then rewind because of load problems at UTIG/Ewing.
           RETURN                                                        ! day change occurs. GMK
       ENDIF
       isec = IAND( rshift(iscr(8),4), i15) * 10 +
-     *       IAND(iscr(8), i15) 
+     *       IAND(iscr(8), i15)
       manuf = IAND( rshift(iscr(9),12), i15) * 10 +
      *        IAND( rshift(iscr(9),8), i15)
 c      serial = IAND( rshift(iscr(9),4), i15) * 1000 +
@@ -386,7 +386,7 @@ c     *         IAND( rshift(iscr(10),8), i15 )
       IF( IAND(lprint,2) .NE. 0 ) THEN
           PRINT *,' ncsets=',ncsets,' nskew=',nskew,' nextend=',nextend,
      &      ' nexternal=',nexternal,' naddblocks=',naddblocks
-          PRINT *,' total general header blocks ',ntotal 
+          PRINT *,' total general header blocks ',ntotal
       ENDIF
 c**** Syntron uses the extended header file number only when the file
 c**** number is > 9999.  Others use it all the time if the extended
@@ -409,7 +409,7 @@ c****
       DO 150 i = fcset, lcset
          index = (i+naddblocks)*16
          idelay(i) = iscr(index+2) * 2                                  ! a binary number - in 2 mil increments
-c****    Bytes 7 & 8 are the MP factor, which changed in REV. 1 by 
+c****    Bytes 7 & 8 are the MP factor, which changed in REV. 1 by
 c****    adding byte 7 as a "precision extension".  Byte 8 is the
 c****    high order byte and 7 is the low order byte.  It used to be
 c****    a count of .25 increments.  Now it's .000976525 (.25 / 256.).
@@ -424,13 +424,13 @@ c             temp = FLOAT(iscr(index+4))
              IF( isign .NE. 0 ) temp = -temp
              descalar(i) = 2. ** (temp * .25 / 256. )
              IF( IAND(lprint,8) .NE. 0 ) PRINT *,' Channel set ',i,
-     &          ' has a descalar of ',descalar(i)   
+     &          ' has a descalar of ',descalar(i)
          ENDIF
          n = IAND( rshift(iscr(index+5),12), i15) * 1000 +
      *       IAND( rshift(iscr(index+5),8), i15) * 100 +
      *       IAND( rshift(iscr(index+5),4), i15) * 10 +
      *       IAND(iscr(index+5),i15)
-c         IF( fcset .EQ. lcset .AND. ncsets .NE. 1 ) 
+c         IF( fcset .EQ. lcset .AND. ncsets .NE. 1 )
 c     &       PRINT *,'  Channel set ',i,' has ',n,' traces.'
          intrcs = intrcs + n
          delay(i) = FLOAT(idelay(i))/1000.
@@ -451,7 +451,7 @@ c              rlen = FLOAT(iscr(8)) * 256. + FLOAT(itemp)
           ENDIF
       ENDIF
 c**** Get the file number from the extended header if the extended header
-c**** exists, unless it's Syntron, who only uses the file number from the 
+c**** exists, unless it's Syntron, who only uses the file number from the
 c**** extended header when the file number is > 9999
       IF( naddblocks .NE. 0 ) THEN
           IF( manuf .NE. 34 .OR. ifilen .EQ. 16665 )
@@ -579,11 +579,11 @@ c**** long and the real file number might be in the extended general header
 c      ifilen = IAND( rshift(iscr(1),12), i15) * 1000 +                    ! file number
 c     *         IAND( rshift(iscr(1),8), i15) * 100 +
 c     *         IAND( rshift(iscr(1),4), i15) * 10 +
-c     *         IAND(iscr(1),i15)  
+c     *         IAND(iscr(1),i15)
 c      IF( ifilen .EQ. 65535 ) ifilen = IAND( lscr(5), 16777215 )         ! bytes 18, 19, 20
       icsn = IAND( rshift(iscr(2),4), i15) * 10 + IAND(iscr(2),i15)         ! channel set number
 c****  Remember this is packed BCD, not HEX. FF in BCD is 165
-      IF( icsn .EQ. 165 ) THEN                       
+      IF( icsn .EQ. 165 ) THEN
           itemp = IAND( rshift(iscr(9),8), i255)
           icsn = IAND( iscr(8),i255 ) * 256 + itemp
       ENDIF
@@ -664,8 +664,8 @@ c****
       itrcno = IAND( rshift(iscr(3),12), i15) * 1000 +   ! trace number
      *         IAND( rshift(iscr(3),8), i15) * 100 +
      *         IAND( rshift(iscr(3),4), i15) * 10 +
-     *         IAND(iscr(3),i15)  
-      IF( IAND(lprint,2) .NE. 0 ) 
+     *         IAND(iscr(3),i15)
+      IF( IAND(lprint,2) .NE. 0 )
      *     PRINT *,' ifilen=',ifilen,' trace=',itrcno,' fftr=',fftr,
      *       ' ltr=',ltr,' cn=',icsn,' igmt=',igmt,' ffilen=',ffilen
 c**** The LDGO cable "rebuilds" unexpectedly and writes some crazy
@@ -703,7 +703,7 @@ c****     This statement allows all traces numbered between ftr and ltr
       itemp = IAND( rshift(iscr(5),8), i255)
       tword = itword + FLOAT(itemp)/256.
       ithext = IAND(iscr(5),i255)
-      itemp = IAND( rshift(iscr(6),8), i255 )   ! sample skew 
+      itemp = IAND( rshift(iscr(6),8), i255 )   ! sample skew
       skew = FLOAT(itemp) / 256.
       itimeb = iscr(7)                          ! time break
       itemp = IAND( rshift(iscr(8),8), i255)
@@ -720,9 +720,9 @@ c trace header is 20 bytes, extended trace header is 32 bytes per block
 c****  Use the numbers of samples read from tape rather than the header.
 c****  In Syntron's case, the header is WRONG!
       IF( secs .EQ. 0 ) nsamps = (nbytes - (index-1)*4) / 4
-      IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
-     &    CALL swap32( scr(index), nsamps ) 
-      IF( format .EQ. 8015 ) 
+      IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
+     &    CALL swap32( scr(index), nsamps )
+      IF( format .EQ. 8015 )
      &    CALL segd20( scr(index),buf(numhdr+1),nsamps)
       IF( ifmt .EQ. 8036 ) THEN
           CALL i24i32( scr(index), buf(numhdr+1), nsamps )
@@ -730,7 +730,7 @@ c****  In Syntron's case, the header is WRONG!
              buf(numhdr+i) = FLOAT( lbuf(numhdr+i) )
           ENDDO
       ENDIF
-      IF( format .EQ. 8048 ) 
+      IF( format .EQ. 8048 )
      &    CALL ibm2fp( scr(index),nsamps,buf(numhdr+1))
       IF( format .EQ. 8058 ) THEN                                       ! IEEE f.p.
           index = index - 1
@@ -752,7 +752,7 @@ c          idelay(icsn) = stime * 1000.
              buf(numhdr+j) = buf(numhdr+i)
              j = j + 1
   450     CONTINUE
-      ENDIF 
+      ENDIF
 c**** Descale by the MP factor if the user asks for it.  icsn is the
 c**** current trace's channel set number (I think).
       IF( descale .EQ. 1 .AND. descalar(icsn) .NE. 0 ) THEN
@@ -761,7 +761,7 @@ c**** current trace's channel set number (I think).
              buf(numhdr+i) = buf(numhdr+i) * temp
           ENDDO
       ENDIF
-      DO 500 i = 1, 60 
+      DO 500 i = 1, 60
   500 lbuf(i) = 0
       lbuf(3) = ishotno
       IF( renum .GT. 0 ) lbuf(3) = renum
@@ -851,11 +851,11 @@ c****
       IF( ftr .NE. 99999 ) THEN
           fftr = fftr + trinc
 c     ltr is set to intrcs if it wasn't given
-c****   Check itrcno too since fftr is just a count, whereas itrcno 
+c****   Check itrcno too since fftr is just a count, whereas itrcno
 c****   comes from the data!
           IF( fftr .GT. ltr .OR. itrcno .GE. ltr ) THEN                     ! past the last trace requested?
               fftr = ftr
-              IF( ffilen .NE. 99999 .AND. filinc .NE. 99999 ) 
+              IF( ffilen .NE. 99999 .AND. filinc .NE. 99999 )
      &            ffilen = ffilen + filinc
               IF( ifilen .GE. lfilen ) THEN
                   IF( mlists .EQ. nlists ) THEN
@@ -876,7 +876,7 @@ c****  trace number in the channel set, but ltr is counting the
 c****  total number of traces in the file.  Let's assume that
 c****  when that happens, retrac was used and the segy trace number is
 c****  the count of the output traces (assumes ftr was not given).
-      IF( ftr .EQ. 99999 .AND. ltr .EQ. intrcs .AND. 
+      IF( ftr .EQ. 99999 .AND. ltr .EQ. intrcs .AND.
      &    lbuf(4) .EQ. ltr .AND. ifilen .EQ. lfilen ) THEN
           IF( mlists .EQ. nlists ) THEN
               istop = 1

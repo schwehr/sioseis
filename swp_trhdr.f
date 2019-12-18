@@ -5,7 +5,7 @@ c**** This routine does take into account what segy rev the header is though.
 c
 c Rev 0 had bytes 181-240 as unassigned and sioseis used it for REAL entries, thus used swap32
 c Knudsen Rev 0 (that's all I've seen) use 181-240 for INTEGER*2, but sioseis doesn'r use them.
-c Rev 1 bytes 181-240 are mixed.  Sioseis only uses the deep water delay scalar 
+c Rev 1 bytes 181-240 are mixed.  Sioseis only uses the deep water delay scalar
 c     in bytes 215-216 (ibuf(108))
 c
 c   Written April 2014 and thus not used before sioseis ver 2014.4

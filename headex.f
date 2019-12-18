@@ -38,7 +38,7 @@ c
       CHARACTER*1 cbuff(240)
       INTEGER ihdr1(MAXHDR,120), ihdr2(MAXHDR,120)
       INTEGER lhdr1(MAXHDR,120), lhdr2(MAXHDR,120)
-      INTEGER hdr1(MAXHDR,120), hdr2(MAXHDR,120) 
+      INTEGER hdr1(MAXHDR,120), hdr2(MAXHDR,120)
       INTEGER dhdr1(MAXHDR,120), dhdr2(MAXHDR,120)
       INTEGER chdr1(MAXHDR,240), chdr2(MAXHDR,240)    ! watch ff vs f  (cbuff for arcgument and cbuf for rdline)
       INTEGER*4 ltemp
@@ -178,7 +178,7 @@ c****         The user want to do something with Rev1 Extension records
    21                 CALL upcase( cheadr(1), 11 )
                       nextr = nextr + 1
 c****                 This will fail if there are spaces after the '(('
-                      IF( cheadr(1)(1:11) .NE. '((ENDTEXT))' .AND. 
+                      IF( cheadr(1)(1:11) .NE. '((ENDTEXT))' .AND.
      &                    nchars4 .GE. 0 ) GOTO 20
                   ENDIF
               ENDIF
@@ -188,7 +188,7 @@ c****                 This will fail if there are spaces after the '(('
               IF( lunrev1 .EQ. -1 ) THEN                                ! The user's file doesn't exist
 c****             write a SIOSEIS SEGY stanza
                   cheadr(1) = '(( SIOSEIS SEG-Y ))'
-                  cheadr(2) = 
+                  cheadr(2) =
      &'1. Deep water delay (trace header bytes 109-110) may be used.'
                   cheadr(3) =
      &'2. Deep water delay may vary on each trace.'
@@ -286,9 +286,9 @@ c**** if more than 1 list and lno is not given, the lno = fno
 c      IF( itrno .GT. ltr1(numhdr) .AND. fno1(numhdr) .NE. fno2(numhdr) )
 c     &    RETURN
       IF( nogot .GE. fno2(numhdr) .AND. fno2(numhdr) .NE. -1 ) THEN
-          IF( fno2(numhdr) .EQ. fno1(numhdr) .AND. 
+          IF( fno2(numhdr) .EQ. fno1(numhdr) .AND.
      &        itrno .EQ. ftr1(numhdr) ) GOTO 70
-          IF( mlists(numhdr) .GT. nlists(numhdr) .AND. 
+          IF( mlists(numhdr) .GT. nlists(numhdr) .AND.
      &        ispat1(numhdr) .EQ. 0 ) RETURN
           fno1(numhdr) = fno2(numhdr)
           lno1(numhdr) = lno2(numhdr)
@@ -388,11 +388,11 @@ c****
              itemp = ihdr1(numhdr,i+1)
              IF( ispat1(numhdr) .EQ. 1 .AND. nogot.GT.lno1(numhdr).AND.
      &           nogot .LT. fno2(numhdr) )
-     &           itemp = NINT(factor * REAL(ihdr2(numhdr,i+1) 
+     &           itemp = NINT(factor * REAL(ihdr2(numhdr,i+1)
      &                 - ihdr1(numhdr,i+1))
      &                 + REAL(ihdr1(numhdr,i+1)))
              IF( itype1(numhdr) .EQ. 1 ) ibuf(ihdr1(numhdr,i)) = itemp
-             IF( itype1(numhdr) .EQ. 2 ) 
+             IF( itype1(numhdr) .EQ. 2 )
      &           ibuf(ihdr1(numhdr,i)) = ibuf(ihdr1(numhdr,i)) + itemp
              IF( itype1(numhdr) .EQ. 3 )
      &           ibuf(ihdr1(numhdr,i)) = ibuf(ihdr1(numhdr,i)) * itemp
@@ -402,13 +402,13 @@ c****
          IF( lhdr1(numhdr,i) .GT. 0 ) THEN
              itemp = lhdr1(numhdr,i+1)
              IF( ispat1(numhdr) .EQ. 1 .AND. nogot.GT.lno1(numhdr) .AND.
-     &           nogot .LT. fno2(numhdr) ) itemp = NINT(factor * 
+     &           nogot .LT. fno2(numhdr) ) itemp = NINT(factor *
      &             FLOAT(lhdr2(numhdr,i+1) - lhdr1(numhdr,i+1)) +
      &             FLOAT(lhdr1(numhdr,i+1)))
              IF( ltype1(numhdr) .EQ. 1 ) lbuf(lhdr1(numhdr,i)) = itemp
-             IF( ltype1(numhdr) .EQ. 2 ) lbuf(lhdr1(numhdr,i)) = 
+             IF( ltype1(numhdr) .EQ. 2 ) lbuf(lhdr1(numhdr,i)) =
      &           lbuf(lhdr1(numhdr,i)) + itemp
-             IF( ltype1(numhdr) .EQ. 3 ) lbuf(lhdr1(numhdr,i)) = 
+             IF( ltype1(numhdr) .EQ. 3 ) lbuf(lhdr1(numhdr,i)) =
      &           lbuf(lhdr1(numhdr,i)) * itemp
              IF( IAND(lprint1(numhdr),2) .NE. 0 ) PRINT *,' lhdr word ',
      &           lhdr1(numhdr,i),' is now ',lbuf(lhdr1(numhdr,i))
@@ -416,7 +416,7 @@ c****
          IF( hdr1(numhdr,i) .GT. 0 ) THEN
              temp = hdr1(numhdr,i+1)   ! this is a value
              IF( ispat1(numhdr) .EQ. 1 .AND. nogot .GT.lno1(numhdr).AND.
-     &           nogot .LT. fno2(numhdr) ) temp = factor * 
+     &           nogot .LT. fno2(numhdr) ) temp = factor *
      &          (hdr2(numhdr,i+1) - hdr1(numhdr,i+1)) + hdr1(numhdr,i+1)
              index = hdr1(numhdr,i)
              IF( type1(numhdr) .EQ. 1 ) buf(index) = temp
@@ -440,7 +440,7 @@ c****
  1000 CONTINUE
       nrep = -7
       DO i = 1, maxrep/7
-c  ireplc order is: 1=type, 2=index, 3=type, 4=index or constant, 5=operation, 
+c  ireplc order is: 1=type, 2=index, 3=type, 4=index or constant, 5=operation,
 c                   6=type, 7=index or constant
 c jtypes = 1 means INTEGER*2
 c          2       INTEGER*4
@@ -464,13 +464,13 @@ c          6       byte
              IF( jtype2(numhdr) .EQ. 5 ) dtemp2 = dbuf(index2)
              IF( jtype2(numhdr) .EQ. 6 ) THEN
 c*****  byte manipulation is messy because of the segy trace header is a mix of 2 & 4 byte integers
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
                  ctemp(4) = cbuff(index2)
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swap32(ltemp,1)
                  dtemp2 = ltemp
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
              ENDIF
              IF( jtype3(numhdr) .EQ. 1 ) dtemp3 = DFLOAT(ibuf(index3))
@@ -479,13 +479,13 @@ c*****  byte manipulation is messy because of the segy trace header is a mix of 
              IF( jtype3(numhdr) .EQ. 4 ) dtemp3 = replc(numhdr,nrep+7)
              IF( jtype3(numhdr) .EQ. 5 ) dtemp3 = dbuf(index3)
              IF( jtype3(numhdr) .EQ. 6 ) THEN
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
                  ctemp(4) = cbuff(index3)
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swap32(ltemp,1)
                  dtemp3 = ltemp
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
              ENDIF
              IF( iop(numhdr) .EQ. 0 ) dtemp1 = dtemp2
@@ -505,10 +505,10 @@ c                               .EQ. 4   is a constant and can't exist on the le
                  ltemp = dtemp1
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swap32(ltemp,1)
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
                  cbuff(index1) = ctemp(4)
-                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+                 IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &               CALL swp_trhdr( ibuf, lbuf )
              ENDIF
          ENDIF

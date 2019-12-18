@@ -3,7 +3,7 @@ c     iee2dr converts IEEE floating point (REAL*4) to DEC floating point
 c  (REAL*4).
 c
 c  ARGUMENTS:
-c  inbuf  - The input array of IEEE reals to be converted. 
+c  inbuf  - The input array of IEEE reals to be converted.
 c  n      - The number of reals to convert. (INTEGER)
 c  iobuf - The output array of DEC reals.  May be the same array as inbuf.
 c
@@ -11,7 +11,7 @@ c   Do a 16 bit byte swap on the upper and lower 16 bit words after
 c  calling iee2dr on non DEC VAX machines.
 c
 c   Both IEEE and DEC use the hidden bit and both have an 8 bit exponent
-c  and 23 bit mantissa.  Dec uses an exponent bias of 128 while IEEE 
+c  and 23 bit mantissa.  Dec uses an exponent bias of 128 while IEEE
 c  uses 127.  DEC also normalizes so that the decimal point is before
 c  the leading bit while IEEE puts the decimal after the leading bit.
 c

@@ -25,11 +25,11 @@ c
           GOTO 1000
       ENDIF
 c
-      jtemp = inbuf(i)   
-      mant = IAND( jtemp, 8388607) 
+      jtemp = inbuf(i)
+      mant = IAND( jtemp, 8388607)
 c	print *,' in=',jtemp,' mant=',mant
 c the mantissa is bits 0-22, 8388607 is hex(007FFFFF)
-      mant =IOR( mant, 8388608)  
+      mant =IOR( mant, 8388608)
 c put the hidden bit on; 8388608 = hex(00800000)
       iexp = LRSHIFT( jtemp, 23 )
 c	print *,' mant=',mant,iexp
@@ -42,9 +42,9 @@ c get rid of the sign - bias = 127
       ELSE
           jsign = -1
       ENDIF
-      IF( iexp .GE. 0 ) THEN   
+      IF( iexp .GE. 0 ) THEN
 c is it greater than 1?
-c          newexp = LRSHIFT( iexp, 2 ) + 65 
+c          newexp = LRSHIFT( iexp, 2 ) + 65
 c****   replaced above with the following 3 line
           itemp = LRSHIFT( iexp, 2 )   ! iexp is max of FF or 255
           itemp = IAND( itemp, 63 )    ! 63 = hex(3F)
@@ -62,12 +62,12 @@ c****   replaced above with the following 3 line
           nshift = MOD( itemp, 4 )
           IF( nshift .EQ. 3 ) newexp = newexp + 1
       ENDIF
-      newman = LRSHIFT( mant, nshift ) 
+      newman = LRSHIFT( mant, nshift )
  *************          HOW DO WE CLEAR THE VACATED BITS?                     ***************
 c IBM has the mantissa on the right
       IF( jsign .LT. 0 ) newexp =IOR( newexp, 128 )   ! 128 = hex(80)
 c take care of the sign bit
-      newexp = LLSHIFT( newexp, 24 )  
+      newexp = LLSHIFT( newexp, 24 )
 c IBM exp is on the left
       iobuf(i) =IOR( newman, newexp )
 c	print *, newman,newexp,iobuf(i)

@@ -137,12 +137,12 @@ c***  Time taper trace before pad and fft
       spt = twinlen
       nspt = 1+int(spt/dt)
       call get_Ttaper(Nt,nspt,scr)
-       
+
       do 40 it=1,Nt
         buf(numhdr+it)=buf(numhdr+it)*scr(it)
    40 continue
-      
-c***  Zero Arrays       
+
+c***  Zero Arrays
       DO  50 i = nt+1, nfft
    50 buf(numhdr+i) = 0.
       DO 60 i = 1, nfft
@@ -273,7 +273,7 @@ c
                 scr(nz) = buf(nz)
                 do 440 iz=1,nz
                    buf(iz)=scr(iz)
-  440           continue          
+  440           continue
   420        continue
              do 450 iz=1,nz
                 apdata(index+iz-1)=1./buf(iz)
@@ -296,16 +296,16 @@ C***GMK Clean scratch array
                   ibuf(15) = 1
 C***GMK WRITE OUT TAPE ID HEADER WITH APPROPRIATE VAULES FOR VELOCITY FILE
                   CALL WRDISC(lunsegy, buf, 100)
-               ENDIF               
+               ENDIF
                CALL rddisc( lunhdr, buf, numhdr, istat )
 C***GMK Change appropriate header values for velocity file
-                ibuf(idelmptr) = 0 
-                buf(ldelsptr) = 0.0       
+                ibuf(idelmptr) = 0
+                buf(ldelsptr) = 0.0
                 ibuf(isiptr) = deltaz * 1000.                                     ! sample interval in micrometers
-                buf(lsisptr) = deltaz / 1000. 
-c                ibuf(isampptr) = nz   
+                buf(lsisptr) = deltaz / 1000.
+c                ibuf(isampptr) = nz
                CALL long2ushort( nx, ibuf(isampptr) )
-               CALL wrdisc( lunsegy, buf, numhdr, istat )    
+               CALL wrdisc( lunsegy, buf, numhdr, istat )
                CALL wrdisc( lunsegy, apdata(index), nz, istat )
              ENDIF
   500     CONTINUE
@@ -335,7 +335,7 @@ c***
       DO 1010 i = 1, nx
          CALL wrdisc( lunslice, scr, nz )
  1010 CONTINUE
-      CALL sspost2( lunscr, lunslice, lunvel, lunt, fmin, fmax, delay, 
+      CALL sspost2( lunscr, lunslice, lunvel, lunt, fmin, fmax, delay,
      &     zbig, vbig, ref, nx, dx_km, bpad, epad, mtap,
      &     nt, dt, nz, dz_km, buf, scr, scr )
 c**** The data now sits on disk as REAL depth slices.
@@ -388,7 +388,7 @@ c
 
       RETURN
       END
-      
+
 c--------------------------------------------------------------------
 c
       subroutine get_Ttaper(Nt,nspt,ttap)
@@ -409,4 +409,4 @@ c
 c
       return
       end
-c      
+c

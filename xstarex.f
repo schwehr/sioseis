@@ -39,8 +39,8 @@ c mod 11 Jan 05 - Change dummies into 0, 1, 2 from yes/no and add 2 to
 c                 mean use the ping if 1 of the ducers is missing.
 c               - Divide summation by the number of traces added.
 c mod 10 Feb 05 - In MKREAL, zero sample 1601 - numdat
-c mod 27 Apr 05 - Redo the type 2 buffers 
-c               - Redo the logic of missing traces and traces out 
+c mod 27 Apr 05 - Redo the type 2 buffers
+c               - Redo the logic of missing traces and traces out
 c                 of order.
 c mod 25 Aug 05 - Add type 5, Xstar version 5. (Martin Jakobsson's)
 c mod 30 Jun 06 - Add type 4 (unsummed two trace Xstar).
@@ -376,13 +376,13 @@ c          deglong = dtemp / 3600.
 c          dtemp = lbuf(20)
 c          deglat = dtemp / 3600.
 c****     Position is .0001 min of arc
-          IF( ibuf(45) .NE. 2 ) 
+          IF( ibuf(45) .NE. 2 )
      &        PRINT *,' ***  WARNING  ***  lat/long switch not 2.'
           dtemp = lbuf(21)
           deglong = dtemp / 60.D+04
           dtemp = lbuf(22)
           deglat = dtemp / 60.D+04
-          IF( IAND(lprint,4) .NE. 0 ) 
+          IF( IAND(lprint,4) .NE. 0 )
      &            PRINT *,' Boat lat/long is ',deglat,deglong
           IF( deglat .EQ. deglatlast .AND. deglong .EQ.deglonglast) THEN
               nready = 0
@@ -420,11 +420,11 @@ c****     dbuf is equivalenced to a
               index = index + 3
           ENDDO
           IF( n .EQ. 1000 ) GOTO 1000
-          IF( distance .GT. delta ) 
+          IF( distance .GT. delta )
      &        PRINT *,' ***  WARNING  ***  Boat lat/long is ',deglat,
      &          deglong, ' depth of ',idepth,' is from ',depth_lat,
      &          depth_long,' or ',distance,' (m away) on shot ',lbuf(3)
-          IF( IAND(lprint,8) .NE. 0 ) 
+          IF( IAND(lprint,8) .NE. 0 )
      &        PRINT *,' Using water depth of ',idepth,' from ',
      &            depth_lat,depth_long,' or ',distance,' (m away).'
           deglatlast = deglat
@@ -440,7 +440,7 @@ c****
 c****     Interpolate the depths
 c****
           IF( nsaved .NE. 0 ) THEN
-              CALL wrdisc( luntmp, ibuf, numhdr ) 
+              CALL wrdisc( luntmp, ibuf, numhdr )
               CALL wrdisc( luntmp, a(in), numdat )
               CALL podisc( luntmp, 0, 0 )
               CALL rddisc( luntmp, ibuf, numhdr, istat )
@@ -473,7 +473,7 @@ c****
 c****     MKREAL   - Make a real time series
 c**** The XSTAR data is in pseudo analytical form.  Pseudo because the
 c**** imaginary is not quite the Hilbert transform of the reals because
-c**** negative time was discarded.  
+c**** negative time was discarded.
 c**** Dan Lizarralde's analysis:
 c**** Let A be the analytic signal, where A = (Ar,iAi)
 c****     T be the real trace, where T = (Tr,iTi) = (Tr,0)
@@ -557,7 +557,7 @@ c**** Called if multiple out due to wireout or xyz stuff OR missing pings
              a(in+i) = 0.
           ENDDO
       ENDIF
-      IF( luntmp .EQ. 0 ) RETURN 
+      IF( luntmp .EQ. 0 ) RETURN
 c
       CALL rddisc( luntmp, ibuf, numhdr, istat )
       numdat = ibuf(58)
@@ -591,7 +591,7 @@ c****  Now find the fish.  Search for the "closest" lat/long
 c****  by using the user given fish offset (cable out) and last
 c****  fish depth.  But process header and wbt figured that out
 c****  on the last trace, which is gone and not accessible. F.
-c****  
+c****
 c       use header l13 = r59 * 750  (assuming r59 is the shift)
 c       process header saved the trace header in common, so use it.
           IF( lbuf(13) .EQ. 0 ) buf(13) = header(13)
@@ -636,6 +636,6 @@ c****     than the fish and use that water depth.
       ibuf(58) = numdat
       nready = 1
       RETURN
-         
+
       END
 

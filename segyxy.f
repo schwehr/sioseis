@@ -1,5 +1,5 @@
       SUBROUTINE segyxy( itype, hdr, lhdr, ihdr, lprint )
-c     Calculate the range and rp number given the source and 
+c     Calculate the range and rp number given the source and
 c  receiver coordinates in the SEG-Y header.
 c
 c  Written by Paul Henkart, Scripps Oceanography, August 2003
@@ -209,7 +209,7 @@ c              ENDIF
               dlast = dbpts
               IF( IAND(lprint,512) .NE. 0 ) THEN
                   PRINT *, ' shot=',lhdr(3),' dbpts=', dbpts,
-     &    ' dangle=',dangle 
+     &    ' dangle=',dangle
               ENDIF
           ENDIF
           RETURN

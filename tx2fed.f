@@ -470,7 +470,7 @@ c
              print *,'*** ERROR *** Illegal COORDS Option'
              ierror = ierror + 1
           endif
-        else if ( names(nparam) .eq. 'TWINDOW' ) then 
+        else if ( names(nparam) .eq. 'TWINDOW' ) then
           call upcase(token,nchars)
           Twindow = token(1:4)
         else if ( names(nparam) .eq. 'XWINDOW' ) then

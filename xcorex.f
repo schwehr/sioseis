@@ -58,7 +58,7 @@ c****
          icats = lscr(12)
 c****    get a file for the pilot trace - the pilot will always be there
 c****    Edit saved the pilot in lunpilot if PPATH was given.
-         IF( lunpilot .EQ. 0 ) 
+         IF( lunpilot .EQ. 0 )
      &       CALL getfil( 1, lunpilot, lscr, istat )
          IF( iuseap .EQ. 1 ) THEN
              PRINT *,' ***  ERROR  ***  CORR not set up for AP.'
@@ -128,7 +128,7 @@ c****
       IF( IAND(lprint,4) .NE. 0 ) THEN
         PRINT *,' istartp= ',istartp,' iendp=',iendp,' nsampsp=',nsampsp
         PRINT *,' istartd= ',istartd,' iendd=',iendd,' nsampsd=',nsampsd
-        PRINT *,' nlags=',nlags, ' nsamps_pilot=',nsamps_pilot, 
+        PRINT *,' nlags=',nlags, ' nsamps_pilot=',nsamps_pilot,
      &    ' nextad=',nextad
       ENDIF
       IF( lunpilot .EQ. 0 ) THEN

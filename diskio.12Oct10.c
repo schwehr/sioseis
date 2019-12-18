@@ -117,15 +117,15 @@ The first address is 0, the second adress is 1, etc.
          =1, The file is positioned to the ABSOLUTE word address.
          =2, The file is positioned nwrd RELATIVE to the current file pointer.
     NWRD - The number of 4 byte words to position to. The number of 32 words.
-    NBYTE - The byte number to postion to. 
+    NBYTE - The byte number to postion to.
 
 
   CALL RDDISC( LUN, BUFFER, NWRDS, ISTAT )
   CALL RDDISCB( LUN, BUFFER, NBYTES, ISTAT )
   RDDISC reads nwrds 32bit words from the disc file associated with the file on
-unit lun.  
+unit lun.
   RDDISCB reads nbytes from the disc file associated with the file on
-unit lun.  
+unit lun.
   ARGUMENTS:
     LUN    - The logical unit number of the file to be read.
     BUFFER - The array to receive the results of the read.  Buffer must be at
@@ -169,7 +169,7 @@ mod May 99 - Try to open as a large file (>2GB) if open fails.
            - Add adrdisc
 mod Sep 99 - mkname barfed on inserting \0 when the file name was a constant
 mod Dec 99 - Bah Humbug.  Change frefil unlink to rm sioseis_tmp%d
-mod Oct 00 - DLz, added subroutines podisc64, podiscb64 to use 64-bit 
+mod Oct 00 - DLz, added subroutines podisc64, podiscb64 to use 64-bit
              addresses to position the disk
 mod Apr 02 - Add #include <unistd.h> and SEEK_CUR, SEEK_SET
 mod Jul 02 - Add define osx and define debug
@@ -189,7 +189,7 @@ mod 15 May 06 - Extend podisc addresses from 2GB to 8GB by making the
                 addition.
 mod 13 June 06 - exit(1) if write error.
                - Previous podisc/lseek changes caused bomb on OSX because
-                 offset on OSX is NOT off_t.  off_t is 8 bytes, but 
+                 offset on OSX is NOT off_t.  off_t is 8 bytes, but
                  address must be int (even unsigned int bombed).  Do the
                  2GB to 4GB extension by calling lseek 4 times!
 mod 29 Apr 08 - The podisc change above prevented mode 0 working (bad/wrong thing to do, but it used to work)
@@ -353,7 +353,7 @@ static	struct    stat	stbuf;
 			strcpy(tname,name);
 			mknamec( tname ); /* make sure the name terminates with a NULL */
 			status = open ( tname, 2);
-			if( status == -1 ) status = open( tname, 0); 
+			if( status == -1 ) status = open( tname, 0);
 			if( status == -1 ) status = open( tname, 1);
 			if( status == -1 ) {
 /*		printf("wouldn't open as a small file, trying as a big file.\n");*/
@@ -365,7 +365,7 @@ static	struct    stat	stbuf;
 #if debug
 			stat( tname, &stbuf );
 			printf("lun= %d, status=%d, stbuf.st_size = %x\n",
-			*lun,status,stbuf.st_size); 
+			*lun,status,stbuf.st_size);
 #endif
 		}
 		fd[*lun] = status;
@@ -373,7 +373,7 @@ static	struct    stat	stbuf;
 		if( fd[*lun] == -1 ) status = -1 ;
 		if( status > 0 ) {
 			*istat = 0;
-           /*      if( strcmp("/dev/tty", name) == 0 ) { 
+           /*      if( strcmp("/dev/tty", name) == 0 ) {
                       printf(" modifying tty!!!");
                       ioctl( fd[*lun], TIOCGETP, &term);
                       term.sg_flags = EVENP | ODDP | RAW | XTABS;
@@ -413,7 +413,7 @@ static	struct    stat	stbuf;
                 status = open(tname,2);
                 fd[*lun] = status;
                 strcpy(fname[*lun],tname);}
-           if( *mode == 4 ) { 
+           if( *mode == 4 ) {
 			strcpy(tname,name);
     			mknamec( tname );
 			status = open( tname, 2);
@@ -644,7 +644,7 @@ static	struct    stat	stbuf;
       off_t	*addres64;  /* 64 bit address  */
 
 {
-#if debug 
+#if debug
 	printf(" podisc64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*addres64);
 #endif
 	temp64 = *addres64;
@@ -762,7 +762,7 @@ knows it got a bad address.
        int     *istat;
 
 {
-	nbytes = *n ; 
+	nbytes = *n ;
 #if debug
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
 #endif
@@ -795,7 +795,7 @@ knows it got a bad address.
        status = write( fd[*lun], buffer, nbytes);
        if( status != nbytes ) {
              printf(" ***  ERROR  ***  Disk file write error on unit %d, status = %d\n",*lun,status);
-             perror("wrdisc"); 
+             perror("wrdisc");
              exit(1); }
        return;
 }
@@ -808,27 +808,27 @@ knows it got a bad address.
 {
 #if debug
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
-	printf(" wrdiscb, lun=%d, to byte %d %d, nwrds=%d\n",*lun,offset,*n); 
+	printf(" wrdiscb, lun=%d, to byte %d %d, nwrds=%d\n",*lun,offset,*n);
 #endif
 	nbytes = *n ;
 	status = write( fd[*lun], buffer, nbytes);
 if( status != nbytes ) {
 		printf(" ***  ERROR  ***  Disk file write error on unit %d, status = %d\n",*lun,status);
-		perror("wrdisc"); 
+		perror("wrdisc");
           exit(1); }
 	return;
 }
 
 	void fdsync_( lun )
-	int     *lun; 
- 
+	int     *lun;
+
 {
 	status = fsync( fd[*lun] );
 	status = fflush( stdin );
 #if debug
 	printf("fdsync:  fd= %d, lun= %d, status= %d\n",fd[*lun],*lun,status);
 #endif
-	return;    
+	return;
 }
 
 

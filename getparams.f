@@ -96,7 +96,7 @@ c
           ENDIF
           CALL dcode( token, nchars, areal, istat )
           ro = areal
-          IF( ro .EQ. 0 .OR. ro .EQ. 90 .OR. ro .EQ. 180 .OR. 
+          IF( ro .EQ. 0 .OR. ro .EQ. 90 .OR. ro .EQ. 180 .OR.
      &        ro .EQ. 270 ) GOTO 110
           PRINT *,' ***  ERROR  ***  Illegal RO.'
           ierror = ierror + 1

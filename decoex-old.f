@@ -38,7 +38,7 @@ c      5) Allow for application windows one sample long.
 c  mod    Aug 95 (mwh) Ensure that space for ramp is at least as long as
 c                number of samples between application windows.
 c  mod 13 Nov 90 to add zeroes to the input trace if the autocorrelation
-c         plus prediction length plus filter length is greater than the 
+c         plus prediction length plus filter length is greater than the
 c         trace length.
 c mod 28 nov 89 to fix the july mod, when there is only 1 list fno2 is ???
 c mod 28 nov to fix multiwindow - iapp(j+1) should be iapp(i+i+1)  etc.
@@ -135,7 +135,7 @@ c****
          nfpts(i) = NINT(rlist1( infptptr+i-1 ) / buf(49 ) )
          maxfil= MAX0(maxfil,nfpts(i))
   140 CONTINUE
-      maxfil = maxfil + predic                                          ! longest filter 
+      maxfil = maxfil + predic                                          ! longest filter
       DO 150 i = 1, maxs
          app(i) = rlist1( iappptr+i-1 )
          dsg(i) = rlist1( idsgptr+i-1 )
@@ -147,9 +147,9 @@ C****
   500 CONTINUE
       ratio = FLOAT(lnum-lno1) / FLOAT(fno2-lno1)
       DO 510 i = 1, maxs
-         app(i) = ratio * 
+         app(i) = ratio *
      $ (rlist2(iappptr+i-1)-rlist1(iappptr+i-1))+rlist1(iappptr+i-1)
-         dsg(i) = ratio * 
+         dsg(i) = ratio *
      $ (rlist2(idsgptr+i-1)-rlist1(idsgptr+i-1))+rlist1(idsgptr+i-1)
   510 CONTINUE
 C****
@@ -345,13 +345,13 @@ c****
 	print *,' input=',(a(ii),ii=idesgn,idesgn+10)
           IF( ipred .EQ. 0 ) ipred = 1
 	print *,' ipred=',ipred
-          CALL dconvo( 2, a(idesgn), ndpts, a(idesgn), ndpts, a(iauto), 
+          CALL dconvo( 2, a(idesgn), ndpts, a(idesgn), ndpts, a(iauto),
      &         nfpts(i)+ipred )
           a(iauto) = a(iauto) + a(iauto) * prewhi
         print *,' auto=',(a(j),j=iauto,iauto+20)
         print *,' right=',(a(j),j=iauto+1,iauto+10)
 	print *,' wiener(',nfpts(i),a(iauto), a(iauto+ipred)
-          CALL wiener( nfpts(i), a(iauto), a(iauto+ipred), a(ifilt), 
+          CALL wiener( nfpts(i), a(iauto), a(iauto+ipred), a(ifilt),
      &         a(ierrad), 1, ierr )
         print *,' lpf=',nfpts(i)
       print *,' pf=',(a(ifilt+j-1),j=1,nfpts(i))
@@ -364,7 +364,7 @@ c****
           ENDDO
       print *,' trace=',(a(itrace+j-1),j=1,200)
       print *,' filt=',(a(ifilt+j-1),j=1,nfpts(i))
-          CALL convo( -1, a(itrace), npts, a(ifilt), nfpts(i), 
+          CALL convo( -1, a(itrace), npts, a(ifilt), nfpts(i),
      &         a(iscratch), npts )
 c      CALL convo( -1, b, lb, c, lf, d, lb+lf-1 )
 	print *,' scratch=',(a(j),j=iscratch,iscratch+5)
@@ -438,7 +438,7 @@ C****
  1490     A(M+II) = A(K+II) * A(J-II)
       ENDIF
  1500 CONTINUE
-c**** 
+c****
 c****  if not in the ap and multiwindow, the data is in a scratch area,
 c****  move it to the input area
 c****

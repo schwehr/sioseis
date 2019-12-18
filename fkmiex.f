@@ -229,7 +229,7 @@ c            PRINT *,' Max number of frequencies is ',maxsamps/6,
 cc****       remember the data are now complex and HALE needs 3 scratch buffers.
 c     &        ' but have ', nw
 c            PRINT *,' (Keep the number of times samples < 8192.)'
-cc   If maxsamps is 64K, which is 32K complexes, 
+cc   If maxsamps is 64K, which is 32K complexes,
 c            STOP
 c        ENDIF
         realk = 0.                                                      ! Wavenumber of the initial input trace

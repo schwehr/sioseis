@@ -9,7 +9,7 @@ C   RETURNED.  THE STRING MUST BE TERMINATED WITH A QUOTE AND A BLANK, SO THAT
 C   QUOTES MAY BE INCUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
 C   A BLANK).
 c       nchars will be a zero if end of line is detected or an comment character
-c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo), 
+c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo),
 c   # (Unix). Any of theses comment characters will work on any machine!
 C
 C  AGUMENTS:
@@ -47,7 +47,7 @@ c
       null = CHAR(0)                                                    ! NULL
       IF(jchar.LT.1) jchar=1
    10 CONTINUE
-      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND. 
+      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND.
      *   cbufin(jchar:jchar) .NE. null .AND.
      *   cbufin(jchar:jchar) .NE. tab ) GOTO 20                         ! STRIP OFF LEADING BLANKS
       jchar=jchar+1
@@ -58,7 +58,7 @@ c
       IQUOTE=1                                                          ! SIGNAL THAT THE STRING STARTED WITH A QUOTE
       GO TO 40
    30 CONTINUE
-      IF( cbufin(jchar:jchar) .EQ. '!' .OR. 
+      IF( cbufin(jchar:jchar) .EQ. '!' .OR.
      *    cbufin(jchar:jchar) .EQ. '{' .OR.
      *    cbufin(jchar:jchar) .EQ. '#' ) THEN
              nchars = 0
@@ -108,7 +108,7 @@ C   RETURNED.  THE STRING MUST BE TERMINATED WITH A QUOTE AND A BLANK, SO THAT
 C   QUOTES MAY BE INCUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
 C   A BLANK).
 c       nchars will be a zero if end of line is detected or an comment character
-c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo), 
+c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo),
 c   # (Unix). Any of theses comment characters will work on any machine!
 C
 C  AGUMENTS:
@@ -143,7 +143,7 @@ c
       null = CHAR(0)                                                    ! NULL
       IF(jchar.LT.1) jchar=1
    10 CONTINUE
-      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND. 
+      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND.
      *   cbufin(jchar:jchar) .NE. null .AND.
      *   cbufin(jchar:jchar) .NE. tab ) GOTO 20                         ! STRIP OFF LEADING BLANKS
       jchar=jchar+1
@@ -154,7 +154,7 @@ c
       IQUOTE=1                                                          ! SIGNAL THAT THE STRING STARTED WITH A QUOTE
       GO TO 40
    30 CONTINUE
-      IF( cbufin(jchar:jchar) .EQ. '!' .OR. 
+      IF( cbufin(jchar:jchar) .EQ. '!' .OR.
      *    cbufin(jchar:jchar) .EQ. '{' .OR.
      *    cbufin(jchar:jchar) .EQ. '#' ) THEN
              nchars = 0
@@ -218,7 +218,7 @@ c****   look out for vacuous field ( ,, )
       null = CHAR(0)                                                    ! NULL
       IF(jchar.LT.1) jchar=1
    10 CONTINUE
-      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND. 
+      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND.
      *   cbufin(jchar:jchar) .NE. null .AND.
      *   cbufin(jchar:jchar) .NE. comma .AND.
      *   cbufin(jchar:jchar) .NE. tab ) GOTO 20                         ! STRIP OFF LEADING BLANKS
@@ -289,7 +289,7 @@ c****   look out for vacuous field ( ,, )
       null = CHAR(0)                                                    ! NULL
       IF(jchar.LT.1) jchar=1
    10 CONTINUE
-      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND. 
+      IF( CBUFIN(jchar:jchar) .NE. CDELIM .AND.
      *   cbufin(jchar:jchar) .NE. null .AND.
      *   cbufin(jchar:jchar) .NE. comma .AND.
      *   cbufin(jchar:jchar) .NE. tab ) GOTO 20                         ! STRIP OFF LEADING BLANKS

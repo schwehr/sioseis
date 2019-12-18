@@ -4,7 +4,7 @@ c can be any of 4 different processes.  i.e. there can be 4 processes,
 c DISKOA, DISKOB, DISKOC, and DISKOD, all using this one subroutine.
 c Therefore, this routine must keep track of up to 4 sets of variables.
 c     This guy permits traces to be dropped from the output file, will
-c set/change shot and trace numbers and reformat the data all without 
+c set/change shot and trace numbers and reformat the data all without
 c altering the data in buf (the input data and the data passed to the next
 c process.
 c    This thing only works if the shot/rp numbers are monotonically increasing.
@@ -29,7 +29,7 @@ c  Written by Paul Henkart, Scripps Institution of Oceanography,
 c      La Jolla, Ca. 92093   January 1988
 c  ALL RIGHTS RESERVED.
 c
-c  mods:  
+c  mods:
 c  20 Mar 90 by pch to put the sample interval (in mics) and the number of
 c      samples of the first trace into the SEGY binary header because
 c      some stupid packages like GEOQUEST and Galbrath's Vista need them!
@@ -145,9 +145,9 @@ c
      *        ontrcs(maxdo), posaft(maxdo), lprint(maxdo), iform(maxdo),
      *        mass(maxdo), decimf(maxdo), lunsort(maxdo),mtraces(maxdo),
      *        rewind(maxdo), flinc(maxdo), lastno(maxdo),ibig(maxdo),
-     *        itrace0(maxdo), iexthdr(maxdo), lasttr(maxdo), 
+     *        itrace0(maxdo), iexthdr(maxdo), lasttr(maxdo),
      *        fixed(maxdo), numsamps(maxdo), ntrdone(maxdo),
-     *        micros(maxdo), iappend(maxdo), retrac(maxdo), 
+     *        micros(maxdo), iappend(maxdo), retrac(maxdo),
      *        last_ncdp(maxdo), numsave(maxdo)
       REAL frange(maxdo), lrange(maxdo), osecs(maxdo)
       INTEGER mlists(maxdo), idunit(maxdo), itrno(maxdo)
@@ -236,7 +236,7 @@ c****  argh.  Something in OSX is writing over us.
       ENDIF
       IF( mlists(idisko) .GE. nlists(idisko) ) GOTO 9000                ! the data must be past the last list of disko parameters
       mlists(idisko) = mlists(idisko) + 1                               ! count the parameters list
-c**** doed write 200 characters of opath, followed by npwrds-25 
+c**** doed write 200 characters of opath, followed by npwrds-25
 c**** this is some old hang over
       CALL rddisc( ipunit(idisko), opath(idisko), 50, istat )
       CALL rddisc( ipunit(idisko), scr(26), npwrds-25, istat )                 ! read a parameter list
@@ -287,7 +287,7 @@ c     &   ltr(idisko) .GE. 0 ) ontrcs(idisko) = ltr(idisko) - ftr(idisko)
 c****  if appending, see if it's the same file as used before
       IF( posaft(idisko) .LT. 0 .AND. idisko .GT. 1 ) THEN
           DO i = 1, idisko-1
-             IF( opath(i) .EQ. opath(idisko) ) 
+             IF( opath(i) .EQ. opath(idisko) )
      &           iappend(idisko) = i
           ENDDO
       ENDIF
@@ -306,12 +306,12 @@ c      ENDIF
           ENDIF
           IF( idunit(idisko) .NE. 0) CALL frefil(2,idunit(idisko),istat)! close the old file
           pathname = opath(idisko)
-          IF( opath(idisko)(1:4) .EQ. 'DATE' .OR. 
+          IF( opath(idisko)(1:4) .EQ. 'DATE' .OR.
      &        opath(idisko)(1:4) .EQ. 'date' ) THEN
               WRITE( pathname, 105 ) ibuf(80), ibuf(81), ibuf(82)
   105         FORMAT('day',I3.3,'-',2I2.2,'z.segy')
           ENDIF
-          IF( opath(idisko)(1:6) .EQ. 'SHOTNO' .OR. 
+          IF( opath(idisko)(1:6) .EQ. 'SHOTNO' .OR.
      &        opath(idisko)(1:6).EQ.'shotno') THEN
               WRITE( pathname, 106 ) lbuf(3)
   106         FORMAT('shot',I6.6,'.segy')
@@ -330,8 +330,8 @@ c      ENDIF
               CALL podisc( ihunit, 1, 0 )                               ! rewind the SEGY header file
 c****  The EBCDIC header is in EBCDIC on disk
               CALL rddisc( ihunit, lscr, 800, istat )                   ! get the EBCDIC header
-              IF( iform(idisko) .NE. SU .AND. 
-     &            iform(idisko) .NE. BINARY) 
+              IF( iform(idisko) .NE. SU .AND.
+     &            iform(idisko) .NE. BINARY)
      &            CALL wrdisc( idunit(idisko), lscr, 800 )
               CALL rddisc( ihunit, iscr, 100, istat )                   ! get the binary header
               IF( ontrcs(idisko) .GT. 0 ) iscr(7) = ontrcs(idisko)
@@ -342,7 +342,7 @@ c              iscr(11) = itemp / decimf(idisko)                         ! the n
               iscr(11) = numdat / decimf(idisko)                        ! the number of samples of the first trace
 c****         g95 doesn't do  FLOAT(integer*2)
               temp = iscr(9)
-              IF( set(idisko,2) .NE. 0 ) 
+              IF( set(idisko,2) .NE. 0 )
      &            iscr(9) = (set(idisko,2)-set(idisko,1)) / temp + 1
               iscr(13) = ofmt(idisko)
               iscr(31) = idtype
@@ -366,7 +366,7 @@ c****         g95 doesn't do  FLOAT(integer*2)
                   ENDIF
               ENDIF
               IF(icompt .EQ. 2 .OR. icompt .EQ. 4) CALL swap16(iscr,200)
-              IF( iform(idisko) .NE. SU .AND. iform(idisko) .NE. BINARY) 
+              IF( iform(idisko) .NE. SU .AND. iform(idisko) .NE. BINARY)
      &            CALL wrdisc( idunit(idisko), iscr, 100 )
               IF( nextra .GT. 0 ) THEN
                   DO i = 1, nextra
@@ -374,9 +374,9 @@ c****         g95 doesn't do  FLOAT(integer*2)
                      CALL wrdiscb( idunit(idisko), iscr, 3200 )
                   ENDDO
               ENDIF
-c             END IF( posaft(idisko) .EQ. 0 ) THEN 
+c             END IF( posaft(idisko) .EQ. 0 ) THEN
           ELSE
-c             START IF( posaft(idisko) .NE. 0 ) THEN 
+c             START IF( posaft(idisko) .NE. 0 ) THEN
 c****         getfil(4 should handle a BIG file without being told
               CALL getfil( 4, idunit(idisko), pathname, istat )         ! open the existing file opath
               CALL rddisc( idunit(idisko), scr, 800, istat )            ! get the EBCDIC header
@@ -394,7 +394,7 @@ c****         getfil(4 should handle a BIG file without being told
      *             pathname
                   STOP
               ENDIF
-              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &            CALL swp_trhdr( iscr, lscr )
               IF( iscr(isampptr) .NE. nsamps ) THEN
 c****   number of samples is an unsigned short
@@ -418,7 +418,7 @@ c****   number of samples is an unsigned short
           IF( fon(idisko) .LT. 0 ) fon(idisko) = no + 1
 c****     set ontrcs to 1 if it's a stacked trace
 c****  this doesn't seem right - pch 16 jul 09
-c          IF( ontrcs(idisko) .LE. 0 .AND. notrcs .EQ. 0 .AND. 
+c          IF( ontrcs(idisko) .LE. 0 .AND. notrcs .EQ. 0 .AND.
 c     &       lbuf(7) .EQ. 0 ) THEN
 c                  ontrcs(idisko) = intrcs
 c          ELSE
@@ -428,7 +428,7 @@ c          ENDIF
       ENDIF
   200 CONTINUE
 c****
-c****   Square the sort file away if this is the first time.  Make a 
+c****   Square the sort file away if this is the first time.  Make a
 c****   copy of it because someone else might use it and then our
 c****   positioning within it will be wrong.
 c****     Fill up the output file because the sorted traces will not
@@ -457,7 +457,7 @@ c          CALL rddisc( lunsort(idisko), lscr, ntraces*3, istat )        ! get p
              CALL wrdisc( idunit(idisko), scr, itemp+numhdr )           ! write a gabage trace
   205     CONTINUE
 c****     now position the sort file to the list of input disk addresses
-          CALL podisc( lunsort(idisko), 1, 0 )                          ! rewind   
+          CALL podisc( lunsort(idisko), 1, 0 )                          ! rewind
           CALL rddisc( lunsort(idisko), token, 20, istat )
           CALL rddisc( lunsort(idisko), ntraces, 1, istat )
       ENDIF
@@ -469,7 +469,7 @@ c****
 c****  Write a trace 0 if requested and the trace in buf is trace 1.
 c****  Shot.  Trace 0 may break the SEG-Y Rev 1 logic.  arghhh.
 c****
-      IF( lbuf(4) .EQ. 1 .AND. luntr0 .NE. 0 .AND. 
+      IF( lbuf(4) .EQ. 1 .AND. luntr0 .NE. 0 .AND.
      &    itrace0(idisko) .EQ. 1 ) THEN
           IF( noinc(idisko) .NE. 1 ) THEN
               DO i = fno(idisko), lno(idisko), noinc(idisko)
@@ -500,7 +500,7 @@ c          IF( iscr(57) .EQ. 0 ) lscr(29) = nsamps
      &               ' data trace bytes =',nsamps*4
               ENDIF
           ENDIF
-          IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+          IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &        CALL swp_trhdr( iscr, lscr )
           IF( iform(idisko) .NE. BINARY)
      &        CALL wrdisc( idunit(idisko), scr(1), numhdr )
@@ -527,7 +527,7 @@ c****
 c      print *,' no=',no,' itr=',itr,' fno=',fno(idisko),' ftr=',
 c     &   ftr(idisko),' lno=',lno(idisko),' ltr=',ltr(idisko),
 c     &   ' flinc=',flinc(idisko)
-      IF( lno(idisko) .GT. 0 .AND. no .GT. lno(idisko) .AND. 
+      IF( lno(idisko) .GT. 0 .AND. no .GT. lno(idisko) .AND.
      &    flinc(idisko) .GT. 0 ) THEN
           fno(idisko) = fno(idisko) + flinc(idisko)
           lno(idisko) = lno(idisko) + flinc(idisko)
@@ -566,7 +566,7 @@ c****    my random disk input assumes the first trace number is 1
       ENDIF
   240 CONTINUE
       temp = ABS(lbuf(10))
-      IF( temp .LT. frange(idisko) .OR. (lrange(idisko) .NE. 999999 
+      IF( temp .LT. frange(idisko) .OR. (lrange(idisko) .NE. 999999
      &    .AND. temp .GT. lrange(idisko) ) ) GOTO 9000
 c****
 c****  If the file has fixed trace length so far, see if this is too.
@@ -617,7 +617,7 @@ c**** It doesn't rewind if trace 1 is omitted by segdin!
       lbuf(2) = ntrdone(idisko)
       DO 500 i = 1, numhdr                                              ! move the trace header
   500 lscr(i) = lbuf(i)
-c**** 
+c****
       IF( fon(idisko) .NE. 0 .AND. retrac(idisko) .GE. 0 .AND.
      &    ontrcs(idisko) .EQ. 0 ) THEN
           IF( numsave(idisko) .EQ. -1 ) THEN
@@ -633,7 +633,7 @@ c****
               lscr(3) = fon(idisko)
               lscr(4) = itrno(idisko)
           ELSE
-              lscr(6) = fon(idisko) 
+              lscr(6) = fon(idisko)
               lscr(7) = itrno(idisko)
           ENDIF
           itrno(idisko) = itrno(idisko) + 1
@@ -689,7 +689,7 @@ c      IF( nsamps .EQ. 32767 ) nsamps = lbuf(isampptr)
 c      IF( IAND(nsamps,32768) .NE. 0 ) nsamps = lbuf(29)
       istart = 0                                                        ! this is an additive to an index to the start of data
       si = buf(lsisptr)
-      IF( osecs(idisko) .GT. 0. ) 
+      IF( osecs(idisko) .GT. 0. )
      &    nsamps = NINT( osecs(idisko)/si + 1. )
 c****
 c****  take care of the trace header first   (don't know why)
@@ -705,7 +705,7 @@ C****
           delay = buf(46)
           iscr(idelmptr) = NINT(set(1,idisko) * 1000.)
           scr(ldelsptr) = set(1,idisko)
-          nsamps = NINT( (set(2,idisko)-set(1,idisko)) / 
+          nsamps = NINT( (set(2,idisko)-set(1,idisko)) /
      &            (si*decimf(idisko))+1.)
           IF( nsamps .GT. maxsamps ) THEN
       PRINT *,' ***  ERROR  ***  SET causes too many samples per trace.'
@@ -747,7 +747,7 @@ c*****    undo the end of gather flag if the user used it.
           CALL podisc( idunit(idisko), 1, laddress )
           mtraces(idisko) = mtraces(idisko) + 1
       ENDIF
-      IF( iform(idisko) .NE. BINARY) 
+      IF( iform(idisko) .NE. BINARY)
      &    CALL wrdisc( idunit(idisko), scr, numhdr )                    ! write the trace header to disk
 c****
 c****   we did the header, now the data
@@ -853,7 +853,7 @@ c****     Write the damn thing to disk
 c****
   900 CALL wrdiscb( idunit(idisko), scr, nbytes )
 c****
-c****    Always come here before returning. 
+c****    Always come here before returning.
 c****
  9000 CONTINUE
 c****

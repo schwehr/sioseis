@@ -47,7 +47,7 @@ c
       IF( istop .LT. 0 ) GOTO 9000
       ntraces = ntraces + 1
       IF( icompt .EQ. SUN ) THEN
-          IF( machine .EQ. ULTRIX ) 
+          IF( machine .EQ. ULTRIX )
      &        CALL swap32( buf(numhdr+1), nsamps )
           IF( machine .EQ. VMS ) THEN
               CALL iee2dr( buf(numhdr+1), nsamps, buf(numhdr+1) )
@@ -119,7 +119,7 @@ c
       vax(41) = scr(41)
       vax(42) = scr(42)
       IF( icompt .EQ. SUN ) THEN
-          IF( machine .EQ. ULTRIX ) 
+          IF( machine .EQ. ULTRIX )
      &        CALL swap32( scr, 80 )
           IF( machine .EQ. VMS ) THEN
               CALL iee2dr( vax, 80, scr )
@@ -172,7 +172,7 @@ c**** has the cdp trace number set to 1 and the shot trace number set to 0
           PRINT *,scr(51),lscr(52),lscr(53),lscr(54),lscr(55)
       ENDIF
       IF( icompt .EQ. SUN ) THEN
-          IF( machine .EQ. ULTRIX ) 
+          IF( machine .EQ. ULTRIX )
      &        CALL swap32( scr, 52 )
           IF( machine .EQ. VMS ) THEN
               CALL swap32( scr, 52 )

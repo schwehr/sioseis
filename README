@@ -15,7 +15,7 @@ makefile uses FC=gfortran and CC=gcc.
 Many compiler flags are commented out in an effort of finding what
 compiles on "every" machine I could find.  The most common denominator.
 
-As of 2010, tape I/O probably will not work on non Sun computers 
+As of 2010, tape I/O probably will not work on non Sun computers
     (mtio.h and other issues)
 
 Make sure to use compatible versions of gcc and gfortran.
@@ -34,7 +34,7 @@ gcc   -O and -02 do not work under gcc version 4.1.2 20080704 (Red Hat 4.1.2-46)
 
 
 Suns:
-FC=f77 
+FC=f77
 CC=cc
 Remember to use gmake rather than Sun's make.
 In make.sioseis use  magsun.o rather than  magmacosx.o

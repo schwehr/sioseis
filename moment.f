@@ -1,6 +1,6 @@
       SUBROUTINE moment(data,n,ave,adev,sdev,var,skew,curt)
 c****  From Numerical Recipes
-c  Given an array of DATA of length N, this routine returns its mean AVE, 
+c  Given an array of DATA of length N, this routine returns its mean AVE,
 c  average deviation ADEV, standard deviation SDEV, variance VAR,
 c  skewness SKEW, and kurtosis CURT.
       INTEGER n

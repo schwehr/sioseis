@@ -7,7 +7,7 @@ c  ibuf  - The trace, with SEGY header as TYPE INTEGER*2
 c  scr   - A scratch array.
 c
 c  COPYRIGHT (C) The Regents of the University of California
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, SIO, 16 October 1991
 c  mod 12 June 95 - SEG-Y trace header value for sample rate was wrong!
 c  mod 25 Jan. 96 - Do it in the "ap" if that's where the data is!
@@ -44,7 +44,7 @@ c
       IF( first ) THEN
           first = .FALSE.
           IF( dtout / dtin .EQ. 2 .OR. dtout / dtin .EQ. 4 ) THEN
-              PRINT *,' ***   WARNING   ***  DISKIN/DISKOX can be used 
+              PRINT *,' ***   WARNING   ***  DISKIN/DISKOX can be used
      &with DECIMF ',INT(dtout / dtin)
           ENDIF
           IF( dtin .EQ. dtout ) THEN
@@ -125,7 +125,7 @@ c         call FFTCC(X,nout,IWORK,WORK)
 c         do 140 j=1,nout
 c          X(j)=conjg(X(j))/nin
 c          buf(numhdr+j)=real(x(j))
-c  140    continue 
+c  140    continue
 c         GOTO 1200
 c****
 c****   Do  time domain interpolation here

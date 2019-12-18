@@ -1,4 +1,4 @@
-/*    a program to interface to the Sun Consulting's Versatec driver. 
+/*    a program to interface to the Sun Consulting's Versatec driver.
    note that the driver switches are toggles, once set they must be
    unset before doing something different.
 
@@ -96,4 +96,4 @@ vdspp_()   /* disable SPP before plotting the next n (10?) lines  */
     return;
 }
 
- 
+

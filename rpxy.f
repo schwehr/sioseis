@@ -74,7 +74,7 @@ c       print *,' heading=',angle
           ELSE
               angle = 90.D0 - angle
           ENDIF
-c       print *,' angle=',angle 
+c       print *,' angle=',angle
          IF (angle .GT. 0 .AND. angle .LE. 180) THEN
               angle = angle + 180
           ELSE IF (angle .GT. 180 .AND. angle .LE. 360) THEN

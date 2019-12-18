@@ -14,7 +14,7 @@ c   aves - the computed short average of the window when the ratio
 c          exceed thres.
 c   avel - the computed long window average.
 c
-c  Copyrighted and written by:  Paul Henkart, 
+c  Copyrighted and written by:  Paul Henkart,
 c  SCRIPPS INSTITUTION OF OCEANOGRAPHY, September 1995
 c  All Rights Reserved.
 c

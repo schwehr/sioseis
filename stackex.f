@@ -80,7 +80,7 @@ C
       IF( .NOT. FIRST ) THEN
 c****     redo the buffering if this trace is too long
           IF( nsamps .LT. isum ) GO TO 100
-          PRINT *,' ***  WARNING  ***  Increased trace length causing 
+          PRINT *,' ***  WARNING  ***  Increased trace length causing
      & STACK buffers to be reallocated.'
       ENDIF
       FIRST=.FALSE.

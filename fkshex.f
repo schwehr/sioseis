@@ -2,8 +2,8 @@
 C-------------------------------------------------------------------------------
 C
 C    This is a test version of FKSHFT, a routine to extrapolate FK
-C transformed input data. It uses a Phase shift to lower or raise the apparent 
-c recording depth of the input data 
+C transformed input data. It uses a Phase shift to lower or raise the apparent
+c recording depth of the input data
 C
 C Inputs:
 C    BUF - The complex frequency trace to be migrated
@@ -31,18 +31,18 @@ C
       parameter (SZTRANP = 262144)                                      ! Size of /TRANP/: Transpose array at 512 x512
 C parameter definitions for the stop signal istop
       integer STOPNOTR, STOPTR, NOSTOP
-      parameter (STOPNOTR  = -1)                                        ! last call but no trace passed     
+      parameter (STOPNOTR  = -1)                                        ! last call but no trace passed
       parameter (STOPTR    =  1)                                        ! last call and a trace passed
       parameter (NOSTOP    =  0)                                        ! normal call to the routine
-C parameter for AP 
-      integer CLEARAP, USEAP, NOAP 
+C parameter for AP
+      integer CLEARAP, USEAP, NOAP
       integer DATINAP
       parameter (USEAP    = 1)                                          ! There is an AP available
       parameter (NOAP     = 0)                                          ! No AP available
       parameter (CLEARAP  = 0)                                          ! Get data out of AP simulator
       parameter (DATINAP   = 1)
 
-      integer     CRAYEBC, NORMEBC  
+      integer     CRAYEBC, NORMEBC
       parameter ( CRAYEBC  = 400)
       parameter ( NORMEBC  = 2*CRAYEBC)
       integer     CRAYBIN, NORMBIN
@@ -57,7 +57,7 @@ C parameter for AP
       parameter (INKPTR   = 32)
       parameter (ITSIPTR  = 33)
       parameter (ITDELPTR = 34)
-      parameter (IVERSPTR = 35)    
+      parameter (IVERSPTR = 35)
       integer IBMFP, INT16, INT32, HOSTFP
       parameter (IBMFP  = 1)
       parameter (INT32  = 2)
@@ -66,14 +66,14 @@ C parameter for AP
       integer    IDTX, IDFKRCT, IDFKPLR, IDTP, IDFKPLRU
       parameter (IDTX     = 1)
       parameter (IDFKRCT  = 2)
-      parameter (IDFKPLR  = 3)       
+      parameter (IDFKPLR  = 3)
       parameter (IDTP     = 7)
       parameter (IDFKPLRU = 8)
       integer  CURVERS
       parameter( CURVERS = 210)
-      integer  CRAYTHDR, NORMTHDR  
+      integer  CRAYTHDR, NORMTHDR
       parameter ( CRAYTHDR =  30)
-      parameter ( NORMTHDR = 2*CRAYTHDR) 
+      parameter ( NORMTHDR = 2*CRAYTHDR)
 c
       common /SEGYPTR/ LLSEQPTR, LRSEQPTR, LSHOTPTR, LSHTRPTR, LRPNPTR,
      *                 LRPTRPTR, ITRIDPTR, LDISTPTR, LWBDPTR,  LSXCOPTR,
@@ -82,13 +82,13 @@ c
      *                 ISECPTR,  IGMTPTR,  LDELSPTR, LSMUSPTR, LEMUSPTR,
      *                 LSISPTR,  LWBTSPTR, LGATPTR,  LSSMSPTR, LESMSPTR,
      *                 LSBPTR
-      integer    LIVETR, DEADTR    
+      integer    LIVETR, DEADTR
       parameter (LIVETR  = 1)
       parameter (DEADTR  = 2)
       integer    CREATTMP, RESERVEU, CREATNEW, OPENOLD
-      parameter (CREATTMP   = 1)    
-      parameter (RESERVEU   = 2)    
-      parameter (CREATNEW   = 3)    
+      parameter (CREATTMP   = 1)
+      parameter (RESERVEU   = 2)
+      parameter (CREATNEW   = 3)
       parameter (OPENOLD    = 4)
       integer    RLUNIT, RLDLCLS, RLCLS
       parameter (RLUNIT  = 1)
@@ -96,7 +96,7 @@ c
       parameter (RLDLCLS = 3)
       integer    POSABS, POSREL, DSKSTRT
       parameter (POSABS     = 1)
-      parameter (POSREL     = 2)   
+      parameter (POSREL     = 2)
       parameter (DSKSTRT    = 0)
       integer   EOF
       parameter  (EOF = -1)
@@ -127,7 +127,7 @@ C
 C
       data first /.true./, nxdone/0/
 C
-      if (first) then                                   
+      if (first) then
         first = .false.
 c
 c..                       Read the time delay/sample interval from READT common
@@ -161,7 +161,7 @@ c
         tadj = (to - delay) * dw
 c
         delay = to
-        itxdel =  nint(delay * 1000.)                                   ! update delay in common block      
+        itxdel =  nint(delay * 1000.)                                   ! update delay in common block
       endif                                                             ! of FKSHFT initialization
 C
 C***********************                                ***********************
@@ -195,7 +195,7 @@ C
 C
         if ( LocCoord.eq.CDRECT) then
           do 1040 i  = 1, nwrds                                         ! Shift address of migrated trace
- 1040       ap(in+i-1) = ap(nextad+i-1)        
+ 1040       ap(in+i-1) = ap(nextad+i-1)
         else if ( LocCoord.eq.CDPOLAR ) then
           call polarc(nw,ap(nextad),scr(1),scr(nw+1))
           do 1050 i=1,nw
@@ -203,7 +203,7 @@ C
             ap(in+nw+i-1) = scr(nw+i)
  1050     continue
         endif
-      endif                                                             ! of Non-AP version 
+      endif                                                             ! of Non-AP version
 C
       realk  = realk  + dk                                              ! Increment the wavenumber
       nxdone = nxdone + 1                                               ! & the number of traces completed

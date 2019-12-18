@@ -6,9 +6,9 @@
  *
  * Copyright (c) 1987 by Xerox Corporation.  All rights reserved.
  */
- 
-/* 
- * Copyright (c) 1986 by Sun Microsystems, Inc. 
+
+/*
+ * Copyright (c) 1986 by Sun Microsystems, Inc.
  */
 
 #ifndef _IOCTL_
@@ -32,7 +32,7 @@
  * the real commands in the drivers through a table.
  *
  * First, the latched register commands.  These are all soft
- * bits - not the same bit positions as any hardware.  This first 
+ * bits - not the same bit positions as any hardware.  This first
  * set of commands will be remembered and the port will stay in the
  * requested state until explicitly changed via another ioctl.  For
  * every * mode to be put in, there is an opposite ioctl to take it out.

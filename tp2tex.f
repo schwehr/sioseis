@@ -1,4 +1,4 @@
-      SUBROUTINE tp2tex( buf, lbuf, ibuf, scr, lscr, iscr,  
+      SUBROUTINE tp2tex( buf, lbuf, ibuf, scr, lscr, iscr,
      &                   istop, nready )
 c     tp2tex is the execution phase of SIOSEIS process TP2TX or the
 c  transformation from tau-p space to the time-space domain using the
@@ -8,11 +8,11 @@ c            Parameter nmax is (2*200*1026) for data and
 c            coefficients + (3*nx) for Gram matrix + 1026 for model
 c            + 513 for spectrum.  Allows 200 seismograms at 1024 points
 c            each producing 200 tau-p grams of the same length.
-c                                               
-c                                               
+c
+c
 c                             VARIABLES
 c
-c            tmin,tmax - start and end times to read in from input 
+c            tmin,tmax - start and end times to read in from input
 c                    traces
 c            digit - digitization rate (# samples/sec) of input file -
 c            pmin,pmax,np - first,last and number of p's at which to
@@ -21,7 +21,7 @@ c            b - scaling factor for representers
 c            fc - cutoff frequency for calculating models
 c            pcnti - % taper applied to input data before FFT
 c            pcnto - % taper applied to models before inverse FFT
-c            irev -  input t-x traces (1=are, 0=are not) in reverse 
+c            irev -  input t-x traces (1=are, 0=are not) in reverse
 c                    order (decreasing slowness)
 c
 c            CALCULATED -
@@ -44,11 +44,11 @@ c          **calls subroutines SPACE,PREFORM,
 c          **FFT2,REALTR,GGINV,BALPH,MODEL
 c
 c            NOTE 1.  times actually start at selected tmin (or taumin)
-c                     + 1/digit - ie length of time does not include 
+c                     + 1/digit - ie length of time does not include
 c                     start time and does include end time
-c            NOTE 2.  values of range (or slowness) may be + or - , but 
+c            NOTE 2.  values of range (or slowness) may be + or - , but
 c                     must all be of the same sign, and must be of
-c                     increasing(irev=0) or decreasing(irev=1) order    
+c                     increasing(irev=0) or decreasing(irev=1) order
 c              The SEGY trace header pointers:
 c
 c  mod May 07 - Require the HEADERS file and get the X from it, rather
@@ -67,17 +67,17 @@ c
       common/bps/b,ifp,ilp,np,p(mdist)
       COMMON/bxs/bbxs,ifx,ilx,nxbxs
       common/xs/xmin,xmax,ntp2tx,dx,x(2*mdist)
-      COMMON/ts/tmin,tmax,nt,tdpt 
+      COMMON/ts/tmin,tmax,nt,tdpt
       COMMON/digs/digit,fc,lub2,mm,df,kf,dw,ishift
       COMMON/arbs/icomp,irev,ispec,imft
       COMMON/points/ipntr(mdist),igpnt,iapnt,imod(2*mdist)
       COMMON/apmem/s(nmax)
-      COMMON /tp2tx/ sshift, sex(2), nnx, setau(2), bb, ffc, ppcnti, 
+      COMMON /tp2tx/ sshift, sex(2), nnx, setau(2), bb, ffc, ppcnti,
      *               ppcnto, iirev, fon, dummy, iimft, set(2), lprint,
      &               tpprestk
 c****  we need tx2tp common because of lunhdr - see tx2ted for some notes
-      COMMON /tx2tp/ sshift1, sep1(2), nnp1, setau1(2), beta1, ffc1, 
-     *               ppcnti1, ppcnto1, iirev1, ffon1, dummy1, iimft1, 
+      COMMON /tx2tp/ sshift1, sep1(2), nnp1, setau1(2), beta1, ffc1,
+     *               ppcnti1, ppcnto1, iirev1, ffon1, dummy1, iimft1,
      *               set1(2), lprt1, lunhdr, txprestk
       INTEGER fon, tpprestk
       COMMON /readt/ itunit, numhdr, numdat, ihunit, ireeln, intrcs,
@@ -109,8 +109,8 @@ c
       si = buf(lsisptr)                                                 ! the sample interval in seconds
       IF( ntp2tx .EQ. 0 ) THEN
           ntp2tx = ntp2tx + 1
-          IF( set(1) .NE. -1. ) tmin = set(1) 
-          IF( tmin .LT. 0. ) tmin = itxdel / 1000.                      ! if user didn't give stime, use the delay of the first trace 
+          IF( set(1) .NE. -1. ) tmin = set(1)
+          IF( tmin .LT. 0. ) tmin = itxdel / 1000.                      ! if user didn't give stime, use the delay of the first trace
           IF( set(2) .NE. -1. ) tmax = set(2)
           IF( tmax .LT. 0. ) tmax = tmin + FLOAT(ntau-1) * si
           digit = 1. / si                                               ! the sample rate = 1./(sample interval)
@@ -168,7 +168,7 @@ c             the FFT program
           IF (ishift .LT. 0) ishift = ishift + 2*lub2
 c****     if the user didn't give us a file with the SEGY trace headers,
 c****     we will save the incoming trace headers for later, so get the
-c****     trace header unit opened.  
+c****     trace header unit opened.
 c          IF( lunhdr .EQ. 0 ) THEN
 c              CALL getfil( 1, luntemp, token, istat )                   ! so nonzero luntemp means save the incoming headers
 c          ELSE
@@ -249,7 +249,7 @@ c      ENDDO
 c	 IF( IAND(lprint,2) .NE. 0 ) PRINT *,' nx=',nx,' xmin=',xmin,
 c     &    ' xmax=',xmax
 c      space2 computes indeces igpnt, iapnt, imod(nx) of the s array
-c       index ipntr is recomputed 
+c       index ipntr is recomputed
       CALL SPACE2(np,nx,lens)
       IF( np .GT. mdist ) THEN
           PRINT *,' TP2TX - Too many p requested.  Max is ',mdist
@@ -281,7 +281,7 @@ c****
       IF( itrno .EQ. 0 ) THEN                                           ! first timer?
           CALL podiscb( lunhdr, 1, 3600 )
 c
-c            test for size of arguments of Bessel function to 
+c            test for size of arguments of Bessel function to
 c            determine which subroutine to use or if arguments are
 c            too large to do at all
           CALL BESFL2(j2)
@@ -307,7 +307,7 @@ c         until Bessel function arguments exceed da2, then using GBINV
           DO 1250 j = 2, j2
              w = (j-1) * dw
 c            compute the inverse Gram matrix for the fixed frequency
-c            then compute the vector of coefficients alpha for fixed 
+c            then compute the vector of coefficients alpha for fixed
 c            frequency, then loop in x to build the model
              CALL GGINV2( s(igpnt), w )
              CALL BALPH2( j, np, kf, s(ipntr(1)), s(igpnt), s(iapnt) )
@@ -327,7 +327,7 @@ c            frequency, then loop in x to build the model
           ENDIF
       ENDIF
       itrno = itrno + 1                                                 ! increment the trace number
-      CALL PREFORM2( s(imod(itrno)), limo, 2*(kf+1), lub2 )  
+      CALL PREFORM2( s(imod(itrno)), limo, 2*(kf+1), lub2 )
       IF( IAND(lprint,2) .NE. 0 ) PRINT *,' CALL PREFORM2 ',
      &     imod(itrno), limo, 2*(kf+1), lub2
       CALL REALTR( s(imod(itrno)), s(imod(itrno)+1), lub2, -2 )
@@ -396,11 +396,11 @@ c****
 c*********************************************************************
       subroutine balph2(j,np,kf,ss,gi,a)
 c*********************************************************************
-c            builds the complex matrix of coefficients, alpha,stored 
+c            builds the complex matrix of coefficients, alpha,stored
 c            in array s starting at iapnt.  here it is stored in 2-d
-c            rep - 2(real+complex) by np 
+c            rep - 2(real+complex) by np
 c            called a for alpha.  alpha = sum over p of gram matrix
-c            element times fourier-transformed data at frequency w.  
+c            element times fourier-transformed data at frequency w.
 c
 c          **CALLS NO OTHER SUBROUTINES**
 c
@@ -435,10 +435,10 @@ c*********************************************************************
       subroutine besfl2(j2)
 c*********************************************************************
 c            This subroutine tests for arguments of the Bessel
-c            functions which will be too large for later subroutines 
+c            functions which will be too large for later subroutines
 c            to handle.  The argument is b*w*p which is evaluated in
 c            computation of the Gram matrix.  Actually the difference
-c            between two of these is required, and the failure 
+c            between two of these is required, and the failure
 c            conditions depend on this.  Subroutine GGINV can handle
 c            computations when both arguments are <87.  Subroutine
 c            GBINV can handle the computations if one argument is >87
@@ -450,7 +450,7 @@ c
 c         ** CALLS NO OTHER SUBROUTINES**
 c
       parameter (mdist = 350)
-      common/digs/digit,fc,lub2,mm,df,kf,dw,ishift            
+      common/digs/digit,fc,lub2,mm,df,kf,dw,ishift
       common/bps/b,ifp,ilp,np,p(mdist)
       character*50 reason,cure
       data da1,da2,pi/3.75,80.0,3.14159265/
@@ -481,14 +481,14 @@ c
       return
    50 print *,' ****   TP2TX error **** Bessel fx failure at j = ',
      &     jj,' which is freq ', (jj*dw)/(2.*pi),' hz'
-      print '(a)', reason                              
+      print '(a)', reason
       print '(a)',cure
       STOP
-      end      
+      end
 c**********************************************************************
-      subroutine gbinv2(gi,w)                                        
+      subroutine gbinv2(gi,w)
 c**********************************************************************
-c            for the case of large arguments w*p**b, 
+c            for the case of large arguments w*p**b,
 c            computes the inverse of the gram matrix gi directly.
 c            as this is tridiagonal, it is stored as a 3*np - 2 vector
 c          **CALLS FUNCTION ABO**
@@ -516,7 +516,7 @@ c
      &     -t*(.02057706-t*(.02635537-t*(.01647633-t*.00392377)))))))
       s = 2.0/(w*b*p(np-2+i))
       c(i) = 1.25331414-s*(.07832358-s*(.02189568-s*(.01062446-
-     &       s*(.00587872-s*(.00251540-s*.00053208))))) 
+     &       s*(.00587872-s*(.00251540-s*.00053208)))))
   510 continue
 c
 c            compute ratios of 1st two bessel fxs of first kind and
@@ -546,7 +546,7 @@ c
       return
       end
 c**********************************************************************
-      subroutine gginv2(gi,w)                                        
+      subroutine gginv2(gi,w)
 c**********************************************************************
 c            computes the inverse of the gram matrix gi directly.
 c            as this is tridiagonal, it is stored as a 3*np - 2 vector
@@ -592,7 +592,7 @@ c
       return
       end
 c**********************************************************************
-      subroutine goinv2(gi)                                        
+      subroutine goinv2(gi)
 c**********************************************************************
 c            computes the inverse of the gram matrix gi directly.
 c            as this is tridiagonal, it is stored as a 3*np - 2 vector
@@ -628,7 +628,7 @@ c
       return
       end
 c***************************************************************
-      subroutine model2(i,j,w,a,wmod)                     
+      subroutine model2(i,j,w,a,wmod)
 c*****************************************************************
 c            forms the representer = Jo(kx)/(x**2 + b**2) and the
 c            model = sum of representer times coefficient (alpha)
@@ -637,11 +637,11 @@ c            of models, one for each freq.
 c            the fourier transform of the models gives T-X.
 c
 c          **CALLS FUNCTION AJO**
-c                      
-      parameter (mdist = 350)    
+c
+      parameter (mdist = 350)
       common/bps/b,ifp,ilp,np,p(mdist)
       common/xs/xmin,xmax,nx,dx,x(2*mdist)
-      common/digs/digit,fc,lub2,mm,df,kf,dw,ishift      
+      common/digs/digit,fc,lub2,mm,df,kf,dw,ishift
       dimension wmod(2,lub2+1,nx),a(2,np)
       wmod(1,j,i) = 0.0
       wmod(2,j,i) = 0.0
@@ -651,11 +651,11 @@ c            form the nth representer, rep.  multiply by alpha and sum
 c            to form the model (for fixed freq), wmod.
 c
           do 820 n = 1,np
-          bf = AJO(x(i)*w*p(n))      
+          bf = AJO(x(i)*w*p(n))
           rep = bf/x2b2
           wmod(1,j,i) = wmod(1,j,i) + a(1,n)*rep
           wmod(2,j,i) = wmod(2,j,i) + a(2,n)*rep
-  820     continue                
+  820     continue
       return
       end
 c*********************************************************************
@@ -665,8 +665,8 @@ c
 c           tapers and pads data before Fourier transform
 c
 c         **CALLS NO OTHER SUBROUTINES**
-c          
-      dimension ss(2*(lub2+1))                         
+c
+      dimension ss(2*(lub2+1))
       data pi/3.14159265/
 c
 c           taper with cos**2 taper, amount specified by user
@@ -692,7 +692,7 @@ c******************************************************************
       subroutine space2(np,nx,lens)
 c******************************************************************
 c           computes the values of the pointers for array s in common
-c           data.  IPNTR locates the beginning of each data trace - 
+c           data.  IPNTR locates the beginning of each data trace -
 c           one for each p.  only 2*(kf+1) points are allowed for each
 c           trace - accounting for the real and imaginary part of the
 c           Fourier-transformed data up to some cutoff point kf assoc-
@@ -709,7 +709,7 @@ c
 c      **CALLS NO OTHER SUBROUTINES**
 c
 c            set commons and variable types
-c                                                       
+c
       parameter (mdist = 350)
       common/digs/digit,fc,lub2,mm,df,kf,dw,ishift
       common/points/ipntr(mdist),igpnt,iapnt,imod(2*mdist)
@@ -717,7 +717,7 @@ c
 c            compute pointers
 c
       do 220 n = 1,np+1
-         ipntr(n) = ((n-1) * (kf+1) * 2) + 1         
+         ipntr(n) = ((n-1) * (kf+1) * 2) + 1
   220 continue
       igpnt = ipntr(np+1) + lub2+1
       iapnt = igpnt + 3*np-2

@@ -1,12 +1,12 @@
       SUBROUTINE umulted(BUF,LBUF)
 c                                PROCESS UMULT
 c                                ------- -----
-c  
+c
 c  Document Date: 15 May 1996
-c  
+c
 c  PROCESS UMULT multiplies user given points to every specified seismic
 c  trace.  The user may specify the start time of the multiply.
-c  
+c
 c  A common use of process umult is to apply a different gain than
 c  allowed in process gains.
 c
@@ -14,35 +14,35 @@ c  Spatial interpolation is not available.
 c
 c  Each parameter list must be terminated with the word END.  The entire
 c  set of UMULT parameters must be terminated by the word END.
-c  
+c
 c  THE PARAMETER DICTIONARY
 c  --- --------- ----------
-c  
+c
 c  PTS   - A list of points to multiply the seismic trace by.  The values
 c          must be separated by a blank, tab, or new line.  When the
 c          values are given in an exponential format, positive exponents
 c          must have a + rather than a blank.
 c          Required. e.g. pts 1 2 3 4 5 6 7 8 9 10 11
-c  
+c
 c  FNO   - The first shot (or rp) to be multiplied.  Shot (rp) numbers
 c          must increase monotonically.
 c          Preset = 0
-c  
+c
 c  LNO   - The last shot (rp) number to multiply.  LNO must be larger
 c          than FNO in each list and must increase list to list.
 c          Preset = 999999999
-c  
+c
 c  STIME - The start time, in seconds, of the first point of each trace
 c          to be multiplied.  i.e. the time of the first point in PTS.
 c          Preset = the delay of the trace . e.g. stime 1
-c  
+c
 c  END    - Terminates each parameter list.
-c  
-c  
+c
+c
 c  Written and copyrighted (c) by:
 c  Paul Henkart, Scripps Institution of Oceanography, May 1996
 c  ALL RIGHTS RESERVED.
-c  
+c
 C  THE PARAMETER LIST ON DISC IS:
 C  WORD 1)  FNO
 C       2)  LNO

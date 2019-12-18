@@ -1,5 +1,5 @@
       SUBROUTINE tx2ted
-c                                                                      
+c
 c                       PROCESS TX2TP
 c                       ------- -----
 c
@@ -12,11 +12,11 @@ c  slant-stacking seismic records at a number of ranges to synthesize a
 c  tau-p curve is posed as a linear inverse problem for fixed frequency.
 c  Using an inner product weighted by (k^2 + b^2)*k (where k is
 c  wavenumber and b some real positive number), then the representers
-c  are bessel functions of k*range, scaled by 1/(k^2 + b^2), and the 
-c  model is U(k,w) (vert comp only).  The inverse of the Gram matrix 
-c  can be found analytically as sums and differences of products of 
+c  are bessel functions of k*range, scaled by 1/(k^2 + b^2), and the
+c  model is U(k,w) (vert comp only).  The inverse of the Gram matrix
+c  can be found analytically as sums and differences of products of
 c  modified bessel functions of b*range.
-c         Since the tx to tau-p transformation changes the meaning of 
+c         Since the tx to tau-p transformation changes the meaning of
 c  shots and rps, TX2TP will output the data using the same SEGY
 c  headers as input to it so that shots remain shots and rps remain
 c  rps, with the same numbers.  If there are more tau-p traces as
@@ -31,7 +31,7 @@ c  tau*1000 of the first output sample (delay in ms) (SEGY word 55)
 c  tau of the first output sample (delay in seconds) (SEGY word 46)
 c  number of data samples (SEGY word 58)
 c  sample interval in microseconds (normal SEGY) (SEGY word 59)
-c  
+c
 c      The input data must be order so that the ranges are monotonically
 c  increasing.
 c
@@ -39,12 +39,12 @@ c  Limitations :  300 input time traces
 c                1024 samples within a time trace
 c                 300 output p traces
 c                 400 taus within a p trace
-c                                               
-c                                               
+c
+c
 c  PARAMETER DICTIONARY
 c  --------- ----------
-c  SET    - The start and end times of the data to transformation. 
-c           Data prior to the start time or after the end time will be 
+c  SET    - The start and end times of the data to transformation.
+c           Data prior to the start time or after the end time will be
 c           omitted.
 c           Preset = the times of the first input trace.  e.g.  set 3 7
 c  SEP    - Start and end p values to calculate.  The sep range should
@@ -70,7 +70,7 @@ c           Preset = 0.
 c  PCNTO  - Percent Taper applied to the models before the inverse FFT.
 c           Preset = 0.
 c  SHIFT  - The time shift to apply to successive traces.  The shift
-c           is accumulative, thus each trace is shifted by SHIFT 
+c           is accumulative, thus each trace is shifted by SHIFT
 c           relative to the previous trace.  The shift represents a
 c           constant reduction velocity, i.e. start time for each trace
 c           must be delayed by same amount relative to previous trace
@@ -80,9 +80,9 @@ c           PRESTK number of "gathers" have been collected.  A "gather" is
 c           whenever the "end-of-sort" flag (SEGY header word 51) is -1.
 c           Processes SORT and GATHER set the "end-of-sort" flag.
 c           Other schemes using DISKIN and HEADER can be used also.
-c 
+c
 c  END    - Terminates each parameter list.
-c  
+c
 c
 c
 c  Copyright (C) by The Regents of The University of California, 1988
@@ -99,8 +99,8 @@ c
       REAL vals(npars)                                                  ! holds the REAL parameter values
       DIMENSION lvals(npars)                                            ! holds the INTEGER parameter values
       COMMON /edits/ ierror, iwarn, irun, now, icompt
-      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), beta, ffc, ppcnti, 
-     *               ppcnto, iirev, ffon, dummy, iimft, set(2), lprt, 
+      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), beta, ffc, ppcnti,
+     *               ppcnto, iirev, ffon, dummy, iimft, set(2), lprt,
      *               lunhdr, txprestk, ntx2tp
       INTEGER fon, ffon, txprestk, prestk
       EQUIVALENCE ( shift, vals(1) ),
@@ -123,7 +123,7 @@ c****  occurs when tp2tx is in the same procs list and tp2tx wants the
 c****  headers.  So, my logic(?) is:  contro sets lunhdr = 0. tx2ted
 c****  opens the file and sets lunhdr.  tp2ted only opens a header file
 c****  if lunhdr = 0 or the user gave ihpath.
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       ntx2tp = 0

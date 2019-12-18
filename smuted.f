@@ -20,10 +20,10 @@ c  extrapolation of the mute times of adjacent traces and shots/rps,
 c  unless the INTERP parameter is used.
 c     Surgical muting and tail muting may not be perform simultaneously.
 c  i.e.  XTP, TTP, XSETS, TSETS are all mutually exclusive.
-c  
+c
 c     Each parameter list must be terminated with the word END.  Spatial
 c  variation is obtained by giving multiple lists or control points.
-c  (See doc/syntax).  The spatial variation may be turned by using the 
+c  (See doc/syntax).  The spatial variation may be turned by using the
 c  INTERP parameter.
 C
 C  THE PARAMETER DICTIONARY
@@ -79,13 +79,13 @@ C  ADDWB  - WHEN GIVEN A VALUE OF YES, THE MUTE TIMES GIVEN VIA XSETS OR TSETS
 C           WILL BE ADDED TO THE WATER BOTTOM TIME OF THE TRACE.  (WATER BOTTOM
 C           TIMES MAY BE ENTERED VIA PROCESS WBT).
 C           PRESET=NO
-c  INTERP - A binary switch (on or off ) indicating that the start and end 
-c           times for traces not specified via XSETS/TSETS and XTP/TTP 
+c  INTERP - A binary switch (on or off ) indicating that the start and end
+c           times for traces not specified via XSETS/TSETS and XTP/TTP
 c           should be calculated by interpolation or "extension".  Traces
 c           between specified traces will be muted using times linearly inter-
 c           polated.  Traces not between specified traces will be muted using
-c           the "closest" trace (times held constant).  Shots/rps not specified 
-c           will be calculated through interpolation and "extension" in a similar 
+c           the "closest" trace (times held constant).  Shots/rps not specified
+c           will be calculated through interpolation and "extension" in a similar
 c           manner.
 c           Preset = off for xset/tsets           e.g.   interp on
 c           Preset = on for xtp/ttp              e.g    interp off
@@ -285,7 +285,7 @@ c     preset interp to being on when tsets/xsets and off on xtp/ttp
       DO 1130 I=1,nsmuts,3
  1130 BUF(NPARS+I)=ABS(BUF(NPARS+I))                                    ! USE THE ABS VALUE OF THE RANGES
       IF(nsmuts.LE.2) GO TO 1300
-      DO 1150 I = 3, nsmuts-1, 3      
+      DO 1150 I = 3, nsmuts-1, 3
          IF( BUF(NPARS+I+1) .LE. BUF(NPARS+I-2) ) THEN
              PRINT *,' ***  ERROR  ***  RANGES MUST INCREASE.'
              IERROR=IERROR+1

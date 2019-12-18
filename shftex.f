@@ -39,7 +39,7 @@ c  4 Feb 10 - Change an lprint statement
 c  11 Feb 10 - datum correction had the sign backwards
 c   mod 17 May 10 - Comment out creating real mute times in header words 47 & 48
 c  18 Feb 11 - scalar in datum correction waqs wrong
-c            - also the Feb 10 mod was wrong 
+c            - also the Feb 10 mod was wrong
 C
       PARAMETER (MAXTSP=2600)                                           ! THE MAXIMUM NUMBER OF ELEMENTS THE USER ARRAY CAN BE
       PARAMETER ( NPARS = 19 )                                          ! THE LENGTH OF EACH PARAMETER LIST
@@ -261,7 +261,7 @@ c****
       IF( laga .NE. 0 ) tshift = tshift - REAL(ibuf(53)) / 1000.
       IF( lagb .NE. 0 ) tshift = tshift - REAL(ibuf(54)) / 1000.
 c****
-c****   DATUM shifts here.  
+c****   DATUM shifts here.
 c****   receiver = (group elevation - datum elevation) / datum velocity
 c****   source = ((source elevation - source depth) - datum elevation) / datumv
 c****
@@ -280,7 +280,7 @@ c****
           IF( IAND(lprint,4) .NE. 0 ) THEN
               PRINT *,' shot',lbuf(3),' tr',lbuf(4),' rp',lbuf(6),' tr',
      &                lbuf(7)
-              PRINT *,' source leg=',source,' receiver leg=',receiver, 
+              PRINT *,' source leg=',source,' receiver leg=',receiver,
      &                 ' total=',tshift
 
               PRINT *,(lbuf(i),i=11,15),datume
@@ -297,7 +297,7 @@ c****
      &           REAL(ibuf(indices(i+1))) * smult
              IF( indices(i) .EQ. 2 ) tshift = tshift +
      &           FLOAT(lbuf(indices(i+1))) * smult
-             IF( indices(i) .EQ. 3 ) tshift = tshift + 
+             IF( indices(i) .EQ. 3 ) tshift = tshift +
      &           buf(indices(i+1)) * smult
           ENDDO
       ENDIF
@@ -389,7 +389,7 @@ C****
  2000 CONTINUE
       shift = FLOAT(ishift) * si                                       ! Convert integer shift in samples to real seconds
       mshift = NINT(shift*1000.)                                       ! convert to integer mils
-      IF( IBUF(56) .NE. 0 ) THEN 
+      IF( IBUF(56) .NE. 0 ) THEN
           IBUF(56)=IBUF(56)+mshift
           IF(IBUF(56).LT.0) IBUF(56)=0
 c          BUF(47)=REAL(IBUF(56))/1000.

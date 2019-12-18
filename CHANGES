@@ -118,12 +118,12 @@
    ***  THIS MUST INCLUDE THE 17 APR. DECON UPDATE FOR DOUBLE  ***
 	b)  diex - fkpolaru didn't work right (dskpos and idtype probs.)
 	b)  mrgfk - fkpolaru didn't work right (dskpos=1 on non apollo)
-54) 25 July 
+54) 25 July
 	a)  filted - set the filter length counter ntotal =0 after each list
 55) 26 July
 	a)  wrttrc - same as April! - bad header unit number in common readt
 56)  9 August
-	a)  contro - increase maximum trace length to 30k samples (fkmigr 
+	a)  contro - increase maximum trace length to 30k samples (fkmigr
 	             uses 3 buffers worth! so max fkmigr is 8k)
 	b)  contro - put maxsamps into common /edits/
 57)  11 August
@@ -136,11 +136,11 @@
 	a)  smuted, smutex - add parameter interp.
 	b)  nmoapp - zero the data if before the start (for move in)
 60)  23 August
-	a)  gentl, trplot - change dtable for Vax (Unix Vax only?) 
+	a)  gentl, trplot - change dtable for Vax (Unix Vax only?)
 	b)  filtex - bug in the July 20 changes!
 61)  25 August
 	a)  inedit, inputx - added forgat > 1 for combining rps
-	b)  tx2ted, tx2tex - added ohpath for using tx headers 
+	b)  tx2ted, tx2tex - added ohpath for using tx headers
 62)  28-30 August
 	a)  diex - added forgat > 1 for combining rps
 	b)  diex - added nsamps and isi to binary header when SSC
@@ -230,10 +230,10 @@
 88)  11 Mar 90
 	a)  t2ded - conversion of interval to average velocities
 	b)  t2dex - incorrect list used when first list ignored.
-        c)  t2dex - rewrote spatial variation since the old spaghetti 
+        c)  t2dex - rewrote spatial variation since the old spaghetti
                     didn't work and I couldn't follow it!
 89)  19 Mar 90
-	a)  diex - add logic to honor forgat when ltr is given.  
+	a)  diex - add logic to honor forgat when ltr is given.
 	b)  inputx - add logic to honor forgat when ltr is given.
 90)  20 Mar 90
 	a)  diex - Correct error when trace is not a seismic or dead trace.
@@ -289,14 +289,14 @@
         e)  muteex - correct bad mute when spatially varying and the first
 	             shot is not in the first user list.
 106)  2 Aug 90
-	a)  wbtex - make spatial interpolation better by removing bizare 
+	a)  wbtex - make spatial interpolation better by removing bizare
 	            Prime bug stuff.
 	b)  plotex - make ftr, ltr, and ninc work!
 107)  8 Aug 90
 	a)  syned, synex - add noise (add gasdev.f and ran1.f)
 108)  21 Aug 90
 	a)  rdtrc - change meaning of a single eof to allow multiple SEGY files.
-109)  1 sept 90 
+109)  1 sept 90
 	a)  magsun.c - Sun OS 4.1 introduced bug causing EOF on MTNOP
 110)  12 Sept 90
 	a)  t2dex - bad when using ap simulator (when filter in procs)
@@ -305,7 +305,7 @@
 	a)  t2ded - changed documentation
         b)  t2dex - added interval velocity depth conversion (t2dint)
 112) 25 Oct 90
-	a)  touted, wrttrc - added nfskip parameter 
+	a)  touted, wrttrc - added nfskip parameter
         b)  plotex - correct problem when dir ltr and nsamps < nsecs
         c)  inputx, rdtrc - made ltr preset work (=ntrcs of segy header)
 113)  5 November 90
@@ -405,7 +405,7 @@
 138)  20 Aug. ver 3.1.3
 	a) shfted, shftex - add reduce
 	b) ploted, plotex - add rstime
-138.5)   23 Aug. 
+138.5)   23 Aug.
 	a) smutex - Made the parameter list the same as smuted.
 139)  29 Aug. ver 3.1.4
 	a) inedit, rdtrc - add device (Fortran mag tape interface)
@@ -489,10 +489,10 @@
 	a)  pouted, poutex - Add FORMAT to process OUTPUT.  Allow
 		MATLAB and Fortran format statements.
 	b)  t2dex - addwb didn't work
-	c)  tpchng - Didn't work on "/dev" 
+	c)  tpchng - Didn't work on "/dev"
 	d)  inputx - secs and stime caused bomb on LDGO trace 0
 159)  12 May 92 - version 3.2.6
-	a)  contro, doex, wrttrc, gentl, trplot -  
+	a)  contro, doex, wrttrc, gentl, trplot -
             Change icompt = 2 from DEC Vax word to DecStation IEEE word
 160)  2 June 92 - version 3.2.8
 	a)  calcrp - Apr. 91 update lost! - type 2 geom didn't work.
@@ -522,7 +522,7 @@
         c)  trplot - negative amplitudes weren't colored correctly
         d)  sorted, sortex - Add parameter reverse
 168)  14 Sept 92 - version 3.2.16
-	a)  trplot - ltr plots filled 1 too many nibs 
+	a)  trplot - ltr plots filled 1 too many nibs
 	b)  gained, gainex - redefined type 2 gain (OSU)
         c)  tx2fk - terminate if delay changes
 169)  29 Sept 92 - Version 3.2.17
@@ -633,7 +633,7 @@
 	f) tx2fex - make sure trace length remains constant
 194)  26 Nov. 1993 - ver 3.2.41
 	a) fdmigr - remove a debug print statement
-	b) nmoex - Bad spatial variation when first trace of the job 
+	b) nmoex - Bad spatial variation when first trace of the job
                    was not a control point.
 195)  3 Dec. 1993 - ver 3.2.42
 	a) trplot - Add interpolation so any plot scale can be done.
@@ -1191,7 +1191,7 @@ Atlantek - remove call in attach for "streaming Centronics"
     9) plot - g77 compiler idiosyncrasy
 261) ver 2000.7 (29 June 2000)
     1) diskin - Use REAL sample interval for 4096 and 8192 sample rates
-    2) input - Use REAL sample interval for 
+    2) input - Use REAL sample interval for
                128, 2048, 4096, 8192, 15000, 16000, 32000
     3) wbt - Add parameter INDEX for location to write the bottom time.
     4) mix - Add type 4 mix (header mix only) and HDR, LHDR, IHDR
@@ -1202,7 +1202,7 @@ Atlantek - remove call in attach for "streaming Centronics"
     4) input - Non integer start time in SET caused bad delay.
     5) input - allno and alltr didn't work because of mar 99 update
 Changed makefile from f77 -O to f77 -fast, which causes message:
-         Note: Nonstandard floating-point mode enabled 
+         Note: Nonstandard floating-point mode enabled
 263) ver 2000.9 (7 Sept.2000)
     0) Atlantek - 3 Sept 00 - Was dropping 3/4 of the rasters
     1) output - Add TRACE0, preset = no, for optional trace0.
@@ -1651,7 +1651,7 @@ ver 2006.4 (21 July 2006)
             - Add type 17 (range from first trace)
             - Add NAVFIL2
             - Add istop
-            - Redo segyxy for type 17 
+            - Redo segyxy for type 17
     2) header, t2f, f2t, diex, doex - finagal ibuf(58) to allow large nsamps.
     3) contro - increase max trace length from 33000 to 50000
               - Add istop to geomex
@@ -1671,7 +1671,7 @@ ver 2006.5 (27 Sep 2006)
             - When plotting by range don't plot the trace if dx = 0.
     2) geom - type 9 NMEA string different than expected.
     3) diskin - Linux ODEC didn't work
-ver 2006.6 (10 October 2006) 
+ver 2006.6 (10 October 2006)
     1) segddin - Preset NSPFILE to 9999999  (See May update!)
                - $GPGGA gave bad lat/long minutes
                - $GPGGA failed when timestamp was good but fix was bad
@@ -1780,7 +1780,7 @@ ver 2007.10 (5 Dec. 2007)
     2) geom - Add type 18 for adding lat/long to segy header from ascii file.
     3) diskin - Make retrac = 1 if non-zero (given).
     4) prout, contro - Flush print and stdout when TRLIST is used.
-ver 2007.11 (19 Dec. 2007) 
+ver 2007.11 (19 Dec. 2007)
     1) plot - Add parameter TRIM.
     2) contro - Drop printing "END OF SIOSEIS RUN" due to g95/c flush problem.
 ver 2008.1 (25 Jan. 2008)
@@ -1923,7 +1923,7 @@ ver 2009.4.11 (11 June 2009)
     2) logst - changes to nsamps needed to be done the "new" way (common numdat)
     3) tx2fk, fk2tx - changes to nsamps needed to be done the "new" way (common numdat)
                 New limit is 32K complex frequencies (65K samples)
-    4) dmo, fkshift, cat, cfilter, despike, gain, sort, ssmigr - 
+    4) dmo, fkshift, cat, cfilter, despike, gain, sort, ssmigr -
              Use numdat or unsigned.c for nsamps
     5) cat - wasn't working
     6) diskox - implement appending to a file opened by a previous diskox
@@ -1969,7 +1969,7 @@ ver 2009.7.7 (5 Nov. 2009)
     3) diskio - podiscun was in 8 bytes rather than 4 bytes.
     4) despike - Add SOLRAT (same as in wbt) and make same as fac
     5) despike - Add PASS and do offline filtering when ses/sel.
-    7) swell - Add INDEX 
+    7) swell - Add INDEX
 ver 2009.8.3 (19 Nov. 2009)
     1) diskin - save binhdr(31) (data domain) on first trace, reset on every trace
     2) t2d - set common binhdr(31) = 6 for depth domain.
@@ -1981,7 +1981,7 @@ ver 2009.9.4 (2 Dec. 2009)
     3) despike - kill didn't work with thres
     4) geom - cygwin choked on unreachable call to podisc
 ver 2010.1.5 (14 Jan. 2010)
-    1) stk - Add parameter TRIMOUT 
+    1) stk - Add parameter TRIMOUT
            - Changed the meaning of TRIM to be TRIMOUT or save inner.
            - trim percentages are now of the total number of non-zero samples.
     2) swell - nready was 1 too big at the end

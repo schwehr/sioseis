@@ -21,8 +21,8 @@ c   the gather.
 c   The rp trace number is always 1.
 c   The X and Y shot coordinates are set to zero.
 c   The number of stacked traces (cdp or fold) is set.
-c   
-c   
+c
+c
 c  PARAMETER DICTIONARY
 c  --------- ----------
 c  header - The type of header replacement.  The SEGY trace header words
@@ -126,6 +126,6 @@ c****
       ENDIF
       CALL upcase( token, nchars )
       ntokes = ntokes + 1
-      IF( token(1:nchars) .NE. 'END' .OR. nchars .NE. 3 ) GOTO 100 
+      IF( token(1:nchars) .NE. 'END' .OR. nchars .NE. 3 ) GOTO 100
       RETURN
       END

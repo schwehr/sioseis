@@ -1,4 +1,4 @@
-      SUBROUTINE sorted 
+      SUBROUTINE sorted
 c
 c                       PROCESS SORT
 c                       ------- ----
@@ -24,10 +24,10 @@ c
 c  LIMITATIONS:
 c  1)  Only 1 input diskin file may be used at a time.
 c  2)  A maximum of 50,000 traces may be sorted at a time, unless the
-c      large version of sort has been installed which permits 350,000 
-c      traces to be sorted.  (The large version uses subroutine 
-c      sortex.BIG.f and the small version uses subroutine sortex.small.f  
-c      The big version requires the computer running sioseis to have 
+c      large version of sort has been installed which permits 350,000
+c      traces to be sorted.  (The large version uses subroutine
+c      sortex.BIG.f and the small version uses subroutine sortex.small.f
+c      The big version requires the computer running sioseis to have
 c      more than 8mb of memory).
 c
 c  PARAMETER DICTIONARY
@@ -61,7 +61,7 @@ c  LIMIT2 - The limits of the secondary sort.  Traces outside the limits
 c           are not read by process diskin.  The limit values MUST be
 c           increasing in value.
 c           Preset = none   e.g. limit2 -500 -200
-c  FLAG51 - The value to place in 32 bit integer header word 51 
+c  FLAG51 - The value to place in 32 bit integer header word 51
 c           whenever the value of the primary key changes.  Word 51 is
 c           the "end-of-sort" flag for many SIOSEIS process (e.g. stack),
 c           where a -1 is used to indicate the end of "gather".  Word 51
@@ -80,7 +80,7 @@ c
 c  Copyright (C) 1991 The Regents of the University of California.
 c  ALL RIGHTS RESERVED.
 c
-c  Written by Paul Henkart, Scripps Institution of Oceanography, 
+c  Written by Paul Henkart, Scripps Institution of Oceanography,
 c       La Jolla, CA 92093-0225
 c
 c  mod July 11, 1997 - Add reverse1 and reverse2 and remove reverse
@@ -106,9 +106,9 @@ c
      &             'LIMIT1', 'LKEY2 ', 'IKEY2 ', 'LIMIT2','FLAG51',
      &             'REVERSE','REV1  ', 'REV2  ' /
       DATA lunin/0/, lunout/0/, lkey1/0/, ikey1/0/, limit1/2*-999999./,
-     &     lkey2/0/, ikey2/0/, limit2/2*-999999./, iflag51/-99999/, 
+     &     lkey2/0/, ikey2/0/, limit2/2*-999999./, iflag51/-99999/,
      &     opath/' '/, reverse1/0/, reverse2/0/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
 c****

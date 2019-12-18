@@ -117,7 +117,7 @@ c  2 May 03 - Read and save the SEG-Y Rev 1 Textual Header
 c             Extension records
 c  16 Sept 96 - Rewind the tape at the end of job when nfiles = 1
 c  13 Nov 95 - add rewind parameter and set it to 1 after doing it!
-c  10 Mar 94 - added saving of espn in Phoenix I format 
+c  10 Mar 94 - added saving of espn in Phoenix I format
 c  18 Nov 93 - increase nwrds from 30,000 to 32,767
 c  28 Sep 93 - increase nwrds from 20,000 to 30,000
 c  26 Aug 91 to add device (Unix fortran device independent mag tape interface)
@@ -138,7 +138,7 @@ c       GM        so that other programs (VISTA) work
 c    28 June 89 - tape changes didn't work when on different unit number.
 c       GM       common /readt/ itunit should be common /readt/ ilun
 c    17 Apr 89 - Change the logic of renumbering trace numbers if it has
-c       pch      a trace number of 0.  If there is a trace number of 
+c       pch      a trace number of 0.  If there is a trace number of
 c                zero, I'll add 1 to every trace hence forth, therefore,
 c                multichannel data numbered 0-23 will become 1-24.
 c    15 Apr 89 - assume if tape status is 0, then the tape record was passed in
@@ -180,10 +180,10 @@ C****
       FIRST=.FALSE.
       NUMHDR=60
       NPAR=0
-      CALL GETFIL(1,IUNHDR,token,ISTAT) 
+      CALL GETFIL(1,IUNHDR,token,ISTAT)
       IF(ISIG.NE.0.AND.ISIG.NE.5) GO TO 100
       IF( inputdev .NE. ' ' ) token = inputdev
-      CALL ASTAPE(ILUN, token, 0) 
+      CALL ASTAPE(ILUN, token, 0)
 c      PRINT *,' INPUT REEL ',ireel,' IS NOW MOUNTED ON UNIT ',ilun
       IF( ISIG .EQ. 0 .OR. ISIG .EQ. 5 ) THEN
           IF( rewind .EQ. 1 ) CALL MAGTAP(ILUN,IBUF,IDUM,30,ISTAT)     ! REWIND
@@ -313,7 +313,7 @@ c**** Argh.  Are there multiple files on multiple tapes?
               ilun = -1
               RETURN
           ELSE
-              CALL magtap( ilun, ibuf, nwrds, 21, istat ) 
+              CALL magtap( ilun, ibuf, nwrds, 21, istat )
 c****     now we don't know if the next file has the SEGY headers or not!
               IF( istat .EQ. 1600 .OR. istat .EQ. 1800 ) THEN
                   CALL magtap( ilun, ibuf, nwrds, 21, istat )           ! read the binary header
@@ -424,7 +424,7 @@ C****
           nextra = nextra + 1
           CALL wrdiscb( iunhdr, lbuf, 3200 )
           CALL magtap( ilun, lbuf, nwrds, 21, istat )
-c****     write the number of extras to binary header word 153 
+c****     write the number of extras to binary header word 153
           IF( istat .NE. 1600 ) THEN
               CALL podisc( iunhdr, 0, 3505 )
               ibinhdr(153) = nextra
@@ -533,7 +533,7 @@ c**** but non-zero rp trace number.
 c****
       IF( lbuf(4)+lbuf(7) .EQ. 0 .AND. ibuf(15) .NE. 28 ) THEN
           IF( irenumtr .EQ. 0 ) THEN
-              PRINT *,' ***  WARNING  ***  Input tape has trace numbers 
+              PRINT *,' ***  WARNING  ***  Input tape has trace numbers
      *of zero, input will change these by adding 1.'
               irenumtr = 1
           ENDIF
@@ -554,7 +554,7 @@ c****
 c****
 c****   Don't unpack dead and non seismic traces, zero them!
 c****
-      IF( ibuf(15) .NE. 0 .AND. ibuf(15) .NE. 1 .AND. 
+      IF( ibuf(15) .NE. 0 .AND. ibuf(15) .NE. 1 .AND.
      *    ibuf(15) .NE. 3 .AND. ibuf(15) .NE. 6 ) THEN
           IF(IASGND.NE.0) THEN
              CALL VCLR(1,1,NUMDAT)
@@ -593,7 +593,7 @@ C****              AP IS NOT PRIME FLOATING POINT!!!
       GO TO 1000
   400 CONTINUE                                                          !  32 BIT INTEGER
       JFMT=0
-      IF ( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+      IF ( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      *     CALL swap32(lbuf(numhdr+1),numdat)
       IF(IASGND.NE.0.AND.IUSEAP.NE.0) GO TO 310
       IS=NUMHDR+1

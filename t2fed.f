@@ -242,7 +242,7 @@ c      ENDIF
       IF(IAND(LPRINT,1).EQ.1) THEN
          PRINT *,' T2F PARAMETERS:',(LSCR(I),I=1,5),
      *   SCR(6),(LSCR(I),I=7,10),scr(11),scr(12)
-     
+
       ENDIF
       CALL WRDISC(MUNIT,SCR,NWRDS)
       NLISTS=NLISTS+1

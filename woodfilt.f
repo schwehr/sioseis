@@ -88,9 +88,9 @@ c This will filter an array of real points in the Fourier domain
 c according to the user specified bandpass.
 c
 c     DO PADDING PRIOR TO CALLING THIS ROUTINE
-c   
+c
 c dt sample rate. if dt is in seconds f1 - f4 are in Hz.
-c   
+c
 c                         wtw 1991
 c                         modified 9/93
 c
@@ -124,7 +124,7 @@ c--------------------
         call four2(data(k1),nt,1,-1,0)
 c--------------------
 c The frequencies are complex and loaded in the real array such that
-c data(1) and data(2) are the real and imaginary parts of the first 
+c data(1) and data(2) are the real and imaginary parts of the first
 c frequency, data(3) and data(4) are the complex values for the second
 c frequency, etc. For example a series of 128 real samples will end up
 c as 64 complex frequencies plus one more sample which holds nyquist.
@@ -139,10 +139,10 @@ c
         s2 = 2.*f2/df
         s3 = 2.*f3/df
 c To make this filter truly a zero phase filter, we should adjust it so
-c the edges of the window apply the same gain to each pair of numbers 
+c the edges of the window apply the same gain to each pair of numbers
 c (single complex number) rather than to each number individually. As it
 c is now, the high edge of the window knocks the i part down slightly
-c more than its r compliment. If the i and r parts are gained equally, 
+c more than its r compliment. If the i and r parts are gained equally,
 c the phase is unaltered.
         call wwindow(data(k1),nt,s1,s2,s3,s4,key)
         data(k1+nt-1) = 0.0
@@ -169,16 +169,16 @@ c
 c This windows a series.
 c ser   is returned as the windowed series.
 c n     is the no. of ser points
-c   
+c
 c  1.0 |             ________________
 c      |            /                \
 c      |           /                  \
-c      |          /                    \ 
+c      |          /                    \
 c      |         /                      \
 c      |        /                        \
 c  0.0 |_______/__________________________\________________________
-c   
-c      ^       ^     ^               ^    ^                       ^      
+c
+c      ^       ^     ^               ^    ^                       ^
 c      |       |     |               |    |                       |
 c      1       s1    s2              s3   s4                      ns
 c
@@ -210,7 +210,7 @@ c ----> cosine ramp or truncation
           else if (si.gt.s1.and.si.lt.s2) then
             win = 0.5 + 0.5 * cos(pi*(s2-si)/(s2-s1))
           else if (si.gt.s3.and.si.lt.s4) then
-            win = 0.5 + 0.5 * cos(pi*(si-s3)/(s4-s3)) 
+            win = 0.5 + 0.5 * cos(pi*(si-s3)/(s4-s3))
           endif
 c
 c ----> decibel per octave ramp
@@ -234,49 +234,49 @@ c        write(97,*)key,win
       return
       end
 c-----|--0---------0---------0---------0---------0---------0---------0-|
-      SUBROUTINE FOUR2 (DATA,N,NDIM,ISIGN,IFORM)                                
-C     COOLEY-TUKEY FAST FOURIER TRANSFORM IN USASI BASIC FORTRAN.               
-C     MULTI-DIMENSIONAL TRANSFORM, EACH DIMENSION A POWER OF TWO,               
-C     COMPLEX OR REAL DATA.                                                     
-C     TRANSFORM(K1,K2,...) = SUM(DATA(J1,J2,...)*EXP(ISIGN*2*PI*SQRT(-1)        
-C     *((J1-1)*(K1-1)/N(1)+(J2-1)*(K2-1)/N(2)+...))), SUMMED FOR ALL            
-C     J1 AND K1 FROM 1 TO N(1), J2 AND K2 FROM 1 TO N(2),                       
-C     ETC. FOR ALL NDIM SUBSCRIPTS.  NDIM MUST BE POSITIVE AND                  
-C     EACH N(IDIM) MUST BE A POWER OF TWO.  ISIGN IS +1 OR -1.                  
-C     LET NTOT = N(1)*N(2)*...*N(NDIM).  THEN A -1 TRANSFORM                    
-C     FOLLOWED BY A +1 ONE (OR VICE VERSA) RETURNS NTOT                         
-C     TIMES THE ORIGINAL DATA.  IFORM = 1, 0 OR -1, AS DATA IS                  
-C     COMPLEX, REAL OR THE FIRST HALF OF A COMPLEX ARRAY.  TRANSFORM            
-C     VALUES ARE RETURNED TO ARRAY DATA.  THEY ARE COMPLEX, REAL OR             
-C     THE FIRST HALF OF A COMPLEX ARRAY, AS IFORM = 1, -1 OR 0.                 
-C     THE TRANSFORM OF A REAL ARRAY (IFORM = 0) DIMENSIONED N(1) BY N(2)        
-C     BY ... WILL BE RETURNED IN THE SAME ARRAY, NOW CONSIDERED TO              
-C     BE COMPLEX OF DIMENSIONS N(1)/2+1 BY N(2) BY ....  NOTE THAT IF           
-C     IFORM = 0 OR -1, N(1) MUST BE EVEN, AND ENOUGH ROOM MUST BE               
-C     RESERVED.  THE MISSING VALUES MAY BE OBTAINED BY COMPLEX CONJUGA-         
-C     TION.  THE REVERSE TRANSFORMATION, OF A HALF COMPLEX ARRAY DIMEN-         
-C     SIONED N(1)/2+1 BY N(2) BY ..., IS ACCOMPLISHED BY SETTING IFORM          
-C     TO -1.  IN THE N ARRAY, N(1) MUST BE THE TRUE N(1), NOT N(1)/2+1.         
-C     THE TRANSFORM WILL BE REAL AND RETURNED TO THE INPUT ARRAY.               
-C     RUNNING TIME IS PROPORTIONAL TO NTOT*LOG2(NTOT), RATHER THAN              
-C     THE NAIVE NTOT**2.  FURTHERMORE, LESS ERROR IS BUILT UP.                  
-C     WRITTEN BY NORMAN BRENNER OF MIT LINCOLN LABORATORY, JANUARY 1969.        
-C     SEE-- IEEE AUDIO TRANSACTIONS (JUNE 1967), SPECIAL ISSUE ON FFT.          
+      SUBROUTINE FOUR2 (DATA,N,NDIM,ISIGN,IFORM)
+C     COOLEY-TUKEY FAST FOURIER TRANSFORM IN USASI BASIC FORTRAN.
+C     MULTI-DIMENSIONAL TRANSFORM, EACH DIMENSION A POWER OF TWO,
+C     COMPLEX OR REAL DATA.
+C     TRANSFORM(K1,K2,...) = SUM(DATA(J1,J2,...)*EXP(ISIGN*2*PI*SQRT(-1)
+C     *((J1-1)*(K1-1)/N(1)+(J2-1)*(K2-1)/N(2)+...))), SUMMED FOR ALL
+C     J1 AND K1 FROM 1 TO N(1), J2 AND K2 FROM 1 TO N(2),
+C     ETC. FOR ALL NDIM SUBSCRIPTS.  NDIM MUST BE POSITIVE AND
+C     EACH N(IDIM) MUST BE A POWER OF TWO.  ISIGN IS +1 OR -1.
+C     LET NTOT = N(1)*N(2)*...*N(NDIM).  THEN A -1 TRANSFORM
+C     FOLLOWED BY A +1 ONE (OR VICE VERSA) RETURNS NTOT
+C     TIMES THE ORIGINAL DATA.  IFORM = 1, 0 OR -1, AS DATA IS
+C     COMPLEX, REAL OR THE FIRST HALF OF A COMPLEX ARRAY.  TRANSFORM
+C     VALUES ARE RETURNED TO ARRAY DATA.  THEY ARE COMPLEX, REAL OR
+C     THE FIRST HALF OF A COMPLEX ARRAY, AS IFORM = 1, -1 OR 0.
+C     THE TRANSFORM OF A REAL ARRAY (IFORM = 0) DIMENSIONED N(1) BY N(2)
+C     BY ... WILL BE RETURNED IN THE SAME ARRAY, NOW CONSIDERED TO
+C     BE COMPLEX OF DIMENSIONS N(1)/2+1 BY N(2) BY ....  NOTE THAT IF
+C     IFORM = 0 OR -1, N(1) MUST BE EVEN, AND ENOUGH ROOM MUST BE
+C     RESERVED.  THE MISSING VALUES MAY BE OBTAINED BY COMPLEX CONJUGA-
+C     TION.  THE REVERSE TRANSFORMATION, OF A HALF COMPLEX ARRAY DIMEN-
+C     SIONED N(1)/2+1 BY N(2) BY ..., IS ACCOMPLISHED BY SETTING IFORM
+C     TO -1.  IN THE N ARRAY, N(1) MUST BE THE TRUE N(1), NOT N(1)/2+1.
+C     THE TRANSFORM WILL BE REAL AND RETURNED TO THE INPUT ARRAY.
+C     RUNNING TIME IS PROPORTIONAL TO NTOT*LOG2(NTOT), RATHER THAN
+C     THE NAIVE NTOT**2.  FURTHERMORE, LESS ERROR IS BUILT UP.
+C     WRITTEN BY NORMAN BRENNER OF MIT LINCOLN LABORATORY, JANUARY 1969.
+C     SEE-- IEEE AUDIO TRANSACTIONS (JUNE 1967), SPECIAL ISSUE ON FFT.
 c
 c Alternate documentation of IFORM by wtwood, 5/95
 c
 c To go from a real time series to frequency
 c       call four2(data,n,ndim,-1,0)
-c To get back again 
+c To get back again
 c       call four2(data,n,ndim,1,-1)
 c
 c IFORM = 0
 c 	When IFORM = 0 then the input is assumed to be n real numbers where
 c n is a power of two. If this is true the output will be n/2+1 complex
-c numbers or n+2 real numbers. BE SURE TO LEAVE SPACE! These represent 
+c numbers or n+2 real numbers. BE SURE TO LEAVE SPACE! These represent
 c the positive frequencies. Since the input was real the negative
 c frequencies are the complex conjugate of the positive frequencies and
-c you can compute these outside of this subroutine. To get back into the 
+c you can compute these outside of this subroutine. To get back into the
 c original domain use IFORM = -1, and keep n the same.
 c
 c IFORM = -1
@@ -607,12 +607,12 @@ C     UNPACK THE REAL TRANSFORM VALUES (TWO PER COLUMN)
       END
 c-----|--0---------0---------0---------0---------0---------0---------0-|
       integer function ip2ge(n)
-c 
-c     returns the smallest positive-integral power of 2 which is greater than 
+c
+c     returns the smallest positive-integral power of 2 which is greater than
 c     or equal to n (an integer), up to a maximum of 2**99999
 c   mod Oct 96 - rewrite.
-c 
-c 
+c
+c
 c      do 10 n2=1,99999
 c      ip2ge=2**n2
 c   10 if(ip2ge.ge.n)return
@@ -633,7 +633,7 @@ c This is a possible alternative method which is more elegant but may be
 c more expensive. Check it out.
 c  isize=2**nint(((alog10(float(n))/alog10(2.0))+0.5))
       return
-      end 
+      end
 c-----|--0---------0---------0---------0---------0---------0---------0-|
       subroutine pad2(data,nx,nt,im,ir,it,ib)
 c
@@ -645,7 +645,7 @@ c nx    No. of traces in the data
 c nt    No. of samples (without 60 wrd header) in the data
 c im    No. of zero traces  to add to the  LEFT   side
 c ir    No. of zero traces  to add to the  RIGHT  side
-c it    No. of zero samples to add to the  TOP 
+c it    No. of zero samples to add to the  TOP
 c ib    No. of zero samples to add to the  BOTTOM
 c
 c OUTPUT:
@@ -659,7 +659,7 @@ c-----|--0---------0---------0---------0---------0---------0---------0-|
       nx2 = im + nx + ir
       nt2 = it + nt + ib
 c
-c First zero the memory from the end of the data to the end of the new 
+c First zero the memory from the end of the data to the end of the new
 c data
       ndat1 = nt*nx
       ndat2 = nt2 * nx2
@@ -669,7 +669,7 @@ c
 c Start from the last new trace and work forward.
 c
       do 60 jx = nx2,1,-1
-        k1 = (jx-1)*nt2 
+        k1 = (jx-1)*nt2
 c
 c Do the right hand side padding
         if (jx.gt.(im+nx)) then
@@ -682,13 +682,13 @@ c Copy the data to the right place and do the top and bottom padding.
           do 20, jt=nt2,1,-1
             if (jt.gt.it.and.jt.le.(it+nt)) then
               data(k1+jt) = data(kold1+jt-it)
-            else 
+            else
               data(k1+jt) = 0.0
             endif
 20        continue
 c
 c Do the left hand side padding
-        else 
+        else
           do 30, jt=1,nt2
 30        data(k1+jt) = 0.0
         endif
@@ -711,7 +711,7 @@ c data      1-D array with at least jmax traces of nt samples each
 c jmin    First trace to keep
 c jmax    Last trace to keep
 c nktrc   Increment of trace to keep
-c nt      Number of samples in each input trace 
+c nt      Number of samples in each input trace
 c itop    first sample to keep
 c ibot    Last sample to keep
 c nksam   Increment of sample to keep

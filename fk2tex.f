@@ -65,7 +65,7 @@ c 5 Feb 03 - ajh - add an additional stage and scratch file during
 c            transformation but ensures that all writes to disk are
 c             contiguous and sequential.
 c 19 May 05 - Allow 32768 samples
-c 31 Aug 05 - Add parameter KILL.  Zero dead traces when KILL YES.  Reset the 
+c 31 Aug 05 - Add parameter KILL.  Zero dead traces when KILL YES.  Reset the
 c             seismic trace identifier (word 15 - the dea trace flag) when KILL NO.
 c 5 Jul 07 - Unsort the data only if prestk > 1 (match tx2fk)
 c 15 Aug 07 - g95 doesn't do internal write to get ihdrpath
@@ -501,7 +501,7 @@ c      call getfil( CREATTMP, igunit, name, istat)
         PRINT 2000, ' Non zero remainder in k->x transform'
         STOP
       endif
-      
+
       jstarti = dskhdr1 + DSKSTRT
       nsize   = nsizec
       nsizeo  = nsizec / 2
@@ -523,7 +523,7 @@ c      call getfil( CREATTMP, igunit, name, istat)
 
           if (iuseap .eq. NOAP ) then
             indx = 1
-            
+
             do 800 j = 1, nsizeo
               call gnrfft(t(indx), nx, inverse, nonorm)
               indx = indx + nx
@@ -542,7 +542,7 @@ c..                             Gather the data back into partial time traces
   900         continue
               call wrdisc(igunit,scr,nsizeo)
  1000     continue
- 
+
           jstarti = jstarti + nsize
  1100 continue
 
@@ -551,9 +551,9 @@ c...                            Assemble the partial trace into full traces
        nsizei  = nsizec/2
        nslice  = nsizei*nx
        jstarti = DSKSTRT - nsizei
-       
+
        call podisc(ixunit,POSABS,DSKSTRT)
-       
+
        do 1103 i = 1, nspace2
          scr(i) = 0.
  1103  continue
@@ -561,7 +561,7 @@ c...                            Assemble the partial trace into full traces
          indx   = dskhdr2 + 1
          nsizei = nsizec/2
          jstarti= jstarti + nsizei
-         
+
          istart = jstarti
 
          do 1101 i = 1, ntimes
@@ -569,8 +569,8 @@ c...                            Assemble the partial trace into full traces
            call rddisc(igunit,scr(indx),nsizei,istat)
            indx   = indx   + nsizei
            istart = istart + nslice
- 1101    continue 
- 
+ 1101    continue
+
          call wrdisc(ixunit,scr,nspace2)
  1102  continue
 

@@ -66,7 +66,7 @@ C
       CALL GETOKE(ITYPE,NCHART)                                          /* GET THE FIRST TOKEN INTO STRING ITYPE
       IF(NCHART.EQ.0) GO TO 111                                          /* TRY AGAIN IF NO CHARCTERS INPUT
       CALL GETOKE(M,NCHAR)                                              /* GET THE NUMBER OF THINGS TO DO
-      N=1                                                               /* PRESET THE NUMBER OF THINGS TO DO 
+      N=1                                                               /* PRESET THE NUMBER OF THINGS TO DO
       IF(NCHAR.EQ.0) GO TO 120
       CALL DCODE(M,NCHAR,AREAL,ISTAT)
       IF(ISTAT.NE.2) GO TO 111                                          /* WAS THERE AN ERROR?

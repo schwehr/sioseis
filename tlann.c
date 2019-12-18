@@ -1,5 +1,5 @@
 #include <stdio.h>
-/*void tlann_( ibuf, first_bit, nwrds, vscale, nibs, tline, start_time, 
+/*void tlann_( ibuf, first_bit, nwrds, vscale, nibs, tline, start_time,
 			nsecs, ncolors, idir, isig )*/
 void tlann_( ibuf, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12 )
 	unsigned char ibuf[];
@@ -19,7 +19,7 @@ void tlann_( ibuf, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
 *  Paul Henkart,  Scripps Oceanography,  February 1995
 *  (C) 1995, Regents of The University of California
 *
-* mod 31 March 95 to remove tline from last_bit =  
+* mod 31 March 95 to remove tline from last_bit =
 * mod August 2006 - add dir < 0 annotation
 * 9 May 08 - Use abs value so negative time doesn't do something weird.
 * 22 Aug 08 - add special signal.  If == 1, then only do 3 digits of the first one.
@@ -96,7 +96,7 @@ void tlann_( ibuf, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
 				ndigits = 5;
 				temp = time;
 			} else {
-				ndigits = 6; 
+				ndigits = 6;
 				temp = time / 10.;
 			}
 			if( temp < 0 ) temp = -temp;
@@ -105,7 +105,7 @@ void tlann_( ibuf, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
 				digits[i] = digit;
 				temp = (temp - (float)digit) * 10.;
 			}
-			for( i=ndigits-2; i>=0; i-- ) { 
+			for( i=ndigits-2; i>=0; i-- ) {
 				if( ndigits == 5 && isig == 1 && i == ndigits-2 ) i--;
 				if( ndigits == 6 && i == ndigits-3 ) i--;
 				nlines = sideann( digits[i], &ibuf[index], byte_inc, nibs,

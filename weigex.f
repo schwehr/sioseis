@@ -75,7 +75,7 @@ C****
                   ENDDO
               ENDIF
           ENDIF
-          IF( inverse .EQ. 1 .AND. rweight1 .NE. 0. ) 
+          IF( inverse .EQ. 1 .AND. rweight1 .NE. 0. )
      &        rweight1 = 1. / rweight1
           MLISTS=1
       ENDIF
@@ -127,7 +127,7 @@ C****
               ENDDO
           ENDIF
       ENDIF
-      IF( inverse .EQ. 1 .AND. rweight1 .NE. 0. ) 
+      IF( inverse .EQ. 1 .AND. rweight1 .NE. 0. )
      &    rweight1 = 1. / rweight1
       GO TO 70
 C****
@@ -154,7 +154,7 @@ C****
                   ENDDO
               ENDIF
           ENDIF
-          IF( inverse .EQ. 1 .AND. rweight .NE. 0. ) 
+          IF( inverse .EQ. 1 .AND. rweight .NE. 0. )
      &        rweight = 1. / rweight
       ENDIF
       rweight = rweight1
@@ -180,10 +180,10 @@ c****   Do the Statistical stuff first
 c****
       IF( itype .EQ. 1 ) THEN
           IF( in .EQ. 0 ) THEN
-              CALL moment( buf(numhdr+1), nsamps, 
+              CALL moment( buf(numhdr+1), nsamps,
      &             ave, adev, sdev, var, skew, curt )
           ELSE
-              CALL moment( a(in), nsamps, 
+              CALL moment( a(in), nsamps,
      &             ave, adev, sdev, var, skew, curt )
           ENDIF
           IF( IAND(lprint,16) .NE. 0 ) THEN

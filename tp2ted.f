@@ -1,5 +1,5 @@
       SUBROUTINE tp2ted
-c                                                                      
+c
 c                       PROCESS TP2TX
 c                       ------- -----
 c
@@ -8,39 +8,39 @@ c
 c          Process TP2TX transform data in the tau-p space domain to
 c  the time-distance space using the "HOP" method for slant stack (see
 c  process TX2TP).
-c         Since the tx to tau-p transformation changes the meaning of 
-c  shots and rps, TX2TP will output the data as if it is a shot 
+c         Since the tx to tau-p transformation changes the meaning of
+c  shots and rps, TX2TP will output the data as if it is a shot
 c  containing np traces and ALL THE TX DOMAIN TRACE INFORMATION IS LOST.
 c  The SEGY trace headers will contain the following information:
 c  record ("shot") number   (SEGY word 3)
 c  trace number with the record  (SEGY word 4)
 c  trace id flag (live trace flag)  (SEGY word 15)
 c  number of data samples (SEGY word 58)
-c  
+c
 c  Limitations :  300 input time traces
 c                1024 samples within a time trace
 c                 200 output p traces
 c                 400 taus within a p trace
-c                                               
-c                                               
+c
+c
 c  PARAMETER DICTIONARY
 c  --------- ----------
 c  SETAU  - The start and end taus to input.
 c           Preset = calculated from the data.
-c  SET    - The start and end times of the output t-x data. 
-c           Preset = 
+c  SET    - The start and end times of the output t-x data.
+c           Preset =
 c  SEX    - Start and end ranges (x) to calculate and output.
-c           Preset = 
+c           Preset =
 c  NX     - The number of ranges to calculate.  NX is the increment
 c           between the start and end ranges (SEX).
 c           Preset = the number of input time traces
-c  IHPATH - Input header pathname.  TP2TX will ouput the data with the 
+c  IHPATH - Input header pathname.  TP2TX will ouput the data with the
 c           SEGY trace headers from disk file IPATH rather than from the
 c           input tau-p traces.
 c           Preset =  none
 c  PCNTO  - Percent taper applied to models before the inverse FFT
 c  SHIFT  - The time shift to apply to successive traces.  The shift
-c           is accumulative, thus each trace is shifted by SHIFT 
+c           is accumulative, thus each trace is shifted by SHIFT
 c           relative to the previous trace.  The shift represents a
 c           constant reduction velocity, i.e. start time for each trace
 c           must be delayed by same amount relative to previous trace
@@ -57,12 +57,12 @@ c
       REAL vals(npars)                                                  ! holds the REAL parameter values
       DIMENSION lvals(npars)                                            ! holds the INTEGER parameter values
       COMMON /edits/ ierror, iwarn, irun, now, icompt
-      COMMON /tp2tx/ sshift, sex(2), nnx, setau(2), beta, ffc, ppcnti, 
+      COMMON /tp2tx/ sshift, sex(2), nnx, setau(2), beta, ffc, ppcnti,
      *               ppcnto, iirev, ffon, dummy, iimft, set(2), lprt,
      &               tpprestk
 c****  we need tx2tp common because of lunhdr - see tx2ted for some notes
-      COMMON /tx2tp/ sshift1, sep1(2), nnp1, setau1(2), beta1, ffc1, 
-     *               ppcnti1, ppcnto1, iirev1, ffon1, dummy1, iimft1, 
+      COMMON /tx2tp/ sshift1, sep1(2), nnp1, setau1(2), beta1, ffc1,
+     *               ppcnti1, ppcnto1, iirev1, ffon1, dummy1, iimft1,
      *               set1(2), lprt1, lunhdr, txprestk
       INTEGER fon, ffon, txprestk
       EQUIVALENCE ( shift, vals(1) ),
@@ -80,7 +80,7 @@ c****  we need tx2tp common because of lunhdr - see tx2ted for some notes
      *            'FC    ','PCNTI ','PCNTO ','IREV  ','FON   ',
      *            'PRESTK','IMFT  ','SET   ','LPRINT','IHPATH' /
       DATA types /2*'F','L',5*'F',2*'L','A','L','F','L','A' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       shift = 0.
@@ -122,7 +122,7 @@ c****
              ENDIF
              ntokes = ntokes + 1
              IF( names(nparam) .EQ. 'IHPATH' ) THEN
-                 IF( lunhdr .EQ. 0 ) 
+                 IF( lunhdr .EQ. 0 )
      &               CALL getfil( 4, lunhdr, token, istat )             ! open the existing file
                  GOTO 100
              ENDIF

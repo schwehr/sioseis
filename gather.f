@@ -86,7 +86,7 @@ c  mod 9 Oct 08 - unsigned "-" was wrong for EOG. -nwrds+50 = -(nwrds-50)
 c  mod 25 Aug 09 - Change from podisc to podiscun
 c  mod 30 Aug 09 - Cygwin didn't like podiscun, so made it podiscun.
 c  mod 7 May 10 - Argh.  unsigned disk address logic fails because a negative
-c                 disk address was used to indicate the slot was empty.  
+c                 disk address was used to indicate the slot was empty.
 c                 Change ltable(2) to be a trace counter rather than disk addr.
 c  mod 3 Jun 10 - Add warning if FRP is far away from the firts rp read.
 c
@@ -134,7 +134,7 @@ C     WHEREAS A POSITIVE ADDRESS MEANS A TRACE IS ALREADY THERE!.
       ELSE
          IF( lstrp .LT. ltrace(6) - maxrps - 10 ) THEN
              PRINT *,' ****  WARNING  ****  FRP may be wrong.'
-             PRINT *,' FRP is many (',ltrace(6)-lstrp,') rps from first 
+             PRINT *,' FRP is many (',ltrace(6)-lstrp,') rps from first
      &rp of ',ltrace(6)
              PRINT *,' Process GEOM parameter   lprint 2  may help you.'
          ENDIF

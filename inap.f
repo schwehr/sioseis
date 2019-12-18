@@ -57,7 +57,7 @@ c     bigger than originally allocated (when the message about overwriting
 c     came out.
 c  mod 29 May 96 - Change the initial trace size allocation to be twice the
 c                  trace length rather than 1.5 * the trace length.
-c  mod 8 Nov 06 - Increase initial buffer size to nsamps*3 (see above), so 
+c  mod 8 Nov 06 - Increase initial buffer size to nsamps*3 (see above), so
 c                 FFT of reals has some breathing space.
 c   mod 19 Dec 06 - Large changes in nsamps still overwrites good stuff
 c  1 Apr 09 - Large changes in nsamps still byting me, so allocate 65536 reals
@@ -93,14 +93,14 @@ c      IF(NEXTAD.EQ.0) NEXTAD=NSAMPS/IDECIM*2                            !  SET 
       IF(IN.NE.0) RETURN                                                  ! THE DATA IS ALREADY IN THE AP
       IF( NSAMPS .GT. NEXTAD ) THEN
           PRINT 120
-          nextad = nsamps + nsamps 
+          nextad = nsamps + nsamps
       ENDIF
   120 FORMAT(' ***  WARNING  ***  THE DATA GOING INTO THE AP ARE',
      *      ' OVERWRITING PART OF THE RESERVED AP MEMORY.')
       IN=1                                                               ! SET THE AP ADDRESS TO LOCATION 1
       JIN=IN                                                            ! CONVERT TO 16 BIT INTEGER
       JSAMPS=NSAMPS                                                     ! CONVERT TO 16 BIT INTEGER
-      CALL APPUT(BUFIN,JIN,JSAMPS,IFMT) 
+      CALL APPUT(BUFIN,JIN,JSAMPS,IFMT)
       CALL APWD                                                          ! WAIT FOR THE DATA TRANSFER
       RETURN
 C****

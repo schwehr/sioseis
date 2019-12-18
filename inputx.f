@@ -79,14 +79,14 @@ c                  trace flag (undo it with process header).  It looks
 c                  like shot 0 uses the shot from 2 shots ago (like in
 c                  double buffering.  Change the shot number from 0 to
 c                  what it should have been.  I just saw 2 hours of data
-c                  with shot = 0, but the data looked okay, just off by 
+c                  with shot = 0, but the data looked okay, just off by
 c                  2 shots?
-c  mod 11 Feb 93 - LDGO Ewing clock does weird things with the day 
+c  mod 11 Feb 93 - LDGO Ewing clock does weird things with the day
 c                  occasionally, which screws up reading by GMT.
 c  mod 14 Oct 92 - subtract 1 from the number of traces per shot on LDGO
 c  mod 5 Oct 92 - add parameter set
-c  mod 6 May 92 - secs and stime caused crash on LDGO trace 0 (id=28) 
-c  mod 11 Feb 92 to allow fis/lis on rp sorted tapes and clean up 
+c  mod 6 May 92 - secs and stime caused crash on LDGO trace 0 (id=28)
+c  mod 11 Feb 92 to allow fis/lis on rp sorted tapes and clean up
 c           fis/lrp. frp/lrp, fno/lno presets and error messages.
 c  mod 22 July 91 by pch - Add jform = 5; meaning Western/USGS bastardized
 c                          SEGY format
@@ -114,7 +114,7 @@ c  mod 23 oct89 to toss out non-seismic data (ibuf(15) must=0,1,2,3,6)
      *               nfskip, jform, itxsi, itxdel, nfktrc, norigtr,
      *               nrskip, nfiles, rewindi
       INTEGER rewind, rewindi
-c  jform = 1; 
+c  jform = 1;
 c        = 2; SSC Phoenix I
 c        = 3; SSC Phoenix II
 c        = 4; LDGO/Digicon DSS-240
@@ -192,7 +192,7 @@ C****
           ENDIF
       ELSE
 c****     Check for the Western/USGS format on the first trace only.
-          IF( lbuf1(3) .LT. 0 .AND. lbuf1(4) .GT. 0 .AND. 
+          IF( lbuf1(3) .LT. 0 .AND. lbuf1(4) .GT. 0 .AND.
      &        lbuf1(7) .NE. 0 ) jform = 5
       ENDIF
       IF( ibuf1(15) .EQ. 100 ) ibuf1(15) = 1                            ! Change from GPR to seismic data
@@ -341,15 +341,15 @@ c****     Skip it if LDGO and more than a day away from the last
       ENDIF
 c**** toss out non seismic data.  ibuf(15) has the trace id code.
 c**** = 0, if not set, =1 for seismic data, =2 dead, 3= dummy, 6=sweep
-      IF( ibuf1(15) .NE. 0 .AND. ibuf1(15) .NE. 1 .AND. 
-     *    ibuf1(15) .NE. 2 .AND. 
+      IF( ibuf1(15) .NE. 0 .AND. ibuf1(15) .NE. 1 .AND.
+     *    ibuf1(15) .NE. 2 .AND.
 c                                ibuf1(15) .NE. 3 .AND.
      *    ibuf1(15) .NE. 6 ) GOTO 165
       IF(FIS.EQ.99999) GO TO 170                                        ! DOES THE USER CARE WHAT SHOT IT IS?
       IF(LCSHOT.EQ.LTSHOT) GO TO 170
       IF( allno .EQ. 1 ) THEN
           IF(fis .NE. 99999 .AND. ltshot.GT.lis.AND.lastsh.NE.-1)THEN
-c     &          GOTO 137  
+c     &          GOTO 137
              READ(IPARUN,END=150) IREELN,JLUN,LTYPE,FIS,LIS,SINC,
      &          FTR,LTR,TRINC,ISI,IDELAY,NTRGAT,TIME1,TIME2,ISRCF,
      &          lprint, forgat, iorder, stime, inputdev, set, lrenum,
@@ -364,7 +364,7 @@ c     &          GOTO 137
       IF( IDIR*iorder .LT. 0 ) THEN
           IF( inputdev .NE. ' ' ) THEN
               PRINT *,' ***  ERROR  ***  Can not go backwards on ',
-     &             inputdev 
+     &             inputdev
               STOP
           ENDIF
           CALL MAGTAP(ILUN,BUF1,0,25,ISTAT)                             ! BACK UP A TAPE RECORD (OVER A TRACE)
@@ -377,7 +377,7 @@ c     &          GOTO 137
       IF( alltr .EQ. 0 ) THEN                                           !  GET THE RIGHT TRACE!!
           IF( LTRCNO .NE. LTRACE ) GO TO 160
       ELSE
-          IF( ltrace .LT. ftr .OR. 
+          IF( ltrace .LT. ftr .OR.
      &        ( ltr .GT. 0 .AND. ltrace .GT. ltr ) ) GOTO 160
       ENDIF
       IF( LTSHOT .NE. LASTSH ) THEN
@@ -540,7 +540,7 @@ C****  ABLE TO READ OTHER PEOPLE'S GATHERS!!!!
       ENDIF
   220 READ(IPARUN,END=240) IREELN,JLUN,LTYPE,FIS,LIS,SINC,FTR,LTR,TRINC,
      *   ISI,IDELAY,NTRGAT,TIME1,TIME2,ISRCF,lprint, forgat, iorder,
-     &   stime, inputdev, set, lrenum, notype, noindex, itrtype, 
+     &   stime, inputdev, set, lrenum, notype, noindex, itrtype,
      &   itrindex, allno, alltr, rewind
       rewindi = rewind
       IDIR=1                                                            ! THE DIRECTION OF THE TAPE SEARCH (+1=FORWARD, -1=BACKWARD)
@@ -588,7 +588,7 @@ C****
           CALL magtap( ilun, buf2, 0, 40, istat )                   ! wait for the read if forgat was given
           IF( istat .EQ. -1 ) lbuf1(51) = -1                            ! set the end of gather flag if the next trace is an EOF
           IF( ltr .NE. 0 .AND. ltrcno-1 .EQ. ltr ) lbuf1(51) = -1         ! ltr given and this trace = ltr
-          IF( jform .NE. 2 .AND. jform .NE. 3 ) THEN                    ! SSC Phoenix I or SEGY format 
+          IF( jform .NE. 2 .AND. jform .NE. 3 ) THEN                    ! SSC Phoenix I or SEGY format
               silly = buf2(6)                                           ! SEGY
           ELSE
               silly = buf2(1)                                           ! SSC

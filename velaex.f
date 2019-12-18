@@ -36,12 +36,12 @@ c  mod 6 Nov. 95 - Truncate rather than round nvels on Matlab header.
 c  mod 22 Dec 97 - Change MIN0 to MIN
 c  mod 13 May 1998 - Subtract 1 from the number of semlances when
 c     doing the spline.  Also check for exceeding the spline arrays
-c  mod 11 Jan 99 - Change number of argument to nmoapp.  Some 
+c  mod 11 Jan 99 - Change number of argument to nmoapp.  Some
 c    undocumented change in nmoapp!
 c  mod 17 Aug 05 - Increase semscr from 2500 to 4000 so output segy
 c                  semblance file can be 4000 samples.
 c  mod 5 Mar 08 - Take care of endianness for Matlab
-c   mod 17 May 10 - Use mute times in mils (ibuf(56 & 57)) rather than 
+c   mod 17 May 10 - Use mute times in mils (ibuf(56 & 57)) rather than
 c                   real seconds (buf(47 & 48))
 c  mod 31 Aug 10 - do byte swap for segy opath
 c  mod 20 Oct 10 - finish the above
@@ -77,7 +77,7 @@ C***GMK SEMBLANCE ARRAY
       DIMENSION SEMSCR(10000)
       REAL      SEMSCR
 C***GMK SPLINE ARRAYS
-      REAL Xdata(MAXSPLINE), Ydata(MAXSPLINE), Y2ND(MAXSPLINE), YP1, YPN      
+      REAL Xdata(MAXSPLINE), Ydata(MAXSPLINE), Y2ND(MAXSPLINE), YP1, YPN
 C***GMK BOOLEAN USED TO CHECK WHETHER EBCDIC & TAPE ID HEADER WAS WRITTEN
       FIRSTSEGY = .TRUE.
 C****
@@ -136,7 +136,7 @@ C****
       TAPER=1./FLOAT(ITAPER)                                            /* THE INCREMENT BETWEEN TAPER VALUES
       INDX=0                                                             /* START THE TAPER FROM THE BEGINNING UNLES MUTE WAS GIVEN
 c      IF(BUF(48).NE.0.) INDX=(BUF(48)-BUF(46))/BUF(49)-1                /* (MUTE-DELAY)/SI
-      IF( ibuf(57) .NE.  0 ) 
+      IF( ibuf(57) .NE.  0 )
      &    indx = (FLOAT(ibuf(57))/1000. - buf(46)) / buf(49) -1
       IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 45                            /* IS THE AP ASSIGNED
       INDX=INDX+1
@@ -573,7 +573,7 @@ C***GMK TEST TO DETERMINE WHAT TYPE OF FILE< SEGY OR ASCII NEEDS TO BE WRITTEN
 C*** GMK WRITE OUT 3200 BYTES INTO EBCDIC HEADER
 C*** WE ARE USING THE LBUF/IBUF/BUF ARRAY TO FORMAT NEW SEMBLANCE TRACE HEADERS
 C*** SOME GARBAGE (HOPEFULLY USELESS) WILL BE CARRIED INO NEW HEADER, CAN DO
-C*** THIS SINCE PROCESS ENDS WITH VELAN AND DOESN'T NEED TO PRESERVE OLD HEADER 
+C*** THIS SINCE PROCESS ENDS WITH VELAN AND DOESN'T NEED TO PRESERVE OLD HEADER
 C*** VALUES.
                       CALL WRDISC(ivelu3, semscr, 800)
                       DO i = 1, 200
@@ -608,14 +608,14 @@ c                      lbuf(2) = n                                       ! numbe
                       lbuf(4) = 0                                       ! imaginary flag (=1->complex)
                       lbuf(5) = 4                                       ! number of characters in variable name
                       CALL wrdiscb( ivelu3, buf, 20 )
-                      ia(1)(1:3) = 'vel' 
+                      ia(1)(1:3) = 'vel'
                       ia(1)(4:4) = CHAR(0)
                       CALL wrdiscb( ivelu3, ia(1), 4 )
                   ENDIF
               ENDIF
           ENDIF
           IF( nsegyfile .EQ. 1 ) THEN
-              nsemrptr  = ITRACE 
+              nsemrptr  = ITRACE
               nsemvel   = int(vel)
               lbuf(3)   = 0
               lbuf(4)   = 0
@@ -625,7 +625,7 @@ c                      lbuf(2) = n                                       ! numbe
               ibuf(46)  = vel                                           ! put the velocity in the SEGY "weathering velocity"
               ibuf(55)  = ndelay
               ibuf(58)  = nsamps
-              ibuf(59)  = nsamprate             
+              ibuf(59)  = nsamprate
               IF( icompt .EQ. 2 .OR. icompt .EQ. 4) THEN
                   CALL swap32( buf, 10 )
                   CALL swap16( ibuf(46), 1 )
@@ -658,7 +658,7 @@ C***GMK Calculate current semblance value (curyval) for given time (curxval).
                 CALL SPLINT(Xdata,Ydata,Y2ND,NSEMSAMPS,curxval,curyval)
                 semscr(is) = curyval
                 IF( curyval .LT. 0 ) semscr(is) = 0.                     ! spline does weird stuff with the last sample
-871           CONTINUE            
+871           CONTINUE
               IF( itrace .EQ. 1 .AND. nsegyfile .EQ. 2 ) THEN
                   semscr(1) = numrp
                   semscr(2) = delay
@@ -667,13 +667,13 @@ C***GMK Calculate current semblance value (curyval) for given time (curxval).
                   semscr(5) = vels(2)
               ENDIF
               IF( nsegyfile .EQ. 1 ) THEN
-                  IF( icompt .EQ. 2 .OR. icompt .EQ. 4) 
+                  IF( icompt .EQ. 2 .OR. icompt .EQ. 4)
      &                CALL swap32( semscr, nsamps )
               ENDIF
               CALL WRDISC(ivelu3, semscr, nsamps)
           ENDIF
 c            IF( nsegyfile .EQ. 2 ) CALL wrdisc( ivelu3, scr, n )
-          ITRACE = ITRACE + 1                        
+          ITRACE = ITRACE + 1
       ENDIF
       DO 1170 II=1,N
           IF( scr(ii) .LT. 0. .OR. scr(ii) .GT. char1-1. ) THEN           /* there might be 0 windows adding

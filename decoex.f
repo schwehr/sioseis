@@ -38,7 +38,7 @@ c      5) Allow for application windows one sample long.
 c  mod    Aug 95 (mwh) Ensure that space for ramp is at least as long as
 c                number of samples between application windows.
 c  mod 13 Nov 90 to add zeroes to the input trace if the autocorrelation
-c         plus prediction length plus filter length is greater than the 
+c         plus prediction length plus filter length is greater than the
 c         trace length.
 c mod 28 nov 89 to fix the july mod, when there is only 1 list fno2 is ???
 c mod 28 nov to fix multiwindow - iapp(j+1) should be iapp(i+i+1)  etc.
@@ -135,7 +135,7 @@ c****
          nfpts(i) = NINT(rlist1( infptptr+i-1 ) / buf(49 ) )
          maxfil= MAX0(maxfil,nfpts(i))
   140 CONTINUE
-      maxfil = maxfil + predic                                          ! longest filter 
+      maxfil = maxfil + predic                                          ! longest filter
       DO 150 i = 1, maxs
          app(i) = rlist1( iappptr+i-1 )
          dsg(i) = rlist1( idsgptr+i-1 )
@@ -147,9 +147,9 @@ C****
   500 CONTINUE
       ratio = FLOAT(lnum-lno1) / FLOAT(fno2-lno1)
       DO 510 i = 1, maxs
-         app(i) = ratio * 
+         app(i) = ratio *
      $ (rlist2(iappptr+i-1)-rlist1(iappptr+i-1))+rlist1(iappptr+i-1)
-         dsg(i) = ratio * 
+         dsg(i) = ratio *
      $ (rlist2(idsgptr+i-1)-rlist1(idsgptr+i-1))+rlist1(idsgptr+i-1)
   510 CONTINUE
 C****
@@ -346,10 +346,10 @@ c****  npts = number of samples in the application window
 c****  nfpts = number of sample in the filter
 c      IF( ipred .EQ. 0 ) ipred = 1
 c      IF( ipred .LT. 1 ) THEN
-c          CALL dconvo( 2, a(idesgn), ndpts, a(idesgn), ndpts, a(iauto), 
+c          CALL dconvo( 2, a(idesgn), ndpts, a(idesgn), ndpts, a(iauto),
 c     &         nfpts(i)+ipred )
 c          a(iauto) = a(iauto) + a(iauto) * prewhi
-c          CALL wiener( nfpts(i), a(iauto), a(iauto+ipred), a(ifilt), 
+c          CALL wiener( nfpts(i), a(iauto), a(iauto+ipred), a(ifilt),
 c     &         a(ierrad), 1, ierr )
 c          DO ii = 0, nfpts(i)-1
 c             a(ifilt+ii) = a(ierrad+ii) ! predik says "for spiker, grab the p.e.f. directly"
@@ -357,7 +357,7 @@ c          ENDDO
 c	print *,' FILT=',(a(ifilt+ipred+j),j=0,6)
 c	print *,' npts=',npts,' nfpts(i)+ipred=',nfpts(i)+ipred,
 c     &          ' npts+nfpts(i)=',npts+nfpts(i)
-c          CALL convo( -1, a(itrace), npts, a(ifilt), nfpts(i)+ipred, 
+c          CALL convo( -1, a(itrace), npts, a(ifilt), nfpts(i)+ipred,
 c     &         a(iscratch), npts+nfpts(i) )
 c          IF( ndows .EQ. 1 ) THEN
 c              DO j = 0, npts-1
@@ -531,7 +531,7 @@ C****
  1490     A(M+II) = A(K+II) * A(J-II)
       ENDIF
  1500 CONTINUE
-c**** 
+c****
 c****  if not in the ap and multiwindow, the data is in a scratch area,
 c****  move it to the input area
 c****

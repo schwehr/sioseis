@@ -1,6 +1,6 @@
       SUBROUTINE died( ibuf, buf, lbuf, scr, iscr, lscr )
-c                                                       
-c   
+c
+c
 c  Copyright (C) by The Regents of The University of California, 1988
 c  Written by Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca.
 c  ALL RIGHTS RESERVED.
@@ -91,7 +91,7 @@ c
       PARAMETER ( npars = 44 )                                          ! the number of user parameters
       DIMENSION buf(1111), scr(1111)
       INTEGER*2 ibuf(1111), iscr(1111)
-      INTEGER lbuf(1111), lscr(1111)           
+      INTEGER lbuf(1111), lscr(1111)
       CHARACTER*80 cheadr(40)
       CHARACTER*200 token
       CHARACTER*6 names(npars)
@@ -106,7 +106,7 @@ c
       COMMON /diskin1/ spath, path
       CHARACTER*80 spath
       CHARACTER*200 path
-      COMMON /readt/ lun, numhdr, numdat, ihunit, ireeln, jntrcs, 
+      COMMON /readt/ lun, numhdr, numdat, ihunit, ireeln, jntrcs,
      *               jfmt, nskip, secs_died, lrenum, isrcf, idtype,
      *               nfskip, jform, itxsi, itxdel, nfktrc, norigtr,
      *               nrskip, nfiles, irewind, delay1, segyrev, si_died
@@ -169,7 +169,7 @@ c
       DATA types /'A',15*'L', 'F', 'L', 'F', 'L', 'F', 4*'L','F','A',
      *            'A', 'F','L','A','L','A','F','A',4*'A',5*'L'/
       DATA iread/0/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       path = ' '
@@ -226,8 +226,8 @@ c
       DO 10 i = 1, num
          IF( iorder(i) .EQ. 23 ) iread = 1
    10 CONTINUE
-      CALL getfil( 1, junit, token, istat )                             ! get a file for the DISK parameters 
-      CALL getfil( 1, ihunit, token, istat )                            ! get a file for the SEGY tape headers 
+      CALL getfil( 1, junit, token, istat )                             ! get a file for the DISK parameters
+      CALL getfil( 1, ihunit, token, istat )                            ! get a file for the SEGY tape headers
 c****
 c****     get the user's parameters -  there must be something, at least an "end"
 c****
@@ -281,21 +281,21 @@ c****
                  ENDIF
                  IF( names(nparam) .EQ. 'IPATH2' ) THEN
                      CALL getfil(4, lun2, token, istat )
-                     IF( istat .NE. 0 ) THEN 
+                     IF( istat .NE. 0 ) THEN
                          PRINT *,' ***  ERROR  *** Could not open file',
      &                      token
                          ierror = ierror + 1
                      ENDIF
-                     GOTO 100 
+                     GOTO 100
                  ENDIF
                  IF( names(nparam) .EQ. 'SPATH' ) THEN
                      spath = token
-                     GOTO 100 
+                     GOTO 100
                  ENDIF
 c****            Now UPCASE the variable
                  CALL upcase( token, nchars )
                  IF( names(nparam) .EQ. 'FORMAT' ) THEN
-                     IF( token(1:nchars) .NE. 'SSC' .AND. 
+                     IF( token(1:nchars) .NE. 'SSC' .AND.
      *                   token(1:nchars) .NE. 'IRIS' .AND.
      *                   token(1:nchars) .NE. 'SEGY' .AND.
      *                   token(1:nchars) .NE. 'SU' .AND.
@@ -703,7 +703,7 @@ c****     -1 means an unknown number of Extension records
               CALL rddisc( lun, ibuf, numhdr, istat )
 c*****     below looks wrong for format swapped (jform 5).  Don't swap format SWAPPED
 c              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 .OR.jform.EQ.5) THEN
-              IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND. 
+              IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND.
      *            jform .NE. 5 .AND. jform .NE. 7 ) THEN         !  DON'T SWAP odec OR swapped
                   CALL swap32( lbuf, 7 )
                   CALL swap16( ibuf(15), 4 )
@@ -768,13 +768,13 @@ c****
       ENDIF
 c****  plot wants the sample interval and number of samples
       si_died = REAL(ibuf(59))/1000000
-c**** 
+c****
 c****    Check the first trace for having rp = 0 and rp trace no <> 0
 c****
       IF( lbuf(6) .EQ. 0 .AND. lbuf(7) .NE. 0 .AND. irun .NE. 0 ) THEN
           PRINT *,' ***  WARNING  ***  RP is zero and RP trace number',
- 
-     &         ' is non-zero.' 
+
+     &         ' is non-zero.'
           PRINT *,' DISKIN thinks this file is sorted by RP.'
           PRINT *,' Use DISKIN parameters NO and TR or SORT to read',
      &         ' properly.'
@@ -782,7 +782,7 @@ c****
       ENDIF
       IF( lbuf(3) .EQ. 0 .AND. lbuf(4) .EQ. 0 .AND. lbuf(6) .EQ. 0 .AND.
      &    lbuf(7) .EQ. 0 .AND. renum .EQ. 0 .AND. retrac .EQ. 0 .AND.
-     &    jform .NE. 9 .AND. jform .NE. 13 .AND. jform .NE. 14 .AND. 
+     &    jform .NE. 9 .AND. jform .NE. 13 .AND. jform .NE. 14 .AND.
      &    irun .NE. 0 ) THEN
           PRINT *,' ***  WARNING  ***  The shot/rp number and trace ',
      &       'numbers are all zero!   Try parameters RENUM and RETRAC.'

@@ -61,7 +61,7 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      ISTOP=0                                                           ! SET THE STOP FLAG TO DON'T STOP 
+      ISTOP=0                                                           ! SET THE STOP FLAG TO DON'T STOP
       IF( FIRST ) THEN
           FIRST=.FALSE.
           CALL PODISC(MUNIT,1,0)                                        ! REWIND THE PARAMETER FILE
@@ -146,7 +146,7 @@ c****
       ELSEIF( nttvas .NE. 0 ) THEN
           CALL SSEIS(2,SI,RANGE,TVA,NTTVAS/4,BUF(NUMHDR+1),NSAMPS,DELAY)
       ENDIF
-c**** 
+c****
 c****   Create the trace headers here
 c****
   500 CONTINUE

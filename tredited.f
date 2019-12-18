@@ -1,7 +1,7 @@
       SUBROUTINE tredited( buf, lbuf, ibuf )
 c*******
 C*******      MAKE SURE TO USE THE RIGHT COMMON BLOCK NAME
-c*******      despike and tredit 
+c*******      despike and tredit
 c
 c                       PROCESS DESPIKE
 c                       ------- -------
@@ -69,7 +69,7 @@ c
       COMMON /edits/ ierror, iwarn, irun, now, icompt
 c*******
 C*******      MAKE SURE TO USE THE RIGHT COMMON BLOCK NAME
-c*******      despike and tredit 
+c*******      despike and tredit
       COMMON /tredit/ thres(2), lprint, fno, lno, ftr, ltr, type, fac,
      &       quart, kill, alpha, set(4), addwb, vel, ses(2), sel(2),
      &       lunmed, valmin, limits(2), ihdr, lhdr, hdr, winlen, hcycle,
@@ -83,7 +83,7 @@ c*******      despike and tredit
      &             'IHDR  ', 'LHDR  ', 'HDR   ', 'WINLEN', 'HCYCLE',
      &             'ENDMUTE','PASS  ', 'SOLRAT', 'MAXVAL', 'MINTYPE',
      &             'MAXTYPE', 'DEVPCT'/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0

@@ -1,4 +1,4 @@
-      SUBROUTINE dmoex(buf,lbuf,ibuf,scr,lscr,iscr)          
+      SUBROUTINE dmoex(buf,lbuf,ibuf,scr,lscr,iscr)
 c-------------------------------------------------------------------------------
 c       DMOEX is the execution phase of the sioseis process DMO. DMOEX is a single
 c  trace process that applies the phase shift to produce the DMO ellipse. Input data
@@ -33,7 +33,7 @@ c-------------------------------------------------------------------------------
 
 c*GMK THESE ARE THE INCLUDE FILE WHICH HAVE BEEN PASTED INTO THE EXECUTABLE CODE
 c*    MANY OF THESE VARIABLES ARE NOT USED FOR DMO BUT I WONT GO CRAZY AND CHOP
-c     OUT THE UNNECESSARY ONES - JUST INCASE I NEED THEM LATER! 
+c     OUT THE UNNECESSARY ONES - JUST INCASE I NEED THEM LATER!
 c INCLUDE FILES
 c.. Include file defining constants of use globally throughout SIOSEIS
 c
@@ -168,23 +168,23 @@ C
       integer   LocCoord
       logical   first
       save
-C                       
+C
       dimension params1(5), lparams1(5)
-      equivalence (params1(1),lparams1(1)) 
+      equivalence (params1(1),lparams1(1))
 
-      data first /.true./, hold /-1.0/, zerotol /0.00001/ 
+      data first /.true./, hold /-1.0/, zerotol /0.00001/
 
 c**************************************************************************************
 c                                  PROCESS DMOEX
 c**************************************************************************************
-C     
-c*GMK Hopefully resets wavenumk when new offset panel is processed  
+C
+c*GMK Hopefully resets wavenumk when new offset panel is processed
 
       if (first) then                                                   ! DMO Initialization
         first = .false.
 
 c*GMK Checks logstretch and reads appropriate disk file
-        CALL podisc( idmounit, 1, 0 ) 
+        CALL podisc( idmounit, 1, 0 )
         CALL rddisc( idmounit, params1, ndmowrds, istat )
           ifiltype  = lparams1(1)
           dx        = params1(2)
@@ -194,12 +194,12 @@ c*GMK Checks logstretch and reads appropriate disk file
 c       write(*,*) 'ifiltype;', ifiltype,'dx:', dx,'lprint:', lprint,
 c     &'rtdl:', rdtl, 'ndmowrds:', ndmowrds, 'idmounit:', idmounit,
 c     &'offset: ', roffset
-c                       
+c
 c*GMK Checks to see if coordinates are rect. polar or non-FK
         if (idtype.eq.IDFKRCT) then
            LocCoord = CDRECT
         else if ((idtype.eq.IDFKPLR).OR.(idtype.eq.IDFKPLRU)) then
-           LocCoord = CDPOLAR   
+           LocCoord = CDPOLAR
                print *, ' *** DMO Error *** ',
      *           ' PROCESS DMO dose not accept data
      *in  POLAR COORINATES.'
@@ -208,10 +208,10 @@ c*GMK Checks to see if coordinates are rect. polar or non-FK
                print *, ' *** DMO Error *** ',
      *           ' The input data is not in the FK domain.'
                STOP
-        endif    
-           
+        endif
+
 c..                       Read the time delay/sample interval from READT common
-c*GMK   Imtialize various f-k parametrs 
+c*GMK   Imtialize various f-k parametrs
         if (roffset .ne. 999999.0) then
            hosr = roffset/2.0
         else
@@ -230,9 +230,9 @@ c        nwrds  = ibuf(ISAMPPTR)                                         ! No. o
         nt     = nwrds / 2                                              ! No. of time samples
         realk  = 0.                                                     ! Wavenumber of the initial input trace
 
-        wnyqneg = (-2.0*pi) * ( 1.0/(2.0*dt) )  
+        wnyqneg = (-2.0*pi) * ( 1.0/(2.0*dt) )
         wavenumk = realk
-        numleft = nfktrc     
+        numleft = nfktrc
 
         if ( IAND(lprint,1).ne.0) then
           print *,'EXECUTE DMO'
@@ -244,33 +244,33 @@ c        nwrds  = ibuf(ISAMPPTR)                                         ! No. o
           print *,'in ap', in
         endif
 
-      endif                    
+      endif
 
 
-c*GMK What type of filter do you want ?                     
+c*GMK What type of filter do you want ?
        if (ifiltype .eq. 0 .or. ifiltype .eq. 999) then
           goto 30
        else
            print*, 'ifiltype: ', ifiltype, ' not supported yet'
           goto 40
-       endif     
-                       
+       endif
+
 
 c***********************                                ***********************
 *                     Loop over Wavenumer for each FK Trace
 c***********************                                ***********************
 c*GMK Start at k=0, and w = -nyquist to +nyquist-dw (padded to power of 2**n (even) whereas -nqy to nyq (odd)
 c*    thus +nyquist sample is omitted
-c                                      
+c
 30     continue
 
 C*GMK If half-offset equal to zero, skip phase shift...already at zero-offset
        if (hosr .eq. 0.0) then
           if (first) print*, 'Zero-offset data, no phase shift applied'
           goto 40
-       endif   
- 
-c*GMK  loop over complex trace samples  
+       endif
+
+c*GMK  loop over complex trace samples
           Do 20 j = 1, nwrds,  2
              wfreq = wnyqneg + float( (j+1)/2 - 1)*dw
 c*GMK  Break phase shift into real and imaginary parts (preal pimag)
@@ -278,20 +278,20 @@ c*GMK  Break phase shift into real and imaginary parts (preal pimag)
 c*     Stationary point ys --> 0 as ky --> 0 expand (1+e)**.5 for small e
              if (wavenumk .eq. 0.) then
                ys = 0.
-             else 
+             else
                if (abs(wfreq).lt.zerotol) then
                   ys = -1.0*hosr
                else
                  subys = wfreq/(2.0*wavenumk)
-                 ys =  subys * (1.0  - (1.0 + (hosr**2/subys**2) )**0.5) 
+                 ys =  subys * (1.0  - (1.0 + (hosr**2/subys**2) )**0.5)
                endif
              endif
-             betas = ys/hosr                   
+             betas = ys/hosr
 
 c*GMK  If wfreq is equal to zero, don't take log (0), expand later
              if ( abs(wfreq).gt.zerotol) then
-                 deltas = 0.5*log(1.0-betas**2) 
-             endif          
+                 deltas = 0.5*log(1.0-betas**2)
+             endif
 
              denom = (1.0+betas**2)**0.5
 
@@ -299,42 +299,42 @@ c*GMK  If wfreq is equal to zero, the phase term goes to zero, although it asymp
 c      to +/- wavenumk*ys in the positive or negative limit (THANKS AJH)
 
              if (abs(wfreq).gt.zerotol) then
-                aphase = wfreq*deltas-wavenumk*ys 
+                aphase = wfreq*deltas-wavenumk*ys
              else
-                aphase = 0.0                  
-             endif                                          
+                aphase = 0.0
+             endif
 
 c*GMK Take the real and imaginary parts of the phase term (complex conjugate
-c* due to fk sign convention e(-iwt) --> forward e(+iwt) --> inverse in sioseis    
+c* due to fk sign convention e(-iwt) --> forward e(+iwt) --> inverse in sioseis
              preal = cos(aphase)/denom
              pimag = -1.0*sin(aphase)/denom
 
-c*GMK     Is data in AP 
+c*GMK     Is data in AP
 c*        Either way, multiply the complex phase term * complex trace and not screw
 c*        up like I did (GMK)
-          if (in.eq.0) then 
-            tempbj = buf(j+numhdr)*preal -  pimag*buf(j+numhdr+1)   
-            tempbj1 = buf(j+1+numhdr)*preal + buf(j+numhdr)*pimag 
+          if (in.eq.0) then
+            tempbj = buf(j+numhdr)*preal -  pimag*buf(j+numhdr+1)
+            tempbj1 = buf(j+1+numhdr)*preal + buf(j+numhdr)*pimag
             buf(j+numhdr) = tempbj
             buf(j+numhdr+1) = tempbj1
-          else            
-            tempaj  = a(j)*preal-pimag*a(j+1)   
-            tempaj1 = a(j+1)*preal+a(j)*pimag          
+          else
+            tempaj  = a(j)*preal-pimag*a(j+1)
+            tempaj1 = a(j+1)*preal+a(j)*pimag
             a(j) = tempaj
             a(j+1) = tempaj1
-          endif 
-20        continue           
-      
+          endif
+20        continue
+
 c*GMK     SAVE saves wavenumk and it is advanced to next wavenumber trace if it exists
           wavenumk  = wavenumk + dk
-40    continue 
+40    continue
 
-c*GMK Count number of traces for a given offset panel until done        
+c*GMK Count number of traces for a given offset panel until done
 c*    Reset first to .true. which allows new offset to be read correctly
       numleft = numleft - 1
-      if (numleft.eq.0) then 
+      if (numleft.eq.0) then
          first = .true.
       endif
 
       return
-      end 
+      end

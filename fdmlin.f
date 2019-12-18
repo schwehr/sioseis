@@ -243,7 +243,7 @@ c         slclen = lslice                                               ! Used b
             taun = nsamp+1
           else
 c            taun = taustp(tau+1)/sr + 1
-            taun = nint(taustp(tau+1)/(1000.*dt)) 
+            taun = nint(taustp(tau+1)/(1000.*dt))
           end if
           esamp = taup + 1
           jend = nsamp + 1                                              ! force

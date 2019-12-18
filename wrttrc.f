@@ -87,7 +87,7 @@ c      pch
 c   13 Aug 90 - move the call magtap backspace from a labeled statement
 c       to an unlabeled statement to get around some bizarre sun 4.x bug
 c   28 Aug 91 - Add device and magtapf77 calls - Positioning after can't be done
-c       on device because the Fortran mag tape device driver doesn't do backspacing. 
+c       on device because the Fortran mag tape device driver doesn't do backspacing.
 C   11 MAR 92 - Redo positioning, especially for Apollo device case
 c  12 May 92 by pch - Change icompt = 2 from DEC BSD to DecStation Ultrix
 c  10 Nov 95 - Change posaft -1 to use skip file rather than skip
@@ -147,7 +147,7 @@ C
 c****   don't set newfile=0 because diskox may also need it
 c          newfile = 0
           IF( ounit .GE. 0 ) THEN
-              CALL magtap( ounit, scr, 0, 32, istat )  
+              CALL magtap( ounit, scr, 0, 32, istat )
               CALL magtap( ounit, istatus, 0, 33, istat )
               IF( outdevice .NE. ' ' ) THEN
                   PRINT *,' Wrote file mark number ',istatus(5),' on',
@@ -165,7 +165,7 @@ c          newfile = 0
           ENDIF
           CALL PODISC( IUNHDR, 1, 0 )
           CALL rddisc( iunhdr, lscr, 800, istat )
-          IF( ounit .GE. 0 ) CALL MAGTAP(ounit,SCR,1600,31,ISTAT)    
+          IF( ounit .GE. 0 ) CALL MAGTAP(ounit,SCR,1600,31,ISTAT)
           IF( ounit2 .GE. 0 ) CALL magtap(ounit2, scr,1600, 31, istat )
           CALL RDDISC(IUNHDR,SCR,100,ISTAT)                             ! READ THE BINARY HEADER FROM DISK
           ISCR(7)=NTRCS
@@ -288,7 +288,7 @@ c****
       IF( posaft .GT. 0 ) THEN
           ndone = 0
           IF( lfor .LT. 0 ) lfor = posaft
-          ltrcno1 = lscr(1) 
+          ltrcno1 = lscr(1)
           ltrcno2 = lscr(2)
 c***      backup 2 records just in case the last job finished here
           IF( ounit .GE. 0 ) CALL magtap( ounit, scr, idum, 25, istat)
@@ -327,7 +327,7 @@ C****
       IF( ounit2 .GE. 0 ) CALL MAGTAP(ounit2,lSCR,1600,31,ISTAT)
       CALL RDDISC(IUNHDR,SCR,100,ISTAT)                                 ! READ THE BINARY HEADER FROM DISK
       ISCR(7)=NTRCS
-      ISCR(8)=0 
+      ISCR(8)=0
       IF( iscr(9) .EQ. 0 ) iscr(9) = ibuf(59)
       IF( iscr(11) .EQ. 0 ) iscr(11) = nsamps
       ISCR(13)=OFMT
@@ -343,7 +343,7 @@ C****
       IF( nextra .GT. 0 ) THEN
           DO i = 1, nextra
              CALL rddiscb( iunhdr, lscr, 3200, istat )
-             IF( ounit .GE. 0 ) 
+             IF( ounit .GE. 0 )
      &           CALL magtap( ounit, scr, 1600, 31, istat )
              IF( ounit2 .GE. 0 )
      &            CALL magtap( ounit2, scr, 1600, 31, istat )
@@ -385,7 +385,7 @@ c****     Save the whole SEGD general header
           ENDIF
 c****     Assume 4 byte samples.  nwords is the number of 16 bit words!
           nwords = (nsamps + numhdr) * 2
-          IF( ounit .GE. 0 ) CALL magtap( ounit,iscr,nwords,31,istat ) 
+          IF( ounit .GE. 0 ) CALL magtap( ounit,iscr,nwords,31,istat )
           IF( ounit2 .GE. 0 ) CALL magtap( ounit2,iscr,nwords,31,istat)
           IF( luntr0a .NE. 0 )                                          ! write trace 0 to an external file
      &         CALL wrdiscb( luntr0a, lscr(numhdr+1), 3940, istat )
@@ -435,7 +435,7 @@ C****
                   ENDIF
                   IF( icompt.EQ.3.OR. icompt .EQ. 6 .OR. icompt .EQ. 7 )
      *                CALL ie2ibm( a, nsamps, a )
-                  IF( icompt .EQ. 4 ) THEN                              ! Vax 
+                  IF( icompt .EQ. 4 ) THEN                              ! Vax
                       CALL dr2ibm( a, nsamps, a )
                       CALL swap32( a, nsamps )
                   ENDIF
@@ -520,10 +520,10 @@ c 4) tpchng calls reltap
 c 5) reltap writes an eof and another if rewindo =0.
 c 6) reltap rewinds, then does a chmod 400, closes the unit, chmod 600.
 c         (the chmod "should" prevent close from writing a file mark)
-c 7) wrttrc then rewinds and writes the SEG-Y headers 
-c   
+c 7) wrttrc then rewinds and writes the SEG-Y headers
+c
 C****
-  202 CALL GETFIL(1,SUNIT,token,ISTAT) 
+  202 CALL GETFIL(1,SUNIT,token,ISTAT)
       PRINT *,' ***  WARNING  ***  Preparing for an OUTPUT tape change.'
 c****  The rules seem to have changed.  It used to be that the trace
 c**** was on the tape - you could write OVER the EOT mark.  Now you
@@ -532,11 +532,11 @@ c**** can't.  The last trace is NOT on tape.
       IF( ntrcs .EQ. 1 ) n = n + 2                                      ! make sure the EOFs fit before the EOT
       DO I = 1,N
          IF( ounit .GE. 0 ) CALL MAGTAP(ounit,SCR,IDUM,25,ISTAT)        ! SKIP RECORD BACKWARDS
-         IF( ounit2 .GE. 0 ) CALL MAGTAP(ounit2,SCR,IDUM,25,ISTAT) 
+         IF( ounit2 .GE. 0 ) CALL MAGTAP(ounit2,SCR,IDUM,25,ISTAT)
       ENDDO
 c****  Assume ounit exists - get the old traces from ounit
       DO I = 1, N
-         CALL MAGTAP(ounit,SCR,NWRDS,21,ISTAT)  
+         CALL MAGTAP(ounit,SCR,NWRDS,21,ISTAT)
          CALL WRDISC(SUNIT,SCR,ISTAT/2)
       ENDDO
       DO I=1,N                                                          ! BACK UP OVER THE PARTIAL SHOT AGAIN
@@ -563,9 +563,9 @@ C****  WRITE THE TAPE HEADERS
       IF( ounit2 .GE. 0 ) CALL MAGTAP(ounit2,SCR,1600,31,ISTAT)         ! WRITE IT TO TAPE
 C**** DO THE BINARY HEADER
       CALL RDDISC(IUNHDR,SCR,100,ISTAT)
-      ISCR(7)=NTRCS 
-      ISCR(8)=0    
-      ISCR(13)=OFMT  
+      ISCR(7)=NTRCS
+      ISCR(8)=0
+      ISCR(13)=OFMT
       ISCR(15)=ITTYPE                                                   ! THE TAPE SORT CODE
       nextra = iscr(153)
       IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) CALL swap16(iscr,200)
@@ -612,12 +612,12 @@ c****  NIX that.  The EOF writing really slows some drives down.  Also, the f77
 c****   tape I/O doesn't allow backspacing, so it won't work!!!!!!
   308 IF(NTRCS.LE.1) GO TO 340                                          ! DON'T PRINT IF EACH TRACE IS A SHOT
 c      CALL MAGTAP(ounit,SCR,IDUM,32,ISTAT)                             !  WRITE AN EOF
-c      IF(ISTAT.NE.-2) GO TO 310  
+c      IF(ISTAT.NE.-2) GO TO 310
 c  309 CALL MAGTAP(ounit,SCR,IDUM,25,ISTAT)                             !  BACK OVER THE EOF
 c      NDONE=NDONE-1
 c      GO TO 202
 c  310 CALL MAGTAP(ounit,SCR,IDUM,32,ISTAT)                             !  WRITE AN EOF
-c      IF(ISTAT.NE.-2) GO TO 320 
+c      IF(ISTAT.NE.-2) GO TO 320
 c      CALL MAGTAP(ounit,SCR,IDUM,25,ISTAT)                             !  SKIP RECORD BACKWARDS
 c      GO TO 309
 c  320 CALL MAGTAP(ounit,SCR,IDUM,25,ISTAT)                             !  SKIP BACK

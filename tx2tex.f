@@ -6,7 +6,7 @@ c            HOP is the application of the paper "A new
 c            method for slant stacking refraction data" by Henry,
 c            Orcutt, and Parker (GRL, Dec 1980).  The problem of
 c            slant-stacking seismic records at a number of ranges to
-c            synthesize a tau-p curve is posed as a linear inverse 
+c            synthesize a tau-p curve is posed as a linear inverse
 c            problem for fixed frequency.  Using an inner product
 c            weighted by (k^2 + b^2)*k (where k is wavenumber and b
 c            some real positive number), then the representers are
@@ -20,7 +20,7 @@ c            these predictions to the original data.
 c                        M.E. KAPPUS 10/86
 c                        latest revision 7/88
 c
-c 
+c
 c            The program is dimensioned for a max of 200 input
 c            seismograms (set in parameter statement mdist in routines
 c            HOP,BESFL,GBINV,GGINV,MODEL,SPACE.
@@ -30,14 +30,14 @@ c            coefficients + (3*nx) for Gram matrix + 1026 for model
 c            + 513 for spectrum.  Allows 200 seismograms at 1024 points
 c            each producing 200 tau-p grams of the same length.
 c            Parameter ndist limits number of tau-p grams to 300.
-c                                               
-c                                               
+c
+c
 c                             VARIABLES
 c
-c            tmin,tmax - start and end times to read in from input 
+c            tmin,tmax - start and end times to read in from input
 c                    traces
 c            digit - digitization rate (# samples/sec) of input file -
-c            tdpt - time delay per trace - difference in data start 
+c            tdpt - time delay per trace - difference in data start
 c                   times for adjacent traces in input data.  If input
 c                   data all have same data start time tdpt = 0.
 c                   The delay represents a constant reduction velocity,
@@ -49,7 +49,7 @@ c            b - scaling factor for representers
 c            fc - cutoff frequency for calculating models
 c            pcnti - % taper applied to input data before FFT
 c            pcnto - % taper applied to models before inverse FFT
-c            irev -  input t-x traces (1=are, 0=are not) in reverse 
+c            irev -  input t-x traces (1=are, 0=are not) in reverse
 c                    order (decreasing slowness)
 c
 c            CALCULATED -
@@ -72,11 +72,11 @@ c          **calls subroutines SPACE,PREFORM,
 c          **FFT2,REALTR,GGINV,BALPH,MODEL
 c
 c            NOTE 1.  times actually start at selected tmin (or taumin)
-c                     + 1/digit - ie length of time does not include 
+c                     + 1/digit - ie length of time does not include
 c                     start time and does include end time
-c            NOTE 2.  values of range (or slowness) may be + or - , but 
+c            NOTE 2.  values of range (or slowness) may be + or - , but
 c                     must all be of the same sign, and must be of
-c                     increasing(irev=0) or decreasing(irev=1) order    
+c                     increasing(irev=0) or decreasing(irev=1) order
 c              The SEGY trace header pointers:
 c
 c  mod 17 sep 94 - make percents percents by dividing by 100.
@@ -87,7 +87,7 @@ c              memory (COMMON /apmem/ s(1)).
 c  mod 7 Oct 94 - change mdist = 200 to mdist = 300 to allow 300 input
 c              traces. Should allow 300 output traces as well. Bumped
 c              up nmax to reflect larger input size from 262144 to 393216
-c              Updated tx2ted.f to reflect larger sizes, ***GMK     
+c              Updated tx2ted.f to reflect larger sizes, ***GMK
 c  mod 26 Dec 96 - Allow prestack
 c  mod 11 May 07 - Do np preset (to intrcs when np = 0)
 c                - make the headers file a segy file.
@@ -106,13 +106,13 @@ c             set the TX2TP COMMON blocks
 c
       parameter (mdist = 300, ndist = 300, nmax = 262144)
       COMMON/bxs/b,ifx,ilx,nx,x(mdist)
-      COMMON/ts/tmin,tmax,nt,tdpt 
-      COMMON/ps/pmin,pmax,np,dp,p(ndist) 
+      COMMON/ts/tmin,tmax,nt,tdpt
+      COMMON/ps/pmin,pmax,np,dp,p(ndist)
       COMMON/digs/digit,fc,lub2,mm,df,kf,dw,ishift,limo
       COMMON/arbs/icomp,irev,ispec,imft
       COMMON/points/ipntr(mdist),igpnt,iapnt,imod(2*mdist)
       COMMON/transp/ss(nmax)
-      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), bb, ffc, ppcnti, 
+      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), bb, ffc, ppcnti,
      *               ppcnto, iirev, fon, dummy, iimft, set(2), lprint,
      *               lunhdr, txprestk, ntx2tp
       INTEGER txprestk
@@ -165,8 +165,8 @@ c
       IF( tmin .LT. 0. ) tmin = delay
       IF( ntx2tp .EQ. 0 ) THEN
           itrno = 0
-          tmin = set(1) 
-          IF( tmin .LT. 0. ) tmin = delay                               ! if user didn't give stime, use the delay of the first trace 
+          tmin = set(1)
+          IF( tmin .LT. 0. ) tmin = delay                               ! if user didn't give stime, use the delay of the first trace
           tmax = set(2)
           IF( tmax .LT. 0. ) tmax = delay + FLOAT(nsamps-1) * si
           digit = 1. / si                                               ! the sample rate = 1./(sample interval)
@@ -247,13 +247,13 @@ c****
 c
 c     in loop through all traces read the data, taper and
 c     pad (PREFORM), Fourier transform (FFT2), and unscramble
-c     the real and imaginary parts (REALTR), account for phase 
+c     the real and imaginary parts (REALTR), account for phase
 c     shift if there is varying data start time (FAZE)
 c     note:  nt data points are read in and padded
-c     out to a power of 2 in PREFORM, but next trace is 
+c     out to a power of 2 in PREFORM, but next trace is
 c     written over starting at 2*(kf+1) +1, which is how the
 c     pointers were set up in SPACE
-c        
+c
       IF( tmin .GT. delay ) THEN
           istart = (delay - tmin) / si
       ELSE
@@ -313,7 +313,7 @@ c
           STOP
       ENDIF
 c
-c            test for size of arguments of Bessel function to 
+c            test for size of arguments of Bessel function to
 c            determine which subroutine to use or if arguments are
 c            too large to do at all
 c
@@ -332,15 +332,15 @@ c
           ibr = 1
           CALL GBINV(s(igpnt))
           IF( IAND(lprint,2) .NE. 0) PRINT *,' CALL GBINV( ',igpnt
-      ELSE 
+      ELSE
           PRINT *,' ******  TX2TP error   ******'
-          PRINT '(a,/,a,/,a)','incompatible range of Bessel fx arguments 
+          PRINT '(a,/,a,/,a)','incompatible range of Bessel fx arguments
      &        b*x','if b*xmax>80, b*xmin must be >3.75 and b*(2*dx)',
-     &        ' must be<80 - adjust ranges of x or b to conform'     
+     &        ' must be<80 - adjust ranges of x or b to conform'
           stop
       ENDIF
 c
-c            compute the alpha vector of coefficients, putting the 
+c            compute the alpha vector of coefficients, putting the
 c            result in s, starting at pointer iapnt
 c
       IF( IAND(lprint,2) .NE. 0 ) PRINT *,' CALL BALPH(nx,kf',nx,kf,
@@ -359,18 +359,18 @@ c****
 c****   return a trace, which is really a tau-p gram
 c****
 c
-c             For each output p, build the model for each 
+c             For each output p, build the model for each
 c             frequency, putting these (for fixed p) in s vector
 c             starting at pointer imod (MODEL),
 c             taper and pad the models (PREFORM),
-c             unscramble the real and imaginary parts (REALTR), 
+c             unscramble the real and imaginary parts (REALTR),
 c             inverse Fourier transform (FFT2).
 c
       itrno = itrno + 1                                                 ! increment the trace number
       CALL MODEL(itrno,s(iapnt),s(imod(1)))
       IF( IAND(lprint,2) .NE. 0) PRINT *,' CALL MODEL( ',
      &    itrno,iapnt,imod(1)
-      CALL PREFORM(s(imod(1)),limo,2*(kf+1),lub2)  
+      CALL PREFORM(s(imod(1)),limo,2*(kf+1),lub2)
       IF( IAND(lprint,2) .NE. 0) PRINT *,' CALL PERFORM( ',
      &    imod(1), limo,2*(kf+1),lub2
       CALL REALTR(s(imod(1)),s(imod(1)+1),lub2,-2)
@@ -409,7 +409,7 @@ c****  4 mil, from 9 - 13 secs; after forward and inverse fft, the data
 c****  goes from 9 to 13.096 (9+1024*.004). Because of "wraparound", the
 c****  same data is for times 0.808 to 4.900, 4.904 to 8.996, 9.000 to 13.092
 c****  13.096 to 17.192.
-c****  variable ishift was calculated earlier - 
+c****  variable ishift was calculated earlier -
 c****          ishift = MOD(NINT((taumin-tmin)*(dig+eps)),2*lub2)
 c****
       index = numhdr
@@ -447,11 +447,11 @@ c****
 c*********************************************************************
       subroutine balph(nx,kf,ss,gi,a)
 c*********************************************************************
-c            builds the complex matrix of coefficients, alpha,stored 
+c            builds the complex matrix of coefficients, alpha,stored
 c            in array s starting at iapnt.  here it is stored in 3-d
 c            rep - 2(real+complex) by nx by kf+1 (number of freqs)
 c            called a for alpha.  alpha = sum over x of gram matrix
-c            element times fourier-transformed data 
+c            element times fourier-transformed data
 c
 c          **CALLS NO OTHER SUBROUTINES**
 c
@@ -488,14 +488,14 @@ c*********************************************************************
       subroutine besfl(ymin,ymax,ydif)
 c*********************************************************************
 c            This subroutine tests for arguments (b*x) of the Bessel
-c            functions which will be too large for the inverse Gram 
+c            functions which will be too large for the inverse Gram
 c            matrix subroutines to handle. Actually the difference
-c            between two of these is required, and the failure 
+c            between two of these is required, and the failure
 c            conditions depend on this.  Subroutine GGINV can handle
 c            computations when both arguments are <80.  Subroutine
 c            GBINV can handle the computations if one argument is >80
 c            as long as the other is >3.75, and the difference between
-c            the two is <80.  This subroutine determines which 
+c            the two is <80.  This subroutine determines which
 c            Gram matrix subroutine to call.
 c
 c         ** CALLS NO OTHER SUBROUTINES**
@@ -506,12 +506,12 @@ c
       ymax = b * x(nx)
       ydif = b * 2.0 * (x(nx) - x(1))/float(nx-1)
       return
-      end      
+      end
 c**********************************************************************
       subroutine faze(n,ss)
 c**********************************************************************
 c            This subroutine corrects for a phase shift if the input
-c            data does not have a constant start time - tdpt is the 
+c            data does not have a constant start time - tdpt is the
 c            delay in start time between adjacent traces
 c
 c          **CALLS NO OTHER SUBROUTINES**
@@ -534,7 +534,7 @@ c OSU End
       return
       end
 c**********************************************************************
-      subroutine gbinv(gi)                                        
+      subroutine gbinv(gi)
 c**********************************************************************
 c            for the case of large arguments b*x
 c            computes the inverse of the gram matrix gi directly.
@@ -564,7 +564,7 @@ c
      &     -t*(.02057706-t*(.02635537-t*(.01647633-t*.00392377)))))))
       s = 2.0/(b*x(nx-2+i))
       c(i) = 1.25331414-s*(.07832358-s*(.02189568-s*(.01062446-
-     &       s*(.00587872-s*(.00251540-s*.00053208))))) 
+     &       s*(.00587872-s*(.00251540-s*.00053208)))))
   510 continue
 c
 c            compute ratios of 1st two bessel fxs of first kind and
@@ -594,7 +594,7 @@ c
       return
       end
 c**********************************************************************
-      subroutine gginv(gi)                                        
+      subroutine gginv(gi)
 c**********************************************************************
 c            computes the inverse of the gram matrix gi directly.
 c            as this is tridiagonal, it is stored as a 3*nx - 2 vector
@@ -639,7 +639,7 @@ c
       return
       end
 c*****************************************************************
-      subroutine model(i,a,wmod)                     
+      subroutine model(i,a,wmod)
 c*****************************************************************
 c            forms the representer = Jo(kx)/(k**2 + b**2) and the
 c            model = sum of representer times coefficient (alpha)
@@ -648,14 +648,14 @@ c            of models, one for each freq.
 c            the fourier transform of the models gives tau-p.
 c
 c          **CALLS FUNCTION AJO**
-c                      
-      parameter (mdist = 300, ndist = 300)    
+c
+      parameter (mdist = 300, ndist = 300)
       COMMON/bxs/b,ifx,ilx,nx,x(mdist)
       COMMON/ps/pmin,pmax,np,dp,p(ndist)
       COMMON/digs/digit,fc,lub2,mm,df,kf,dw,ishift,limo
       dimension wmod(2,lub2+1),a(2,nx,kf+1)
-c             
-      do 860 j = 1,kf+1      
+c
+      do 860 j = 1,kf+1
       wmod(1,j) = 0.0
       wmod(2,j) = 0.0
       w = float(j-1) * dw
@@ -665,11 +665,11 @@ c            form the nth representer, rep.  multiply by alpha and sum
 c            to form the model (for fixed freq), wmod.
 c
           do 820 n = 1,nx
-          bf = AJO(x(n)*w*p(i))      
+          bf = AJO(x(n)*w*p(i))
           rep = bf/wp2b2
           wmod(1,j) = wmod(1,j) + a(1,n,j)*rep
           wmod(2,j) = wmod(2,j) + a(2,n,j)*rep
-  820     continue                        
+  820     continue
   860 continue
       return
       end
@@ -680,8 +680,8 @@ c
 c           tapers and pads data before Fourier transform
 c
 c         **CALLS NO OTHER SUBROUTINES**
-c          
-      dimension ss(2*(lub2+1))                         
+c
+      dimension ss(2*(lub2+1))
       data pi/3.14159265/
 c
 c           taper with cos**2 taper, amount specified by user
@@ -707,7 +707,7 @@ c******************************************************************
       subroutine space(nx,np,lens)
 c******************************************************************
 c           computes the values of the pointers for array s in COMMON
-c           data.  IPNTR locates the beginning of each data trace - 
+c           data.  IPNTR locates the beginning of each data trace -
 c           one for each p.  only 2*(kf+1) points are allowed for each
 c           trace - accounting for the real and imaginary part of the
 c           Fourier-transformed data up to some cutoff point kf assoc-
@@ -722,7 +722,7 @@ c
 c      **CALLS NO OTHER SUBROUTINES**
 c
 c            set COMMONs and variable types
-c                                                       
+c
       parameter (mdist = 300)
       COMMON/digs/digit,fc,lub2,mm,df,kf,dw,ishift,limo
       COMMON/points/ipntr(mdist),igpnt,iapnt,imod(2*mdist)
@@ -739,7 +739,7 @@ c
       return
       end
 c******************************************************************
-      FUNCTION AJO(X)                                              
+      FUNCTION AJO(X)
 c*********************************************************************
 c$$$$ CALLS NO OTHER ROUTINES
 C  BESSEL FUNCTION OF THE 1ST KIND, 0TH ORDER, REAL ARGUMENT.
@@ -759,7 +759,7 @@ C  POLYNOMIAL APPROXIMATIONS FROM ABRAMOWITZ+STEGUN PP369-370.
       RETURN
       END                                                               AJO
 c*****************************************************************
-      FUNCTION AIO(X)                                             
+      FUNCTION AIO(X)
 c*****************************************************************
 C$$$$$ CALLS NO OTHER ROUTINES
 C  MODIFIED BESSEL FUNCTION OF THE 1ST KIND, 0TH ORDER, REAL ARGUMENT
@@ -776,9 +776,9 @@ C  POLYNOMIAL APPROXIMATIONS FROM ABRAMOWITZ+STEGUN, P378.
       AIO=A*EXP(Y)/SQRT(Y)
       RETURN
       END                                                               AIO
-c                                                                 
+c
 c*****************************************************************
-      FUNCTION AKO(X)                                             
+      FUNCTION AKO(X)
 c*****************************************************************
 C$$$$ CALLS NO OTHER ROUTINES
 C COMPUTES MODIFIED BESSESL FUNCTIONS OF THE 2ND KIND (K), REAL ARGUMENT
@@ -802,7 +802,7 @@ c*******************************************************************
       FUNCTION ABO(x,y)
 c*******************************************************************
 C        ***CALLS NO OTHER ROUTINES***
-C        COMPUTES PRODUCT OF MODIFIED BESSEL FUNCTION OF 1ST KIND (AIO) 
+C        COMPUTES PRODUCT OF MODIFIED BESSEL FUNCTION OF 1ST KIND (AIO)
 C        ARGUMENT Y WITH MODIFIED BESSEL FUNCTION OF 2ND KIND (AKO)
 C        ARGUMENT X WHEN BOTH ARGUMENTS ARE GREATER THAN 3.75
 C        IS JUST COMBINATION OF AIO AND AKO ABOVE
@@ -810,7 +810,7 @@ C
 C        preliminary part of AKO(x)
       s = 2.0/x
       c = 1.25331414-s*(.07832358-s*(.02189568-s*(.01062446-
-     +  s*(.00587872-s*(.00251540-s*.00053208))))) 
+     +  s*(.00587872-s*(.00251540-s*.00053208)))))
 C        preliminary part of AIO(y)
       t = 3.75/y
       d = .39894228+t*(.01328592+t*(.00225319-t*(.00157565-t*(.00916281

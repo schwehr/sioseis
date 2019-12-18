@@ -149,7 +149,7 @@ c      INTEGER*8 lltemp
           STOP
       ENDIF
 
-      
+
       IF( thisop(1:2) .EQ. 'PO' ) THEN
           CALL podiscb( lun, 1, nbytes )
           GOTO 100
@@ -256,7 +256,7 @@ c      INTEGER*8 lltemp
           CALL icomplement( ibuf, n, ibuf )
           GOTO 100
       ENDIF
-          
+
       IF( thisop(1:2) .EQ. 'AD' ) THEN
           CALL adrdisc( lun, itemp )
           PRINT *,' The current disk address is: ',itemp

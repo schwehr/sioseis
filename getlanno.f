@@ -1,4 +1,4 @@
-      SUBROUTINE getlanno( anntyp, hdr, lhdr, ihdr, 
+      SUBROUTINE getlanno( anntyp, hdr, lhdr, ihdr,
      &    buf, lbuf, ibuf, fanno, lanno )
 c     Return the 8 character annotation (lanno), given annytp and the
 c  SEGY header or the user's fanno.
@@ -12,13 +12,13 @@ c            associated with the trace.
 c       = 5, The annotation is the gmt time. Traces are annotated at even
 c            intervals of ANNINC minutes.  FTAG and TAGINC are ignored.
 c       = 6, The annotation is the shot-receiver distance (header word
-c            10).  When used in conjunction with hscale, the annotated 
+c            10).  When used in conjunction with hscale, the annotated
 c            range is adjusted for roundoff.  i.e.  The annotated range
 c            is exact for placing on the plot and is not the exact range
 c            for the trace.
 c       = 7, The annotation is the trace number of the shot/rp.
 c       = 8, The annotation is the energy source point number (header(5))
-c       = 9, The first four characters are the GMT and the second four 
+c       = 9, The first four characters are the GMT and the second four
 c            characters are the rp number.
 c       = 10, No annotation is done.
 c         IF( token(1:6) .EQ. 'HEADER' ) anntyp = 11
@@ -43,7 +43,7 @@ c
       REAL*8 dtemp
       CHARACTER*8 lanno, token
 c
-c             1   2   3   4   5   6   7   8   9   10  11  12  13  14 
+c             1   2   3   4   5   6   7   8   9   10  11  12  13  14
       GO TO (640,610,620,630,650,660,670,680,620,700,690,625,626,627,
 c          15    16   17   18   19   20   21   22
      &     628, 800, 810, 800, 810, 820, 830, 840 ), ANNTYP
@@ -156,8 +156,8 @@ C****
       RETURN
       RETURN
       RETURN
-  
 
-      
+
+
       END
 

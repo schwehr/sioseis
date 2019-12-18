@@ -11,7 +11,7 @@ C
 C    cpw    - The input trace at a given wavenumber k. The trace is arranged
 C             with frequencies running as
 C                             -Nyq -> 0 -> +Nyq - delta w
-C             The trace has been normalized wrt frequency. Thus locally delta w 
+C             The trace has been normalized wrt frequency. Thus locally delta w
 C             is 1 & Nyq = nw/2
 C
 C    nw     - The number of frequencies to migrate.
@@ -89,6 +89,6 @@ C..
         cqw(i) = cpw(i) * cscl(i)
   600 continue
 c
-      cqw(nwo2+1) = czero                     ! Remove D.C. frequency component 
+      cqw(nwo2+1) = czero                     ! Remove D.C. frequency component
       RETURN
       end

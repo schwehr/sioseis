@@ -308,7 +308,7 @@ C****
   100 CONTINUE
       CALL GETOKE(TOKEN,NCHARS)                                         ! GET A TOKEN FROM THE USER PARAMETER LINE
       CALL UPCASE(TOKEN,NCHARS)
-      IF( NCHARS .LE. 0 ) THEN 
+      IF( NCHARS .LE. 0 ) THEN
           IF(NOW.EQ.1) PRINT *,' <  ENTER PARAMETERS  >'
           CALL RDLINE                                                   ! GET ANOTHER USER PARAMETER LINE
           NTOKES=0
@@ -318,7 +318,7 @@ C****
       DO 190 I=1,NPARS                                                  ! SEE IF IT IS A PARAMETER NAME
          LEN=LENGTH(I)                                                  ! GET THE LEGAL PARAMETER NAME LENGTH
          IPARAM=I                                                       ! SAVE THE INDEX
-         IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) 
+         IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN)
      *       GO TO 200
   190 CONTINUE                                                          ! STILL LOOKING FOR THE NAME
       IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! END OF PARAM LIST?
@@ -689,9 +689,9 @@ c      GO TO 2000
       ENDIF
       IF( nibs .EQ. 8122 ) THEN
           rnibs = 100.
-          size = 21.12 
+          size = 21.12
           offset = 1.0
-          IF( vscale .EQ. 0 ) vscale = 2.5 
+          IF( vscale .EQ. 0 ) vscale = 2.5
           IF( nsecs .LE. 0 ) nsecs = 8.0
           GOTO 2000
       ENDIF
@@ -700,7 +700,7 @@ c      GO TO 2000
           IF( nibs .EQ. 7422 ) rnibs = 400.
           size = 21.12
           offset = 1.0
-          IF( vscale .EQ. 0 ) vscale = 2.5 
+          IF( vscale .EQ. 0 ) vscale = 2.5
           IF( nsecs .LE. 0 ) nsecs = 8.0
           GOTO 2000
       ENDIF
@@ -718,7 +718,7 @@ c****  The 7224 is 23.04, the 7225 is 23.52
           size = 23.04
           IF( nibs .EQ. 7225 ) size = 23.52
           offset = 1.0
-          IF( vscale .EQ. 0 ) vscale = 2.5 
+          IF( vscale .EQ. 0 ) vscale = 2.5
           IF( nsecs .LE. 0 ) nsecs = 8.0
           GOTO 2000
       ENDIF
@@ -740,7 +740,7 @@ c****  with 600dpi, don't worry about samples being on rasters exactly.
           IF( nibs .EQ. 2124 ) size = 24
           GOTO 2000
       ENDIF
-      IF( nibs .EQ. 7444 .OR. nibs .EQ. 3444 .OR. nibs .EQ. 3436 
+      IF( nibs .EQ. 7444 .OR. nibs .EQ. 3444 .OR. nibs .EQ. 3436
      &  .OR. nibs .EQ. 8936 ) THEN
           IF( nibs .EQ. 3444 .OR. nibs .EQ. 3436 .OR. nibs .EQ. 8936 )
      &         rgb = 0                                                  ! It's CYM, not RGB
@@ -753,7 +753,7 @@ c****  with 600dpi, don't worry about samples being on rasters exactly.
           GOTO 2000
       ENDIF
       IF( nibs .EQ. 120 ) THEN
-          rnibs = 120. 
+          rnibs = 120.
           size = 13.7
           offset = 1.1
           IF( vscale .EQ. 0 ) vscale = 2.0833
@@ -841,7 +841,7 @@ c****   850 has 1728 pixels, 9800 has 4096, 9315 has 2048
           IF( nsecs .LE. 0 ) nsecs = 8.0
           GOTO 2000
       ENDIF
-      IF( nibs .EQ. 2847 .OR. nibs .EQ. 2848 .OR. 
+      IF( nibs .EQ. 2847 .OR. nibs .EQ. 2848 .OR.
      &    nibs .EQ. 2858 .OR. nibs .EQ. 2859 .OR. nibs .EQ. 300 ) THEN
           rnibs = 300.
           IF( nibs .EQ. 2847 .OR. nibs .EQ. 2858 ) THEN
@@ -992,7 +992,7 @@ c      IF( itrim .GE. 1 .AND. itrim .LE. 3 ) offset = 0
           ierror = ierror + 1
       ENDIF
       IF( anntyp .EQ. 11 .AND. hdr+ihdr+lhdr .EQ. 0 ) THEN
-          PRINT *,' ***  ERROR  ***  Annotation by SEGY header requires 
+          PRINT *,' ***  ERROR  ***  Annotation by SEGY header requires
      &HDR or LHDR or IHDR to be given.'
           ierror = ierror + 1
       ENDIF
@@ -1035,8 +1035,8 @@ c****
             IF( icompt .EQ. 1 .AND. nibs .EQ. 60 ) IUNPLT=IUNPLT+12
       ELSE
             iactiv = 3                                                  ! a plot file or delayed plot
-            IF(FILENM(1:5).EQ.'/DEV/'.or.filenm(1:5).eq.'/dev/') 
-     *             iactiv = 4                                           !  an interactive plot 
+            IF(FILENM(1:5).EQ.'/DEV/'.or.filenm(1:5).eq.'/dev/')
+     *             iactiv = 4                                           !  an interactive plot
             IF( filenm .NE. ' ' ) THEN
                 CALL GETFIL(iactiv,IUNPLT,FILENM,ISTAT)                 ! GET A FILE NUMBER AND CREATE A NEW FILE
                 IF( istat .NE. 0 ) THEN
@@ -1089,7 +1089,7 @@ c****
              ELSE
 c                CARD(80:80)=CHAR(15)                                   ! IT MUST BE A VERSATEC
                 IF( nibs .EQ. 4160 .OR. nibs .EQ. 100 )
-     *                   card(80:80) = CHAR(10)                         !  Printronix 
+     *                   card(80:80) = CHAR(10)                         !  Printronix
                 IF( iunplt .NE. 0 ) CALL WRDISC(IUNPLT,ivms,20)
              ENDIF
           ELSE
@@ -1129,7 +1129,7 @@ c                CARD(80:80)=CHAR(15)
             ELSE
 c                  CARD(80:80)=CHAR(15)
                   IF( nibs .EQ. 4160 .OR. nibs .EQ. 100 )
-     *                   card(80:80) = CHAR(10)                         !  Printronix 
+     *                   card(80:80) = CHAR(10)                         !  Printronix
                   IF( iunplt .NE. 0 ) CALL WRDISC(IUNPLT,ivms,20)
             ENDIF
       ELSE
@@ -1153,7 +1153,7 @@ c                  CARD(80:80)=CHAR(15)
           ELSE                                                          ! it must be a Versatec
 c              CARD(80:80)=CHAR(15)
               IF( nibs .EQ. 4160 .OR. nibs .EQ. 100 )
-     *                   card(80:80) = CHAR(10)                         !  Printronix 
+     *                   card(80:80) = CHAR(10)                         !  Printronix
               IF( iunplt .NE. 0 ) CALL WRDISC(IUNPLT,ivms,20)
           ENDIF
       ELSE
@@ -1229,7 +1229,7 @@ c**** There's a weird color problem when a def is 0, so kludge around it
       IF(FDAY.NE.0) LNO=LDAY*10000+LNO
       WRITE(MUNIT) FNO,FDAY,FTR,LNO,LDAY,LTR,STIME,NSECS,VSCALE,DEF,
      *   TRPIN,RELAMP,ANNTYP,DECIMF,ICFILE,NCOMMS,ANNINC,FANNO,ninc,
-     *   hscale, plotsi, ptype, frange, lrange, rstime, absval, hdr, 
+     *   hscale, plotsi, ptype, frange, lrange, rstime, absval, hdr,
      *   ihdr, lhdr, wrap, anntyp2, dptr
       IF( IAND(LPRINT,1) .NE. 0 ) THEN
           PRINT *,FNO,FDAY,FTR,LNO,LDAY,LTR,STIME,NSECS,VSCALE,DEF

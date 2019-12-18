@@ -4,9 +4,9 @@ c
 c  Copyright (C) 1989
 c  Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca. 92093
 c
-     
+
       PARAMETER (nchars=80)
-      INTEGER*2 ibuf(5000)    
+      INTEGER*2 ibuf(5000)
       INTEGER*4 lbuf(10)
       EQUIVALENCE (ibuf(1),lbuf(1))
       CHARACTER*80 token
@@ -72,7 +72,7 @@ c
       IF( itype .EQ. 8242 ) mwrds = 512*2
       IF( itype .EQ. 8625 ) mwrds = 294
       IF( itype .EQ. 9242 ) mwrds = 500*2
- 
+
       PRINT *,' Skip how many horizontal raster lines?'
       READ *, nhskip
       PRINT *,' Skip how many dots vertically?'
@@ -112,7 +112,7 @@ c****
       GOTO 100
 c****
 c****    END OF PLOT FILE
-c****     
+c****
  9999 CONTINUE
 c      IF( ndone .LT. 1152 ) THEN
 c          DO 10000 i = 1, 28

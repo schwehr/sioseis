@@ -30,7 +30,7 @@ C           BY THE PROGRAM WHEN A TAPE IS FULL.  OUTPUT REEL UNIT NUMBERS ARE
 C           CHANGED BY THE COMPUTER OPERATOR ON REEL CHANGES.
 C           Preset = 0.  E.G. OUNIT 2
 c  DEVICE - The tape device name for writing.  When given, the Fortran
-c           magnetic tape device independent driver is used to write on 
+c           magnetic tape device independent driver is used to write on
 c           the specified device.
 c           See the document input.forum for addition information.
 c           Valid on UNIX machines only.  The use of this parameter causes

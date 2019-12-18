@@ -5,40 +5,40 @@ c  The conversion to F77 and the addition of some documentation and
 c  indentation was done by pch, who doesn't fully understand what the
 c  process does.
 C	SCALE :
-C	SCALE = 0, COMPUTE ONLY SCALE FACTOR TO CONVERT SEISMIC SECTION TO 
+C	SCALE = 0, COMPUTE ONLY SCALE FACTOR TO CONVERT SEISMIC SECTION TO
 C		   EQUIVALENT PSEDO-REFLECTION COEFFICIENT SECTION.
-C		  
+C
 C	SCALE <> 0, CONVERT SEISMIC SECTION INTO REFLECTION COEFFICIENT
 C		   SECTION INCLUDING WATER BOTTOM DEPTH COREECTION TO THE
 C		   REFERENCE TIME (3 SECONDS) AND COMPUTE MEDIAN REFLECTANCE
 C                  WITHIN A GIVEN TIME WINDOW.
-C	
-C	ITYPE: TYPE OF AMPLITUDE IN DETECTING WATER BOTTOM REFLECTION 
+C
+C	ITYPE: TYPE OF AMPLITUDE IN DETECTING WATER BOTTOM REFLECTION
 C	       TIME AND AMPLITUDE.
-C		ITYPE = 1:  USE TRACE AMPLITUDE 
-C		ITYPE = 2:  USE PEAK    AMPLITUDE 
-C		ITYPE = 3:  USE TROUGH  AMPLITUDE 
+C		ITYPE = 1:  USE TRACE AMPLITUDE
+C		ITYPE = 2:  USE PEAK    AMPLITUDE
+C		ITYPE = 3:  USE TROUGH  AMPLITUDE
 C
 C	BULK : TIME DELAY IN SECONDS.
 C	NMAX : NUMBER OF KEY-VALUE AND APPROXIMATE WATER BOTTOM TIME PAIR.
-C	NWIND: SEARCH WINDOW FOR THE WATER BOTTOM DETECTION PREFERABLY LESS 
+C	NWIND: SEARCH WINDOW FOR THE WATER BOTTOM DETECTION PREFERABLY LESS
 C	       THAN 100 MSEC.
-C	PWIND: SUBBOTTOM REFLECTION TIME WINDOW IN MSEC FOR THE 
+C	PWIND: SUBBOTTOM REFLECTION TIME WINDOW IN MSEC FOR THE
 C	       MEDIAN REFLECTANCE COMPUTATION.
 C	NGROP : NUMBER OF DIVISIONS WITHIN PWIND.
 C	ISEC  : OUTPUT WINOW NUMBER (SEQUENCED FROM TOP TO BOTTOM)
 C	FOR EXAMPLE, IF PWIND = 500, NGROP = 2, ISEC = 2, THEN
 C	             MEDIAN REFLECTANCE IS COMPUTED WITHIN LOWER 250 MS OF
-C		     SUBBOTTOM REFLECTIONS, THAT IS 
+C		     SUBBOTTOM REFLECTIONS, THAT IS
 C		     BETWEEN WATER BOTTOM  TIME (WBT) + 250 MS AND WBT + 500MS.
 C		     IF PWIND = 600, NFROP = 4, ISEC = 3, THEN
 C		     MEDIAN REFLECTANCE IS COMPUTED WITHIN WBT + 300MS
 C		     AND WBT + 450 MSEC.
 C
-C		
+C
 C 	YOU HAVE TO RUN THIS PROGRAM TWICE. FIRST WITH JTYPE = 1  AND USING
 C	ABOUT 100 CDP'S HAVING NON-DIFFRACTIVE DEEP WATER BOTTOM REFLECTIONS.
-C	IN SECOND TIME, RUN WITH SFACT EQUAL TO THE ONE COMPUTED IN THE 
+C	IN SECOND TIME, RUN WITH SFACT EQUAL TO THE ONE COMPUTED IN THE
 C	PREVIOUS RUN (when sfact=0). THE SCALE FACTOR IS THE printed to
 c       STDOUT (The printer output file) when sfact=0.
 c
@@ -46,7 +46,7 @@ c
       COMMON /readt/ itunit, numhdr, numdat, ihunit, ireeln, jntrcs,
      *               ifmt, nskip, secs, lrenum, isrcf, idtype,
      *               nfskip, jform, itxsi, itxdel, nfktrc, norigtr
-      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,  
+      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,
      &     pwind, nwind, slope, bb, wbcref, lprint, fno, lno, winlen,
      &     iunit
       INTEGER ngrop, isec, nwind, itype, fno
@@ -83,10 +83,10 @@ c****   assume scr is at least 2 traces long
 	ELSE
 	    jtype = 2
         ENDIF
-	LW	= IFIX(NWIND / DTT) + 1 
+	LW	= IFIX(NWIND / DTT) + 1
 	LPW	= IFIX(PWIND / DTT) + 1
 C	COMPUTE TRACE AMPLITUDE VIA HLIBERT TRANSFORM
-c       buf(iwbtindx) is the water bottom 
+c       buf(iwbtindx) is the water bottom
 c       scr is the return array, nflt long
 c       nflt is the wondow length
 c       scr(iscr) is a scratch array, a power of 2 long.
@@ -121,16 +121,16 @@ C
 	   ENDIF
 	   RETURN
 	END IF
-	LST	= IFIX(TIMP / DTT) + 1 
+	LST	= IFIX(TIMP / DTT) + 1
 	LCOMP	= LPW / NGROP
 	ISHIFT	= LCOMP * (ISEC - 1) + LST
-c****   WBCORT - 
+c****   WBCORT -
 c       arg 1 is the data trace, which WBCORT modifies.
 c       arg 2 is the returned time, in seconds, of the water bottom
 c       arg 3 is the user given scale factor
 c       arg 4 is the deep water delay in seconds
 c       arg 5 is the number of samples in the data trace
-c       arg 6 is 
+c       arg 6 is
 	CALL WBCORT(buf(numhdr+1), TIMP, SCALE, delay, NSAMP, DMPP)
 	CALL WBCORT(scr(numhdr+1), TIMP, SCALE, delay, NSAMP, AMPP)
 	CALL MEDREF(scr(ISHIFT+numhdr), scr(iscr), LCOMP, AMID)
@@ -157,7 +157,7 @@ c********************************************************************
 	DO 110 k = 1, NSAMP
 	   CA(K)	= CMPLX(A(K), 0.0)
   110   CONTINUE
-	CALL HLBTA(CA, NFRET, CON, CONNEG) 
+	CALL HLBTA(CA, NFRET, CON, CONNEG)
 C
 C	COMPUTE MODULUS
 C
@@ -183,7 +183,7 @@ c********************************************************************
 	J	= J - M
 	M	= M / 2
 	IF(M .GE. 1) GO TO 20
-30	J	= J + M	
+30	J	= J + M
 	L	= 1
 40	ISTEP	= 2*L
 	DO 50 M	= 1, L
@@ -248,14 +248,14 @@ C
 	RETURN
 	END
 c********************************************************************
-	SUBROUTINE WBCOMP(A, LSTART, TIM, AMP, IWIND, INP, DT) 
+	SUBROUTINE WBCOMP(A, LSTART, TIM, AMP, IWIND, INP, DT)
 	DIMENSION A(1)
 	ST	= (LSTART - 1) * DT
 	GO TO (11, 11, 22), INP
 11	IST	= 1
 		AMAX	=  A(IST)
 		JDEX	=  IST
-		DO 12   K = IST + 1, IST + IWIND - 1 
+		DO 12   K = IST + 1, IST + IWIND - 1
 			IF(A(K) .GT. AMAX) THEN
 		  	   AMAX    = A(K)
 			   JDEX	= K
@@ -283,7 +283,7 @@ c********************************************************************
 C
 C WATER BOTTOM CORRECTION, REFERENCE WATER BOTTOM IS 3 SEC TWO-WAY TIME
 C
-      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,  
+      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,
      &     pwind, nwind, slope, bb, wbcref, lprint, fno, lno, winlen,
      &     iunit
       INTEGER ngrop, isec, nwind, itype, fno
@@ -304,7 +304,7 @@ c	REF	= SLOPE * 3. + BB
 c********************************************************************
 	SUBROUTINE DSCALE(idummy, dummy1, refc, A, B)
 	DIMENSION A(1), B(1)
-      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,  
+      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,
      &     pwind, nwind, slope, bb, wbcref, lprint, fno, lno, winlen,
      &     iunit
       INTEGER ngrop, isec, nwind, itype, fno

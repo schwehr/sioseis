@@ -3,7 +3,7 @@ c
 c                       PROCESS CORR
 c                       ------- ----
 c
-c  Document date: 
+c  Document date:
 c
 c
 c  PARAMETER DICTIONARY
@@ -38,7 +38,7 @@ c
       DIMENSION setp(2), setd(2)
       DATA names / 'LPRINT', 'PILOT ', 'NLAGS ', 'SETP  ', 'SETD  ',
      &             'PPATH ', 'PSNO  ', 'PTR   ', 'DOUBLE', 'CATS  '/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0

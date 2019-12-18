@@ -9,9 +9,9 @@ c
 c  Copyright (C) 1985
 c  Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca. 92093
 c
-     
+
       PARAMETER (nchars=80)
-      INTEGER*2 ibuf(5000)    
+      INTEGER*2 ibuf(5000)
       INTEGER*2 ifonts(160)
       CHARACTER*1 c
       INTEGER*2 iorbuf(8,16)                                            { this holds 8 rasterized characters
@@ -35,8 +35,8 @@ C     2  0,3968,64,32,16,16,16,16,16,16,16,16,16,16,4080,0,             { two
      8 0,4080,2064,2064,2064,2064,2064,2064,4080,2064,2064,2064,2064,
      8          2064,4080,0,                                            { EIGHT
      9 0,1984,4064,4112,4112,4064,2000,16,16,16,16,16,16,16,16,0        { nine
-     *   /  
- 
+     *   /
+
 
     1 PRINT *,' Enter the value used for SIOSEIS plot parameter nibs.'
       READ *, itype
@@ -63,7 +63,7 @@ C****
       CALL vprint                                                       { set UNIX to put the Versatec in print mode
       prtbuf = ' '
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
-      DO 20 i = 1, 20  
+      DO 20 i = 1, 20
 c         CALL vwrite ( prtbuf, 10 )                                     { write 10 characters
    20 CONTINUE
 c****
@@ -77,17 +77,17 @@ c         CALL vwrite( prtbuf, 81 )
    50 CONTINUE
       prtbuf = ' '                                                      { make a gap between the header and the data
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
-      DO 70 i = 1, 10  
+      DO 70 i = 1, 10
 c         CALL vwrite( prtbuf, 10 )                                      { write 10 characters
    70 CONTINUE
-      CALL vplot 
+      CALL vplot
 
-c**** 
+c****
 c****   Now get the 8 characters of annotation from the disc and then the 132
 c**** words of plot, then OR them together like the Versatec simultaneous print/
 c**** mode would do.  Then plot the thing{
 c****
-      
+
   100 CONTINUE
       DO 101 i = 1, 4
   101 ibuf(i) = 0
@@ -100,7 +100,7 @@ c****
 c                                   ICHAR('0') is 48 (decimal or 30 hex)
                   j = (ICHAR(c)-48)*16                                  { get the index of the char
                   IF( j .LT. 0 .OR. j .GT. 128 ) GOTO 120
-                  DO 110, k=1,16                                        { store each character raster line 
+                  DO 110, k=1,16                                        { store each character raster line
                       iorbuf(i,k) = ifonts(j+k)
   110             CONTINUE
                ENDIF
@@ -108,11 +108,11 @@ c                                   ICHAR('0') is 48 (decimal or 30 hex)
       ENDIF
       CALL rddisc(ilun,ibuf(5),mwrds,istat)
       IF( istat .NE. mwrds ) GOTO 9999
-   
+
       DO 200 i=1,8                                                       { or the annotation in
          ibuf(i) = iorbuf(i,1)                                           { only 1 raster line!
   200 CONTINUE
-  
+
       DO 220 j=1,15                                                      { move the or buffer up 1 raster line
          DO 210 i=1,8                                                    { do each character
              iorbuf(i,j) = iorbuf(i,j+1)
@@ -121,22 +121,22 @@ c                                   ICHAR('0') is 48 (decimal or 30 hex)
       DO 230 i=1,8                                                       { zero out the next rastered annotation
           iorbuf(i,16)=0
   230 CONTINUE
-    
+
       CALL vwrite( ibuf, mwrds*4 )
       GOTO 100
 
 c****
 c****    END OF PLOT FILE
-c****     
+c****
  9999 CONTINUE
       CALL vprint
       prtbuf = ' '                                                      { make a gap between the header and the data
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
-      DO 10000 i = 1, 10  
+      DO 10000 i = 1, 10
          CALL vwrite( prtbuf, 10 )                                      { write 10 characters
 10000 CONTINUE
       CALL detach
       PRINT *,' finished the seismic plot.'
-          
-    
+
+
       END

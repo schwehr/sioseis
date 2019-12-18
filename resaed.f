@@ -9,10 +9,10 @@ c      Process RESAMP resamples the seismic trace from one sample
 c  interval to another by: 1) transforming the trace into the frequency
 c  domain then back to the time domain; or 2) doing a polynomial
 c  interpolation in the time domain.
-c      This process is useful for converting data that is recorded at 
+c      This process is useful for converting data that is recorded at
 c  "not nice" sample rates.  E.g. OBS data is recorded with 128 samples
 c  per second which is .0078125 seconds per sample.  The SIOSEIS process
-c  PLOT has problems with that, but not with .008 or 125 samples per 
+c  PLOT has problems with that, but not with .008 or 125 samples per
 c  second.
 c
 c  PARAMETER DICTIONARY
@@ -20,14 +20,14 @@ c  --------- ----------
 c  NEWSI  - The output sample interval, in seconds.
 c           REQUIRED.            e.g.   newsi  .004
 c  TYPE   - The method of resampling.
-c         = 1, Performed in the frequency domain by using the IMSL 
+c         = 1, Performed in the frequency domain by using the IMSL
 c              FFT routines FFTRC and FFTCC.
 c             *****    Available ONLY if IMSL is available.   ******
-c         = 2, Performed in the time domain using polynomial 
+c         = 2, Performed in the time domain using polynomial
 c              interpolation of order n, as discussed in "Numerical
 c              Recipes", section 3.1
 c         Preset = 1    limits   0 < type < 2         e.g.   type 2
-c  ORDER  - The order of the interpolation when using type 2 
+c  ORDER  - The order of the interpolation when using type 2
 c           interpolation.  According to "Numerical Recipes", "We
 c           enthusiastically endorse interpolations with 3 or 4 points,
 c           we are perhaps tolerant of 5 or 6; but we rarely go higher".
@@ -48,7 +48,7 @@ c
       COMMON /resamp/ si, lprint, type, order
       INTEGER type, order
       DATA names / 'NEWSI ', 'LPRINT', 'TYPE  ', 'ORDER ' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       si = -99999.

@@ -1,5 +1,5 @@
       SUBROUTINE dd2ieee( inbuf, n, iobuf)
-c     dd2ieee converts DEC DOUBLE PRECISION (REAL*8) to IEEE 
+c     dd2ieee converts DEC DOUBLE PRECISION (REAL*8) to IEEE
 c  DOUBLE PRECISION (REAL*8).  Use swap64 to swap bytes if necessary.
 c
 c  ARGUMENTS:

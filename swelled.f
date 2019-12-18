@@ -16,12 +16,12 @@ c
       INTEGER hdr
       DATA names / 'N', 'WEIGHTS', 'LPRINT', 'HDR', 'INDEX'/
       DATA n/0/, nweights/0/, hdr/0/, index/0/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
-      CALL getfil( 1, lun_params, token, istat ) 
+      CALL getfil( 1, lun_params, token, istat )
 c****
-c****     get the user's parameters 
+c****     get the user's parameters
 c****
       nparams = npars
       nlists = 0

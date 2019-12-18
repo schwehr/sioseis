@@ -7,7 +7,7 @@ c  ibuf   - The trace, with SEGY header as TYPE INTEGER*2
 c  scr   - A scratch array.
 c
 c  COPYRIGHT (C) Seismic Reflection Processors, Solana Beach, CA. 92075
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, SRP, 26 June 1990
 c  mod 5 November 1990 - added the OSU range scaling method
 c  mod 2 Apr 92 - add type 7 - take modulus of a complex trace
@@ -42,7 +42,7 @@ c  mod 20 Jun 07 - Type 9 subwb didn't work.
 c  mod 11 Jun 08 - Correct typo in an error message.
 c  mod 22 Jun 08 - Set the start to 1 if it goes negative due to bad wbt
 c  mod 17 Jul 08 - Change warning message when bad water bottom time.
-c  mod 19 Nov 08 - Skip dead traces 
+c  mod 19 Nov 08 - Skip dead traces
 c  mod 1 Dec 08 - Kill the trace if subwb yes and the water bottom time is 0.
 c  mod 18 Aug 09 - Kill the trace if subwb yes, type 5, and wb < delay.
 c  mod 18 Feb 10 - Initial first not set correctly.
@@ -138,10 +138,10 @@ c****         save tgp in the apsimulator at ap(indextgp)
           ntgp(num_gains) = lparams1(9)
           iaddwb(num_gains) = lparams1(10)
           tadd(num_gains) = params1(11)
-          tmult(num_gains) = params1(12)   
+          tmult(num_gains) = params1(12)
           winlen(num_gains) = params1(13)
           IF( ntgp(num_gains) .GT. 0 )
-     &        CALL rddisc( igunit(num_gains), a(indextgp(max_gains)), 
+     &        CALL rddisc( igunit(num_gains), a(indextgp(max_gains)),
      &             ntgp(num_gains), istat)
       ENDIF
       IF( ibuf(itridptr) .EQ. 2 ) RETURN                                ! don't bother with dead traces
@@ -165,7 +165,7 @@ c      nsamps = ibuf(isampptr)
           ibuf(itridptr) = 2
           RETURN
       ENDIF
-          
+
 c****
 c****  The USGS time (millisecond) method
 c****
@@ -174,7 +174,7 @@ c     assume the sample interval remains constant.
 c     assume no deep water delay
           IF( first(num_gains) ) THEN
               stime = delay
-              IF( etime(num_gains) .LT. 0. ) 
+              IF( etime(num_gains) .LT. 0. )
      &            etime(num_gains) = stime + nsamps * si
               stimemil = stime * 1000.
               etimemil = etime(num_gains) * 1000.
@@ -219,13 +219,13 @@ c****
       IF( gaintype(num_gains) .EQ. 2 ) THEN
           range = lbuf(ldisptr)
           IF( ABS(range) .LT. rscale(num_gains) ) GOTO 9000
-          scalar = ( ABS(range) / SIGN(rscale(num_gains),range)) ** 
+          scalar = ( ABS(range) / SIGN(rscale(num_gains),range)) **
      &            alpha(num_gains)
           IF( IAND(lprint(num_gains),2) .NE. 0 )
      &        PRINT *,' scalar=',scalar
-          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator? 
+          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator?
               DO 200 i = 1, nsamps
-  200         buf(numhdr+i) = buf(numhdr+i) * scalar 
+  200         buf(numhdr+i) = buf(numhdr+i) * scalar
           ELSE
               DO 210 i = 1, nsamps
   210         a(i) = a(i) * scalar
@@ -241,7 +241,7 @@ c****
           index = 1
           IF( isubwb(num_gains) .NE. 0 ) time = delay - wbt
           time = time * tmult(num_gains) + tadd(num_gains)
-          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator? 
+          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator?
               DO i = 0, n-1
                  temp = time + FLOAT(i) * si
                  IF( temp .LE. si ) temp = si                           ! don't kill the first sample!
@@ -262,7 +262,7 @@ c****
 c****     TYPE 4
 c****
       IF( gaintype(num_gains) .EQ. 4 ) THEN
-          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator? 
+          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator?
               DO i = 1, nsamps
                  buf(numhdr+i) = buf(numhdr+i) ** alpha(num_gains)
               ENDDO
@@ -306,16 +306,16 @@ c                  IF( wbt .NE. 0 ) PRINT *,
               ENDIF
           ENDIF
           index = in + istart - 1
-          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator? 
+          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator?
               DO i = istart, nsamps
-                 temp = (time + FLOAT(i-1) * si) * tmult(num_gains) + 
+                 temp = (time + FLOAT(i-1) * si) * tmult(num_gains) +
      &                  tadd(num_gains)
                  buf(numhdr+i) =
      &                buf(numhdr+i) * EXP(alpha(num_gains)*temp)
               ENDDO
           ELSE
               DO i = istart, nsamps
-                 temp = (time + FLOAT(i-1) * si) * tmult(num_gains) + 
+                 temp = (time + FLOAT(i-1) * si) * tmult(num_gains) +
      &                  tadd(num_gains)
                  a(index) = a(index) * EXP(alpha(num_gains)*temp)
                  index = index + 1
@@ -327,9 +327,9 @@ c****
 c****     TYPE 6
 c****
       IF( gaintype(num_gains) .EQ. 6 ) THEN
-          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator? 
+          IF( in .EQ. 0 ) THEN                                          ! is it in the ap simulator?
               DO 600 i = 1, nsamps
-  600            buf(numhdr+i) = 
+  600            buf(numhdr+i) =
      &              SIGN(buf(numhdr+i)**alpha(num_gains),buf(numhdr+i))
           ELSE
               DO 610 i = 1, nsamps

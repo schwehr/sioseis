@@ -1,9 +1,9 @@
 /*
- * ihcp_io.h 
+ * ihcp_io.h
  * public ioctl and default definition file for Linux 2.0.35 driver for PCI hardcopy boards
- * 
+ *
  * (this file unchanged through 2.6.x versions of driver)
- * 
+ *
  * Tahoma Technology
  * (formerly Ikon Corporation)
  * 107 2nd Avenue North
@@ -11,8 +11,8 @@
  *
  * 206.728.6465
  * http://www.tahomatech.com
- * tahoma@tahomatech.com 
- * 
+ * tahoma@tahomatech.com
+ *
  * This code released under the GPL, and in the public domain
  * References to IKON left in place for compatibility and historical reasons
  */
@@ -23,10 +23,10 @@
 /*
  * the defines in this file are the "public" definitions used by the driver and the
  * calling program
- * 
+ *
  * included are the ioctl command codes used by the code that calls the driver, and
  * some defaults that may be changed by editing this file and re compiling the driver
- * 
+ *
  * this file is also used inside driver code !!! don't mess with this unless you mean it!
  */
 
@@ -34,20 +34,20 @@
 #include <sys/types.h>
 
 /* the ioctl() function call looks like:
- * 
+ *
  * ioctl(filedescriptor,command,argument)
- * 
+ *
  * argument is used in some of the ihcp ioctl calls to provide values to
  * the driver ioctl routine, or return values to the calling program.  In
  * one case - data out - it contains an array of charater data to be sent
  * to the attached device.  the argument is restricted to a maximum of 255
  * bytes - by unix, and by the driver.
- * 
+ *
  * the following ioctl commands
  * are available to programs using the ihcp driver:
- * 
+ *
  * *** legacy ioctl commands - originally for Sbus hardcopy cards ***
- * 
+ *
  * IHCPIO_DEV_RESET     reset attached device
  * IHCPIO_SET_CONFIG    select device timing,burst, and busy mode w/ value in arg
  * IHCPIO_SET_DMATIME   set dma timeout to arg seconds
@@ -71,39 +71,39 @@
  * IHCPIO_GET_FIFO      returns fifo status in arg
  * IHCPIO_MASTER_CLEAR  resets board and clears fifo FACTORY USE ONLY!
  * IHCPIO_SOFT_ACK      simulates ack sequence from device
- * 
+ *
  * *** new ioctl commands for PCI hardcopy cards **
- * 
+ *
  * IHCPIO_AUTO_LTR_COUNT        set automatic line terminate byte count (line length) to arg bytes
- * IHCPIO_AUTO_LTR_ON           enable automatic line terminate 
+ * IHCPIO_AUTO_LTR_ON           enable automatic line terminate
  * IHCPIO_AUTO_LTR_OFF          disable auto line terminate
  * IHCPIO_DEV_AND_VEND_ID       return board device and vendor ids in arg
  * IHCPIO_REVISION_ID           return board revision level in arg
  * IHCPIO_LITTLE_ENDIAN         set little endian mode - plotter data will go low byte first
  * IHCPIO_BIG_ENDIAN            set big endian mode - plotter data will go high byte first
- * 
+ *
  * ioctls to allow direct fiddling of mode and device control
- * 
+ *
  * IHCPIO_DIRECT_MODE           direct write arg to mode register
  * IHCPIO_DEVICE_CONTROL        direct write arg to device control
  * IHCPIO_INTERFACE_STATUS      direct read of interface status register returned in arg
  * IHCPIO_DEVICE_STATUS         direct read of device status register returned in arg
  * IHCPIO_REVERSE_DATA          read of reverse data register returned in arg
- * 
+ *
  */
 
 
 
 /* the ioctl command codes conform to the unix pattern:
- * 
+ *
  * the top 3 bits of the 32 bit value indicate whether arguments
  * are to be copied in, copied out, both, or neither.
- * 
+ *
  * 0x80000000 = copy in
  * 0x40000000 = copy out
  * 0x20000000 = no argument transfer
  * 0xC0000000 = copy in and out
- * 
+ *
  * the number of bytes in the argument is encoded in the lower
  * 8 bits of the upper half of the u_int, and the actual command
  * is encoded in the lower half.  a rather arbitrary character,
@@ -112,35 +112,35 @@
  * value.
  * for all commands except DATA_OUT, the arg length is part of
  * the command value.
- * 
+ *
  * WHEN USING THE IHCPIO_DATA_OUT IOCTL,
  * THE CALLING PROGRAM IS REQUIRED TO COMBINE THE ARGUMENT LENGTH
  * WITH THE IOCTL COMMAND AS FOLLOWS:
- * 
+ *
  * cmd = IHCPIO_DATA_OUT | ( ( arg_length & 0xFF ) << 16 ) ;
- * 
+ *
  * more accurately, for linux:
- * 
+ *
  * cmd = IHCPIO_DATA_OUT | ((arg_length & _IOC_SIZEMASK) << _IOC_SIZESHIFT)
- * 
+ *
  * commands which require arguments - in or out - will pass those
  * values as 32 bit unsigned integers.  the only exception is the
  * DATA_OUT ioctl, which uses an array of up to 255 bytes as its
  * argument.
- * 
+ *
  * the magic character that identifies this driver is hereby
  * (arbitrarily) chosen to be 'H'.
- * 
+ *
  * the following ioctl commands are defined using pre-existing
  * ioctl command macros.  the CMD_MASK and COUNT_MASK values
  * defined MUST match the usage in ioctl.h. refer to that include
  * file for further information.
- * 
+ *
  * ADDITIONAL IOCTL COMMANDS AND ARGUMENTS ARE FOUND AT THE END OF THIS
  * FILE.  THEY ARE INCLUDED FOR COMPATIBILITY WITH SUN AND VERSATEC
  * DRIVERS FOR THE 10088 VME BOARD, AND WILL HOPEFULLY BE COMPATIBLE
  * WITH OTHER MANUFACTURERS BOARDS AND DRIVERS (SHOULD THERE BE ANY!)
- * 
+ *
  * the "magic character" for these commands is "v"
  */
 
@@ -162,10 +162,10 @@
  * THE SOLARIS 2.0 MACROS IN ioccom.h WANT THE 'MAGIC LETTER' QUOTED.
  * THE SOLARIS 1.X MACROS WANTED IT WITHOUT QUOTES.
  * LINUX WANTS QUOTES
- * 
+ *
  * SOME VERSIONS OF ioccom.h DIDN'T INCLUDE _IORN AND _IOWN. SOL2 SEEMS TO HAVE THEM
  * linux/ioctl.h DOESN'T SEEM TO HAVE THEM
- * 
+ *
  * we will use the lower-level _IOC macro (asm/ioctl.h) to define these since we need to
  * provide the size as an actual byte count, not as a type input to sizeof(), which is used
  * by the higher level (_IOR, _IOW) macros
@@ -186,10 +186,10 @@
  * the config bit patterns use those defined for the Sbus card - even
  * though they don't match the PCI card's bit posistions.  this is done
  * to try to preserve compatibility between applications
- * 
+ *
  * the first version of this driver doesn't try to support all the possible
  * modes available in the PCI card.
- * 
+ *
  */
 
 /*      *** legacy bits ****    */
@@ -232,10 +232,10 @@
  * bits wide. each is returned in a 32 bit longword as shown below.
  * the DMA registers returned are either channel 0 or 1, depending
  * on which is used in the particular revision of the board.
- * 
- * 
+ *
+ *
  * (__u32 larg[19])
- * 
+ *
  * larg[0] =    device ID (high 16 bits) & vendor id (low 16 bits)
  * larg[1] =    revision ID
  * larg[2] =    PLX interrupt control/status
@@ -255,7 +255,7 @@
  * larg[16]=    reverse data
  * larg[17]=    auto ltr count low
  * larg[18]=    auto ltr count high
- * 
+ *
  */
 
 #define IHCPIO_GET_STATUS _IOR('H',5,__u32)	/* returns FORMATTED device     */
@@ -374,7 +374,7 @@
  * the following commands allow fiddling some of the device and mode control
  * bits directly - this allows customizing the handshake, and limited software-compelled
  * IEEE 1284 support
- * 
+ *
  * these are definitely not for the faint of heart!
  */
 
@@ -391,7 +391,7 @@
 
 /*
  * additional commands and arguments for (hopefully) compatibility
- * with SUN and Versatec drivers for the 10088 VME board        
+ * with SUN and Versatec drivers for the 10088 VME board
  * the idea is to make them identical to the existing definitions
  * in both name and value, so existing code will run without change
  * (other than perhaps a new device name), and if re-compiled, can
@@ -484,7 +484,7 @@ struct lpregs {
 #endif				/* end of old definitions       */
 
 /*
- * define the old-style register bits for the compatibility code - 
+ * define the old-style register bits for the compatibility code -
  * do it outside the #ifndef so they will still be available
  * even if an old include file is used instead of this one to
  * define the old ioctl parameters
@@ -528,14 +528,14 @@ struct lpregs {
  * change the module install time configuration and operating behavior of the board(s)
  * and driver.  at this time, these parameters apply to all boards operating
  * under a particlar driver.
- * 
+ *
  * THESE DEFINES SHOULD NOT BE MODIFIED HERE - THESE ARE THE DEFAULTS USED WHEN THERE
  * ARE NO OVERRIDING VAULES SUPPLIED TO insmod
  * IF IT IS NECESSARY TO CHANGE THE DEFAULT BEHAVIOR OF THE DRIVER,
  * MAKE CHANGES BY SUPPLYING APPROPRIATE VALUES TO insmod
- * 
+ *
  * the values that may be modified at module install time are:
- * 
+ *
  * vers_speed_def       versatec handshake speed, 0 = fastest, 3 = slowest
  * cent_speed_def       centronics handshake speed, 0 = fastest, 3 = slowest
  * mode_def             print/plot mode for versatec, 1 = plot, 0 = print
@@ -543,18 +543,18 @@ struct lpregs {
  * fifo_time_def        ready & fifo <1/2 full timeout in seconds
  * dma_buf_order        size of dma data copy buffer for each board, in orders
  *                      order is the power of 2 of the number of pages requested (0 = 1 page,
- *                      3 = 8 pages, 5 is max for linux as of this writing) 
+ *                      3 = 8 pages, 5 is max for linux as of this writing)
  *                      buffer memory grabbed at module load time, driver install
  *                      will fail if insufficient kernel memory
  * max_boards           number of boards probed for when module loaded
  *                      setting max_boards higher than actual number of boards
  *                      present will waste a small quantity of kernel memory
- * 
+ *
  * example:             /sbin/insmod ihcp_debug.o max_boards=3
- * 
+ *
  * the above loads the version of the driver with debug printing enabled, and probes for
  * a maximum of three boards
- * 
+ *
  */
 
 

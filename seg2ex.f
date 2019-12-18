@@ -120,7 +120,7 @@ c****         Is the day of month 1 or 2 characters?
           itemp = itemp - 150
           IF( itemp .GT. 10 ) GOTO 90
       ENDIF
-	 
+
 c**** Ah shit.  There's a data file with a dropped byte.  The file is the
 c**** correct length, but the trace descriptor is off 1 byte.  Let's do
 c**** 1 retry before aborting.
@@ -234,7 +234,7 @@ c****       getoke uses ! as the start of a comment and returns nchars=0
                 CALL getoke( raw_record, nchars1 )
                 IF( IAND(lprint,4) .NE. 0 ) PRINT *,raw_record
                 DO i = 1, nchars1
-                   IF( ICHAR(raw_record(i:i)) .LT. 48 .OR. 
+                   IF( ICHAR(raw_record(i:i)) .LT. 48 .OR.
      &                 ICHAR(raw_record(i:i)) .GT. 57 ) THEN
                        nchars1 = i-1
                        GOTO 1004

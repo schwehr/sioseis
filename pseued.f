@@ -1,5 +1,5 @@
       SUBROUTINE pseued
-c                                                                      
+c
 c                       PROCESS PSEUDO
 c                       ------- ------
 c
@@ -11,17 +11,17 @@ c  two passes at the data; the first one to calculate and print the
 c  multiplier used for the conversion and the second pass to apply
 c  the multiplier.  The shot/rps used to calculate the multiplier
 c  are controled by process DISKIN - PSEUDO uses all the traces given
-c  to it by process DISKIN.  All seismic lines within a project 
+c  to it by process DISKIN.  All seismic lines within a project
 c  should have the same SCALE applied.
 c      PSEUDO determines a multiplier (SCALE) from a window across a
 c  selected portion of the seismic section in order to determine the
-c  "median reflectance".  The multiplier is then applied to all 
+c  "median reflectance".  The multiplier is then applied to all
 c  ampliudes of all traces.
 c      The window used in determining the multiplier must be a
 c  constant time from the water bottom.  The window start time is always
 c  the water bottom time contained in the SEGY trace header, which in
 c  turn may be set using process WBT.  The window is NWIND long.  The
-c  window is subdivided into NGROP equal subwindows.  The subwindow 
+c  window is subdivided into NGROP equal subwindows.  The subwindow
 c  used to determine the multiplier is given with the ISEC parameter.
 C       FOR EXAMPLE, IF PWIND = 500, NGROP = 2, ISEC = 2, THEN
 C                    MEDIAN REFLECTANCE IS COMPUTED WITHIN LOWER 250 MS OF
@@ -30,13 +30,13 @@ C                    BETWEEN WATER BOTTOM  TIME (WBT) + 250 MS AND WBT + 500MS.
 C                    IF PWIND = 600, NFROP = 4, ISEC = 3, THEN
 C                    MEDIAN REFLECTANCE IS COMPUTED WITHIN WBT + 300MS
 C                    AND WBT + 450 MSEC.
-c                                               
+c
 c      Only one parameter list may be given.
 c
 c  PARAMETER DICTIONARY
 c  --------- ----------
 c  SCALE  - The scale factor to convert the trace.
-c         = 0, The factor will be calculated using all the traces in 
+c         = 0, The factor will be calculated using all the traces in
 c              between FNO and LNO.
 c         > 0, The trace will be converted using SCALE
 c           SCALE corresponds to the third field of the REFC card in Myung
@@ -63,8 +63,8 @@ c  ISEC   - The subwindow number.
 c           ISEC corresponds to the fourth field of the REFC card in Myung
 c           Lee's version of PSEUDO.
 c           REQUIRED
-c  WINLEN - The length, in seconds, of the search window for the water 
-c           bottom detection.  
+c  WINLEN - The length, in seconds, of the search window for the water
+c           bottom detection.
 c           REQUIRED
 c  ITYPE  - The type of amplitude to use in detecting the water bottom
 c           reflection.
@@ -81,7 +81,7 @@ c           PRESET = 0.411
 c  WBCREF - A geology dependent parameter.  The water bottom correction
 c           reference time.
 c           PRESET = 3.
-c  PATH   - The pathname of an output file containing a list of 
+c  PATH   - The pathname of an output file containing a list of
 c           1) the corrected water bottom reflection coefficient.
 c           2) The median reflectance.
 c           REQUIRED when scale <> 0
@@ -89,14 +89,14 @@ c           Preset to a scratch file when scale = 0.
 c  LPRINT - A "debug" switch.
 c         = 2, The data written to PATH is also written to "screen".
 c           Preset = 0
-c           
+c
 c
 c
       PARAMETER ( npars = 14 )                                          ! the number of user parameters
       CHARACTER*80 token, pathname
       CHARACTER*6 names(npars)
       COMMON /edits/ ierror, iwarn, irun, now, icompt
-      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC, 
+      COMMON /HYDBK1/ ITYPE, JTYPE, BULK, SCALE, DTT, NGROP, ISEC,
      &     pwind, nwind, slope, bb, wbcref, lprint, fno, lno, winlen,
      &     iunit
       INTEGER fno, lno, ngrop, isec, nwind, itype
@@ -115,7 +115,7 @@ c****   The user's parameters are given in seconds, but the program
 c****  requires time to be in milliseconds, except for WBCREF and BULK,
 c****  which are in seconds.
 c***
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       scale = 0.
@@ -186,7 +186,7 @@ c****
           GOTO 100
       ENDIF
 c****
-c****   Take care of the file 
+c****   Take care of the file
 c****
       CALL getfil( 2, iunit, token, istat )                             ! get a unit number
       IF( pathname .EQ. ' ' ) THEN

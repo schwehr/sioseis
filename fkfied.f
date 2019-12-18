@@ -309,7 +309,7 @@ C..                                      Set The Presets
       winopt  = 'BYA '
       nlists  = 0
       ns      = 0
-      FiltTyp = FILNOTST 
+      FiltTyp = FILNOTST
 c
       call getfil( CREATTMP, munit, token, istat )                      ! File to hold parameters
       call podisc (munit, POSABS, DSKSTRT)

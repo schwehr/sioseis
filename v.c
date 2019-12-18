@@ -1,4 +1,4 @@
-/*    a program to interface to the Sun Consulting's Versatec driver. 
+/*    a program to interface to the Sun Consulting's Versatec driver.
    note that the driver switches are toggles, once set they must be
    unset before doing something different.
 
@@ -46,7 +46,7 @@ diff utig/v.c henkart/v.c
 --
 Mark Wiederspahn, Institute for Geophysics, Univ. of Texas at Austin
 voice: (512) 471-0490   fax: (512) 471-8844    telex: (910) 874-1380
-       
+
  mod 14 Apr 00 by pch to remove the DSTR command in attach for the Ewing, which
                doesn't use the Centronics interface.
  mod ??? 00 by pch to add vflush
@@ -172,4 +172,4 @@ vdspp_()   /* disable SPP before plotting the next n (10?) lines  */
     return;
 }
 
- 
+

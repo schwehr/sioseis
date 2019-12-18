@@ -8,9 +8,9 @@ c to create thet many "blank traces" (spaces).  This is neat because the
 c 1 inch buffer gets flushed automatically and we can have very large gaps
 c  between traces!  The only disadvantage is that we can' back up!
 c
-c   Watch out for truncation errors.  We must always measure the distance 
-c  on the plot from the beginning of the plot rather than from the 
-c  previous trace plotted.  Keep track of where we are on the plot.  
+c   Watch out for truncation errors.  We must always measure the distance
+c  on the plot from the beginning of the plot rather than from the
+c  previous trace plotted.  Keep track of where we are on the plot.
 c  Return the range of the plot range rather than the trace range.
 c
 c  mod 29 Jul 06 - ranges < previous were NOT skipped.
@@ -25,20 +25,20 @@ c
       DATA first/.TRUE./, ishit/0/, ntotal/0/, last/0/
 c
 c     variable dist is the range of the last trace plotted.
-c     frange starts out as the user given range, but becomes the range 
+c     frange starts out as the user given range, but becomes the range
 c         of the first trace on the plot (the origin trace range).
 c     ffrange is the original user given frange.
 c     variable ishit is needed so that we can establish the direction
 c          of the plot when frange/lrange is given.
-c     ntotal is the total number of n, the number of rasters that have 
+c     ntotal is the total number of n, the number of rasters that have
 c          plotted so far.
-c     prange is the plot range, or the range to the trace on the plot 
-c         (which might be different from the trace range because of the 
+c     prange is the plot range, or the range to the trace on the plot
+c         (which might be different from the trace range because of the
 c          truncation errors)
 c
 c****
 c****   we don't plot the trace itself (plotex does), so create the
-c****   blank traces at the end of the plot only if the trace has 
+c****   blank traces at the end of the plot only if the trace has
 c****   already been plotted, which can happen only when istop = -1
 c****
       IF( istop .LT. 0 ) THEN
@@ -105,7 +105,7 @@ c****
       ENDIF
 c****
 c****  A special case exists whereby the ranges are really the magnitude
-c****  or absolute value of the range.  When this condition exists, 
+c****  or absolute value of the range.  When this condition exists,
 c****  assume that the ranges are monotonically decreasing so that any
 c****  range that increases means that it is negative.
 c****

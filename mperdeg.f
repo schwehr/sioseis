@@ -1,5 +1,5 @@
       PROGRAM mperdeg
-c    Given a latitude, print the meters per deg of 
+c    Given a latitude, print the meters per deg of
 c  latitude and longitue.
 c
       REAL alat, amlat, amlong

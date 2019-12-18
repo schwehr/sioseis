@@ -12,13 +12,13 @@ c  word representations.  If the output data word is different from
 c  the data word format of the computer generating the file (the
 c  machine SIOSEIS is running on), then the MicroMAX file can not be
 c  read on the current computer.
-c      
+c
 c
 c  PARAMETER DICTIONARY
 c  --------- ----------
 c  OPATH  - The output MicroMAX pathname (filename).  MicroMAX filename
 c           suffixes are applied by process MAXIN.  e.g.  opath test
-c           will put the data in test.dat and will create the two 
+c           will put the data in test.dat and will create the two
 c           MicroMAX headers, test.hd1 and test.hd2.
 c           REQUIRED.    e.g. opath 05118813
 c  FORMAT - The output file data word format.
@@ -49,7 +49,7 @@ c
       COMMON /maxout/ luno, lunhd1, lunhd2, swap, lprint, machine
       LOGICAL swap
       DATA names /'OPATH  ', 'LPRINT ', 'SWAP   ','MACHINE' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       luno = 0
@@ -95,22 +95,22 @@ c****
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 7 .OR.
      *                icompt .EQ. 3 .OR. icompt .EQ. 5 )                ! UNIX needs a NULL terminator
      *                   token(nchars+5:nchars+5) = CHAR(0)
-                 CALL getfil( 3, lunhd1, token, istat ) 
-                 IF( istat .NE. 0 ) THEN 
+                 CALL getfil( 3, lunhd1, token, istat )
+                 IF( istat .NE. 0 ) THEN
                      PRINT *,' ***  ERROR  ***  Could not open file ',
-     &                      token 
-                     ierror = ierror + 1 
+     &                      token
+                     ierror = ierror + 1
                  ENDIF
                  token(nchars+1:nchars+4) = '.hd2'
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 7 .OR.
      *                icompt .EQ. 3 .OR. icompt .EQ. 5 )                ! UNIX needs a NULL terminator
      *                   token(nchars+5:nchars+5) = CHAR(0)
-                 CALL getfil( 3, lunhd2, token, istat ) 
-                 IF( istat .NE. 0 ) THEN 
+                 CALL getfil( 3, lunhd2, token, istat )
+                 IF( istat .NE. 0 ) THEN
                      PRINT *,' ***  ERROR  ***  Could not open file ',
-     &                      token 
-                     ierror = ierror + 1 
-                     GOTO 100 
+     &                      token
+                     ierror = ierror + 1
+                     GOTO 100
                  ENDIF
                  GOTO 100
              ENDIF

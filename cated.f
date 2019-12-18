@@ -7,7 +7,7 @@ c  Document date: 29 September 1992
 c
 c      Process CAT concatenates consecutive traces or shots.  The
 c  concatenation is done without regard for the deep water delay.
-c  i.e. The last sample of the trace being appended is always 
+c  i.e. The last sample of the trace being appended is always
 c  adjacent to the first sample the next trace.
 c      The output SEGY header is the header of the first trace of
 c  the series being concatenated.
@@ -53,9 +53,9 @@ c
       COMMON /edits/ ierror, iwarn, irun, now, icompt
       COMMON /cat/ lun, nlists, nwrds
       INTEGER fno, lno, ftr, ltr, n, lprint
-      DATA names / 'TYPE  ','N     ', 'LPRINT', 'FNO   ', 'LNO   ', 
+      DATA names / 'TYPE  ','N     ', 'LPRINT', 'FNO   ', 'LNO   ',
      &             'FTR   ','LTR   ' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       type = 'SHOT'

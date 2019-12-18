@@ -22,7 +22,7 @@ C     THE GMT TIME METHOD CONSISTS OF SPECIFING THE JULIAN DAY VIA THE PARAMETER
 C  'DAY' AND THEN A LIST OF GMT TIME - WATER BOTTOM TIME PAIRS.  THE PARAMETER
 C  'DAY' MUST BE GIVEN PRIOR TO THE GMT TIME AND MUST BE GIVEN ON THE FIRST
 C  PAIR.  FURTHERMORE, THE DAY MUST BE GIVEN ON DAY CHANGES.  THE GMT TIME IS
-C  GIVEN IN TERMS OF DECIMAL MINUTES OF THE 24 HOUR CLOCK, THUS 1532.75 
+C  GIVEN IN TERMS OF DECIMAL MINUTES OF THE 24 HOUR CLOCK, THUS 1532.75
 c  REPRESENTS 1532 AND 45 SECONDS.  WATER BOTTOM TIMES NOT
 C  SPECIFIED ARE CALCULATED BY INTERPOLATION OR ARE HELD CONSTANT.
 C  EXAMPLE:
@@ -51,10 +51,10 @@ C  DAY    - The Julian day of the GMT-time pairs that follow.
 c  VEL    - The velocity to use in converting the SeaBeam depth to seismic time.
 c           Preset = 0.
 c  OFFSET - The number of traces between the SeaBeam depth (center of
-c            the ship) and the reflection point. 
+c            the ship) and the reflection point.
 c           Preset = 3
 c  NSCAN  - The number of traces to scan for the "closest" SeaBeam depth.
-c           only.   NSCAN/2 traces will be scanned in both forward and aft 
+c           only.   NSCAN/2 traces will be scanned in both forward and aft
 c           directions.
 c           Preset = 10
 C
@@ -299,21 +299,21 @@ C****
           ENDIF
           IF( names(nparam) .EQ. 'SEPP' ) THEN
               ns = ns + 1
-              sepp(numwbt,ns) = value 
+              sepp(numwbt,ns) = value
               IF( ns .EQ. 1 ) GOTO 210
               ns = 0
               GOTO 100
           ENDIF
           IF( names(nparam) .EQ. 'PASS' ) THEN
               ns = ns + 1
-              pass(numwbt,ns) = value 
+              pass(numwbt,ns) = value
               IF( ns .EQ. 1 ) GOTO 210
               ns = 0
               GOTO 100
           ENDIF
           IF( names(nparam) .EQ. 'SEG' ) THEN
               ns = ns + 1
-              seg(numwbt,ns) = value 
+              seg(numwbt,ns) = value
               IF( ns .EQ. 1 ) GOTO 210
               ns = 0
               GOTO 100
@@ -339,7 +339,7 @@ c****
       ENDIF
       IF( sepp(numwbt,1) .GT. sepp(numwbt,2) ) THEN
           PRINT *,' ***  ERROR  ***  Bad SEPP.',
-     &        sepp(numwbt,1), sepp(numwbt,2) 
+     &        sepp(numwbt,1), sepp(numwbt,2)
           ierror = ierror + 1
       ENDIF
       IF( track .NE. 99. .AND. track .GT. 1 ) THEN
@@ -347,7 +347,7 @@ c****
           PRINT *,' TRACK is in units of time, not depth.'
           iwarn = iwarn + 1
       ENDIF
-      IF( guided .NE. 0 .AND. seg(numwbt,1) .EQ. 0 .AND. 
+      IF( guided .NE. 0 .AND. seg(numwbt,1) .EQ. 0 .AND.
      &    seg(numwbt,2) .EQ. 0 ) THEN
       PRINT *,' ***  ERROR  ***  SEG must be given when GUIDED is used'
           ierror = ierror + 1

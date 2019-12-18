@@ -35,7 +35,7 @@ c  Copyright (C) The Regents of the University of California
 c  Written by Paul Henkart, Scripps Oceanography, La Jolla, Ca 92093 Feb 1988
 c  ALL RIGHTS RESERVED.
 c
-c  MODIFICATIONS: 
+c  MODIFICATIONS:
 c  18 Jul 18 - Convert ODEC nav to arcseconds from floating point
 c  5 Nov 15 - Added FORMAT NIUST
 c  11 Apr 15 - Add iaddr64 for 64 bit disc address for realtime and random
@@ -54,7 +54,7 @@ c  6 Feb 14 - Do the same byte swaps as DISKOX
 c           - When converting from segy rev 0 to rev 1, be careful of the delay scalar.
 c  19 Apr 12 - multi list didn't work when diex over-rode random preset of 1
 c  14 Feb 12 - Set itrno to 1 when setting (4) = 1 when shot tr and rp tr = 0 (see 8 Sept 11)
-c  8 Dec 11 - When realtime, change the order of getting the disk address relative 
+c  8 Dec 11 - When realtime, change the order of getting the disk address relative
 c             to the read on the binary part.
 c  28 Nov 11 - When realtime, change the order of getting the disk address relative
 c              to the read on the trace header.
@@ -220,7 +220,7 @@ c 7 Jan 90 - Allow the data part of the trace to be 1 sample short (The Cray has
 c            a problem when there are an odd number of samples and there is only
 c            one trace in the file).
 c 16 Nov 89 - the sort parameter didn't work
-c 14 Nov 89 - added espn to SEGY header word 5 when SSC 
+c 14 Nov 89 - added espn to SEGY header word 5 when SSC
 c 6 Nov 89 - noinc on rp sorted data used jntrcs
 c 5 Nov 89 - Use jntrcs rather than intrcs when checking for ltr
 c 23 Oct 89 - a) toss out traces when ibuf(15) isn't 0, 1, 2, 3, 6
@@ -315,7 +315,7 @@ c global include file for mrgFK to be added to diex.ftn
 c.. Bug fix for old disk file
       integer CHCKBIN
       parameter(CHCKBIN = 5)
-      SAVE 
+      SAVE
       DATA mlists/0/, oldpat/' '/, mtrgat/0/, idarn/0/, nhread/0/
       DATA ncdp/0/, ndead/0/, sort/'shot'/, numcdp/1/, iforcnt/0/
       DATA ntraces/0/, mtraces/0/, lunsort/0/, ibad/0/, lastshot/0/
@@ -402,7 +402,7 @@ c***      let the user override and program decision
           ENDIF
           IF( trinc .GT. 0 ) THEN
               IF( lkey1 .EQ. 4 .OR. lkey2 .EQ. 4 ) THEN
-                  PRINT *,' *** ERROR  ***  DISKIN parameter TRINC does 
+                  PRINT *,' *** ERROR  ***  DISKIN parameter TRINC does
      &not work when SORT is used.'
                   STOP
              ENDIF
@@ -451,7 +451,7 @@ c***  use the same unit number on a new file, even though it was closed
 c****     If it's an SSC disc file, do the SSC header here
           IF( jform .EQ. 2 ) THEN
               CALL rddisc( idunit, buf, 128, istat )
-              IF( icompt .EQ. vaxunix .OR. icompt .EQ. vaxvms ) 
+              IF( icompt .EQ. vaxunix .OR. icompt .EQ. vaxvms )
      &            CALL swap16(ibuf,128)
               nsampss = lbuf(1)
               IF( nsampss .EQ. 0 ) THEN
@@ -478,7 +478,7 @@ c****     If it's an SSC disc file, do the SSC header here
               ndeadrec = 1
               itemp = 1
               IF( noinc .NE. 99999 ) itemp = noinc
-              IF( fno .NE. 0 .AND. lno .NE. 0 ) 
+              IF( fno .NE. 0 .AND. lno .NE. 0 )
      &            ndeadrec = (lno - fno) / itemp + 1
               ndead_done = 0
               ndead = ndeadtr * ndeadrec
@@ -597,7 +597,7 @@ c****     watch out for rev 0 files that disko will convert to rev 1
           addr_tr1 = 3200 + 400
           IF( ntextual .GT. 0 ) addr_tr1 = ntextual * 3200 + addr_tr1
           CALL mrgfk( MRGINIT, buf, lbuf, ibuf, scr, lscr, iscr, istop,
-     *                idunit, iptype )                                  ! check for fk polar 
+     *                idunit, iptype )                                  ! check for fk polar
           CALL podiscb( idunit, 1, addr_tr1 )
           CALL podiscb( ihunit, 1, 3600 )
 c****     DO NOT REWRITE THE BINARY HEADER!!
@@ -688,7 +688,7 @@ c      IF( rewind .NE. 0 ) THEN
 c***      before c, disk addresses started with 1 rather than 0, so when
 c***      sioseis did both, we read the headers rather than jjust junping there.
 c          CALL podisc( idunit, 1, 0 )                                   ! position after the SEGY headers
-c          n =900 
+c          n =900
 c          CALL rddisc( idunit, scr, n, istat )
 c          rewind = 0
 c      ENDIF
@@ -818,7 +818,7 @@ c          CALL rddiscb( idunit, buf(numhdr+1), nbytes, istat )
           IF( mlists .EQ. nlists ) istop = 1
       ENDIF
       IF( jform .EQ. 13 ) THEN   !  ASCII file
-          OPEN( UNIT=idunit, FILE=path, STATUS='OLD', 
+          OPEN( UNIT=idunit, FILE=path, STATUS='OLD',
      &          IOSTAT=istat, FORM='FORMATTED' )
           IF( istat .NE. 0 ) THEN
               PRINT *,' ***  ERROR  ***  Could not open file:  ',path
@@ -886,7 +886,7 @@ c****     REAL-TIME?
 c             adrdisc return address in BYTES
 cccc              CALL adrdisc( idunit, iaddr )
               CALL frefil( -2, idunit, istat )
-              IF( icount .EQ. 1 .OR. icount .EQ. 6 ) 
+              IF( icount .EQ. 1 .OR. icount .EQ. 6 )
      &            PRINT *,' Waiting for a shot.'
               CALL SLEEP(5)
               icount = icount + 1
@@ -967,7 +967,7 @@ c**** If it is an SSC file rather than SEGY do it here!
           GOTO 295
       ENDIF
       IF( icompt .EQ. 2 .OR. icompt .EQ. 4 .OR. jform .EQ. 5 ) THEN
-          IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND. jform .EQ. 5 ) 
+          IF( (icompt .EQ. 2 .OR. icompt .EQ. 4) .AND. jform .EQ. 5 )
      &        GOTO 225
           IF( jform .NE. 7 ) CALL swp_trhdr( ibuf, lbuf)
   225     CONTINUE
@@ -1005,7 +1005,7 @@ c****     The distance of fish behind antenna (cm)
           lbuf(10) = ibuf(19)
 c****     Xstar ver 5 has 5120 bytes per trace (5120-240 = 4880, or 2440 INT*2 words)
           IF( jform .EQ. 11 ) nsamps = 2440
-          IF( ibuf(100) .NE. 0 ) THEN 
+          IF( ibuf(100) .NE. 0 ) THEN
               IF( icompt .EQ. vaxunix .OR. icompt .EQ. vaxvms )
      &            CALL swap16( ibuf(94), 7 )
 c****         Use the NMEA time only if it's there.  o.w. leave it as the cpu time
@@ -1036,7 +1036,7 @@ c**** number.  Trace 0 also counts in the header word for the number of
 c**** traces per shot (if there are traces 0-184, then there are 185 tr)
 c         There was a screw up early on where trace 0 length was wrong.
 c         Trace 0 was always 1024 bytes, unless there was a mistake.
-c         Then, we had to change the trace 0 trace length to be the same 
+c         Then, we had to change the trace 0 trace length to be the same
 c         as the data traces because the commercial packages couldn't
 c         deal with different trace lengths.  SEG-D adopted the old
 c         DMS 2000 trace 0 convention and puts a 1 in word 13 and 1
@@ -1133,7 +1133,7 @@ c**** If no samples and trace id is 0, we have a bad/zero trace header
      &    trinc .NE. 99999 ) jntrcs = (ltr - ftr) / trinc + 1
 c      numdat = ibuf(58)
 c      IF( ibuf(58) .EQ. 32767 ) numdat = lbuf(58)                       ! Iris needs long integer
-c      IF( IAND(ibuf(58),32768) .NE. 0 ) 
+c      IF( IAND(ibuf(58),32768) .NE. 0 )
 c      IF( ibuf(58) .LT. 0 )
 c     &    numdat = IAND(ibuf(58),i32767) + 32768
 c      IF( ibuf(58) .LT. 0 ) numdat = lbuf(29)
@@ -1142,7 +1142,7 @@ c      IF( ibuf(58) .LT. 0 ) numdat = lbuf(29)
       ihour = ibuf(81)
       imin = ibuf(82)
       isec = ibuf(83)
-  295 IF( IAND(lprint,2) .NE. 0 ) 
+  295 IF( IAND(lprint,2) .NE. 0 )
      *    PRINT *,' shot',lbuf(3),' trace ',lbuf(4),' rp ',lbuf(6),
      &    ' trace ',lbuf(7),' numdat ',numdat,' tr id ',ibuf(15)
       IF( nsamps .GT. 0 ) THEN                                         ! nsamps is a user param
@@ -1362,7 +1362,7 @@ c****     nextno and nexttr don't work if it's a sort input
               ENDIF
               GOTO 100
           ENDIF
-          IF( iday .GE. lday .OR. lday .EQ. 366) THEN 
+          IF( iday .GE. lday .OR. lday .EQ. 366) THEN
               IF( igmt .GT. lgmt .OR. iday .GT. lday .OR.
      *               (igmt .EQ. lgmt .AND. isec .GT. lsec) ) THEN
                   IF( mlists .EQ. nlists ) THEN
@@ -1374,7 +1374,7 @@ c****     nextno and nexttr don't work if it's a sort input
                   GOTO 100
               ENDIF
           ENDIF
-          IF( ftr .EQ. -12345 .AND. ltr .EQ. 0 .AND. trinc .EQ. 1 ) 
+          IF( ftr .EQ. -12345 .AND. ltr .EQ. 0 .AND. trinc .EQ. 1 )
      &        GOTO 330                                                  ! ftr, ltr and trinc as presets
           IF( itrno .LT. nexttr ) GOTO 310
           IF( itrno .GT. ltr .AND. ltr .NE. 0 ) THEN
@@ -1412,7 +1412,7 @@ c****
               CALL adrdisc64( idunit, iaddr64 )
               CALL frefil( -2, idunit, istat )
               CALL SLEEP(1)
-              icount = icount + 1  
+              icount = icount + 1
               IF( icount .EQ. 1 ) PRINT *,' Waiting for a shot.'
               CALL getfil( -4, idunit, path, istat )
               CALL podiscb64( idunit, 1, iaddr64 )
@@ -1509,7 +1509,7 @@ c****      if no shot number either, start with 1
           ELSE
               lbuf(7) = retrac
           ENDIF
-          retrac = retrac + 1 
+          retrac = retrac + 1
       ENDIF
       IF( renum + retrac .NE. 0 ) THEN                                  ! is either given?
           IF( sort .EQ. 'shot' ) THEN
@@ -1531,7 +1531,7 @@ c****    retrac other than 1 will cause the following to cause havic
           CALL swap16( ibuf(91),1)
           ltemp = ibuf(53) * 1000. + ibuf(91)    ! ltemp is number of microseconds
           IF( ltemp .GT. 32767 ) THEN
-              ibuf(55) = ltemp / 100 
+              ibuf(55) = ltemp / 100
               ibuf(108) = -10
           ELSEIF( ltemp .GT. 3276 ) THEN
               ibuf(55) = ltemp / 10
@@ -1607,7 +1607,7 @@ c          ibuf(58) = numdat
 c              CALL adrdisc( idunit, iaddr )
               CALL frefil( -2, idunit, istat )
               CALL SLEEP(1)
-              icount = icount + 1  
+              icount = icount + 1
               IF( icount .EQ. 1 ) PRINT *,' Waiting for a shot.'
               CALL getfil( -4, idunit, path, istat )
               CALL podiscb64( idunit, 1, iaddr64 )
@@ -1847,7 +1847,7 @@ c      IF( lbuf(7) .NE. 0 ) ncdp = ncdp + 1                              ! count
                   ndead = mintrs - lbuf(7)
               ENDIF
           ENDIF
-      ENDIF           
+      ENDIF
 
       RETURN
       END

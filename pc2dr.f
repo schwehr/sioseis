@@ -4,13 +4,13 @@ c   to DEC floating point (REAL*4).
 c    *************  This works on VMS VAX ONLY *************
 c
 c  ARGUMENTS:
-c  inbuf  - The input array of IEEE reals to be converted. 
+c  inbuf  - The input array of IEEE reals to be converted.
 c  n      - The number of reals to convert. (INTEGER)
 c  iobuf - The output array of DEC reals.  May be the same array as inbuf.
 c
 c
 c   Both IEEE and DEC use the hidden bit and both have an 8 bit exponent
-c  and 23 bit mantissa.  Dec uses an exponent bias of 128 while IEEE 
+c  and 23 bit mantissa.  Dec uses an exponent bias of 128 while IEEE
 c  uses 127.  DEC also normalizes so that the decimal point is before
 c  the leading bit while IEEE puts the decimal after the leading bit.
 c
@@ -34,7 +34,7 @@ c         mant = AND( inbuf(i), 16#007FFFFF )  { the mantissa is bits 0-22
 10	format(1x,z8)
          iexp = ISHFT( inbuf(i),-23 )    ! move to the right 23 bits
          iexp = IAND(iexp,255) + 2
-         iexp = ISHFT(iexp,+23)          ! move back left 23 
+         iexp = ISHFT(iexp,+23)          ! move back left 23
          itemp = ISHFT( inbuf(i), -31 )
          isign = ISHFT( itemp, +31 )
          iobuf(i) = IOR( iexp, mant )

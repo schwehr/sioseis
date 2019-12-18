@@ -235,7 +235,7 @@ C****
       PRINT 1010
       IERROR=IERROR+1
  1030 LLNO=LNO
-      IF( LTYPE .EQ. 0 .AND. weight .EQ. 1. .AND. 
+      IF( LTYPE .EQ. 0 .AND. weight .EQ. 1. .AND.
      &    ihdr+lhdr+hdr .EQ. 0 .AND. type .EQ. 0 ) THEN
           PRINT *,' ***  WARNING  ***  No weights given.'
           iwarn = iwarn + 1

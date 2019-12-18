@@ -30,7 +30,7 @@ c  mod 24 May 06 - Use frefil 4 (delete scratch files) before STOP
       cbuf(nchars+1:nchars+1)=' '
       cbuf(nchars+2:nchars+2)=char(0)
       IF( iprint .EQ. 1 ) PRINT *,cbuf(1:nchars+1)
-      IF( luno .GT. 0 .AND. luno .LT. 200 ) 
+      IF( luno .GT. 0 .AND. luno .LT. 200 )
      &    CALL wline( luno )
       ICHAR=1
       RETURN

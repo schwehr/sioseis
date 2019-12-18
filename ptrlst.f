@@ -26,7 +26,7 @@ c                  - Receiver X & Y used source
              GOTO 100
          ENDIF
          IF( trlist(i) .EQ. 4 ) THEN   ! day + GMT
-             WRITE( line(j:j+9), '(I3.1,1H ,2I2.2,1Hz)' ) 
+             WRITE( line(j:j+9), '(I3.1,1H ,2I2.2,1Hz)' )
      &        itrhdr(80),itrhdr(81),itrhdr(82)
              j = j + 10
              GOTO 100
@@ -89,7 +89,7 @@ c             scalar = FLOAT(itrhdr(35))
              GOTO 100
          ENDIF
          IF( trlist(i) .EQ. 15 ) THEN   ! GMT + sec
-             WRITE( line(j:j+8), '(2I2.2,1Hz,1x,I2.2)' ) 
+             WRITE( line(j:j+8), '(2I2.2,1Hz,1x,I2.2)' )
      &        itrhdr(81),itrhdr(82),itrhdr(83)
              j = j + 9
              GOTO 100
@@ -310,7 +310,7 @@ c             scalar = FLOAT(itrhdr(35))
              IF( itrhdr(45) .EQ. 3 ) THEN
                  deg = trhdr(22)
              ELSE
-                 deg = DFLOAT(ltrhdr(22)) 
+                 deg = DFLOAT(ltrhdr(22))
              ENDIF
              IF( itrhdr(45) .EQ. 2 ) deg = deg / 3600.D0
              dscalar = DFLOAT( itrhdr(36) )

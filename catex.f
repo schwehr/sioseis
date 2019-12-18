@@ -1,4 +1,4 @@
-      SUBROUTINE catex( buf, lbuf, ibuf, scr, lscr, iscr, nready )      
+      SUBROUTINE catex( buf, lbuf, ibuf, scr, lscr, iscr, nready )
 c
 c  ARGUMENTS:
 c  buf   - The trace, with SEGY header as TYPE REAL
@@ -6,7 +6,7 @@ c  lbuf  - The trace, with SEGY header as TYPE INTEGER*4
 c  ibuf  - The trace, with SEGY header as TYPE INTEGER*2
 c
 c  COPYRIGHT (C) The Regents of the University of California
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, SIO, 30 September 1992
 c  mod july 95 - initialize interp to 0
 c 8 Apr 09 - Use common numdat rather than segy header word ISAMPPTR
@@ -105,7 +105,7 @@ c****
           GOTO 20
       ENDIF
 c****
-c****   Do it 
+c****   Do it
 c****
   500 CONTINUE
       nsamps = numdat

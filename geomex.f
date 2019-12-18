@@ -88,9 +88,9 @@ c  mod 9 Apr 08 - Initialize ncomps to 0
 c  mod 17 Apr 08 - Increase depths, ranges, compasses to 1000 from 500
 c  mod 23 Apr 08 - Redo dfls logic for Bad fixes (0,0) and type 9
 c  mod 13 May 08 - Multiple lists didn't work.
-c  mod 2 June 08 - If gxp(1) is 0, then use the number of traces 
+c  mod 2 June 08 - If gxp(1) is 0, then use the number of traces
 c  mod 27 Aug 09 - Add cknav
-c  mod 4 Sep 09 - refine cknav check 
+c  mod 4 Sep 09 - refine cknav check
 c  mod 7 Sep 09 - add lprint 1024
 c  mod ?? Nov 09 - cygwin didn't like an unreachable statement (podisc).
 c  mod 14 Sep 10 - Add type 19 to read ukooa and write source lat/long as rael
@@ -102,7 +102,7 @@ c  mod 20 Apr 16 - but that caused the recovery to fail, so improve the recovery
 c                      by adding switch bad_fix
 c
 c
-c type 1 = Missing shots must be explicitly described 
+c type 1 = Missing shots must be explicitly described
 c type 2 = Missing shot points are assumed to occur whenever a shot point
 c           number is missing.
 c type 3 = LDGO navigation method. CDP
@@ -112,7 +112,7 @@ c type 6 = SIOSEIS navigation file method
 c type 7 = elevation insertion only.
 c type 8 = UKOOA
 c type 9 = calculates DFLS from the SEGY long/lat (x,y shot
-c type -9 = lat/long or (y,x) 
+c type -9 = lat/long or (y,x)
 c type 10 = write UKOOA coordinates in SEG-Y header
 c type 11 = compute range and rp from SEG-Y header
 c type 12 = Mladen's 3-D/cross-dip geom
@@ -134,7 +134,7 @@ C****   YOFFB IS NOT IMPLEMENTED!!!!
       PARAMETER (maxbirds=100, maxcomps=50)
       DIMENSION GXP(MAXGX), bgp(maxbirds)
       DIMENSION cgp(maxcomps), icgrpno(maxcomps), creading(maxcomps)
-      DIMENSION buf(60), lbuf(60), ibuf(120), 
+      DIMENSION buf(60), lbuf(60), ibuf(120),
      &          scr(111), lscr(111), iscr(111)
       COMMON /GEOM/IGUNIT, nglists
       COMMON /RPCALC/ DFLS,DBRPS,SMEAR,type, lunbinary, iwritexy
@@ -154,7 +154,7 @@ C****   YOFFB IS NOT IMPLEMENTED!!!!
       REAL lbinx, lbiny, maxdfls, mindfls
       REAL*8 ship_lat, ship_long, oldlat, oldlong, ddlat, ddlong
       REAL*8 deltax, deltay, dtemp, pi
-      REAL*8 first_x, first_y, last_x, last_y, azimuth, az, 
+      REAL*8 first_x, first_y, last_x, last_y, azimuth, az,
      &       sx, sy, rx, ry
       REAL*8 rad, angle, x, y, sinaz, cosaz, mpx, mpy
       REAL*8 d19, d20, d21, d22
@@ -383,7 +383,7 @@ c                 trace 1 is closest to the source
                   IF( lscr(10) .LT. lbuf(10) ) ggx = -ggx
               ENDIF
               IF( dbrps .EQ. 0 ) dbrps = ABS(ggx) / 2.
-              IF( IAND(lprint,4) .NE. 0 ) 
+              IF( IAND(lprint,4) .NE. 0 )
      &            PRINT *,' ggx=',ggx,' dbrps=',dbrps,
      &                    ' gxp=',gxp(1),gxp(2)
               CALL ukooain( navfil, ibuf, lbuf, buf, istat )
@@ -458,7 +458,7 @@ c**** In the LDEO case, assume SEGDIN filled lat/long.
 c**** Calcrp writes over bytes 73-88 (lbuf(19), lbuf(20), lbuf(21), lbuf(22))
 c**** IF the lat/long = 0, we can't do anything, so give up and don't any
 c****   more damage by calculating bogus geometry.
-      IF( type .EQ. 9 .OR. type .EQ. -9 .OR. type .EQ. 14 .OR. 
+      IF( type .EQ. 9 .OR. type .EQ. -9 .OR. type .EQ. 14 .OR.
      &    type .EQ. 16 .OR. cknav .NE. 99999. ) THEN
 c****     Some GPS units give lat and long of 0 when they fail.
 c****     Use the last dfls when that happens and keep track of how many
@@ -505,7 +505,7 @@ c****  subsequent traces of the same shot have dfls 0, it's no big deal.
               IF( dfls .GT. 0 .AND. dfls .LT. 5. ) PRINT *,
      & ' ***  WARNING  ***  Unusually small distance from last shot of',
      &            dfls
-              IF( ABS(dfls) .GT. maxdfls .OR.  
+              IF( ABS(dfls) .GT. maxdfls .OR.
      &            ABS(dfls) .LT. mindfls ) THEN
                   nbad = nbad + 1
                   bad_fix = 1
@@ -613,7 +613,7 @@ c              make them use process header rather than write them here!
                itemp = NINT((mpx-first_rp_x ) / dbrps)
                dtemp = itemp * dbrps
                lbuf(6) = 0
-               IF( (mpx-first_rp_x) .GE. dtemp-smear/2. .AND. 
+               IF( (mpx-first_rp_x) .GE. dtemp-smear/2. .AND.
      &             (mpx-first_rp_x) .LE. dtemp+smear/2.)
      &             lbuf(6) = itemp + 1
                ibuf(49) = NINT(deltay)                                  ! crossline offset in meters
@@ -635,7 +635,7 @@ c****      watch out for ibuf being 16 bit integer
       ENDIF
       IF( type .EQ. 18 ) CALL sionav2segy( navfil, lbuf, ibuf )
       IF( type .EQ. 1 .OR. type .EQ. 2 .OR. type .EQ. 6 .OR.
-     &    type .EQ. 9 .OR. type .EQ. 14 .OR. type .EQ. 16 .OR. 
+     &    type .EQ. 9 .OR. type .EQ. 14 .OR. type .EQ. 16 .OR.
      &    type .EQ. 17 .OR. type .EQ. 18 ) THEN
           IF( dfls .GT. 1000. .OR. dfls .LT. -1000. )
      &        PRINT *,' ***  WARNING  ***  Unusual DFLS of ',dfls
@@ -675,12 +675,12 @@ c****  gfortran doesn't like FLOAT(integer*2), so don't do explicit float.
                       itemp1 = longdeg
                   ENDIF
                   IF( ibuf(79) .LT. 20 ) ibuf(79) = ibuf(79) + 2000
-                  PRINT 506, lbuf(3), 
+                  PRINT 506, lbuf(3),
      &            ibuf(79), ibuf(80), ibuf(81), ibuf(82), ibuf(83), ns,
      &            itemp, latmin, seclat, ew, itemp1, longmin, seclong,
      &            lbuf(16)
   506         FORMAT(1x,I6.6,1x,I4,'+',I3.3,':',I2.2,':',I2.2,':',I2.2,
-     &               1x,A1,1x,I2.2,1x,I2.2,1x,F6.3, 
+     &               1x,A1,1x,I2.2,1x,I2.2,1x,F6.3,
      &               1x,A1,1x,I3.3,1x,I2.2,1x,F6.3,
      &               1x,I4 )
               ENDIF
@@ -775,16 +775,16 @@ c****  sh!@#$%^.  the ldeo extended header stuff MIGHT change so that it's
 c****  Y2K compliant.  There are three 2 digit dates which presumably will
 c****  become 4 digits, so if we see one change, assume all three changed!
 c****  ldgo_tr0 does it ok, but the location of the depths changes by 6 bytes
-              IF( index13 .GT. 0 .AND. sect13(9:9) .EQ. ':' ) 
+              IF( index13 .GT. 0 .AND. sect13(9:9) .EQ. ':' )
      &            index13 = index13 + 3
               IF( index13 .GT. 0 .AND. sect13(7:7) .EQ. ':' ) THEN
                   IF( nbgps .GT. 0 ) istat = getdep( iscr(index13),
-     &                xbirds, nbgps/2, ranges, intrcs, depths, 
+     &                xbirds, nbgps/2, ranges, intrcs, depths,
      &               ncomps, icgrpno, creading )
                   IF( ncgps .GT. 0 ) THEN
                       DO i = 1, ncomps
                          DO j = 1, ncgps, 2
-                            IF( icgrpno(i) .EQ. NINT(cgp(j)) ) 
+                            IF( icgrpno(i) .EQ. NINT(cgp(j)) )
      &                          icgrpno(i) = NINT(cgp(j+1))
                          ENDDO
                       ENDDO
@@ -793,7 +793,7 @@ c****  ldgo_tr0 does it ok, but the location of the depths changes by 6 bytes
                   istat = -1
               ENDIF
 c              PRINT *,' 13=', sect13(5:12), '11=',sect11(49:77)
-c              IF( nbgps .GT. 0 .AND. istat .NE. 0 ) 
+c              IF( nbgps .GT. 0 .AND. istat .NE. 0 )
 c     &            PRINT *,' Bird depth calculation failed on shot ',
 c     &               lbuf(3)
           ENDIF
@@ -834,7 +834,7 @@ c     &               lbuf(3)
           ENDIF
           location2 = ebuf(1)
           elevation2 = ebuf(2)
-          IF( sourcex .LT. location1 .AND. 
+          IF( sourcex .LT. location1 .AND.
      &        receiverx .LT. location1 ) RETURN
           IF( sourcex .GE. location1 .AND.
      &        sourcex .LT. location2 ) THEN

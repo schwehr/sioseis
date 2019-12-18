@@ -99,7 +99,7 @@ C****
       SI=BUF(49)                                                        ! THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE 
+   10 CONTINUE
       CALL PODISC(MUNIT,1,0)                                            ! REWIND THE PARAMETER FILE
       CALL RDDISC(MUNIT,LSCR,NWRDS,ISTAT)                               ! READ THE PARAMETERS
       CALL rddisc( munit, ivms, 20, istat )
@@ -202,7 +202,7 @@ C****
       info = lscr(12)
       DO 505 I=1,MAX
   505 CUR(I)=SCR(nwrds-max+i)
-      IF(LNUM.LT.FNO.AND.MLISTS.GT.1) GO TO 600 
+      IF(LNUM.LT.FNO.AND.MLISTS.GT.1) GO TO 600
       GO TO 1000
 C****
 C****      SPATIALLY VARY THE PRINT WINDOW TIMES
@@ -219,9 +219,9 @@ C****
           PRINT *,fno,lno,noinc,addwb,lprint,ftr,ltr, trinc
           PRINT *,header,inc,info,theads, form, cur
           PRINT *,buf(46), buf(49)
-          IF( ntrlist .NE. 0 ) 
+          IF( ntrlist .NE. 0 )
      &        PRINT *,' tr_list:', (tr_list(i),i=1,ntrlist)
-      ENDIF	
+      ENDIF
       IF( noinc .NE. 1 .AND. fno .NE. lno ) THEN
           IF( (lnum-fno)/noinc*noinc .NE. (lnum-fno) ) THEN
               IF( info .NE. 0 .AND. info .NE. 2 ) GOTO 1400
@@ -329,10 +329,10 @@ c****
       IOUT=0
       IF( ndows .GT. 0 ) CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)
       IF( form .EQ. 'MATLAB' .OR. form .EQ. 'matlab' )
-     &    WRITE( filename, '(A2,I6.6,2Htr,I3.3,2H.m )' ) 
+     &    WRITE( filename, '(A2,I6.6,2Htr,I3.3,2H.m )' )
      &           name, lnum, ltrace
-      IF( form .EQ. 'ASCII' .OR. form .EQ. 'ascii') 
-     &    WRITE( filename, '(A2,I6.6,2Htr,I3.3,4H.txt )' ) 
+      IF( form .EQ. 'ASCII' .OR. form .EQ. 'ascii')
+     &    WRITE( filename, '(A2,I6.6,2Htr,I3.3,4H.txt )' )
      &           name, lnum, ltrace
       IF( form .EQ. 'MATLAB' .OR. form .EQ. 'matlab' .OR.
      &    form .EQ. 'ASCII' .OR. form .EQ. 'ascii') THEN
@@ -394,13 +394,13 @@ C****
      &    form .EQ. 'ASCII' .OR. form .EQ. 'ascii') THEN
           IF( form .EQ. 'MATLAB' .OR. form .EQ. 'matlab' )
      &        WRITE( luno, '(1H])' )
-          CLOSE( luno, STATUS = 'KEEP' ) 
+          CLOSE( luno, STATUS = 'KEEP' )
           CALL frefil( 1, luno, istat )
       ENDIF
 c****
 c****    Print the header entries specified with TRLIST
 c****
-      IF( ntrlist .GT. 0 ) 
+      IF( ntrlist .GT. 0 )
      &    CALL ptrlst( luno1, ntrlist, tr_list, lbuf, ibuf, buf )
 c****
 c**** STATISTICS & Information
@@ -408,7 +408,7 @@ c****
  1400 IF( info .EQ. 1 .OR. info .EQ. 3 ) THEN
           IF( etime .EQ. 0. ) THEN
               iyear1 = ibuf(79)
-              jday1 = ibuf(80)   
+              jday1 = ibuf(80)
               ihour1 = ibuf(81)
               min1 = ibuf(82)
               isec1 = ibuf(83)
@@ -452,12 +452,12 @@ c****
           IF( istop .NE. 0 .AND. (info.EQ.1 .OR. info.EQ.3 ) ) THEN
               IF( dlong1 .NE. 0 .OR. dlat1 .NE. 0 ) THEN
                   dtemp = dlat1
-                  IF( ibuf(45).EQ. 3 ) dtemp = dlat1 * 60. * 60. 
+                  IF( ibuf(45).EQ. 3 ) dtemp = dlat1 * 60. * 60.
                   IF( scalar .GT. 0 ) dtemp = dtemp * scalar
                   IF( scalar .LT. 0 ) dtemp = dtemp / (-1. * scalar)
                   CALL dsecsdms( 1, dtemp, latdeg1, latmin1, seclat1 )
                   dtemp = dlong1
-                  IF( ibuf(45).EQ. 3 ) dtemp = dlong1 * 60. * 60. 
+                  IF( ibuf(45).EQ. 3 ) dtemp = dlong1 * 60. * 60.
                   IF( scalar .GT. 0 ) dtemp = dtemp * scalar
                   IF( scalar .LT. 0 ) dtemp = dtemp / (-1. * scalar)
                   CALL dsecsdms( 1, dtemp, longdeg1, longmin1, seclong1)
@@ -536,7 +536,7 @@ c****
                       temp = wbc
                       CALL secsdms( 1, temp, ideg, min, sec )
                       dtemp = sec
-                      wbc = DABS(DFLOAT(ideg)) + DFLOAT(min)/60. + 
+                      wbc = DABS(DFLOAT(ideg)) + DFLOAT(min)/60. +
      &                      dtemp/3600.D0
 c*****   cygwin doesn't like DFLOAT(sec)
 c     &                      DFLOAT(sec)/3600.

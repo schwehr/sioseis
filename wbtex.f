@@ -93,7 +93,7 @@ C
       nready = 1
       IF( vel(numwbt) .NE. 0. ) GOTO 1000
       IF( sol(numwbt) + thres(numwbt) + peak(numwbt) + sepp(numwbt,1) +
-     &    sepp(numwbt,2) + guide(numwbt) .NE. 0 ) GOTO 2000 
+     &    sepp(numwbt,2) + guide(numwbt) .NE. 0 ) GOTO 2000
       L = LBUF(lrpnptr)                                                 ! THE RP NUMBER OF THIS TRACE
       IF( LDAY(numwbt) .NE. 0 ) THEN
           rmin = REAL(ibuf(80)) * 24. * 60. +
@@ -205,9 +205,9 @@ c****   When prestack, use the depth from the first trace for all others in the 
           IF( lbuf(7) .EQ. 0 ) itraceno = lbuf(4)
           IF( itraceno .NE. 1 ) depth = depth1     ! use the previous depth
       ENDIF
-      IF( track(numwbt) .NE. 99. .AND. depth1 .NE. 0 .AND. 
+      IF( track(numwbt) .NE. 99. .AND. depth1 .NE. 0 .AND.
      &    nnonzero .GT. 5 ) THEN
-          IF( ABS(depth-depth1)*2./vel(numwbt) .GT. track(numwbt) ) 
+          IF( ABS(depth-depth1)*2./vel(numwbt) .GT. track(numwbt) )
      &        depth = depth1
       ENDIF
 c****  Knudsen also gives zero when it can't find the water botton.
@@ -236,7 +236,7 @@ c****  Use the last good one if this is zero.
       ENDIF
       ndone = ndone + 1
       n = nscan(numwbt)
-      IF( ndone .LT. nscan(numwbt) ) n = ndone 
+      IF( ndone .LT. nscan(numwbt) ) n = ndone
       sbdep(n+loffst(numwbt)) = depth
       n2 = nscan2
       IF( ndone .LT. nscan2 ) n2 = ndone
@@ -335,8 +335,8 @@ c**** it in a(nextad).  Put it back in a(in).
              a(nextad+i-1) = scr(i)
           ENDDO
       ENDIF
-      IF( sol(numwbt) .NE. 0 ) GOTO 2100 
-      IF( thres(numwbt) .NE. 0 ) GOTO 3000 
+      IF( sol(numwbt) .NE. 0 ) GOTO 2100
+      IF( thres(numwbt) .NE. 0 ) GOTO 3000
       IF( peak(numwbt) .NE. 0. ) GOTO 4000
       IF( guide(numwbt) .NE. 0. ) GOTO 5000
       PRINT *,' ***  PROGRAM ERROR   ***   WBT'
@@ -358,11 +358,11 @@ c      IF( in .NE. 0 ) THEN
 c          CALL slave( a(in+istartl-1), nlong, a(in+istarts+iadds-1),
 c     &        nshort, numdat, sol(numwbt), index, aves, avel, jprint )
 c      ELSE
-c          CALL slave( buf(numhdr+istartl), nlong, 
+c          CALL slave( buf(numhdr+istartl), nlong,
 c     &                buf(numhdr+istarts+iadds), nshort,
 c     &                numdat, sol(numwbt), index, aves, avel, jprint )
 c      ENDIF
-       CALL slave( a(nextad+istartl), nlong, 
+       CALL slave( a(nextad+istartl), nlong,
      $             a(nextad+istarts+iadds), nshort,
      &             numdat, sol(numwbt), index, aves, avel, jprint )
  2010 IF( index .GT. 0 ) THEN
@@ -422,7 +422,7 @@ c****
           pick = 0.
           DO i = 1, numdat
              IF( ABS(a(nextad-1+i)) .GT. thres(numwbt) ) THEN
-                 pick = FLOAT(i-1) 
+                 pick = FLOAT(i-1)
 c                 i = numdat
                  GOTO 3010
                  ENDIF
@@ -510,13 +510,13 @@ c**** Don't honor the pick if it was the first sample
       picklast(numwbt) = picktime(numwbt)
       buf(jndex(numwbt)) = picktime(numwbt)
       lastno(numwbt) = no
-      IF( IAND(lprint(numwbt),2) .NE. 0 ) PRINT 4500, 
+      IF( IAND(lprint(numwbt),2) .NE. 0 ) PRINT 4500,
      &    no, itrno, buf(jndex(numwbt)), pick
  4500 FORMAT (' no ',I6,' trace ',I4,' picked time is ',F8.6,
      &  ' peak is ', G20.10)
       RETURN
 c****
-c****  Guided - the peak or trough within window SEG which is centered around the 
+c****  Guided - the peak or trough within window SEG which is centered around the
 c****           water bottom time in buf(jndex(numwbt))
 c****
  5000 CONTINUE

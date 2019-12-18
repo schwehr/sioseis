@@ -21,7 +21,7 @@ c
       INTEGER lprint
       DATA names / 'LPRINT', 'TRIM  ', 'TRIMIN','TRIMOUT','PANEL  ',
      &       'XXT'/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0
@@ -65,7 +65,7 @@ c****
                  nxxts = nxxts + 1
                  scr(npars) = nxxts
                  scr(npars+nxxts) = ABS(areal)
-             ENDIF 
+             ENDIF
              lastname = names(nparam)
              GOTO 100
           ENDIF
@@ -77,7 +77,7 @@ c****
           scr(npars) = nxxts
           scr(npars+nxxts) = ABS(areal)
           GOTO 100
-      ENDIF    
+      ENDIF
       IF( token(1:nchars) .NE. 'END' ) THEN
           PRINT *,' ***  ERROR  ***  Unknown STK parameter named ',
      &      token(1:nchars)

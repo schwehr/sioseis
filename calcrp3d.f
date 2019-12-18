@@ -1,4 +1,4 @@
-      SUBROUTINE calcrp3d( ihead, lhead, fbinx, fbiny, lbinx, lbiny, 
+      SUBROUTINE calcrp3d( ihead, lhead, fbinx, fbiny, lbinx, lbiny,
      &     bin_h, bin_w, lprint, lrpadd )
 c     Find the CMP bin number for the trace.  Put the bin number in lhead(6)
 c     Translate the origin so that the center of the first bin is 0.
@@ -33,7 +33,7 @@ c mod 14 Aug 07 - g95 ca't declare and set in same statement,
       DATA first/.TRUE./
       INTEGER fbin_no
       REAL*8 d19, d20, d21, d22, pi, rad, deg
-      DATA pi/3.14159265358979/, rad/57.2957795131/, 
+      DATA pi/3.14159265358979/, rad/57.2957795131/,
      &       deg/.0174532925199/, fbin_no/0/
 
       IF( first ) THEN

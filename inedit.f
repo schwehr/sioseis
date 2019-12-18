@@ -1,5 +1,5 @@
        SUBROUTINE INEDIT(BUF1,LBUF1,IBUF,ISCR)
-c                                                                     
+c
 C                             PROCESS INPUT (READS MAGNETIC TAPE)
 C                             ------- -----
 C
@@ -21,14 +21,14 @@ C  UNIT NUMBER VIA FILE 'IN'.  THE FILE 'IN' MUST BE IN THE SAME DIRECTORY
 c  THAT THE JOB IS RUNNING IN.  A -1 UNIT NUMBER TERMINATES THE JOB.
 c      SIOSEIS allows the user to break" the SEGY standard by putting more
 c  than one file on a tape (some Exabyte tapes hold 5GB of data!).  In order
-c  to read multiple files, INPUT parameter NFILES MUST be used.  Remember 
+c  to read multiple files, INPUT parameter NFILES MUST be used.  Remember
 c  that tapes are terminated by a file mark; in order to read multiple
 c  tapes NFILES must be used.
 C      SIOSEIS ASSUMES THAT SHOT NUMBERS INCREASE ON THE TAPE unless parameter
 c  order is used.  IF THE SHOT NUMBERS DO NOT INCREASE, OR IF THE SHOTS ARE
 c  NOT TO BE PROCESSED IN THE ORDER THEY ARE ON TAPE, MULTIPLE PARAMETER LIST
 c  MAY BE USED.  E.G. IF THE SHOTS ON TAPE ARE ORDERED 10001 TO 11000 FOLLOWED
-c  BY SHOTS 500 TO 600, USE EITHER FIS 99999     OR USE TWO LISTS - 
+c  BY SHOTS 500 TO 600, USE EITHER FIS 99999     OR USE TWO LISTS -
 c                                  FIS 10001 LIS 11000 END
 C                                  FIS 500 LIS 600 END
 C
@@ -38,7 +38,7 @@ C
 C  REQUIRED PARAMETERS
 C  -------- ----------
 C  IUNIT  - THE TAPE UNIT NUMBER OF THE FIRST INPUT REEL.  Tape units may be
-c           changed by changing iunit in a new fno/lno list or by the above 
+c           changed by changing iunit in a new fno/lno list or by the above
 c           method (file in) when a file mark is detected on the SEGY input tape.
 c           Unix tape assignment is /dev/nrstIUNIT. e.g. iunit 0 is /dev/nrst0.
 c           VMS tape assignments are:
@@ -47,8 +47,8 @@ c              20<= LUN < 30  tape drive MTA, 30<= LUN < 40  tape drive MTB
 c              40<= LUN < 50  tape drives MUA, 50<= LUN < 60  tape drives MUB
 c              60<= lun < 70  tape drives XTA, 70<= lun < 80  tape drives XTB
 C           Preset 0.        E.G. IUNIT 1
-c  DEVICE - The UNIX tape device name to read from.  When given, the 
-c           Fortran magnetic tape device independent driver is used to 
+c  DEVICE - The UNIX tape device name to read from.  When given, the
+c           Fortran magnetic tape device independent driver is used to
 c           read the specified device.  The "no rewind" device should be used.
 c           Preset = none       e.g.  device  /dev/nrst8
 C
@@ -61,7 +61,7 @@ c           The shots will be read from tape in the order specified by:
 c           FIS to LIS in increments of SINC.  E.G. fis 1 lis 5 means
 c           that the shots must be ordered 1, 2, 3, 4, 5 on tape.  If a
 c           shot within FIS - LIS is missing, the program will continue
-c           to search for the missing shot and will stop at the end of 
+c           to search for the missing shot and will stop at the end of
 c           tape without finding the shot.
 C           A FIS OF 99999 WILL CAUSE THE PROGRAM TO READ ALL SHOTS ON THE
 C           INPUT TAPE REGARDLESS OF SHOT NUMBER (THE SHOT NUMBERS DO NOT
@@ -146,9 +146,9 @@ C  USEFUL OPTIONAL PARAMETERS
 C  ------ -------- ----------
 c  FNO    - First shot/rp number. FNO may be used instead of FIS or FRP.
 c           Ordinarily SIOSEIS insists that the users know whether the
-c           input tape is sorted by shot or rp and will not run if the 
+c           input tape is sorted by shot or rp and will not run if the
 c           tape is described incorrectly.  The use of FNO and LNO eases
-c           this!  As with FIS and LIS, FNO 99999 reads all traces from 
+c           this!  As with FIS and LIS, FNO 99999 reads all traces from
 c           tape regardless of their numbers and will stop reading only
 c           when a negative tape unit number is given in file in at the
 c           end of a tape (see tape change).
@@ -239,7 +239,7 @@ c           End of gather will also be set if the parameter LTR is used and
 c           the trace on tape is equal to LTR.
 c           The value of forgat indicates the number of rps to concatenate
 c           into a single gather which is terminated by the end-of-gather
-c           flag.  The penalty for this is significantly slower throughput on 
+c           flag.  The penalty for this is significantly slower throughput on
 c           non-Unix computers (computers that allow asyncronus or overlapped I/O).
 c           LDGO gather tapes start with the largest trace number first, which
 c           breaks the SIOSEIS monotonicly increasing assumption; LDGO gather
@@ -263,7 +263,7 @@ c           on every INPUT list (a list is terminated with "END").
 c         = 1, (TRUE), rewind.
 c         = 0, (FALSE), NO rewind.
 c           DEFAULT = 1,      e.g.  rewind 0    # don't rewind
-c  NRSKIP - The number of tape records (traces) to skip before reading 
+c  NRSKIP - The number of tape records (traces) to skip before reading
 c           the first trace.  This is useful when 2 or more SEGY files
 c           are concatenated into 1 file on tape.
 c         >0, the record skip is done AFTER the SEGY tape header is read.
@@ -276,7 +276,7 @@ c           shot/rp numbers are in decreasing order on tape.  The parameter
 c           sinc/rpinc/noinc usually needs to be a negative number when
 c           order -1 is given.  e.g. If the order of rps on tape is 9100,
 c           9099, 9098, 9097,...  the following parameters would work:
-c           frp 9100 lrp 9097 rpinc -1  
+c           frp 9100 lrp 9097 rpinc -1
 c           Preset = 0      e.g. order -1
 c  NFILES - The number of files to use.  The tape files must be
 c           consecutive on tape.  A filemark on tape is the end of file
@@ -315,14 +315,14 @@ c   mod 24 Nov 92 change nfiles preset to 1
 c   mod 10 Jan 94 - reject nfiles to be used with the device parameter.
 c   mod 9 June 94 - Don't reject nfiles and device if norewind device.
 c   mod 22 Jun 94 - set iunit = 1 when DEVICE is given
-c   mod 20 Mar 95 - Add no =   and tr = 
+c   mod 20 Mar 95 - Add no =   and tr =
 c   mod 29 Mar 95 - Change fis/frp/fno preset to 99999
 c   mod 29 Mar 95 - Add parameters allno and alltr
 c   mod 15 aug 95 - Allow iunit up to 40
 c   mod 13 Nov 95 - Add parameter REWIND.
 c   mod 7 Dec 95 - Do some editing on NO and TR parameters.
 c   mod 18 Mar 96 - allno 0 and alltr 0 didn't work
-c   mod 1 Oct 97 - Use upcase for  allno, alltr, rewind etc 
+c   mod 1 Oct 97 - Use upcase for  allno, alltr, rewind etc
 c   mod mar 99 - Change allno to no if there's an increment between shots etc
 c              - Likewise for trinc - set alltr to 0 if trinc is given
 c   mod 31 Jul 00 - mar 99 change was bad because sinc preset is 1 not 0!
@@ -482,7 +482,7 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      ns = 0 
+      ns = 0
       CALL GETOKE(TOKEN,NCHARS)                                         ! GET A TOKEN FROM THE USER PARAMTER LINE
       CALL UPCASE(TOKEN,NCHARS)
       IF( NCHARS .LE. 0 ) THEN
@@ -787,7 +787,7 @@ C****
       IF( IAND(LPRINT,1) .EQ. 1 ) THEN
           PRINT *, NLISTS,IREELN,IUNIT,LTYPE,istart,iend,SINC,FTR,LTR,
      *       TRINC,ISI,IDELAY,NTRGAT,TIME1,TIME2,DECIMF,forgat,order
-          PRINT *, stime, set, renum, notype, noindex, itrtype, 
+          PRINT *, stime, set, renum, notype, noindex, itrtype,
      &        itrindex, allno, alltr, rewind
 	  PRINT *, inputdev
       ENDIF

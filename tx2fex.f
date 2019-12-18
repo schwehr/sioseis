@@ -110,7 +110,7 @@ c 24 Jul 01 - Change SZAPMEM to 5000000
 c 5 Feb 03 - ajh - add an additional stage and scratch file during
 c            transformation but ensures that all writes to disk are
 c             contiguous and sequential.
-c 19 May 05 - pch - at 1100 use the transpose array rather than the 
+c 19 May 05 - pch - at 1100 use the transpose array rather than the
 c                   scratch trace array. (buffer overlow!)
 c                 - Don't allow an output trace (complex) be larger than
 c                   the max trace length (16 bit integer nsamps).
@@ -698,7 +698,7 @@ C..                              Read in the trace data and scatter into array T
  1050       continue
             istart = istart + nspace1                                   ! position of next time trace
  1060    continue
-C..                                Now FFT the nsize range traces held in memory          
+C..                                Now FFT the nsize range traces held in memory
          if (iuseap .eq. NOAP) then
             indx = 1
             do 1070 j = 1, nsize
@@ -711,23 +711,23 @@ c..                             Do FFT in place as real time series of length NX
               call gnrfft ( t(indx), nx, FORWARD,.false.)
               indx = indx + nx
  1070       continue
-         else 
+         else
             stop 'AP fft routine not installed'
          endif
 
 c..            Transpose (GATHER) the data back into partial complex time traces
           do 1090 j = 1, nxo2
               indx = j * 2 - 1
-              
+
               do 1080 k = 1, nsizeo, 2
                 scr(k)   = t(indx)
                 scr(k+1) = t(indx+1)
                 indx     = indx + nx
  1080         continue
- 
+
               call wrdisc(igunit, scr, nsizeoc)
  1090     continue
- 
+
         jstarti = jstarti + nsize
  1100 continue                                                          ! End of Outer loop
 
@@ -736,11 +736,11 @@ c..                 Assemble the complex traces sections into complete traces
        nsizei  =  2*nsizec
        nslice  =  nsizec*nx
        jstarti =  DSKSTRT - nsizei
-       
+
        call podisc(ixunit,POSABS,DSKSTRT)
 c****  AH used array scr which is the scratch trace array rather than
 c****  the transpose array t, but the indexing looks like it should be
-c****  the transpose array. - pch May 2005 
+c****  the transpose array. - pch May 2005
        do 1103 i = 1, nspace2
 c         scr(i) = 0.
          t(i) = 0.
@@ -761,7 +761,7 @@ c           call rddisc(igunit,scr(indx),nsizei,istat)
            call rddisc(igunit,t(indx),nsizei,istat)
            indx   = indx   + nsizei
            istart = istart + nslice
- 1101    continue 
+ 1101    continue
 c         call wrdisc(ixunit,scr,nspace2)
          call wrdisc(ixunit,t,nspace2)
  1102  continue
@@ -772,10 +772,10 @@ c         scr(i) = 0.
  1104  continue
 c       call wrdisc(ixunit,scr,nspace2)
        call wrdisc(ixunit,t,nspace2)
-       
+
        call frefil(RLDLCLS, igunit,istat)                                ! release temp file
 
-c..                                           Assembly completed    
+c..                                           Assembly completed
 
 C..              Now unpack 1st trace into zero wavenumber and Nyquist traces
       istart = dskhdr2 + DSKSTRT
@@ -883,7 +883,7 @@ c          call fftfwd(ap, tpow)
                call vmov(nextad,2,1,1,nt)
                call vmov(nextad+1,2,nt+1,1,nt)
           endif
-      endif 
+      endif
 c
       idtype = LocId                                                    ! Set Data id in common /READT/
       numdat = n                                                        ! & Pass length of output data

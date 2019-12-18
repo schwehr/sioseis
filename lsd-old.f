@@ -208,7 +208,7 @@ c****            = 4, then +/-DDDMMSS.ss
           IF( ibuf(66) .NE. 0 ) PRINT *,' Sweep length:',ibuf(66)
           IF( knudsen ) THEN
 c****         Valid on raw files only.  sioseis diskox doesn't swap the same way.
-              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &            CALL swap16( ibuf(95), 20 )
               PRINT *,' PingStartTimeMS:',ibuf(95)
               PRINT *,' TxPower:',ibuf(96)
@@ -230,9 +230,9 @@ c****         Valid on raw files only.  sioseis diskox doesn't swap the same way
               PRINT *,' EventMarkCode:',ibuf(112)
               PRINT *,' EventMarkNumber:',ibuf(113)
               PRINT *,' Scaler:',ibuf(114)
-              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &            CALL swap32( lbuf(58), 1 )
-              IF( ibuf(114) .LT. 0 ) 
+              IF( ibuf(114) .LT. 0 )
      &            temp = - FLOAT(lbuf(58)) / FLOAT(ibuf(114))
               PRINT *,' DataRate:',temp
           ENDIF

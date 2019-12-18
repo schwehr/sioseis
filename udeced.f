@@ -1,5 +1,5 @@
       SUBROUTINE udeced(scr,lscr)
-c                                                                           
+c
 C                        PROCESS UDECON  (USER DEFINED DECONVOLUTION)
 C                        ------- ------
 C

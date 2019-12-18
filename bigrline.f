@@ -38,13 +38,13 @@ c
    40 cbuf(nchars+1:nchars+1)=' '
       cbuf(nchars+2:nchars+2)=char(0)
 c***   watch out for DOS lines that have cr/lf - blank the cr
-      IF( cbuf(nchars-1:nchars-1) .EQ. CHAR(10) ) 
+      IF( cbuf(nchars-1:nchars-1) .EQ. CHAR(10) )
      &    cbuf(nchars-1:nchars-1) = ' '
-      IF( cbuf(nchars-1:nchars-1) .EQ. CHAR(13) ) 
+      IF( cbuf(nchars-1:nchars-1) .EQ. CHAR(13) )
      &    cbuf(nchars-1:nchars-1) = ' '
-      IF( cbuf(nchars:nchars) .EQ. CHAR(10) ) 
+      IF( cbuf(nchars:nchars) .EQ. CHAR(10) )
      &    cbuf(nchars:nchars) = ' '
-      IF( cbuf(nchars:nchars) .EQ. CHAR(13) ) 
+      IF( cbuf(nchars:nchars) .EQ. CHAR(13) )
      &    cbuf(nchars:nchars) = ' '
 c      IF( iprint .EQ. 1 ) PRINT *,cbuf(1:nchars)
       ichar = 1
@@ -100,13 +100,13 @@ c
    40 cbuf(nchars4+1:nchars4+1)=' '
       cbuf(nchars4+2:nchars4+2)=char(0)
 c***   watch out for DOS lines that have cr/lf - blank the cr
-      IF( cbuf(nchars4-1:nchars4-1) .EQ. CHAR(10) ) 
+      IF( cbuf(nchars4-1:nchars4-1) .EQ. CHAR(10) )
      &    cbuf(nchars4-1:nchars4-1) = ' '
-      IF( cbuf(nchars4-1:nchars4-1) .EQ. CHAR(13) ) 
+      IF( cbuf(nchars4-1:nchars4-1) .EQ. CHAR(13) )
      &    cbuf(nchars4-1:nchars4-1) = ' '
-      IF( cbuf(nchars4:nchars4) .EQ. CHAR(10) ) 
+      IF( cbuf(nchars4:nchars4) .EQ. CHAR(10) )
      &    cbuf(nchars4:nchars4) = ' '
-      IF( cbuf(nchars4:nchars4) .EQ. CHAR(13) ) 
+      IF( cbuf(nchars4:nchars4) .EQ. CHAR(13) )
      &    cbuf(nchars4:nchars4) = ' '
       IF( iprint4 .EQ. 1 ) PRINT *,cbuf(1:nchars4)
       ichar4 = 1

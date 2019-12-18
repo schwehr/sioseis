@@ -20,8 +20,8 @@ c
 C  THE PARAMETER DICTIONARY
 C  --- --------- ----------
 c  OTIME  - The time, in seconds, of the of the water bottom after process
-c           FLATEN. 
-c           REQUIRED.    e.g. otime 5.6 
+c           FLATEN.
+c           REQUIRED.    e.g. otime 5.6
 c  VEL    - The velocity of the water column used to convert the water depth
 c           to the water bottom time.  A zero velocity indicates that the header
 c           word is a time.  time = header / vel.  SIO Sea Beam uses 1500 m/s
@@ -41,7 +41,7 @@ c           traces.
 c           preset = 1    e.g.   nave 5
 c  FNO    - The first shot (or RP) to FLATEN.  Shot (RP) numbers must increaseC c           monotonically.
 c  LNO    - The last shot (RP) to FLATTEN.  LNO must be larger than FNO in each
-c           successive parameter list. 
+c           successive parameter list.
 C  END    - TERMINATES EACH PARAMETER LIST.
 C
 C  COPYRIGHTED (C) AND WRITTEN BY:

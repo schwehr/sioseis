@@ -64,13 +64,13 @@ C           TAPE HEADER SORT FLAG TO 2 (SORTED BY RP).
 C           PRESET=NONE
 C  DELAY  - THE DEEP WATER DELAY.  The value for DELAY is inserted into
 c           the SEGY trace header AFTER the seismogram is created.  The
-c           times specified in TVA must reflect the delay (e.g. 
+c           times specified in TVA must reflect the delay (e.g.
 c           tva .1 10000 1 delay 1 puts a spike at time 1.1)
 C           PRESET=0.
 c  NOISE  - The level of white noise to add to the trace is made with
 c           VALUES or TVA.  The level given multiplies the unit variance
 c           trace.  The seed for each trace is the shot number * 1000
-c           plus the trace number.  See Numerical Recipes (Fortran) 
+c           plus the trace number.  See Numerical Recipes (Fortran)
 c           function gasdev for the precise algorithm used.
 c           PRESET = 0.
 C  END    - TERMINATES EACH PARAMETER LIST.
@@ -248,7 +248,7 @@ C****
           IF( names(nparam) .EQ. 'TVA' .OR.
      &        names(nparam) .EQ. 'VALUES' .OR.
      &        names(nparam) .EQ. 'TTVA' ) THEN
-              ns = ns+1 
+              ns = ns+1
               IF( names(nparam) .EQ. 'TVA' ) THEN
                   IF( ns .GT. max ) THEN
                       PRINT *,' ***  ERROR  ***  Too many tva tuples.'

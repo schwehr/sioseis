@@ -54,7 +54,7 @@ c
      *                 lsisptr,  lwbtsptr, lgatptr,  lssmsptr, lesmsptr,
      *                 lsbptr,   ifoldptr, icvleptr, lespnptr, ldesort
 c****  Use the ap to store stuff.  Break it into the following chunks.
-      PARAMETER ( iaddr = 1, ival1 = 1000001, ival2 = 2000001, 
+      PARAMETER ( iaddr = 1, ival1 = 1000001, ival2 = 2000001,
      &            isamp = 3000001, indx1 = 4000001, indx2 = 5000001,
      &            indx3 = 6000001, iscr = 7000001, iorder = 8000001,
      &            iflag = 9000001 )
@@ -65,7 +65,7 @@ c  isamp - the list of nsamps (trace lengths) (unsorted)
 c  indx1 - The disk addresses in sorted order
 c  indx2 - A sublist of secondary values
 c  iscr  - The indeces within the secondary sort
-c  iorder - 
+c  iorder -
 c  iflag - The "end-of sort" flags in sorted order
       REAL    APDATA(0:iapsiz)
       INTEGER IAPDATA(0:iapsiz)
@@ -86,7 +86,7 @@ c****
      &    limit1, lkey2, ikey2, limit2, ntraces
       CALL podisc( lunin, 2, 3200/nbperw)
       CALL rddisc( lunin, ibuf, 400/nbperw, istat )
-      IF( icompt .EQ. vaxunix .OR. icompt .EQ. vaxvms ) 
+      IF( icompt .EQ. vaxunix .OR. icompt .EQ. vaxvms )
      &    CALL swap16( ibuf(13), 1 )
       idtype = ibuf(13)
       factor = 1.
@@ -214,7 +214,7 @@ c****      Figure out the "end-of"sort" flag too!
 C****
   400 iapdata(iscr) = 3600  / nbperw                                    ! nbperw = number of bytes per word
       DO 500 i = 1, ntraces-1
-         iapdata(iscr+i) = iapdata(iscr+i-1) + numhdr + 
+         iapdata(iscr+i) = iapdata(iscr+i-1) + numhdr +
      &            iapdata(isamp+i-1)
          IF( iflag51 .EQ. -99999 ) THEN
              iapdata(iflag+i-1) = -99999
@@ -238,8 +238,8 @@ c****  and put the address and flag into pairs for a single write
          j = iapdata(iorder+i-1)
          j1 = iapdata(iorder+i)
          iapdata(i) = iapdata(iscr+j-1)
-         IF( iflag51 .NE. -99999 .AND. iapdata(ival1+j-1) .NE. 
-     &       iapdata(ival1+j1-1) ) iapdata(iflag+i-1) = iflag51 
+         IF( iflag51 .NE. -99999 .AND. iapdata(ival1+j-1) .NE.
+     &       iapdata(ival1+j1-1) ) iapdata(iflag+i-1) = iflag51
          j = (i-1) * 2
          iapdata(indx2+j) = iapdata(indx1+i-1)
          iapdata(indx2+j+1) = iapdata(iflag+i-1)

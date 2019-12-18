@@ -18,7 +18,7 @@ c                  plotting only 1 fourth of the raster lines.
 c  mod 23 Jul 08 - Allow multiple plot files by using the first portion of
 c                  each plotfile.  Start by allowing a max of two plotfiles
 c                  and using the first half of each one.
-c  mod 8 Oct 10 - Generalize by getting the plotter type and number of 
+c  mod 8 Oct 10 - Generalize by getting the plotter type and number of
 c                 bytes/words from the plot file.
 c               - Use new function attach_alias (in v.c) that opens a file
 c                 with the name of the plotter type rather than a device.
@@ -27,9 +27,9 @@ c               - Eliminate the print feature that hasn't been used in 25 years.
 c               - Check for the exitence of the output file
 c mod 3 Mar 11 - Make the check for 7225 and 624 as well at 7224
 c
-     
+
 c      PARAMETER (nchars=80)
-      INTEGER*2 ibuf(5000)    
+      INTEGER*2 ibuf(5000)
       CHARACTER*200 pathname1, pathname2
       CHARACTER*90 prtbuf
       CHARACTER*4 atype/' '/, token/' '/
@@ -64,7 +64,7 @@ c****
       IF( itype .EQ. 7224 ) mwrds = 144
       IF( itype .EQ. 7225 ) mwrds = 147
       IF( itype .EQ. 624 ) mwrds = 296
-      IF( itype .NE. 7224 .AND. itype .NE. 7225 .AND. 
+      IF( itype .NE. 7224 .AND. itype .NE. 7225 .AND.
      &    itype .NE. 624 ) THEN
           PRINT *,' ***  ERROR  ***  Incorrect raster file type of ',
      &     itype
@@ -146,8 +146,8 @@ c****     Use the SIOSEIS negative number in file IN/in convention of tapes.
       GOTO 100
 c****
 c****    END OF PLOT FILE
-c****     
-          
-    
+c****
+
+
       END
 

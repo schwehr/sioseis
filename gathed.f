@@ -19,12 +19,12 @@ c     Gather creates a disk file to store the partial gathers while
 c  the data is being read.  Gather assumes that the geometry of the data
 c  does not skip around very much. i.e. the geometry doesn't go backwards
 c  nor does it skip more than a cable length forward.  The temporary
-c  disk file can hold MAXRPS rps (preset to 5 plus the number of traces 
+c  disk file can hold MAXRPS rps (preset to 5 plus the number of traces
 c  per shot from the SEGY binary header), with each each rp able to hold
 c  a maximum of MAXTRS traces (also preset to the number of traces per
 c  shot in the SEGY binary header), with each traces having a maximum
 c  of NWRDS samples, with each sample being 4 bytes long (except on the
-c  Cray).  The temporary disk file size will be: 
+c  Cray).  The temporary disk file size will be:
 c      maxtrs * maxrps * (nwrds+240) * 4
 c  The preset values of maxtrs, maxrps, and nwrds are designed for the
 c  marine geometry of advancing .5 groups between shots (96 cdp from
@@ -76,7 +76,7 @@ c      the correct items for the Version 2 process input parameters).
 c   mod 3 Dec 1993.  Preset nwrds to 0 and let the execute determine the
 c     length from the first GOOD trace it gets.
 c   mod 20 Apr 96 - Skip the restart frp if geom isn't there and the cdp
-c      number is is in the trace already (like geom was done in a 
+c      number is is in the trace already (like geom was done in a
 c      different run)
 c  mod 18 Nov 98 - Allow frp without process input, in case the first
 c      trace read is not the first trace of the subsurface.

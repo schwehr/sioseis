@@ -21,9 +21,9 @@ c****  subroutines don't have to be recompiled!
       llsegptr = 1                                                      ! TRACE SEQUENCE NUMBER WITHIN THE LINE
       lrseqptr = 2                                                      ! TRACE SEQUENCE NUMBER WITHIN THE REEL
       lshotptr = 3                                                      ! SHOT NUMBER OR STACKED NUMBER
-      lshtrptr = 4                                                      ! TRACE NUMBER WITHIN THE SHOT 
+      lshtrptr = 4                                                      ! TRACE NUMBER WITHIN THE SHOT
       lespnptr = 5                                                      ! energy source point number
-      lrpnptr = 6                                                        ! RP OR CDP NUMBER 
+      lrpnptr = 6                                                        ! RP OR CDP NUMBER
       lrptrptr = 7                                                      ! TRACE NUMBER WITHIN THE CDP
       IF( icompt .NE. 5 ) THEN
           itridptr  = 15                                                ! TRACE ID:  1= LIVE, 2=DEAD
@@ -33,9 +33,9 @@ c****  subroutines don't have to be recompiled!
           ifoldptr = 77                                                 ! stack fold
       ENDIF
       ldisptr = 10                                                      ! SOURCE TO RECEIVER DISTANCE - RANGE
-      lwbdptr = 16                                                      ! WATER DEPTH AT THE SOURCE 
-      lsxcoptr = 19                                                     ! SOURCE X-COORDINATE 
-      lrxcoptr  = 21                                                    ! RECEIVER X-COORDINATE 
+      lwbdptr = 16                                                      ! WATER DEPTH AT THE SOURCE
+      lsxcoptr = 19                                                     ! SOURCE X-COORDINATE
+      lrxcoptr  = 21                                                    ! RECEIVER X-COORDINATE
       IF( icompt .NE. 5 ) THEN
           icvelptr = 46                                                 ! constant velocity
           ilagaptr = 53                                                 ! Lag time A in ms of time zero

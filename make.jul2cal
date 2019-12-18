@@ -4,4 +4,4 @@ FFLAGS=-O
 OBJECTS=cal2jul.o julcal.o dcode.o getoke.o rdline.o rline.o caljul.o diskio.o
 
 cal2jul:$(OBJECTS)
-	$(FC) $(FFLAGS) $(OBJECTS) -o cal2jul 
+	$(FC) $(FFLAGS) $(OBJECTS) -o cal2jul

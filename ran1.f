@@ -7,7 +7,7 @@ c
       PARAMETER ( m2 = 134456, ia2 = 8191, ic2 = 28411, rm2 = 1./m2 )
       PARAMETER ( m3 = 243000, ia3 = 4561, ic3 = 51349 )
       DIMENSION r(97)
-      SAVE 
+      SAVE
       DATA iff/0/
 c        initialize on first call even if IDUM is not negative
       IF( idum .LT. 0 .OR. iff .EQ. 0 ) THEN

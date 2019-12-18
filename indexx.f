@@ -24,7 +24,7 @@ c     From "Numerical Recipes" by Press, Flannery, Teulolsky, Vetterlingc   page
             RETURN
           ENDIF
         ENDIF
-        I=L  
+        I=L
         J=L+L
 20      IF(J.LE.IR)THEN
           IF(J.LT.IR)THEN

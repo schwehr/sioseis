@@ -4,8 +4,8 @@ C                              ------- ---
 C
 C
 C    PROCESS MIX PERFORMS A RUNNING, WEIGHTED, DIP MIX.  MIX IS DEFINED TO BE
-C  THE SUM OR ADDITION OF ADJACENT (IN A NUMERICAL SENSE). 
-c     There are three types of mix: 
+C  THE SUM OR ADDITION OF ADJACENT (IN A NUMERICAL SENSE).
+c     There are three types of mix:
 c 1) A running roll-along mix - The mix crosses record boundaries.  If the
 c    data are shots, the last trace of a shot is mixed with the first trace
 c    of the next shot.  e.g. A three trace equally weighted zero dip
@@ -96,7 +96,7 @@ c         7)  type (INTEGER)
 c         8)  hdr
 c         9)  lhdr
 c        10)  ihdr
-C        11) - MAXMIX+NPARS) - THE MIX WEIGHTS. 
+C        11) - MAXMIX+NPARS) - THE MIX WEIGHTS.
 C
 C  ARGUMENTS:
 C  BUF    - A SCRATCH ARRAY AT LEAST 60 32 BIT WORDS LONG.

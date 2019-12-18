@@ -75,8 +75,8 @@ c
 c  RTL is part of PCL
 c  PCL commands start with ESC %
 c  HPGL commands are 2 letters followed by other stuff
-     
-      INTEGER*2 ibuf(5000)    
+
+      INTEGER*2 ibuf(5000)
       INTEGER*4 lbuf(1)
       EQUIVALENCE (ibuf(1),lbuf(1)), (token(1:1),ibuf(1))
       CHARACTER*100 token
@@ -135,14 +135,14 @@ c             75-80 = number of raster lines
      &        nibs(i) .NE. 2124 .AND.  nibs(i) .NE. 2144 .AND.
      &        nibs(i) .NE. 2858 .AND.  nibs(i) .NE. 2859 ) THEN
              PRINT *,' ***  ERROR  ***  Bad SIOSEIS plot file.'
-             PRINT *, ' SIOSEIS plot parameter NIBS must be 2124, 2144, 
+             PRINT *, ' SIOSEIS plot parameter NIBS must be 2124, 2144,
      &2847, 2848, 2958, or 2859'
              STOP
          ENDIF
          IF( nibs(i) .EQ. 2124 ) nbytesin(i) = 2024  ! 1012 * 2
          IF( nibs(i) .EQ. 2144 ) nbytesin(i) = 3252  ! 1626 * 2
          IF( nibs(i) .EQ. 2847 .OR. nibs(i) .EQ. 2858 ) nbytesin(i) =900
-         IF( nibs(i) .EQ. 2848 .OR. nibs(i) .EQ. 2859 ) 
+         IF( nibs(i) .EQ. 2848 .OR. nibs(i) .EQ. 2859 )
      &       nbytesin(i) = 1312
          IF( nibs(i) .EQ. 300 ) nbytesin(i) = 318
          IF( lprint ) PRINT *, gray, nibs(i), iwrdcount(i), length(i),
@@ -229,7 +229,7 @@ c     margin too (PA8000,1020 below).
           IF( itemp .LT. side_label ) itemp = side_label
           IF( hpgl_length .LT. itemp ) hpgl_length = itemp
           WRITE( token, 60 ) hpgl_length, itemp
-   60     FORMAT ( 'PS', I7.7, ',', I7.7, ';' ) 
+   60     FORMAT ( 'PS', I7.7, ',', I7.7, ';' )
           CALL wrdiscb( luno, token, 18 )
       ELSEIF( sllun .NE. 0 ) THEN
           hpgl_length = hpgl_length + 8000
@@ -250,7 +250,7 @@ c         This will force the length to be at least the width
           CALL wrdiscb( luno, token, 18 )
       ELSE
           WRITE( token, 62 ) hpgl_length
-   62     FORMAT ( 'PS', I7.7, ';' ) 
+   62     FORMAT ( 'PS', I7.7, ';' )
           CALL wrdiscb( luno, token, 10 )
       ENDIF
       IF( lprint ) PRINT *,token(1:10)
@@ -332,7 +332,7 @@ c         byte 2 = 1    number of planes per row
 c         byte 3 = 8
           ibuf(2) = 1 * 256 + 8
       ENDIF
-c     byte 4 = 8 
+c     byte 4 = 8
 c     byte 5 = 8
       ibuf(3) = 8 * 256 + 8
       IF( icompt .NE. 0 ) CALL swap16( ibuf(2), 2 )
@@ -428,7 +428,7 @@ c     Change the Default palette if grey scale
           CALL wrdiscb( luno, token, 26 )
           IF( lprint ) PRINT *,token(2:26)
       ENDIF
-    
+
 C     Start Raster Graphics at logical page left bound
       token(1:1) = CHAR(27)
       token(2:5) = '*r0A'
@@ -498,7 +498,7 @@ c**** The last plane starts with esc*b####W
       IF( ilun(1) + ilun(2) .NE. 0 ) GOTO 100
 c****
 c****    END OF PLOT FILE
-c****     
+c****
       token(1:1) = CHAR(27)
       token(2:4) = '*rC'                                                 ! end raster graphics
       CALL wrdiscb( luno, token, 4 )
@@ -519,6 +519,6 @@ c      CALL wrdiscb( luno, token, 9)
       CALL frefil( 2, ilun(1), istat(i) )
       CALL frefil( 2, ilun(2), istat(i) )
       CALL frefil( 2, luno, istat(i) )
-    
+
       END
 

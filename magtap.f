@@ -47,7 +47,7 @@ c
 c  The following common is used:
 c  common /tapes/ idummy,ntries,jdummy
 c  where ntries is the number of retries on read errors before giving up (preset
-c  to 5). 
+c  to 5).
 c
 c  Written and copyrighted (C) by:
 c  Paul Henkart, Scripps Institution of Oceanography, La Jolla Ca., May l984
@@ -178,7 +178,7 @@ c****
   400 CONTINUE
       IF( ifunc .NE. 5 .AND. ifunc .NE. 25 ) GOTO 450
 c****
-c****   skip a record backwards 
+c****   skip a record backwards
 c****  Sun no longer permits backspace over a file mark!
 c****
       ntimes = 0
@@ -245,7 +245,7 @@ c****
           ENDIF
       ENDIF
       IF( jstat .EQ. 0 ) THEN
-c          PRINT *,' TAPE DRIVE ',lun,' error, assuming E.O.T.' 
+c          PRINT *,' TAPE DRIVE ',lun,' error, assuming E.O.T.'
           istat = -2
           lstat(lun+1) = istat
           RETURN
@@ -275,7 +275,7 @@ c**** assume an error is E.O.T.
           CALL SLEEP(15)
           GOTO 610
       ENDIF
-      istat = 0 
+      istat = 0
       lstat(lun+1) = istat
       RETURN
 c****
@@ -300,4 +300,4 @@ c****
      *  ' drive',lun
       istat = -10
       RETURN
-      END 
+      END

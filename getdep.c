@@ -4,7 +4,7 @@
 
 /* Function that calculates the depth of each channel based on the bird depth info
    from trace 0.  Section 13 of trace 0 (digicon data block) should be passed as
-   the first argument(*ddblock).  
+   the first argument(*ddblock).
    Needed info that the calling routine must provide:
    ddblock:  char array         Section 13 of trace 0
    boffset:  float array        offsets of the birds, starting at bird nearest the ship
@@ -13,10 +13,10 @@
    nchan:    integer            number of channels
    chan:     float array        this is where the output will go.  The channel depths
                                 will be calculated and put into this array.
-*/   
+*/
 
 /* This function calls two additional functions: linterp, which does linear interpolation
-   and returns a float value, and locate, which locates a value in an array of values. 
+   and returns a float value, and locate, which locates a value in an array of values.
 
 mod feb 97 to add compass extraction
 mod sep 00 to add message when more birds were recorded than were defined
@@ -42,7 +42,7 @@ int *nchan1, *nboff1, *ncomps, *cunitno;
 
   nchan = *nchan1;
   nboff = *nboff1;
-  move(&ddblock[17],&substr,2); substr[2] = '\0'; 
+  move(&ddblock[17],&substr,2); substr[2] = '\0';
   ncomp = atoi(substr);    /* number of compasses */
   *ncomps = ncomp;
   if( ncomp < 0 || ncomp > 200 ) return(-1);
@@ -58,7 +58,7 @@ int *nchan1, *nboff1, *ncomps, *cunitno;
      }
      j = j + 7;
   }
-  
+
   ibyte = 19 + 7*ncomp;    /* index byte for start of depth sensors */
   move(&ddblock[ibyte],&substr,2); substr[2] = '\0';
   ndeps = atoi(substr);    /* number of depth sensors */
@@ -75,7 +75,7 @@ int *nchan1, *nboff1, *ncomps, *cunitno;
   }
 
   bdep = (float *) malloc(nbirds*sizeof(float));
-  
+
   lastbyte = 23 + 7*ncomp + 12*ndeps + 16*nbirds;
 
   /* grab the depth of each bird */
@@ -92,11 +92,11 @@ int *nchan1, *nboff1, *ncomps, *cunitno;
   /* this is the place to calculate depths of the channels based on bird depths */
   /* if there are channels before the first bird or after the last bird */
   /* this function will not work.  it will probably core dump. */
-  
-  for(j=0;j<nchan;++j) 
+
+  for(j=0;j<nchan;++j)
       chan[j] = linterp(boffset,bdep,nboff,coffset[j]);
 
-return(status);  
+return(status);
   /* if not totally screwed up, the array chandep now contains the depths of each channel */
   /* chandep[0] == channel 1 depth, chandep[n-1] == channel n depth */
 
@@ -105,10 +105,10 @@ return(status);
 float linterp (x,y,ndin,xint)
 int ndin;
 float *x,*y,xint;
-/* 
+/*
    linear interpolation, just about as basic as you wanna get.
    given a function y(x), finds y for any desired x value which
-   is specified by xint.  ndin is the number of data points in 
+   is specified by xint.  ndin is the number of data points in
    the x array
 */
 /* x is indexed from 0 to ndin-1 */
@@ -116,7 +116,7 @@ float *x,*y,xint;
   float dx,yint;
   int i,j;
   void locate();
-     
+
   locate(x-1,ndin,xint,&j);
   j -= 1;
   dx = x[j+1] - x[j];
@@ -150,9 +150,9 @@ int n,*j;
 }
 
  void move(from,to,count)
- char *from; 
- char *to; 
- int count; 
- { 
-   while(count--) *to++ = *from++; 
- } 
+ char *from;
+ char *to;
+ int count;
+ {
+   while(count--) *to++ = *from++;
+ }

@@ -55,7 +55,7 @@ c  mod Apr 03 - Do interval to rms velocity conversion.
 c             - Add vintpl 4 to interpolate by order in vtp (not iso anything).
 c             - Extrapolation of the last vtp wasn't happening.
 c  mod 24 May 08 - vtrkwb with shallowing water caused ap buffering problems
-c  mod 12 Apr 10 - Use start & end mute in mils (ihdr(56) & 57) rather than 
+c  mod 12 Apr 10 - Use start & end mute in mils (ihdr(56) & 57) rather than
 c                  seconds (reals 47 & 48)
 c  mod 24 May 10 - Use lbuf(16) rather than buf(50) for water depth
 c  mod 27 Jun 11 - Add parameter HIRES
@@ -164,7 +164,7 @@ C     SHIPBOARD PROCESSING, USE WATER DEPTH TO INTERPOLATE STACKING VELOCITIES
           IF (CURFNO.EQ.OLDFNO) GOTO 20                                 ! SAME FNO, NO NEW WBDEPTH, CONTINUE
 c          WBDEPTH=BUF(54)                                               ! CURRENT CENTERBEAM WATER-BOTTOM DEPTH
           wdepth = FLOAT(lbuf(16))
-          DIFFWBD = ABS(WBDEPTH-WBDEPTHO)                               ! DIFFERENCE IN DEPTHS   
+          DIFFWBD = ABS(WBDEPTH-WBDEPTHO)                               ! DIFFERENCE IN DEPTHS
           IF( DIFFWBD .GT. VTRKWB .AND. wbdeptho .NE. 0) THEN
               WBDEPTH=WBDEPTHO
               WRITE(*,*) '*** WARNING *** CENTERBEAM DEPTH JUMPED BY: ',
@@ -173,14 +173,14 @@ c          WBDEPTH=BUF(54)                                               ! CURRE
       IF(((wbdeptho .EQ. 0).OR.(IAND(lprint,4).NE.0)).AND.itrcno .EQ. 1)
      *        PRINT *,' Water depth is:  ',wbdepth, wbdeptho
 c****     Damn.  Force finding the velocity function from scratch if
-c****     the water is shallowing.  
+c****     the water is shallowing.
           IF( wbdepth .LT. wbdeptho ) THEN
               wbdeptho = wbdepth
               first = .TRUE.
               GOTO 10
           ENDIF
           WBDEPTHO=WBDEPTH                                              ! SET CURRENT WBDEPTH TO OLD FOR NEXT GATHER
-          OLDFNO=CURFNO                                                 ! SET CURRENT FNO TO OLD FOR NEXT GATHER   
+          OLDFNO=CURFNO                                                 ! SET CURRENT FNO TO OLD FOR NEXT GATHER
       ENDIF
    20 CONTINUE
 C****
@@ -285,8 +285,8 @@ c****   "thinning" - going from more vtps to less vtps.
                 IF( VL .EQ. VNEXT ) GOTO 650                            ! IS THE VELOCITY GIVEN BY THE USER
                 IF( VL .LE. VNEXT ) THEN                                ! MAYBE THE VELOCITY IS YET TO COME
                   IF(J.EQ.1) GO TO 645
-                  TNEXT = (VL-SCR(J+npars)) / 
-     &                    (scr(j+npars-2)-SCR(J+npars)) * 
+                  TNEXT = (VL-SCR(J+npars)) /
+     &                    (scr(j+npars-2)-SCR(J+npars)) *
      &                    (scr(j+npars-1)-SCR(J+npars+1))+SCR(J+npars+1)
                   GO TO 650
                 ENDIF
@@ -320,7 +320,7 @@ c****     "thickening" - going from fewer vtps to more vtps.
              curvtp(i+1) = (tl-tnext) * ratio + tnext
            ENDDO
         ENDIF
-        ISPAT=1  
+        ISPAT=1
         IF( vintpl .EQ. 3 ) THEN
             curvtp(1) = (scr(1+npars)-oldvtp(1))/(rfno-rlastno)
      &                 * (rlnum-rlastno) + oldvtp(1)
@@ -361,7 +361,7 @@ c
         ISPAT = 1
       ENDIF
 C****
-C****      BUILD A VELOCITY FUNCTION SO THAT THERE IS A VELOCITY FOR 
+C****      BUILD A VELOCITY FUNCTION SO THAT THERE IS A VELOCITY FOR
 C****      EVERY TIME SAMPLE
 C****
  2000 CONTINUE
@@ -455,10 +455,10 @@ c         =5,  NMO with interval velocities
           CALL APWD                                                     ! WAIT FOR DATA TRANSFER TO FINISH
           CALL NMOVFC(IT2,NEXTAD,IVELAD,IN,IN,NSAMPS)                   ! COMPUTE THE NMO
       ELSE
-          IF( IAND(LPRINT,2) .NE. 0 ) 
+          IF( IAND(LPRINT,2) .NE. 0 )
      *         PRINT 2131, RANGE,DELAY,SI,NSAMPS,IVELAD
  2131          FORMAT(' ARGUMENTS TO NMONAP:',/,3(1X,F15.6),2(1X,I8))
-          CALL NMONAP(RANGE,DELAY,SI,NSAMPS,IVELAD,LSCR, jtype, 
+          CALL NMONAP(RANGE,DELAY,SI,NSAMPS,IVELAD,LSCR, jtype,
      &         a(nextad) )
       ENDIF
 C****
@@ -503,7 +503,7 @@ c  save the input in scratch and grab the output from scr - inversion might not 
          a(indata+i) = buf(numhdr+i)
       ENDDO
       IF( hires .EQ. 0 ) THEN
-c****     CALL nmoapp( datain, dataout, indices, start index, 
+c****     CALL nmoapp( datain, dataout, indices, start index,
           CALL nmoapp( a(indata+1), buf(numhdr+1), lscr, 1, nsamps,
      &       istret, mute, jtype )
       ELSE
@@ -532,7 +532,7 @@ c  a(indata+1) has the trace
                  IF( a(nextad+i-n2) .GT. a(nextad) ) THEN
                      CALL polint( a(indextx+i-n2),          ! a(indextx) is the first
      &                            a(indata+1+lscr(i-n2)),   ! lscr(1) is the first & indata+1 is first sample
-     &                            nterpolate, a(nextad+i),   ! a(nextad) is the first 
+     &                            nterpolate, a(nextad+i),   ! a(nextad) is the first
      &                            buf(numhdr+i), temp )    ! buf(numhdr+1) is the first
                  ELSE
 	IF( ipaul == 0 ) Then
@@ -542,7 +542,7 @@ c  a(indata+1) has the trace
         ipaul = 1
         buf(numhdr+i) = 0.
 c                     CALL polint( txtimes, a(indata+lscr(i-1)),
-c     &                 nterpolate, a(nextad+i-n2), 
+c     &                 nterpolate, a(nextad+i-n2),
 c     &                    buf(numhdr+i), temp)
                  ENDIF
              ENDIF

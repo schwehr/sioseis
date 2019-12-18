@@ -8,8 +8,8 @@ c
 c      Process GAINS applies a gain function.  Chapter 4 of Claerbout's
 c  "Imaging the Earth's Interior" mentions several of the gain
 c  functions implemented.
-c                                               
-c      At least one parameter list must be given, even if no parameters 
+c
+c      At least one parameter list must be given, even if no parameters
 c  are specified, in order that the parameter presets be set.  e.g.
 c      gains
 c              end
@@ -38,11 +38,11 @@ c                      trace)
 c         = 8,  a(i) = a(i) * ABS(range/rscale) ** alpha
 c           when ABS(range) .GE. rscale;
 c           where range is the range in the SEGY header, rscale
-c           and alpha are given by the user. 
+c           and alpha are given by the user.
 c
 c  Additional Parameters:
 c  ---------- -----------
-c  ETIME  - The end time of the gain function.  Data after the end time 
+c  ETIME  - The end time of the gain function.  Data after the end time
 c           will receive the gain of the end time.
 c           Preset = the last time of the first trace.  e.g.  etime 4.
 c  ALPHA  - The exponent used in TYPE 1 and 2 gain.
@@ -95,7 +95,7 @@ c
      &             'SUBWB ','FNO   ','LNO   ','TGP   ','ADDWB ',
      &             'TADD  ','TMULT ','WINLEN','V     '/
       DATA lastlno/0/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       itype = 0

@@ -5,7 +5,7 @@ c  Copyright (C) University of California
 c  ALL RIGHTS RESERVED.
 c
 c  Programmer notes:
-c  I read the first shot in the edit phase for sevreal reasons: 
+c  I read the first shot in the edit phase for sevreal reasons:
 c 1)  I think some other edits need things like the sample interval and data length.
 c 2)  By doing the SEGY header stuff here, the final execution phase is not
 c     burdened with the slop
@@ -119,7 +119,7 @@ c
       DATA months/'Jan.','Feb.','Mar.','Apr.','May ','June',
      *            'July','Aug.','Sep.','Oct.','Nov.','Dec.'/
       DATA pathname/' '/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       nlists = 0
@@ -207,9 +207,9 @@ c      CALL rdline                                                       ! read 
                      ENDIF
                      CALL frefil( -2, stack, istat )
                      cpath = token
-  130                OPEN( UNIT=stack, FILE=cpath, 
+  130                OPEN( UNIT=stack, FILE=cpath,
      &                     FORM='FORMATTED', STATUS='OLD')
-c****            Get the second file 
+c****            Get the second file
                      CALL rline1(stack)
                      CALL getoke1( token, nchars )
                      CALL rline1(stack)
@@ -435,7 +435,7 @@ c****
       IF( stack + ldeolist .EQ. 0 ) THEN
           INQUIRE( FILE=pathname, EXIST=iexist )
           IF( iexist ) THEN
-              CALL getfil( 4, iunit, pathname, istat ) 
+              CALL getfil( 4, iunit, pathname, istat )
               IF( istat .NE. 0 ) THEN
                   PRINT *,' ***  ERROR  ***  Could not open file ',
      &                 pathname
@@ -506,7 +506,7 @@ c**** get any general headers in addition to the first 2 which are garunteed
       IF( nblks .GT. 0 ) THEN
           nbytes = nblks * 32
           CALL rddiscb( iunit, ibuf(indx), nbytes, istat )
-          IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+          IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &        CALL swap16( ibuf(indx), nbytes/2 )
           indx = indx + nbytes / 2
       ENDIF
@@ -530,7 +530,7 @@ c**** get any general headers in addition to the first 2 which are garunteed
       si = FLOAT(itemp) / 16. / 1000.                ! the REAL sample interval
       micros = FLOAT(itemp) / 16. * 1000.            ! the sample interval in microseconds
       length = IAND(ibuf(13),i15) * 10 +
-     *         IAND( rshift(ibuf(14),12), i15) 
+     *         IAND( rshift(ibuf(14),12), i15)
       temp = IAND( rshift(ibuf(14),8), i15)
       rlen = ( FLOAT(length) + temp/10. ) * 1.024
       IF( rlen .LT. secs .OR. secs .EQ. 0 ) THEN
@@ -597,7 +597,7 @@ c**** scans already, so use a magic number.
 c****
       index = (1+nblks) * 16
       idelay = ibuf(index+3) * 2
-      delay = FLOAT(idelay)/1000. 
+      delay = FLOAT(idelay)/1000.
       IF( stime .GT. delay ) THEN                                       ! assume that the first trace will not be used
           delay = stime
           nsamps = nsamps - (stime-delay)/si
@@ -641,7 +641,7 @@ c****
       ENDDO
 c****
 c****  Always save the extended header in luntr0 as a circular file
-c****  If we're to save all trace 0 in a file, open a file 
+c****  If we're to save all trace 0 in a file, open a file
 c****
       CALL getfil( 1, luntr0, token, istat )
       IF( iformat .EQ. 6 ) CALL getfil( 1, lunldeo, token, istat )

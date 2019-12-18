@@ -53,7 +53,7 @@ C           BE ADDED TO THE WATER BOTTOM TIME OF THE TRACE.  (WATER BOTTOM TIMES
 C           MAY BE ENTERED VIA PROCESS WBT).
 C           PRESET=NO
 c  FORMAT - Indicates how the output should be formated.
-c         = MATLAB, Each trace printed will be in a separate file 
+c         = MATLAB, Each trace printed will be in a separate file
 c           suitable to use as ASCII input to MATLAB.  The file name
 c           will be "sh" or "rp" followed by the shot/rp number followed
 c           by the trace number followed by ".m".  Each file starts with
@@ -239,10 +239,10 @@ C****
               INQUIRE( FILE=token, EXIST=iexist)
               CALL GETFIL( 2, luno, token, istat )
               IF( .NOT. iexist ) THEN
-                  OPEN( UNIT=luno, FILE=token, 
+                  OPEN( UNIT=luno, FILE=token,
      &               FORM='FORMATTED', STATUS='UNKNOWN')
               ELSE
-                  OPEN( UNIT=luno, FILE=token, 
+                  OPEN( UNIT=luno, FILE=token,
 c     &               FORM='FORMATTED', STATUS='OLD',POSITION='APPEND')
      &               FORM='FORMATTED', STATUS='OLD')
               ENDIF
@@ -255,7 +255,7 @@ c     &               FORM='FORMATTED', STATUS='OLD',POSITION='APPEND')
           GO TO 100
       ENDIF
       CALL UPCASE(TOKEN,NCHARS)
-      IF( names(nparam) .NE. 'INDICES' .AND. 
+      IF( names(nparam) .NE. 'INDICES' .AND.
      &    names(nparam) .NE. 'TRLIST' ) THEN
           CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                          ! TRY AND DECODE IT
           IF( ISTAT .NE. 2 ) THEN                                       ! =2 MEANS IT IS A NUMERIC
@@ -265,7 +265,7 @@ c     &               FORM='FORMATTED', STATUS='OLD',POSITION='APPEND')
       ENDIF
       IF(TYPE(NPARAM).EQ.'L') GO TO 500
       IF( names(nparam) .EQ. 'SETS' ) THEN
-          NS=NS+1 
+          NS=NS+1
           SCR(nwrds-max+ns) = AREAL
           GOTO 100
       ENDIF
@@ -289,7 +289,7 @@ c     &               FORM='FORMATTED', STATUS='OLD',POSITION='APPEND')
           ntrlist = ntrlist + 1
           IF( token(1:6) .EQ. 'SHOTNO' ) tr_list(ntrlist) = 2
           IF( token(1:4) .EQ. 'RPNO' ) tr_list(ntrlist) = 3
-          IF( token(1:3) .EQ. 'GMT' .AND. nchars .EQ. 3 ) 
+          IF( token(1:3) .EQ. 'GMT' .AND. nchars .EQ. 3 )
      &        tr_list(ntrlist) = 4
           IF( token(1:5) .EQ. 'RANGE' ) tr_list(ntrlist) = 6
           IF( token(1:6) .EQ. 'SHOTTR' ) tr_list(ntrlist) = 7
@@ -387,7 +387,7 @@ C****
       CALL wrdisc( munit, indices, 20 )
       IF( ntrlist .GT. 0 ) THEN
           CALL wrdisc( munit, tr_list, ntrlist )
-          IF( IAND(lprint,1) .EQ. 1 ) 
+          IF( IAND(lprint,1) .EQ. 1 )
      &       PRINT *,' tr_list:',(tr_list(i),i=1,ntrlist)
       ENDIF
       NLISTS=NLISTS+1

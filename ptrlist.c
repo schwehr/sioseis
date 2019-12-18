@@ -73,7 +73,7 @@ void ptrlist_( ntrlist, trlist, ltrhdr, itrhdr, trhdr )
 			if( scalar < 0 ) scalar = -deg / scalar;
 			if( scalar > 0 ) deg = deg * scalar;
 			ideg = (int) deg;
-               if( deg > 0 ) {   
+               if( deg > 0 ) {
                     deg = deg - (float) ideg;
                }else{
                     deg = -deg + (float) ideg;
@@ -87,7 +87,7 @@ void ptrlist_( ntrlist, trlist, ltrhdr, itrhdr, trhdr )
                if( scalar < 0 ) scalar = -1. / scalar;
                if( scalar > 0 ) deg = deg * scalar;
                ideg = (int) deg;
-               if( deg > 0 ) {   
+               if( deg > 0 ) {
                     deg = deg - (float) ideg;
                }else{
                     deg = -deg + (float) ideg;

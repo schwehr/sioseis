@@ -93,11 +93,11 @@ C AUTHOR:                                    DATE: August, 1986
 C DESCRIPTION: Optimizations involving mostly changing file storage to virtual
 C              memory storage.
 C===============================================================================
-C                             
-C This subroutine was changed to progated energy in the opposite direction of migration 
-C (i.e. the receivers are upward continued thru the section) thus calculating the response 
-C of an exploding reflector. To do this, the Tau step loop was altered to start at the bottom 
-C of the section and increment upward thru the section. Tapering was also modified because the  
+C
+C This subroutine was changed to progated energy in the opposite direction of migration
+C (i.e. the receivers are upward continued thru the section) thus calculating the response
+C of an exploding reflector. To do this, the Tau step loop was altered to start at the bottom
+C of the section and increment upward thru the section. Tapering was also modified because the
 C the sense of the tau step was changed.
 C Modified by GM KENT 7/90
 C ================================================================================
@@ -209,7 +209,7 @@ c
       ps3 = as3+1
       lslic2 = lslice-2
 C
-      sr   = nint( dt * 1000.)   
+      sr   = nint( dt * 1000.)
 C**** GMK modified due to the opposite sense of the tau steps in modelling
       taup = 1
 c      taun = nsamp - (taustp(ntau)/sr + 1) + 1
@@ -231,11 +231,11 @@ C
       if (DEBUG.ne.0) then
         print '(/A)',' About to Start Tau Step Loop'
         call timer
-      endif                                     
+      endif
 
-C**** GMK modified to start at the bottom of the seismic section and work its way up 
+C**** GMK modified to start at the bottom of the seismic section and work its way up
 c**** GMK thus all tau steps will end at the bottom and begin at bottom - nth (taustp)
-C**** GMK This is opposite to migration that always starta at the bottom and stops at 
+C**** GMK This is opposite to migration that always starta at the bottom and stops at
 C**** GMK the top - nth (taustp) --> tau = ntau, 1, -1 (DIFF) not tau = 1, ntau (MIG)
 
 C.... Now loop on all Tau steps.(modified by GMK)
@@ -255,12 +255,12 @@ c**** GMK taun calculated for the next taustep
 c          taun = nsamp - (taustp(tau-1)/sr + 1) + 1
           taun = nsamp - (taustp(tau-1)/(dt*1000.) + 1) + 1
 c          write(*,*) 'tauc=', tauc, 'taup =', taup, 'taun =', taun
-                                         
+
 c**** GMK do not need to go through loop if not samples are going to be processed
           if (tauc.eq.taup) goto 100
 
 c**** GMK esamp represents top of tau step
-          esamp = taup 
+          esamp = taup
           jend  = esamp + 1                                             ! force the data to come from disc the first time
 C
 C
@@ -294,7 +294,7 @@ c
   170     apdata(at+i-1) = buffap(i)
 c
           DO 171 i = 1, nrows                                           !  Transfer velocity slice
-  171     apdata(at+10+i) = vrms(i)               
+  171     apdata(at+10+i) = vrms(i)
 
           DO 172 i = 1, lslice*6                                        !  Zero time slices at j+1, j+2
   172     apdata(apnj1+i-1) = 0.
@@ -304,13 +304,13 @@ c
 c         call fdmChck3(3,esamp,tauc)
 C
 C....     Process all samples for this Tau step.
-C**** GMK go from sample esamp(top of taustep) to 1(bottom of section) - remember that 
+C**** GMK go from sample esamp(top of taustep) to 1(bottom of section) - remember that
 C**** GMK the data is read in unflipped so the bottom of section(nsamp) is really samp = 1
 C**** GMK so the loop goes from j = esamp to 1 not nsamp to esamp as in migration program
 
           DO 200 j = esamp, 1, -1
 c         dbgtim = j                                                    ! used by ap debugging
-C                                                             
+C
 C....          Get the next sample. If we don't have the sample we need then
 C....          load up the AP with as many samples as will fit.
                if (jend .gt. j) then
@@ -323,14 +323,14 @@ c                  write(*,*) 'load ap jstart = ', jstart, 'jend = ', jend
                else
                  apnj0 = apnj0 + lslice
                endif
-C                                                                     
+C
 
 C....          Once the current Tau step samples are reached then the velocity
 C....          function for this step must be scaled so as to correctly merge
-C....          this step with the previous.                                                    
+C....          this step with the previous.
 C**** GMK      Taper has been changed so the velocity and rho taper to zero at j = taup ( so f = 1 there)
 c**** GMK      It was changed because the tau steps were re-ordered from the migration process to forward modelling
-C                                          
+C
                IF (j.le.taup .and. j.ge.tauc) THEN
                     scale = float(taup-j) / float(taup-tauc)
 
@@ -346,9 +346,9 @@ C....               Butterworth taper Rho over the same interval.
 c
                     DO 195 i = 1, 3
   195               apdata(arho+i-1) = buffap(4+i)
-               END IF                                        
+               END IF
 
-C                                        
+C
 C....          Do the migration.
 C....          Note that each AP-array is padded with a 0 at either end to avoid
 C....          problems with the 3-point convolution in FDMCAR. Most of the
@@ -360,14 +360,14 @@ C....          2- Call FDMCAP to recursively calculate U, V and finally the Tau
 C....             sample, P(n+1).
 C....          3- Shuffle AP-buffers (move up in time for the next sample) and
 C....             save the new P(n+1,j) time slice.
-C                                                
+C
                CALL vsfdmcal (pc, apnj0+1, ppnj1, ppnj2, ppn1, ppn1j1,
      +              ppn1j2, ps3, lslic2)
 
 C
 C....          If all time slices in the AP are done then rewrite them to file
 C....          FDMX.
-             IF (j .EQ. jend) THEN                                      
+             IF (j .EQ. jend) THEN
 c                write(*,*) 'unload ap jstart = ', jstart, 'nslice= ', nslice
                  call putslice(jstart,nslice,nsamp, nx, apn,lunt,big)
              ENDIF

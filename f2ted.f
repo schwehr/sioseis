@@ -112,6 +112,6 @@ c****
       ENDIF
       CALL upcase( token, nchars )
       ntokes = ntokes + 1
-      IF( token(1:nchars) .NE. 'END' .OR. nchars .NE. 3 ) GOTO 100 
+      IF( token(1:nchars) .NE. 'END' .OR. nchars .NE. 3 ) GOTO 100
       RETURN
       END

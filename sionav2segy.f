@@ -1,5 +1,5 @@
       SUBROUTINE sionav2segy( navfil, lhead, ihead )
-c****    
+c****
 c   Determine the lat/long of a trace given an sio nav file and
 c   put the nav into the segy header.
 c
@@ -34,10 +34,10 @@ c**** (word 7) is 0.
       IF( first ) THEN
           first = .FALSE.
           last_rec = isegyrecno
-          CALL get_sio_nav( navfil, year1, day, hour, rmin, sec, 
+          CALL get_sio_nav( navfil, year1, day, hour, rmin, sec,
      &          dlat1, dlong1,navrec1, istat )
           day1 = day + (sec + rmin*60 + hour*60.*60.) / sec_per_day
-          CALL get_sio_nav( navfil, year2, day, hour, rmin, sec, 
+          CALL get_sio_nav( navfil, year2, day, hour, rmin, sec,
      &          dlat2, dlong2, navrec2, istat )
           day2 = day + (sec + rmin*60 + hour*60.*60.) / sec_per_day
           navdir = navrec2 - navrec1
@@ -106,7 +106,7 @@ c****         the segy trace is before the first nav point
      &              dlat, dlong, navrec2, istat )
                   GOTO 1000
               ENDIF
-              navrec2 = navrec2 * navdir 
+              navrec2 = navrec2 * navdir
               GOTO 110
           ENDIF
           x = isegyrecno

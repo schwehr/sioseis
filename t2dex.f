@@ -47,7 +47,7 @@ c               - IF EDEPTH = -1, make edepth sdepth + nsamps*vel*osi
 c               - Print min_depth and max_depth on last trace of job.
 c  mod 6 Aug 08 - convert the water bottom time to water bottom depth
 c  mod 20 Aug 08 - in km
-c  mod 7 Jan 09 - process dead traces so the header gets converted 
+c  mod 7 Jan 09 - process dead traces so the header gets converted
 c  mod 19 Nov 09 - set binhdr(31) = 6 on every trace.
 c   mod 17 May 10 - Comment out creating real mute times in header words 47 - 53
 C
@@ -171,7 +171,7 @@ c****
       nvtps = nvtp1
       GOTO 1000
 c****
-c****   Interval and Average velocity functions have different 
+c****   Interval and Average velocity functions have different
 c****  interpolation schemes.  Interval is by intervals and average
 c****  is by "iso-velocity".
 c****
@@ -244,7 +244,7 @@ c     &     ' lnum=',lnum,' lastno=',lastno
                 t = (t2 - t1) / (fno2 - lno1) * (lnum - lno1) + t1
                 GO TO 680
             ENDIF
-            IF( v1 .LT. v2 ) THEN   
+            IF( v1 .LT. v2 ) THEN
                 IF( j .EQ. 1 ) THEN
                     v = v1
                     t = (t2 - t1) / (fno2 - lno1) * (lnum - lno1) + t1
@@ -252,7 +252,7 @@ c     &     ' lnum=',lnum,' lastno=',lastno
                 ELSE
                     v = v1
 c                   interpolate temporally to find t2
-                    t2 = (vtp2(j+1) - vtp2(j-1)) * 
+                    t2 = (vtp2(j+1) - vtp2(j-1)) *
      &                   (v1 - vtp2(j-2)) / (vtp2(j) - vtp2(j-2)) +
      &                   vtp2(j-1)
 c                   interpolate spatially
@@ -289,7 +289,7 @@ C****
 c**** convert the water bottom time to water bottom depth in km
       buf(50) = buf(50) * vtp(1) / 1000.
       edepth = edepth1
-      IF( edepth1 .EQ. -1. ) 
+      IF( edepth1 .EQ. -1. )
      &    edepth = sdepth + REAL(nsamps) * si * vtp(1)
 c**** change the delay and number of samples on every trace
       nout = NINT((edepth - sdepth ) / osi )
@@ -420,7 +420,7 @@ C****
       GO TO 3010
  3005 CONTINUE
  3010 CONTINUE
-      IF(VTP(NVTPS).LT.DELAY+NSAMPS*SI) 
+      IF(VTP(NVTPS).LT.DELAY+NSAMPS*SI)
      &   VTP(NVTPS) = DELAY + NSAMPS * SI                                  /* FORCE THE LAST TIME TO BE AS LONG AS THE DATA
       IF( IAND(LPRINT,2) .NE. 0 )
      &    PRINT 3001,LNUM,LTRCNO,(VTP(I),I=1,NVTPS)

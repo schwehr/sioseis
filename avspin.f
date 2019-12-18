@@ -37,7 +37,7 @@ c        IMPLICIT NONE
         INTEGER  APA, APB, SZA, SZB, LEN, INXR, SR
         INTEGER  AFN(SZA), ATM(SZA), BFN(SZB), BTM(SZB),
      +           RES(200), RTM(200)
-        REAL     SHFAC   
+        REAL     SHFAC
 C
         INTEGER  INF, I, AFNADR, BFNADR, ATMADR, BTMADR, SHFADR, NSAMP,
      +           MAP, ISW
@@ -48,7 +48,7 @@ C
         EQUIVALENCE (ITRCSC,TRACSC)
 C******************************************************************************
 C
-C Define a common block which is used to simulates the AP120-B data memory 
+C Define a common block which is used to simulates the AP120-B data memory
 C which has the size of 32K 32-bit floating point words.
 C
         REAL    APDATA(0:5000000)
@@ -66,7 +66,7 @@ C******************************************************************************
 C-------------------------------------------------------------------------------
 C
 C
-C....   Put the 2 piecewise functions and some constants into AP scratch 
+C....   Put the 2 piecewise functions and some constants into AP scratch
 C....   location 0 - N.
        IF( len .EQ. 0 .OR. sr .EQ. 0 ) CALL EXIT
         NSAMP  = LEN / SR + 1
@@ -92,7 +92,7 @@ c        CALL MAPAPRA (AFNADR, TRACSC(AFNADR), 2*(SZA+SZB)+1)
         IF (ATM(SZA) .GE. BTM(SZB)) ISW = 1
         IF (ATM(SZA) .LT. BTM(SZB)) ISW = 2
 C
-C....   Now call the VFC routine to do the spatial interpolation of these 2 
+C....   Now call the VFC routine to do the spatial interpolation of these 2
 C....   functions.
 c        CALL SPINTR (AFNADR, ATMADR, SZA, BFNADR, BTMADR, SZB, INF,
 c     +          SHFADR, APA, APB, ISW, NSAMP)
@@ -107,7 +107,7 @@ C
 C....   Now get the necessary control points from AP array APB
 c        CALL MAPCPUIA (APB, ITRCSC, 2*(SZA+SZB)+1)
         DO 290 i = 0, (sza+szb)*2
-  290   itrcsc(i) = iapdata(apb+i) 
+  290   itrcsc(i) = iapdata(apb+i)
 c        INXR = ITRCSC(2*(SZA+SZB))
         INXR = tracsc(2*(SZA+SZB))
         DO 300 I = 1, INXR

@@ -70,7 +70,7 @@ c
       COMMON /segyptr/ llsegptr, lrseqptr, lshotptr, lshtrptr, lrpnptr,
      *                 lrptrptr, itridptr, ldisptr,  lwbdptr,  lsxcoptr,
      *                 lrxcoptr, idelmptr, istmptr,  iendmptr, isampptr,
-     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr, 
+     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr,
      *                 isecptr,  igmtptr,  ldelsptr, lsmusptr,lemusptr,
      *                 lsisptr,  lwbtsptr, lgatptr,  lssmsptr, lesmsptr,
      *                 lsbptr,   ifoldptr, icvleptr, lespnptr
@@ -266,7 +266,7 @@ c****
          ENDIF
   200 CONTINUE
       IF( token(1:nchars) .NE. 'END' ) THEN
-          IF( pname .EQ. 'HDR' .OR. pname .EQ. 'IHDR' .OR. 
+          IF( pname .EQ. 'HDR' .OR. pname .EQ. 'IHDR' .OR.
      &        pname .EQ. 'LHDR' ) THEN
               IF( token(1:1) .EQ. 'L' .OR.  token(1:1) .EQ. 'R' .OR.
      &            token(1:1) .EQ. 'I' ) GOTO 230
@@ -386,7 +386,7 @@ c                  ierror = ierror + 1
                       nihdr = nihdr + 1
                       ihdr(nihdr) = isiptr
                       nihdr = nihdr + 1
-                      ihdr(nihdr) = NINT(areal * 100000.) 
+                      ihdr(nihdr) = NINT(areal * 100000.)
                       nhdr = nhdr + 1
                       hdr(nhdr) = lsisptr
                       nhdr = nhdr + 1
@@ -485,8 +485,8 @@ c****             it's the end of the equation.
                   CALL getoke( token, nchars )
                   CALL upcase( token, nchars )
                   IF( token(1:1) .NE. '+' .AND. token(1:1) .NE. '-'
-     &                .AND. token(1:1) .NE. '*' 
-     &                .AND. token(1:1) .NE. '**' 
+     &                .AND. token(1:1) .NE. '*'
+     &                .AND. token(1:1) .NE. '**'
      &                .AND. token(1:1) .NE. '/' ) GOTO 110
                   GOTO 261
               ENDIF
@@ -667,7 +667,7 @@ c      ENDIF
          lscr(13+i) = ihdr(i)         ! these are indices
          lscr(13+120+i) = lhdr(i)
          lscr(13+120+120+i) = hdr(i)
-         lscr(13+120+120+120+i) = dhdr(i)  
+         lscr(13+120+120+120+i) = dhdr(i)
  1000 CONTINUE
       nwrds = 13 + 120 + 120 + 120 + 120 + 120
       nlists(numhdr) = nlists(numhdr) + 1

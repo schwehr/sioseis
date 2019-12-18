@@ -17,7 +17,7 @@ C  BE ZERO FILLED.
 C     LIKEWISE, THE POSITIVE SHIFTED TRACES WILL HAVE THE FRONT OF THE TRACE
 C  ZEROED.
 c
-c     Parameters that are defaulted are reset after being used, whereas 
+c     Parameters that are defaulted are reset after being used, whereas
 c  parameters that are preset remain the same until changed by giving the
 c  parameter again.
 c
@@ -67,7 +67,7 @@ C  GSP    - GROUP-SHIFT-PAIRS.  A LIST OF GROUP NUMBERS AND TIMES SHIFTS.  GROUP
 C           NUMBERS ARE THE SAME AS TRACE NUMBERS.  GROUPS NOT SPECIFIED RECEIVE
 C           NUMBERS MUST BE STRICTLY INCREASING.
 C           DEFAULT = ALL 0
-c  APPVEL - Apparent velocity.  Used to calculate the angle by which shots 
+c  APPVEL - Apparent velocity.  Used to calculate the angle by which shots
 c           are projected onto the sea floor (i.e. sin(angle) = VELH2O /appvel).
 c           Time shifts are calculated using:
 c              TIMECORR = WATERDEPTH / (VELH2O*COS(ANGLE))
@@ -77,15 +77,15 @@ c           THE RANGE IN THE SEGY TRACE HEADER IS ADJUSTED!
 c           Shifts from APPVEL are performed prior to the reduction velocity
 c           time shift determined by parameter REDVEL.
 c           PRESET = 0. (No correction)    e.g.   appvel 9000
-c  VELH2O - Velocity of water.  Used to calculate the time shift for 
+c  VELH2O - Velocity of water.  Used to calculate the time shift for
 c           projecting onto the sea floor (parameter APPVEL).
-c           PRESET = 0.  (No correction) 
+c           PRESET = 0.  (No correction)
 c  REDVEL - Reduction velocity.  Shifts every trace in time according to:
 c             SHIFT =  RANGE / REDVEL
 c           PRESET = 0. (No shift)    e.g. redvel 8000
 c  REDUCE - Reduce the amount of data in the trace by changing the SEGY
 c           header values of the delay and the number of samples as well
-c           as shifting the data.  Data reduction will take place when 
+c           as shifting the data.  Data reduction will take place when
 c           REDUCE is give a value of YES.
 c           PRESET = no     e.g.   reduce yes
 c  LAGA   - When set to "YES", each trace will be shifted by the negative
@@ -99,7 +99,7 @@ c           (The) time break is defined as the initiation pulse ......"
 c           PRESET = 0              e.g.   laga yes
 c  LAGB   - When set to "YES", each trace will be shifted by the negative
 c           of the amount contained in the SEGY trace header bytes 107-108,
-c           the lag time B in milliseconds. 
+c           the lag time B in milliseconds.
 c           PRESET = 0              e.g.   lagb yes
 C  END    - TERMINATES EACH PARAMETER LIST.
 C

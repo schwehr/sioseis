@@ -56,7 +56,7 @@ c      PRINT *,' call rlseap, iout=',iout,' in=',in,' iasgnd=',iasgnd
       IF(IN.EQ.0) RETURN                                                !  DON'T DO ANYTHING IF THE DATA IS NOT IN THE AP!!!
       NSAMPS=LSAMPS                                                     ! CONVERT TO 16BIT INTEGER
       IF(IUSEAP.EQ.0) GO TO 100                                         ! IS THERE AN AP?
-      CALL APWR 
+      CALL APWR
       JIN=IN                                                            ! CONVERT TO 16 BIT INTEGER
       CALL APGET(BUFOUT,JIN,NSAMPS,IFMT)                                ! GET THE SCALED TRACE BACK
       IN=0                                                              ! SET IT TO DATA NOT IN AP! - ASSUME IT IS MODIFIED IF IT IS TAKEN OUT

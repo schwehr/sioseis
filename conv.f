@@ -79,7 +79,7 @@ C****
           INC = 1
       ENDIF
       IF( inc .GT. 0 ) THEN
-          DO 100 ii = i, nout 
+          DO 100 ii = i, nout
              J = K
              TEMP = 0.
              M = NEXTM
@@ -95,7 +95,7 @@ C****
              ENDIF
   100     CONTINUE
       ELSE
-          DO 150 ii = i, nout 
+          DO 150 ii = i, nout
              J = K
              TEMP = 0.
              M = NEXTM

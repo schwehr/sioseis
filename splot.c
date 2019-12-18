@@ -14,7 +14,7 @@
 sopen_( )
 {
 	frame = window_create( 0, FRAME, FRAME_LABEL, "SIOSEIS screen plot", 0 );
-	canvas = window_create(frame, CANVAS, 
+	canvas = window_create(frame, CANVAS,
 				CANVAS_AUTO_EXPAND,	0,
 				CANVAS_AUTO_SHRINK,	0,
 				CANVAS_AUTO_CLEAR,	0,
@@ -39,7 +39,7 @@ splot_( buf, nwrds )
 	for( i = 0; i < *nwrds && yorig + y < height; i++,buf++ ){
 		for( j = 15; j>=0; j--){
 			value = ( *buf >> j & 1 );
-			pw_put( pw, width - x, yorig + y, value); 
+			pw_put( pw, width - x, yorig + y, value);
 			y++;
 		}
 	}
@@ -49,6 +49,6 @@ splot_( buf, nwrds )
 
 sclose_()
 {
-	window_main_loop(frame); 
+	window_main_loop(frame);
 	return;
 }

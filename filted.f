@@ -12,7 +12,7 @@ c     Frequency domain minimum phase
 c     Frequency domain low pass Butterworth
 c     Frequency domain high pass Butterworth
 c     Frequency domain notch
-c     
+c
 C     TIME VARYING FILTER IS PERFORMED BY APPLYING DIFFERENT FILTERS TO DIFFERENT
 C  PARTS OF THE TRACE.  THE DIFFERENT PARTS OF THE TRACE ARE CALLED WINDOWS.
 C  THE PORTION OF THE TRACE BETWEEN WINDOWS ARE MERGED BY RAMPING (LINEAR).
@@ -33,7 +33,7 @@ C  SPATIALLY VARIED BY SHOT OR RP OR BY HANGING THE WINDOWS ON THE WATER BOTTOM.
 C     ALL PARAMETERS THAT REMAIN CONSTANT FOR A SET OF SHOTS (RPS) MAY BE
 C  DESCRIBED IN A PARAMETER SET FNO TO LNO.  WINDOWS BETWEEN TWO PARAMETER
 C  SETS ARE CALCULATED BY LINEARLY INTERPOLATING BETWEEN LNO OF ONE SET AND FNO
-C  OF THE NEXT SET.  Only the time window (sets) are spatially varied.  
+C  OF THE NEXT SET.  Only the time window (sets) are spatially varied.
 c  The filter (pass) remains constant even though the application window
 c  (sets) varies.
 C     EACH PARAMETER LIST MUST BE TERMINATED WITH THE WORD END.  THE ENTIRE SET
@@ -93,7 +93,7 @@ c         = 23, Warren Wood's frequency domain notch.
 c         = 99, Time domain (convolutional) zero phase time varying
 c           Preset = 99       e.g.   ftype 0
 c  DBDROP - Decibel drop per octave for the cutoff slope when using
-c           frequency domain bandpass filters.  Valid with 
+c           frequency domain bandpass filters.  Valid with
 c           FTYPE 0, 1, 3, 20 and 23.  When set to 0 with Warren Wood's
 c           filters (ftype 20 and 23), a cosine ramp is used for the
 c           cutoff slope.
@@ -107,13 +107,13 @@ c         = blac, Blackman
 c         = ebla, exact Blackman
 c         = blha, Blackman-Harris
 c          Preset=hann  e.g. window rect
-c 
+c
 c  WINLEN - The window length, in seconds.  A window length of zero causes
 c           the entire time domain gate to be windowed.  A non zero length
 c           indicates that winlen data will be modified at both ends of each
 c           data gate.
 c           Preset = 0.  e.g.  winlen .2
-c  
+c
 c  MINPHA - A switch indicating that the filter should be a minimum
 c           phase filter rather than zero phase.  Valid for ftype 0, 1, 2.
 c           The switch is set by any no-zero value.
@@ -146,7 +146,7 @@ C   30-34) FILLEN
 c      35) dbdrop
 c      36) ftype
 c      37) minpha
-c      
+c
 C
 C
 C  ARGUMENTS:
@@ -395,7 +395,7 @@ c****  for some reason a pass of 0 gives strange (zero) output
                  ierror = ierror + 1
              ENDIF
          ENDIF
- 1120 CONTINUE     
+ 1120 CONTINUE
       IF( ftype .NE. 99 .AND. npas .GT. 2 ) THEN
           PRINT *,' ***  ERROR  ***  Time varying filters are',
      &            ' available only via time domains filters.'

@@ -5,13 +5,13 @@ c
 c  Document date:
 c
 c       PROCESS SEGDIN reads seismic tape formatted in the SEG-D format
-c  or the SEG-D, Revision 1 format (see Geophysics, April 1994). 
-c  Three demultiplexed data formats are available: 
+c  or the SEG-D, Revision 1 format (see Geophysics, April 1994).
+c  Three demultiplexed data formats are available:
 c  1)  20 bit binary format.
 c  2)  IBM floating point (SEG-D hexidecimal).
 c  3)  IEEE floating point (SEG-D, Revision 1.).
 c       Reel changes and job termination may be done in the normal tape
-c  manner, that is; the new tape unit number should be inserted in a 
+c  manner, that is; the new tape unit number should be inserted in a
 c  file named "IN" when the new tape is loaded and ready.  A negative
 c  tape unit number indicates that there are no more tapes and the job
 c  should be terminated.
@@ -75,11 +75,11 @@ c           requires each shot to be terminated by a single file mark,
 c           so various tape utilities (e.g. tutil or mt) may be used.
 c           preset = 0    e.g.  iunit 1   means /dev/nrst1
 c
-c  LOADER - The sleep time, in seconds, to sleep after each tape is 
+c  LOADER - The sleep time, in seconds, to sleep after each tape is
 c           automatically loaded on the IBM 3480 cartridge auto-loader.
 c           SEGDIN issues a rewind/offline command when two consecutive
 c           file marks are sensed.  It then sleeps while the loader is
-c           changing tapes.  A 90 second sleep works on the Fujitsu 
+c           changing tapes.  A 90 second sleep works on the Fujitsu
 c           M2485.  The normal tape change scheme (via file in) is used
 c           after the last tape in the loader, enabling another stack of
 c           tapes to be inserted and SEGDIN notified via file in. (-1 in
@@ -90,7 +90,7 @@ c  FTR    - The first trace within each file to process.  Trace numbers
 c           less than FFILEN will be omitted.
 c           Preset = 1     e.g.   ftr 97
 c
-c  LTR    - The last trace within each file to process.  Traces with 
+c  LTR    - The last trace within each file to process.  Traces with
 c           numbers larger than LTR will be omitted.
 c           Preset = The largest data trace number in the channel scan.
 c
@@ -100,19 +100,19 @@ c
 c  SECS   - The maximum number of seconds of data to process.
 c           Preset = length in the header.     e.g.   secs 6
 c
-c  STIME  - The time of the first data to output.  The delay of the 
+c  STIME  - The time of the first data to output.  The delay of the
 c           trace after reformatting.  The data times will be from STIME
 c           to STIME + SECS.  The first portion of the data trace will
 c           be discarded whenever STIME is greater than the delay of the
 c           recorded data.
 c           Preset - The recorded delay.   e.g. stime 4.0
 c
-c  DECIMF - Sample rate decimation factor.  
+c  DECIMF - Sample rate decimation factor.
 c           Preset = 1,     e.g.   decimf 2   decimates by a factor of 2
 c
 c  NTRGAT - The number of traces per gather.  SIOSEIS requires RPs to be
-c           terminated with a -1 in word 51 of the SEGY trace header.  
-c           Because this is unique to SIOSEIS, gathers from other 
+c           terminated with a -1 in word 51 of the SEGY trace header.
+c           Because this is unique to SIOSEIS, gathers from other
 c           computers may be converted by setting NTRGAT to the proper
 c           value.  SEGDIN will set every NTRGAT trace to be a
 c           terminator.  e.g. ftr 91 ltr 96 ntrgat 6 will read only
@@ -153,8 +153,8 @@ c           tape change.  This is quite useful on 3480 drives without
 c           a stack loader since it ejects the tape from the drive,
 c           signalling that a new tape should be mounted.
 c           Preset = 0
-c           
-c        
+c
+c
 c
 c
 c  Copyright (C) Seismic Reflection Processors, San Diego, Ca.
@@ -203,7 +203,7 @@ c  mod 14 Aug 07 - g95 IAND requires arguments to be same type and kind.
 c  mod 19 Feb 09 - Allow format 8036 (24 bit integer)
 c
 c  Programmer notes:
-c  I read the first shot in the edit phase for sevreal reasons: 
+c  I read the first shot in the edit phase for sevreal reasons:
 c 1)  I think some other edits need things like the sample interval and data length.
 c 2)  By doing the SEGY header stuff here, the final execution phase is not
 c     burdened with the slop
@@ -283,7 +283,7 @@ c
       DATA types /6*'L','F',8*'L','F','L',2*'A',5*'L',4*'A','L','A' /
       DATA months/'Jan.','Feb.','Mar.','Apr.','May ','June',
      *            'July','Aug.','Sep.','Oct.','Nov.','Dec.'/
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       nlists = 0
@@ -566,7 +566,7 @@ c**** read the general header, a multiple of 32 bytes
       si = FLOAT(itemp) / 16. / 1000.            ! the REAL sample interval
       micros = FLOAT(itemp) / 16. * 1000.        ! the sample interval in microseconds
       length = IAND(ibuf(13),i15) * 10 +
-     *         IAND( rshift(ibuf(14),12), i15) 
+     *         IAND( rshift(ibuf(14),12), i15)
       temp = IAND( rshift(ibuf(14),8), i15)
       rlen = ( FLOAT(length) + temp/10. ) * 1.024
       IF( rlen .LT. secs .OR. secs .EQ. 0 ) THEN
@@ -590,7 +590,7 @@ c**** read the general header, a multiple of 32 bytes
 c**** point to the first channel set descriptor
       index = (1+naddblks)*16
       idelay = ibuf(index+2) * 2
-      delay = FLOAT(idelay)/1000. 
+      delay = FLOAT(idelay)/1000.
       IF( stime .GT. delay ) THEN                                       ! assume that the first trace will not be used
           delay = stime
           nsamps = nsamps - (stime-delay)/si
@@ -604,19 +604,19 @@ c**** point to the first channel set descriptor
       iafilt = IAND( rshift(ibuf(index+7),12), i15) * 1000 +             ! alias filter frequency
      *         IAND( rshift(ibuf(index+7),8), i15) * 100 +
      *         IAND( rshift(ibuf(index+7),4), i15) * 10 +
-     *         IAND(ibuf(index+7),i15)  
+     *         IAND(ibuf(index+7),i15)
       islope = IAND( rshift(ibuf(index+8),12), i15) * 1000 +             ! alias filter slope
      *         IAND( rshift(ibuf(index+8),8), i15) * 100 +
      *         IAND( rshift(ibuf(index+8),4), i15) * 10 +
-     *         IAND(ibuf(index+8),i15)  
+     *         IAND(ibuf(index+8),i15)
       lc = IAND( rshift(ibuf(index+9),12), i15) * 1000 +                 ! low cut filter frequency
      *     IAND( rshift(ibuf(index+9),8), i15) * 100 +
      *     IAND( rshift(ibuf(index+9),4), i15) * 10 +
-     *     IAND(ibuf(index+9),i15)  
+     *     IAND(ibuf(index+9),i15)
       ls = IAND( rshift(ibuf(index+10),12), i15) * 1000 +                ! low cut filter slope
      *     IAND( rshift(ibuf(index+10),8), i15) * 100 +
      *     IAND( rshift(ibuf(index+10),4), i15) * 10 +
-     *     IAND(ibuf(index+10),i15)  
+     *     IAND(ibuf(index+10),i15)
       notch = IAND( rshift(ibuf(index+11),12), i15) * 100 +              ! notch filter ferquency
      *        IAND( rshift(ibuf(index+11),8), i15) * 10 +
      *        IAND( rshift(ibuf(index+11),4), i15)

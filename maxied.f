@@ -62,7 +62,7 @@ c      COMMON /maxin/ lunparams, nwrds, nlists
      &       trinc, lprint
       DATA names /'IPATH ', 'LPRINT', 'FNO   ', 'LNO   ', 'NOINC ',
      *            'FTR   ', 'LTR   ', 'TRINC' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       luni = 0
@@ -113,22 +113,22 @@ c****
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 7 .OR.
      *                icompt .EQ. 3 .OR. icompt .EQ. 5 )                ! UNIX needs a NULL terminator
      *                   token(nchars+5:nchars+5) = CHAR(0)
-                 CALL getfil( 4, lunhd1, token, istat ) 
-                 IF( istat .NE. 0 ) THEN 
+                 CALL getfil( 4, lunhd1, token, istat )
+                 IF( istat .NE. 0 ) THEN
                      PRINT *,' ***  ERROR  ***  Could not open file ',
-     &                      token 
-                     ierror = ierror + 1 
+     &                      token
+                     ierror = ierror + 1
                  ENDIF
                  token(nchars+1:nchars+4) = '.hd2'
                  IF( icompt .EQ. 2 .OR. icompt .EQ. 7 .OR.
      *                icompt .EQ. 3 .OR. icompt .EQ. 5 )                ! UNIX needs a NULL terminator
      *                   token(nchars+5:nchars+5) = CHAR(0)
-                 CALL getfil( 4, lunhd2, token, istat ) 
-                 IF( istat .NE. 0 ) THEN 
+                 CALL getfil( 4, lunhd2, token, istat )
+                 IF( istat .NE. 0 ) THEN
                      PRINT *,' ***  ERROR  ***  Could not open file ',
-     &                      token 
-                     ierror = ierror + 1 
-                     GOTO 100 
+     &                      token
+                     ierror = ierror + 1
+                     GOTO 100
                  ENDIF
                  GOTO 100
              ENDIF

@@ -49,7 +49,7 @@ c
       IF( first ) THEN
           first = .FALSE.
           CALL getfil( 1, lun_data, token, istat )
-          CALL podiscb( lun_params, 1, 0 )   ! rewind 
+          CALL podiscb( lun_params, 1, 0 )   ! rewind
           CALL rddisc( lun_params, scr, nparams, istat )
           n = lscr(1)
           real_n = FLOAT(n)
@@ -58,7 +58,7 @@ c
           hdr = lscr(4)
           CALL rddisc( lun_params, weights, n, istat )
       ENDIF
-c**** save the header and trace to disk 
+c**** save the header and trace to disk
       IF( istop .GE. 0 ) THEN
           DO i = 1, numhdr
              scr(i) = buf(i)
@@ -119,7 +119,7 @@ c****                argh.  gfortran can't float a short integer in 1 step
              ENDIF
           ENDDO
           average = sum / real_n
-          IF( IAND(lprint,2) .NE. 0 ) 
+          IF( IAND(lprint,2) .NE. 0 )
      &        PRINT *,' sum=',sum,' average=',average
       ENDIF
 c****

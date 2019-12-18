@@ -1,7 +1,7 @@
-      SUBROUTINE treditex( buf, lbuf, ibuf, scr, lscr, iscr, nready )      
+      SUBROUTINE treditex( buf, lbuf, ibuf, scr, lscr, iscr, nready )
 c*******
 C*******      MAKE SURE TO USE THE RIGHT COMMON BLOCK NAME
-c*******      despike and tredit 
+c*******      despike and tredit
 c
 c  ARGUMENTS:
 c  buf   - The trace, with SEGY header as TYPE REAL
@@ -9,7 +9,7 @@ c  lbuf  - The trace, with SEGY header as TYPE INTEGER*4
 c  ibuf  - The trace, with SEGY header as TYPE INTEGER*2
 c
 c  COPYRIGHT (C) The Regents of the University of California
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, SIO, August 1992
 c
 c  Mod 14 June 1994 - Add type and type 2 (Trehu/Sutton)
@@ -51,7 +51,7 @@ c
       INTEGER*2 ibuf, iscr
 c*******
 C*******      MAKE SURE TO USE THE RIGHT COMMON BLOCK NAME
-c*******      despike and tredit 
+c*******      despike and tredit
       COMMON /tredit/ thres(2), lprint, fno, lno, ftr, ltr, type, fac,
      &       quart, kill, alpha, set(4), addwb, vel, ses(2), sel(2),
      &       lunmed, valmin, limits(2), ihdr, lhdr, hdr, winlen, hcycle,
@@ -126,7 +126,7 @@ c****
 c****
 c****  Do MEDIAN first because it's so unlike the rest because it needs
 c****  a bunch of traces before it can do any work.
-c**** 
+c****
       IF( lunmed .NE. 0 ) THEN
 c**** Store all of the gather on disc until the end-of-gather flag.
           nwrds = nsamps + numhdr
@@ -282,7 +282,7 @@ c****
           IF( IAND(lprint,2) .NE. 0 ) PRINT *,' Type 1 - Threshold'
    10     CONTINUE
           DO 100 istart = is, ie
-             IF( scr(istart) .LT. thres(1) .OR. 
+             IF( scr(istart) .LT. thres(1) .OR.
      &           scr(istart) .GT. thres(2) ) THEN
                  IF( tailmute .NE. 0. ) THEN
 c****            zero from the beginning of the spike to the end
@@ -447,7 +447,7 @@ c          print *,time2,delay,buf(lsisptr),ie
                   PRINT *,' SES window is too short, no editing.'
               ENDIF
               RETURN
-          ENDIF 
+          ENDIF
 c          IF( pass(2) .NE. 0. .AND. kill .GT. 0 ) THEN
 c              IF( nfilpts .EQ. 0 ) THEN
 c                  CALL bpass( pass(1), pass(2), filpts, NPTS, si, scr )
@@ -482,7 +482,7 @@ c          print *,time4,delay,buf(lsisptr),ie
                   iwarn1 = iwarn1 + 1
                   PRINT *,' SEL window is too short, no editing.'
               ENDIF
-              RETURN 
+              RETURN
           ENDIF
           ave2 = 0.
           DO i = is, ie

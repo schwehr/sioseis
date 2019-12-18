@@ -1,5 +1,5 @@
       SUBROUTINE fp2sfp( fpbuf, n, jbuf )
-c     fp2sfp converts internal floating point (REAL) to "short floating 
+c     fp2sfp converts internal floating point (REAL) to "short floating
 c  point".  Short floating point is a 16 bit word, the sign bit,
 c  followed by 11 bits of 2's complement mantissa, followed by 4 bits
 c  of exponent expressed as 2**(15-exp).

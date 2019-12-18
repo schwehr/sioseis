@@ -29,7 +29,7 @@ c
       COMMON /segyptr/ llsegptr, lrseqptr, lshotptr, lshtrptr, lrpnptr,
      *                 lrptrptr, itridptr, ldisptr,  lwbdptr,  lsxcoptr,
      *                 lrxcoptr, idelmptr, istmptr,  iendmptr, isampptr,
-     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr, 
+     *                 isiptr,   iyrptr,   idayptr,  ihrptr,   iminptr,
      *                 isecptr,  igmtptr,  ldelsptr, lsmusptr,lemusptr,
      *                 lsisptr,  lwbtsptr, lgatptr,  lssmsptr, lesmsptr,
      *                 lsbptr,   ifoldptr, icvleptr, lespnptr, ilagaptr,

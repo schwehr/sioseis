@@ -1,5 +1,5 @@
 c     This version of plot2 takes a UNIX SIOSEIS seismic plot file from a
-c  SIOSEIS disc file and writes directly to the plotter using HP-RTL.  
+c  SIOSEIS disc file and writes directly to the plotter using HP-RTL.
 c  PLOT2 opens c  all files for the user and assumes the Versatec is /dev/lpv0
 c     This program is a beast because UNIX doesn't allow the use of the VERSATEC
 c  SSP feature (simultaneous print/plot), therefore this program ors in a
@@ -9,14 +9,14 @@ c
 c  Copyright (C) 1985
 c  Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca. 92093
 c
-     
+
       PARAMETER (nchars=80)
-      INTEGER*2 ibuf(5000)    
+      INTEGER*2 ibuf(5000)
       CHARACTER*80 token
       CHARACTER*90 prtbuf
       DATA prtbuf/' '/
 
-      nbytes = ZZ 
+      nbytes = ZZ
       PRINT *,' Enter the name of the input SIOSEIS plot file:'
       CALL rdline
       CALL getoke( token, nchars )
@@ -30,7 +30,7 @@ C****
       CALL vprint                                                       { set UNIX to put the Versatec in print mode
       prtbuf = ' '
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
-      DO 20 i = 1, 20  
+      DO 20 i = 1, 20
          CALL vwrite ( prtbuf, 10 )                                     { write 10 characters
    20 CONTINUE
 c****
@@ -44,7 +44,7 @@ c****
    50 CONTINUE
       prtbuf = ' '                                                      { make a gap between the header and the data
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
-      DO 70 i = 1, 10  
+      DO 70 i = 1, 10
          CALL vwrite( prtbuf, 10 )                                      { write 10 characters
    70 CONTINUE
       CALL vplot
@@ -56,17 +56,17 @@ c****
       GOTO 100
 c****
 c****    END OF PLOT FILE
-c****     
+c****
  9999 CONTINUE
       CALL vprint
-      prtbuf = ' '  
+      prtbuf = ' '
       prtbuf(10:10) = CHAR(10)                                          { put in a CR
       DO 10000 i = 1, 60
          CALL vwrite( prtbuf, 10 )                                      { write 10 characters
 10000 CONTINUE
       CALL detach
       PRINT *,' finished the seismic plot.'
-          
-    
+
+
       END
 

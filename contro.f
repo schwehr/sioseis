@@ -1,8 +1,8 @@
       PROGRAM contro
-c     ***  BEWARE ***  Unix can not tolerate undefined subroutines, thus some 
+c     ***  BEWARE ***  Unix can not tolerate undefined subroutines, thus some
 c  processes and subroutines are commented out so that they are not undefined.
 c  In order to implement a new process, uncomment the edit and execution calls
-c  and add the object files to the list in make.sioseis. 
+c  and add the object files to the list in make.sioseis.
 C     THIS PROGRAM IS THE CONTROLLER FOR THE PRODUCTION MULTICHANNEL SEISMIC
 C  REFLECTION PROCESSING SYSTEM.  THIS PROGRAM READS THE USER'S PARAMETERS AND
 C  SEARCHES FOR A PROCESS NAME.  ONCE IT FINDS A PROCESS NAME, IT CALLS THE
@@ -66,7 +66,7 @@ c  mod 1 Jul 99 - Add process STK and change stked to stacked
 c  mod 12 Jul 99 - Allow 10 DISKOX (diskoe-diskoj)
 c  mod Dec 99 - close Fortran SCRATCH files
 c  mod Jul 00 - Changed number of args to gained
-c  mod 11 Sept 00 - Add process TREDIT 
+c  mod 11 Sept 00 - Add process TREDIT
 c  mod 28 Sept 00 - Add warning when a processes parameters are fiven
 c                   more than once.
 c  mod 5 Oct 00 - Add STATUS = 'DELETE' to try to get Solaris to delete
@@ -93,7 +93,7 @@ c  mod 21 Dec 06 - Add nsevere and OVERRIDE
 c  mod 8 Jan 07 - Add GAINS2 & GAINS3
 c  mod 14 May 07 - Remove common xs - used by tp2tx, but not used here
 c  mod 15 May 07 - Add args to tp2tex
-c  mod 21 May 07 - Clean up prestack TX2TP 
+c  mod 21 May 07 - Clean up prestack TX2TP
 c  mod 16 Jul 07 - Increase MAXSAM to 64536 from 50000
 c                - Use all 3 trace buffers as scratch buffers for FKMIGR
 c  mod 5 Dec 07 - Flush the print buffer before "END OF SIOSEIS RUN"
@@ -165,13 +165,13 @@ c         can be overridden with override.
       COMMON /sioln1/ cbuf
       COMMON /sioln2/ ichar, mchars, iprint, lunpo
       COMMON /TAPES/ NMILS,NTRIES,NPAR,NWREAD
-      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), beta, ffc, ppcnti, 
-     *               ppcnto, iirev, ffon, dummy, iimft, set(2), lprt, 
+      COMMON /tx2tp/ sshift, sep(2), nnp, setau(2), beta, ffc, ppcnti,
+     *               ppcnto, iirev, ffon, dummy, iimft, set(2), lprt,
      *               lunhdr, tpprestk, ntx2tp
       INTEGER tpprestk
 c      COMMON /xs/xmin,xmax,ntp2tx,dx,xdumb(700)                         ! used by tp2tx
       logical txinit, fkinit, txed, fked, tmptxhdr
-      integer ltxunt1, ltxunt2, lfkunt1, lfkunt2, txunit, ohdrtxfk, 
+      integer ltxunt1, ltxunt2, lfkunt1, lfkunt2, txunit, ohdrtxfk,
      &        txprestk
       common /TXFKE/ txinit, fkinit, txed, fked, txunit, ltxunt1,
      &               ltxunt2, lfkunt1, lfkunt2, ohdrtxfk, tmptxhdr,
@@ -204,7 +204,7 @@ C
       INTEGER idowbt(MAXWBTS), iwbtyp(MAXWBTS)
 C******************************************************************************
 C
-C Define a common block which is used to simulates the AP120-B data memory 
+C Define a common block which is used to simulates the AP120-B data memory
 C which has the size of 32K 32-bit floating point words.
 c  Systems that have an ap should set iapsiz to the amount of ap
 c  main data memory actually on the ap.
@@ -356,9 +356,9 @@ C****
    10 CONTINUE
       CALL GETOKE(CTOKEN,NCHARS)                                        ! GET A TOKEN INTO CTOKEN
       IF( NCHARS .EQ. 0 ) THEN                                          ! WAS IT THE END OF A LINE?
-          IF( NOW .EQ. 1 ) PRINT *,' <  ENTER PARAMETERS  >'  
+          IF( NOW .EQ. 1 ) PRINT *,' <  ENTER PARAMETERS  >'
           CALL RDLINE                                                   ! READ A LINE INTO THE HIDDEN COMMON BUFFER Q$LINE
-          GOTO 5                                                        ! START THE LINE AT THE BEGINNING 
+          GOTO 5                                                        ! START THE LINE AT THE BEGINNING
       ENDIF
 C****
 C****     GOT A TOKEN  -  IS IT A PROCESS NAME
@@ -371,7 +371,7 @@ C****
       ITEMP=LENGTH(I)                                                   ! THE LEGAL PROCESS NAME IS LENGTH(I) CHARACTERS LONG
       IF( itemp .EQ. 0 ) GOTO 60
       IF(NAMES(I) (1:ITEMP) .EQ.CTOKEN(1:NCHARS)) GO TO 100             ! SEARCH THE NAMES TABLE FOR THE PROCESS NAME
-   60 CONTINUE                                                          ! STILL LOOKING THROUGH THE TABLE 
+   60 CONTINUE                                                          ! STILL LOOKING THROUGH THE TABLE
       IF( CTOKEN(1:3) .EQ. 'END' ) THEN                                 ! CHECK FOR END OF JOB
           IF( num .EQ. 0 ) THEN
               PRINT *,' ***  ERROR  ***  Nothing to do.'
@@ -448,7 +448,7 @@ C****  PROCS INPUT FILTER OUTPUT END WOULD RUN WITHOUT DOING THE FILTER!
      *   690, 700, 710, 720, 730, 740, 750, 760, 770, 780, 790, 800,
      *   810, 820, 830, 840, 535, 536, 537, 538, 539, 540, 850, 162,
      *   163, 522, 523, 860, 870, 612, 613, 880 ), NAMNUM
-  110 CALL GETPRO(NAMES,LENGTH,ITYPE)                                   ! GET THE PROCESSING ORDER 
+  110 CALL GETPRO(NAMES,LENGTH,ITYPE)                                   ! GET THE PROCESSING ORDER
       GO TO 10
   120 CONTINUE
       CALL INEDIT(BUF,BUF,BUF,IBUF(INDEX3))                             ! THIS ALSO READS THE FIRST TRACE INTO BUF
@@ -506,7 +506,7 @@ C****  PROCS INPUT FILTER OUTPUT END WOULD RUN WITHOUT DOING THE FILTER!
   280 CALL tredited( BUF(index1), BUF(index1), BUF(index1) )
       GOTO 10
   290 CONTINUE
-      CALL AGCED(BUF(INDEX3),BUF(INDEX3))                             
+      CALL AGCED(BUF(INDEX3),BUF(INDEX3))
       GO TO 10
   300 CONTINUE
       CALL MIXED(BUF(INDEX3),BUF(INDEX3))                               ! MIX EDIT
@@ -516,7 +516,7 @@ C****  PROCS INPUT FILTER OUTPUT END WOULD RUN WITHOUT DOING THE FILTER!
       GO TO 10
   330 CONTINUE
       CALL DIED(BUF(index1),BUF(index1),BUF(index1),
-     *     BUF(INDEX3),BUF(INDEX3),buf(index3))    
+     *     BUF(INDEX3),BUF(INDEX3),buf(index3))
       GO TO 10
   350 CONTINUE
       CALL SMUTED(BUF(INDEX3),BUF(INDEX3))                              !  SMUT EDIT
@@ -689,7 +689,7 @@ C****
       ENDDO
       PRINT 1005,IERROR
  1005 FORMAT(' ****  ',I3,' ERRORS IN THIS JOB   ****')
-      IF( iwarn .NE. 0 ) 
+      IF( iwarn .NE. 0 )
      &    PRINT *,' **** ',iwarn,' WARNINGS IN THIS JOB  ****'
       IF( nsevere .NE. 0 .AND. override .EQ. 0. ) THEN
           PRINT *,' **** ',nsevere,' SEVERE WARNINGS.  ****'
@@ -736,7 +736,7 @@ c      IF( isplot .NE. 0 ) THEN
 c           CALL PLOTEX( BUF(INDEX1), BUF(INDEX1), BUF(INDEX1),
 c     *             BUF(INDEX3), BUF(INDEX3), BUF(INDEX3), -1 )
 c      ENDIF
-      IF( iunplt+lunras .NE. 0 .AND. isplot .NE. 0 ) 
+      IF( iunplt+lunras .NE. 0 .AND. isplot .NE. 0 )
      &    CALL TRPLOT(buf(index3),.001,0,1,1,1)                         ! FLUSH THE SEISMIC PLOT FILE
       IF( lunras .NE. 0 ) THEN
           CALL podisc( lunras, 1, 0 )
@@ -745,7 +745,7 @@ c      ENDIF
           irashead(3)=ilincount                                         ! height
           irashead(4)=1                                                 ! depth
           irashead(5)=irashead(2)*irashead(3)*irashead(4)/8             ! length of image in bytes
-          irashead(6)=1                   
+          irashead(6)=1
           irashead(7)=0
           irashead(8)=0
           PRINT *,'Image size is ', irashead(2), ' by ', irashead(3)
@@ -790,8 +790,8 @@ C*****  SUCH AS GATHER, NEED TO KNOW WHEN THE LAST TRACE IS DETECTED IN ORDER
 C*****  TO DO ADDITIONAL WORK,  THEREFORE CARRY ON IF THERE IS SUCH A PROCESS.
  1220 DO 1230 J=1,NUM                                                   ! DON'T DO ANYMORE PREGATHER PROCESSES
          IF( pnames(j) .EQ. 'GATHER' ) GOTO 1010
-         IF( pnames(j) .EQ. 'WBT' .AND. iwbtyp(numwbt) .EQ. 2) GOTO 1010 
-         IF( pnames(j) .EQ. 'TX2FK' ) GOTO 1010 
+         IF( pnames(j) .EQ. 'WBT' .AND. iwbtyp(numwbt) .EQ. 2) GOTO 1010
+         IF( pnames(j) .EQ. 'TX2FK' ) GOTO 1010
          IF( pnames(j) .EQ. 'FK2TX' ) GOTO 1010
          IF( pnames(j) .EQ. 'FDMIGR' ) GOTO 1010
          IF( pnames(j) .EQ. 'TX2TP' ) GOTO 1010
@@ -800,7 +800,7 @@ C*****  TO DO ADDITIONAL WORK,  THEREFORE CARRY ON IF THERE IS SUCH A PROCESS.
          IF( pnames(j) .EQ. 'COFILT' ) GOTO 1010
          IF( pnames(j) .EQ. 'GRDOUT' ) GOTO 1010
          IF( pnames(j) .EQ. 'SWELL' ) GOTO 1010
-         IF( pnames(j) .EQ. 'PROUT' ) 
+         IF( pnames(j) .EQ. 'PROUT' )
      &     CALL POUTEX(BUF(INDEX1),BUF(INDEX1),BUF(INDEX1),BUF(INDEX3),
      &           BUF(INDEX3),BUF(INDEX3), istop )
          IF( pnames(j) .EQ. 'GEOM' ) lbuf(index1+50) = -1
@@ -883,7 +883,7 @@ c         now need a new input trace
           ENDIF
       ENDIF
 c**** Oh boy.  istop = 1 means the current input trace is the last of the job
-c**** istop = 0 means there is no end of data in sight.  istop = -1 means the 
+c**** istop = 0 means there is no end of data in sight.  istop = -1 means the
 c**** last trace already happened and there is not a current trace
       IF( istop .EQ. 1 .AND. kstop .EQ. 0 ) THEN                        ! is this the last trace to be input?
           kstop = 1                                                     ! set to flush the gather disk buffer
@@ -903,7 +903,7 @@ C****
       GOTO 1650
  1603 numwbt = 3
  1650 CONTINUE
-      IF( idowbt(numwbt) .EQ. 1 .AND. iout(i) .LT. 2 .AND. istop .EQ. 0 
+      IF( idowbt(numwbt) .EQ. 1 .AND. iout(i) .LT. 2 .AND. istop .EQ. 0
      *     .AND. iwbtyp(numwbt) .EQ. 2 ) THEN
           idowbt(numwbt) = 0
           GOTO 1015
@@ -935,7 +935,7 @@ C****
  1900 CONTINUE
       CALL stackex(BUF(INDEX1),BUF(INDEX1),BUF(INDEX1),NREADY)
       IOUT(I)=NREADY
-      IF(IOUT(I).NE.0) GO TO 1010                                       ! ANY STACKED TRACES? 
+      IF(IOUT(I).NE.0) GO TO 1010                                       ! ANY STACKED TRACES?
       GO TO 1015                                                        !  NO TRACES FOR THE NEXT PROCESS - FIND AN INPUT PROCESS
 C****
 C****                 AVENOR EXECUTE
@@ -1028,7 +1028,7 @@ C         CARE OF.  THEREFORE, GO GET SOME MORE INPUT DATA.
       IFIN=0                                                            ! TELL VELAN TO START THE ANALYSIS FROM THE BEGING
       GO TO 1015                                                        ! GO GET SOME INPUT
  3105 CONTINUE
-      IF(IOUT(I).EQ.0) GO TO 3160                                       ! ARE THERE STILL TRACES NOT PROCESSED 
+      IF(IOUT(I).EQ.0) GO TO 3160                                       ! ARE THERE STILL TRACES NOT PROCESSED
 C****
 C****  GET THE NEXT TRACE FROM VELAN'S OUTPUT DISC FILE
  3110 CONTINUE
@@ -1171,7 +1171,7 @@ C****
  4300 CONTINUE
 c****   Use all 3 trace buffers as scratch buffers.   This assumes the
 c**** input data is saved and used from the "ap" (index1) and
-c**** process input is not used for double buffering (index2) 
+c**** process input is not used for double buffering (index2)
       CALL FKMIEX(BUF(INDEX1),BUF(INDEX1),BUF(INDEX1),
 c     &     BUF(INDEX3), BUF(INDEX3),BUF(INDEX3))
      &     BUF(INDEX1), BUF(INDEX2),BUF(INDEX3))
@@ -1204,7 +1204,7 @@ c****
  4700 CONTINUE
       CALL udecex( buf(index3), buf(index3), istop )
       GOTO 1010
-c****  
+c****
 c****      FLATEN
 c****
  4800 CONTINUE
@@ -1259,7 +1259,7 @@ c****
  5309 idisko = 9
       GOTO 5610
  5310 idisko = 10
- 5610  CALL doex( idisko, buf(index1), buf(index1), buf(index1), 
+ 5610  CALL doex( idisko, buf(index1), buf(index1), buf(index1),
      *    buf(index3), buf(index3), buf(index3), istop )
       GOTO 1010
 c****
@@ -1344,7 +1344,7 @@ c****    GAINS execute
 c****
  6100 CONTINUE
       num_gains = 1
- 6110 CALL gainex( buf(index1), buf(index1), buf(index1), buf(index3), 
+ 6110 CALL gainex( buf(index1), buf(index1), buf(index1), buf(index3),
      &     num_gains )
       GOTO 1010
  6120 CONTINUE
@@ -1373,7 +1373,7 @@ c****
 c****     USGS PSEUDO REFLECTION COEFFICIENT
 C****
  6300 CONTINUE
-c      CALL pseuex( buf(index1), buf(index1), buf(index1), 
+c      CALL pseuex( buf(index1), buf(index1), buf(index1),
 c     &             buf(index3) )
       GOTO 1010
 c****
@@ -1388,14 +1388,14 @@ c****    DMO execute
 c****
  6500 CONTINUE
       IF( istop .EQ. -1 ) GOTO 1010
-      CALL dmoex( buf(index1), buf(index1), buf(index1), 
+      CALL dmoex( buf(index1), buf(index1), buf(index1),
      &            buf(index3), buf(index3), buf(index3) )
       GOTO 1010
 c****
 c****    LOGST1 execute
 c****
  6600 lognum = 1
- 6610 CALL logsex( lognum, buf(index1), buf(index1), buf(index1), 
+ 6610 CALL logsex( lognum, buf(index1), buf(index1), buf(index1),
      &     buf(index3) )
       GOTO 1010
 c****
@@ -1404,7 +1404,7 @@ c****
  6700 lognum = 2
       GOTO 6610
 c****
- 6800 CALL resaex( buf(index1), buf(index1), buf(index1), 
+ 6800 CALL resaex( buf(index1), buf(index1), buf(index1),
      &             buf(index3), buf(index3) )
       GOTO 1010
 c****
@@ -1445,7 +1445,7 @@ c****
               istop = istopcat
               GOTO 1015
           ENDIF
-          CALL catex( buf(index1), buf(index1), buf(index1), 
+          CALL catex( buf(index1), buf(index1), buf(index1),
      &               buf(index3), buf(index3), buf(index3), nreadycat )
           IF( nreadycat .EQ. 0 ) THEN
               ibackup = 1
@@ -1530,7 +1530,7 @@ C****
       IF( iout(i) .EQ. 0 ) THEN
 c          IF( istop .EQ. -1 .AND. ncofilt .EQ. 0 ) GOTO 1030
           istop2 = istop
-          CALL cfilex( buf(index1), buf(index1), buf(index1), 
+          CALL cfilex( buf(index1), buf(index1), buf(index1),
      &        buf(index3),buf(index3),buf(index3),istop, nready )
           iout(i) = nready
           IF( nready .EQ. 0 ) GOTO 1015
@@ -1551,7 +1551,7 @@ c****   SEG2 input
 c****
  8200 CONTINUE
       iout(i) = 0
-      CALL seg2ex( buf(index1), buf(index1), buf(index1), 
+      CALL seg2ex( buf(index1), buf(index1), buf(index1),
      &        buf(index3),buf(index3),buf(index3), istop )
       IF( istop .EQ. -1 ) GOTO 1220                                     ! means no end of job and no trace in buf
       iout(i) = 1
@@ -1567,7 +1567,7 @@ C****
 C****                TRIM
 C****
  8400 CONTINUE
-      CALL stkex( buf(index1), buf(index1), buf(index1), 
+      CALL stkex( buf(index1), buf(index1), buf(index1),
      &        buf(index3),buf(index3),buf(index3),istop, nready )
       iout(i) = nready
       IF( nready .EQ. 0 ) GOTO 1015

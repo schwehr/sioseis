@@ -1,49 +1,49 @@
       SUBROUTINE uadded(BUF,LBUF)
 c                                PROCESS UADD
 c                                ------- ----
-c  
+c
 c  Document Date: 15 May 1996
-c  
+c
 c  PROCESS UADD adds user given points to every specified seismic trace.
 c  The user may specify the start time of the addition.
-c  
+c
 c  A common use of process uadd is to subtract the average trace from all
 c  the data traces in GPR (ground penetrating radar).
-c  
+c
 c  Spatial interpolation is not available.
 c
 c  Each parameter list must be terminated with the word END.  The entire
 c  set of UADD parameters must be terminated by the word END.
-c  
+c
 c  THE PARAMETER DICTIONARY
 c  --- --------- ----------
-c  
-c  PTS   - A list of points to be added to each seismic trace.  The 
+c
+c  PTS   - A list of points to be added to each seismic trace.  The
 c          values must be separated by a blank, tab or new line.
 c          The points may be given on as many lines as necessary.
 c          When the values are given in an exponential format,
 c          positive exponents must have a + rather than a blank.
 c          Required. e.g. pts 1 2 3 4 5 6 7 8 9 10 11
-c  
+c
 c  FNO   - The first shot (or rp) to be added.  Shot (rp) numbers
 c          must increase monotonically.
 c          Preset = 0
-c  
+c
 c  LNO   - The last shot (rp) number to be added.  LNO must be
 c          larger than FNO in each list and must increase list to list.
 c          Preset = 999999999
-c  
+c
 c  STIME - The start time, in seconds, of the addition.  i.e. the time of
 c          the first point given in PTS.
 c          Preset = the delay of the trace . e.g. stime 1
-c  
+c
 c  END    - Terminates each parameter list.
-c  
-c  
+c
+c
 c  Written and copyrighted (c) by:
 c  Paul Henkart, Scripps Institution of Oceanography, May 1996
 c  ALL RIGHTS RESERVED.
-c  
+c
 C  THE PARAMETER LIST ON DISC IS:
 C  WORD 1)  FNO
 C       2)  LNO

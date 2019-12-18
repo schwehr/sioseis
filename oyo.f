@@ -20,9 +20,9 @@ c  mod 23 Jul 08 - Allow multiple plot files by using the first portion of
 c                  each plotfile.  Start by allowing a max of two plotfiles
 c                  and using the first half of each one.
 c
-     
+
 c      PARAMETER (nchars=80)
-      INTEGER*2 ibuf(5000)    
+      INTEGER*2 ibuf(5000)
       CHARACTER*200 pathname1, pathname2
       CHARACTER*90 prtbuf
       DATA prtbuf/' '/, itype/624/, nread/0/
@@ -57,7 +57,7 @@ c         CALL vwrite( prtbuf, 81 )
    50 CONTINUE
       prtbuf = ' '                                                      ! make a gap between the header and the data
       prtbuf(10:10) = CHAR(10)                                          ! put in a CR
-      DO 70 i = 1, 10  
+      DO 70 i = 1, 10
 c         CALL vwrite( prtbuf, 10 )                                      ! write 10 characters
    70 CONTINUE
       CALL vplot
@@ -86,17 +86,17 @@ c**** the spacing could get messy.
       GOTO 100
 c****
 c****    END OF PLOT FILE
-c****     
+c****
  9999 CONTINUE
 c      CALL vprint
-      prtbuf = ' '  
+      prtbuf = ' '
       prtbuf(10:10) = CHAR(10)                                          ! put in a CR
       DO 10000 i = 1, 60
 c         CALL vwrite( prtbuf, 10 )                                      ! write 10 characters
 10000 CONTINUE
       CALL detach
       PRINT *,' finished the seismic plot.'
-          
-    
+
+
       END
 

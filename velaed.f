@@ -154,13 +154,13 @@ C           WHICH IS CONVERTED TO INTEGER BY TRUNCATING.  THIS INTEGER IS THEN
 C           USED AS AN INDEX TO THE CHARACTER ARRAY USED IN THE PLOT.  THE
 C           CHARACTERS IN THE CHARS LIST MUST BE SEPARATED BY A BLANK.  A BLANK
 C           CHARACTER IN THE CHARS LIST IS REPRESENTED BY ANY TWO CHARACTERS
-C           WITHOUT A BLANK SEPARATOR.  Up to 50 characters may be given.  
-C           PRESET= 0 1 2 3 4 5 6 7 8 9  E.G. chars AA 1 2 3 4 5 6 7 8 9 
+C           WITHOUT A BLANK SEPARATOR.  Up to 50 characters may be given.
+C           PRESET= 0 1 2 3 4 5 6 7 8 9  E.G. chars AA 1 2 3 4 5 6 7 8 9
 c  OPATH  - The pathname of an output file containing the semblance values in
 c           full floating point (before being truncated to integer). The format
 c           of this file is either ASCII or SEGY. If the pathname ends in "segy",
 c           then the output file will be structured according to SEGY convention,
-c           otherwise an ASCII file will be written with one ASCII semblance 
+c           otherwise an ASCII file will be written with one ASCII semblance
 c           value per line, all values for a given velocity together as a group.
 c           The SEGY file will be constructed as a CMP gather with velocity values
 c           placed in the range value of CMP gather (i.e., RP 3450, range 1500,....,
@@ -217,7 +217,7 @@ c
       DIMENSION BUF(111),LBUF(111),IBUF(111)
       CHARACTER CHARS*1
       INTEGER NRP,STAPER
-      INTEGER NSEGYFILE 
+      INTEGER NSEGYFILE
       LOGICAL iexist
       CHARACTER*4 TYPE
       CHARACTER*6 NAMES(NPARS)
@@ -267,7 +267,7 @@ C****
       DO 10 I=1,10                                                      /* PRESET THE CHAR ARRAY (IARRAY) TO '0','1','2',....'9'
    10 WRITE(IALPHA(I),11) I-1
    11 FORMAT(I1)
-      DO 12 i = 11, 50 
+      DO 12 i = 11, 50
    12 ialpha(i) = ' '
       NRP=1
       TYPE='SPEC'
@@ -340,7 +340,7 @@ C****
       IF( names(nparam) .EQ. 'OPATH' ) THEN
           ctemp(1:100) = token(1:nchars)
           CALL upcase( token, nchars )
-          ctemp (nchars+1:nchars+1) = CHAR(0) 
+          ctemp (nchars+1:nchars+1) = CHAR(0)
 C*** GMK  IS OUTPUT FILE SEGY FORMAT OR ASCII
           IF ( token(nchars-3:nchars) .EQ. 'SEGY' .OR.
      *         token(nchars-2:nchars) .EQ. 'MAT') THEN
@@ -348,12 +348,12 @@ C*** GMK OPEN SEGY FILE BUT WAIT UNTIL EX TO WRITE EBCDIC & TAPE ID HEADERS
 C*** SINCE SOME VALUES LIKE NSAMPS & DELTAT CHANGE FOR SEMBLANCE
             NSEGYFILE = 1
             IF ( token(nchars-2:nchars) .EQ. 'MAT' ) nsegyfile = 2
-            CALL getfil( 3, ivelu3, ctemp, istat )          
-            GOTO 100     
-          ELSE 
+            CALL getfil( 3, ivelu3, ctemp, istat )
+            GOTO 100
+          ELSE
             NSEGYFILE = 0
             token(nchars+1:nchars+1) = CHAR(0)
-            CALL getfil( 2, ivelu3, token, istat )          
+            CALL getfil( 2, ivelu3, token, istat )
             INQUIRE( FILE = ctemp, EXIST = iexist )
             IF( iexist ) THEN
                OPEN( UNIT = ivelu3, FILE = ctemp, STATUS = 'OLD' )
@@ -501,7 +501,7 @@ C****
       IF(TTAPER.LT.0..AND.REFRAC.NE.0.) TTAPER=.2                        /* PRESET FOR REFRACTION
       BUF(10)=TTAPER
 C***GMK PASS BINARY FLAG TO TELL EX WHETHER SEGY OR ASCII FILE IS DESIRED
-C***PARAMETER IS PASSED AS 11th VARIABLE, 14 IS THE LIMIT, BEWARE 
+C***PARAMETER IS PASSED AS 11th VARIABLE, 14 IS THE LIMIT, BEWARE
       LBUF(11) = NSEGYFILE
       ITEMP=NPARS+1
       ITEMP1=NPARS+MAXVEL+MAXBOU+3

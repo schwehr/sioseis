@@ -183,7 +183,7 @@ c              CALL fftfwd( filt1 , npower2 )
 
               maxabsval = 0.
 
-c   straight implementation of the analytic Kramers-Kronig 
+c   straight implementation of the analytic Kramers-Kronig
 c   relationship - ajh
               DO 512 i = 1, nw+1
 c                 filt(i) = CEXP((filt(i) + filt1(i))/2./rnfft)

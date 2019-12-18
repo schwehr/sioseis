@@ -7,7 +7,7 @@ c mod 15 June 09 - Apr 09 was done wrong!
 c mmod 12 Apr 10 - Use end mute integer mils rather than real second (word 48)
 c
       PARAMETER (IAPSIZ = 500000)
-      DIMENSION buf(111), lbuf(111), ibuf(111), 
+      DIMENSION buf(111), lbuf(111), ibuf(111),
      &          scr(111), lscr(111), iscr(111)
       INTEGER*2 ibuf, iscr
       COMMON /readt/ itunit, numhdr, numdat, ihunit, ireeln, jntrcs,
@@ -120,7 +120,7 @@ c             muteend = NINT((scr(48)-delay) / si)
           RETURN
       ENDIF
 c****
-c**** Do the whole dataset, make sure everything has the same delay 
+c**** Do the whole dataset, make sure everything has the same delay
 c**** and length.  Start by adding the pads.
 c****
    90 CONTINUE
@@ -149,7 +149,7 @@ c****        make every trace start at the same time
                  DO j = 1, n
                     apdata(index+j) = 0.
                  ENDDO
-                 index = index + n 
+                 index = index + n
              ENDIF
              CALL rddisc( luntrim, apdata(index+1), npts, istat )
              index = index + npts
@@ -213,7 +213,7 @@ c	 print *,' nxxts=',nxxts,' xxt=',(xxt(i),i=1,6)
       IF( nxxts .GT. 0 ) THEN
           DO i = 1, last
              scr(i) = 0.                                                ! the output trace
-             apdata(nextad+i) = 0.                                      ! the divisor trace 
+             apdata(nextad+i) = 0.                                      ! the divisor trace
           ENDDO
           DO i = 1, ntraces
              CALL rddisc( luntrim, buf, numhdr, istat )

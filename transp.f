@@ -62,7 +62,7 @@ c         most systems make you write to the file before you can position them
       IF( icol .GT. maxcol ) THEN
           index = 1
           n = icol - 1
-          DO 500 i = 1, nsamps 
+          DO 500 i = 1, nsamps
              ipos = (i-1)*nx+nsofar+1
              CALL podisc( lun, 1, ipos )
              CALL wrdisc( lun, t(index), n )
@@ -101,7 +101,7 @@ c     *      ' dat=',t(index),t(index+1),t(index+2)
       ENDIF
       IF( icol .GT. maxcol ) THEN
           index = 1
-          DO 800 i = 1, nsamps 
+          DO 800 i = 1, nsamps
              ipos = (i-1)*nx+nsofar+1
              CALL podisc( lun, 1, ipos )
              CALL rddisc( lun, t(index), n, istat )
@@ -166,7 +166,7 @@ c         most systems make you write to the file before you can position them
       IF( icol .GT. maxcol ) THEN
           index = 1
           n = icol - 1
-          DO 1500 i = 1, ncsamps 
+          DO 1500 i = 1, ncsamps
              ipos = ((i-1)*nx+nsofar)*2
              CALL podisc( lun, 1, ipos )
              CALL wrdisc( lun, ct(index), n*2 )
@@ -205,7 +205,7 @@ c     *      ' dat=',t(index),t(index+1),t(index+2)
       ENDIF
       IF( icol .GT. maxcol ) THEN
           index = 1
-          DO 1800 i = 1, ncsamps 
+          DO 1800 i = 1, ncsamps
              ipos = ((i-1)*nx+nsofar)*2
              CALL podisc( lun, 1, ipos )
              CALL rddisc( lun, ct(index), n*2, istat )

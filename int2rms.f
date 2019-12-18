@@ -1,5 +1,5 @@
       SUBROUTINE int2rms( vtpint, vtp, n )
-c   int2rms converts interval velocity two-way-travel time pairs to 
+c   int2rms converts interval velocity two-way-travel time pairs to
 c rms velocity two-way-trace time pairs using Dix's formula.
 c
 c   Vrms(n) = SQRT( (IV(n)**2(T(n)-T(n-1) + Vrms(n-1)**2*T(n-1))  / T(n) )

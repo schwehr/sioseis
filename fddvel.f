@@ -97,7 +97,7 @@ C  NCRBLN = # of CRB's in a line (3D).
 C  NLINE  = # of lines (cross-lines) in the 3D survey.
 C  INSAMP = # of samples input.
 C  CRB    = Current CRB #.
-C          
+C
 C EXTERNALS:
 C     AVBUFIN
 C
@@ -113,7 +113,7 @@ c
 c  17 June 1988, by pch to make f77 for non-vms, non-ap,  and non-veritas!
 c  August - pch.  the vrms array is a virual array, not in Cray!  So,
 c                vrms is now stored on disc.  vrms contains a velocity
-c                for every tau step of every trace.  It must be 
+c                for every tau step of every trace.  It must be
 c                transposed too, all of each time steps next to each
 c                  other
 c           Also think in seconds rather than milleseconds.
@@ -230,16 +230,16 @@ C....     Get V(n) at the zone of interest.
 C
 C....     Start the Tau step loop to calculate C' (1/2 the RMS velocity over the
 C....     Tau interval). Refer to the note above and note that the square root
-C....     is never actually taken. (Refer to notes 2 and 3 above.) 
+C....     is never actually taken. (Refer to notes 2 and 3 above.)
 c**** GMK had to change velocity taustep loop to include tau step at t = 0
 c**** GMK thus, no taustp exists at the bottm of the section ( t = insamp)
-c**** GMK because of this, averaging loop was modified below 
+c**** GMK because of this, averaging loop was modified below
           sp = 1
           DO 200 tau = 1, ntau
 c
                tc = taustp(tau+1)                                       ! Update End of tau interval
                sc = tc / float(sr) + 1.0                                ! Sample number
-               sc = min (sc, insamp)        
+               sc = min (sc, insamp)
 
 c**** GMK Since there is not a (tau+1) taustp need to set sc = to last samp
 c**** GMK thereby averaging over entire taustep
@@ -249,14 +249,14 @@ c**** GMK thereby averaging over entire taustep
 c
                veltau = 0.0                                             ! Average velocity over tau step
                DO 300 s = sp, sc
-                  veltau = veltau + veloc(s)          
+                  veltau = veltau + veloc(s)
   300          CONTINUE
                veltau     = veltau / (4.0 * (sc-sp+1))
-               veloc(tau) = veltau * gbase                              ! Store average back in veloc 
+               veloc(tau) = veltau * gbase                              ! Store average back in veloc
 c              call fdmChck2(crb,tau,sp,sc,veltau,dt,dx)
-               sp = MIN (sc+1, insamp)                           
+               sp = MIN (sc+1, insamp)
   200     CONTINUE
-                  
+
 C....     If the line is a 2D line then move C' into the array VRMS for use by
 C....     routine FDMLIN. Don't forget to find the velocity of the zone of
 C....     interest at the end CRB's.
@@ -284,7 +284,7 @@ c                    VRMS(CRB-CRBST+1,TAU) = VELOC(TAU)
                    nsofar = nsofar + maxcol
                    icol   = 1
                ENDIF
-               
+
                IF (crb .eq. crbst) vpadss = velint
                IF (crb .eq. crben) vpadse = velint
 C

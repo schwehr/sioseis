@@ -25,7 +25,7 @@ c
       INTEGER cdpno, cdptrno
       COMMON /edits/ ierror, iwarn, irun, now, icompt
       COMMON /readt/ itunit, numhdr, nsamps, ihunit, ireeln, jntrcs
-      COMMON /maxin/ luni, lunhd1, lunhd2, fno, lno, noinc, ftr, ltr, 
+      COMMON /maxin/ luni, lunhd1, lunhd2, fno, lno, noinc, ftr, ltr,
      &       trinc, lprint
       LOGICAL first, swap
       SAVE
@@ -143,7 +143,7 @@ c
 c**** count the traces read and set istop if the current trace is the last
       ntraces = ntraces + 1
       IF( ntraces .EQ. ntrace ) istop = 1
-c****  
+c****
 c****   We have to count the traces in the rp gather if it's been gathered
 c****
       IF( icdpsrt .EQ. 1 ) THEN
@@ -244,6 +244,6 @@ c             The problem here is that the VMS Vax doesn't have byte disk I/O
  1000     CONTINUE
       ENDIF
 
-      
+
 
       END

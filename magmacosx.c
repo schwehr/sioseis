@@ -13,7 +13,7 @@ ln -s rmt/0bn nrst0
  *     name  - The name of the reel to be mounted. Not used by Unix. Character*(*)
  *     wring - Now (Aug 22 1990) ignored (but must be present).
  *             A flag indicating whether the tape should have a write ring in or
- *             not. 
+ *             not.
  *           =0, No write ring should be in the tape. Open the file for reading
  *               only.
  *           =1, A write ring should be in the tape. Open the file for reading
@@ -25,7 +25,7 @@ ln -s rmt/0bn nrst0
  *      lun  - The tape drive unit number to read from.
  *      buffer - An array to receive the tape record read.  Must be at least
  *               nbytes long.  Typeless
- *      nbytes - The maximum tape record size to be read.  buffer must be nbytes 
+ *      nbytes - The maximum tape record size to be read.  buffer must be nbytes
  *               long.
  *      Returns a long integer containing the status of the read.
  *          >0,  The number of bytes read.
@@ -39,7 +39,7 @@ ln -s rmt/0bn nrst0
  *      Returns the status of the write operation.
  *          >0,  The write wrote nbytes to tape. (everything ok!).
  *          =0,  Shouldn't happen.
- *          <0,  An error occured. 
+ *          <0,  An error occured.
  *
  * Function weofmt(lun) - Write a file mark on tape unit lun.
  *      Returns the operation status.  Long integer.
@@ -62,7 +62,7 @@ ln -s rmt/0bn nrst0
  *      Returns the operation status.  Long integer.
  *           =0, OK
  *           <0, Error
- * 
+ *
  * Function skrbmt(lun) - Skip 1 record backwards on lun (position to previous IRG).
  *      Returns the operation status.  Long integer.
  *           =0, OK
@@ -88,7 +88,7 @@ ln -s rmt/0bn nrst0
  *               independent whereas mtget.mt_dsreg is very dependent.
  *               THIS IS AN INTEGER*2 FUNCTION
  *               by trial and error the Sun returns:
- *  
+ *
  * Function getmtget_(lun,n,stat) - return the n'th element of mt_get
  *          n = 0 = mt_type
  *              1 = dsreg
@@ -99,7 +99,7 @@ ln -s rmt/0bn nrst0
  *              6 = flags
  *              7 = bf
  *
- *  
+ *
  *      mtegt.mt_dsreg  (drive status register):
  *    ************     Doesn't exist on HP    *******************
  *             EMULEX CONTROLLER
@@ -162,7 +162,7 @@ ln -s rmt/0bn nrst0
  *                writes a file mark on MTNOP (no op) !
  * mod Aug 91 - set  fd[unitno] = 0;   when releasing tapes
  * mod 31 Oct 91 - for UTIG Exabyte changes
- * mod 15 Jan 92 - redo Sept 90 mod for MTNOP writing file marks 
+ * mod 15 Jan 92 - redo Sept 90 mod for MTNOP writing file marks
  * mod ????    - allow up to 40 device names
  * mod 1 Oct 97 - For Sun OS 4.1.3 I seem to get some different status
  *      meanings.  rdmt status = 0, seems to mean EOF
@@ -240,12 +240,12 @@ long   *wring;
 		mknamec( name );   /* make sure the name terminates with a NULL */
 		strcpy( device, name);
 	}
-	
+
       n = 2;    /*  preset to read and write */
       fd[unitno] = open( device, n);
       if( fd[unitno] < 0 ) fd[unitno] = open( device, 0);
-      while( fd[unitno] < 0 ) 
-	{ 
+      while( fd[unitno] < 0 )
+	{
           perror( "ASTAPE open failed");
           printf("%s\n",device);
           printf("Is the tape on unit %d loaded and ready?\n",unitno);
@@ -549,14 +549,14 @@ long	untape_(lun)
         sprintf(device,"/dev/nrst%d",*lun);
         /* the close file closes tapes that are open for writing by writing two
            end of files at the current tape position. I submit that this is a
-           very bad if not just plain incorrect practice.  Suppose you write 
+           very bad if not just plain incorrect practice.  Suppose you write
            2 files to tape then reread the first file then close the file!
            So, my way around this is to just change the mode of the file to
            a read only file, then close does not write 2 file marks!!!
          */
-        chmod(device,0400); 
-        close(fd[unitno]); 
-        chmod(device,0600); 
+        chmod(device,0400);
+        close(fd[unitno]);
+        chmod(device,0600);
         fd[unitno] = 0;
         return(0L);
 }

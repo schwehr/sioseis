@@ -8,7 +8,7 @@ c  inbuf  - The input array to be converted. ANY TYPE!
 c  nbytes - the number of bytes to convert.
 c  obuf   - The output CHARACTER*1 array. MUST BE AT LEAST NBYTES*2 LONG
 c
-c  mod 15 June 2006 - Use lright rather than rshift because of int/long 
+c  mod 15 June 2006 - Use lright rather than rshift because of int/long
 c                     problem in shifts.c
 c
       INTEGER*4 inbuf(1), lrshift

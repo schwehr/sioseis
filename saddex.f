@@ -1,4 +1,4 @@
-      SUBROUTINE saddex( buf, lbuf, ibuf )      
+      SUBROUTINE saddex( buf, lbuf, ibuf )
 c
 c  ARGUMENTS:
 c  buf   - The trace, with SEGY header as TYPE REAL
@@ -6,7 +6,7 @@ c  lbuf  - The trace, with SEGY header as TYPE INTEGER*4
 c  ibuf  - The trace, with SEGY header as TYPE INTEGER*2
 c
 c  COPYRIGHT (C) The Regents of the University of California
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, SIO, August 1992
 c  mod july 95 - initialize interp to 0
 c
@@ -103,4 +103,4 @@ c      nsamps = ibuf(isampptr)
   600 CONTINUE
       RETURN
       END
-      
+

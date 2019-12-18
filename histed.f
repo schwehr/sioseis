@@ -1,9 +1,9 @@
       SUBROUTINE histed
 c                                PROCESS HISTORY
 c                                ------- -----
-c  
+c
 c  Document Date: 10 February 1997
-c  
+c
 c  Process HISTORY keeps a running history or log of the SIOSEIS
 c  processing steps.  The log is an ASCII file that is appended
 c  on each SIOSEIS "job".  The file may be edited with your
@@ -15,14 +15,14 @@ c  line is also written when the job completes normally.  e.g.
 c  Job      1 started on Thu Feb 13 11:41:57 1997, SIOSEIS ver 97.2 (13 Feb. 1997)
 c  PROCS SYN     HISTORY PROUT
 c  Job      1 finished on Thu Feb 13 11:41:57 1997
-c  
+c
 c  HISTORY may be placed anywhere in the PROCS list, but will
 c  operate only on the first and last trace of the job.
 c
 c  THE PARAMETER DICTIONARY
 c  --- --------- ----------
-c  
-c  HPATH  - The filename of the HISTORY file.  
+c
+c  HPATH  - The filename of the HISTORY file.
 c           REQUIRED.      e.g.  hpath ew9607.line1.hist
 c
 c  ALL    - When set to YES, all user given parameters are
@@ -39,12 +39,12 @@ c           Remember to terminate with a period in column 1.
 c           .
 c
 c  END    - Terminates each parameter list.
-c  
-c  
+c
+c
 c  Written and copyrighted (c) by:
 c  Paul Henkart, Scripps Institution of Oceanography, February 1997
 c  ALL RIGHTS RESERVED.
-c  
+c
 c
       PARAMETER (NPARS=3)                                               ! THE NUMBER OF USER PARAMETERS
       CHARACTER*8 NAMES(NPARS)

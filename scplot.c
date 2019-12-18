@@ -3,7 +3,7 @@
 at the upper right corner, scplot plots down (top to bottom, with
 successive calls to scplot to the left. (corresponding to the
 direction the Versatec plotter does things).  SCPLOT uses the whole
-screen without regard for windows or icons!  
+screen without regard for windows or icons!
      The Sun command "screendump" may be used to save the whole screen
 in a file that can then be replotted on the screen with "screenload"
 or sent to a printer using "lpr -v" (lpr -v doesn't work on my machine).
@@ -15,7 +15,7 @@ this gigantic bitmap.
   a)  It always creates a new window - How do you open the existing
       window?  In order to get a canvas, you need a window fd, which
       can be obtained by window_create.
-  b)  It is slower than molasses because I did the same thing as here 
+  b)  It is slower than molasses because I did the same thing as here
       in pixrect - use put so the plot goes top to bottom without
 an intermediate image in memory.  Using mem_pr in essence gets around
 the inversion.
@@ -26,7 +26,7 @@ source code listing in the manual is different from what is actually is!
 
    Paul Henkart,  12 July 1989
 */
-    
+
 #include <pixrect/pixrect_hs.h>
 #include <stdio.h>
 
@@ -40,7 +40,7 @@ scopen_( xo, yo )
 {
 	if( (pr = pr_open("/dev/fb")) == NULL ){
 		fprintf( stderr, "Unable to create pixrect.\n");
-		exit(1); 
+		exit(1);
 	}
 	xorig = *xo;
 	yorig = *yo;

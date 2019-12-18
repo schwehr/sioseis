@@ -3,7 +3,7 @@
 c  Sept 1998 - Put into sioseis.
 c  Mod 21 Mar 00 - Change to Harm's uinc and vinc calculation
 c
-c  coher_filt.f:  Coherence filter based on semblance over a 
+c  coher_filt.f:  Coherence filter based on semblance over a
 c                 sweep of linear trends about a point.
 c
 c     Dan Lizarralde, 2/92
@@ -13,11 +13,11 @@ c     performed across a window of N_xwin traces centered about
 c     each sample of each trace.  The slope of the velocities are
 c     determined from the approximate intertrace spacing dx and the
 c     sign of the trace offset if Vsign=1. (A usefull upgrade would
-c     be to include actual trace spacing.) 
+c     be to include actual trace spacing.)
 c
-c     If Vsign=1, then the positive direction is defined as the direction 
-c     of increasing trace number, i.e. traces are assume to have increasing 
-c     offset values.  The sign of the velocities is determined from the 
+c     If Vsign=1, then the positive direction is defined as the direction
+c     of increasing trace number, i.e. traces are assume to have increasing
+c     offset values.  The sign of the velocities is determined from the
 c     sign of the header offset.
 c
 c      If the traces are ordered in the correct  sense and the header
@@ -25,17 +25,17 @@ c       offset sign is also correct, then choose ixsign_ch=1.
 c       ex.   trace # in file:  1  2  3  4  5  6
 c            offset in header: -5 -4 -2  0  1  4
 c
-c      If the traces are ordered in the opposite sense and the header 
+c      If the traces are ordered in the opposite sense and the header
 c       offset sign is correct, then choose ixsign_ch=-1.
 c       ex.   trace # in file:  1  2  3  4  5  6
 c            offset in header:  4  1  0 -2 -4 -5
 c
-c      If the traces are ordered in the correct sense and the header 
+c      If the traces are ordered in the correct sense and the header
 c       offset sign is incorrect, then choose ixsign_ch=-1.
 c       ex.   trace # in file:  1  2  3  4  5  6
 c            offset in header:  5  4  2  0 -1 -4
 c
-c      If the traces are ordered in the opposite sense and the header 
+c      If the traces are ordered in the opposite sense and the header
 c       offset sign is incorrect, then choose ixsign_ch=1.
 c       ex.   trace # in file:  1  2  3  4  5  6
 c            offset in header: -4 -1  0  2  4  5
@@ -65,7 +65,7 @@ c                    Nvel      : number of velocities to scan
 c                    vmin      : minimum velocity to scan
 c                    vmax      : maximum velocity to scan
 c
-c                    Vsign     : Process as signed-offset  (1) 
+c                    Vsign     : Process as signed-offset  (1)
 c                                or unsigned (eg mcs) data (0)
 c                    vred      : reduction velocity of the data [km/s]
 c                  ixsign_ch   : w/Vsign=1, use -1*(header offsets) to
@@ -73,7 +73,7 @@ c                                determine velocity scans
 c
 c
 c                 i_wt_type, spower
-c                 i_wt_type = 0 -> use only wt(i) stack 
+c                 i_wt_type = 0 -> use only wt(i) stack
 c                             1 -> linear semblance wt.
 c                             2 -> hstrong sigmoidal wt.
 c
@@ -110,11 +110,11 @@ c
      .               semb(MAX_SAMPS,MAX_NVELS)  ,
      .              fracX(MAX_NVELS,MAX_XWIN),
      .            fracpos(MAX_NVELS,MAX_XWIN),
-     .            fracneg(MAX_NVELS,MAX_XWIN), 
+     .            fracneg(MAX_NVELS,MAX_XWIN),
      .           wt(MAX_XWIN),wtin(MAX_XWIN),
      .            z(MAX_SAMPS), pi
 c****   S1 has number of samples to move per trace per velocity, which
-c**** is the same often (like 0 0 0 1 1 would not be uncommon), so 
+c**** is the same often (like 0 0 0 1 1 would not be uncommon), so
 c**** fracX is used for interpolating the samples (amplitudes).
         Integer*4 S1pos(MAX_NVELS,MAX_XWIN),
      .            S1neg(MAX_NVELS,MAX_XWIN),
@@ -246,7 +246,7 @@ c                uinc = (umax-umin)/(float(Nvel-2)*.5)  *****  Paul
                    ivv=ivel-Nvel/2
                    u=-1.*(umin+float(ivv-1)*uinc)
                    do ix=1,N_xwin
-                      x=float(ix-Nxmid+1)*dx  
+                      x=float(ix-Nxmid+1)*dx
                       t=u*x
                       S1(ivel,ix)=int(t/si_sec)
                       fracX(ivel,ix)=t-float(S1(ivel,ix))*si_sec
@@ -329,7 +329,7 @@ c**** sets word 17 (the cdp fold) - but what if it's a dead stack trace?
           RETURN
       ENDIF
 c****
-c**** Do the whole dataset, make sure everything has the same delay 
+c**** Do the whole dataset, make sure everything has the same delay
 c**** and length.  Start by adding the pads.
 c****
    90 CONTINUE
@@ -439,16 +439,16 @@ c
                     end do
                  end do
               else
-                 do ix=1,N_xwin 
-                    do ivel=1,Nvel 
-                       S1(ivel,ix)=S1neg(ivel,ix)   
+                 do ix=1,N_xwin
+                    do ivel=1,Nvel
+                       S1(ivel,ix)=S1neg(ivel,ix)
                        fracX(ivel,ix)=fracneg(ivel,ix)
-                    end do 
-                 end do 
+                    end do
+                 end do
               end if
            end if
 c
-c          For every point on the trace, calculate semblance 
+c          For every point on the trace, calculate semblance
 c          for every velocity of the scan
 c****     semblance is the square of the sum over the sum of the squares
            do Ipt=nT1,nT2
@@ -522,7 +522,7 @@ c****      sample associated with the point, raised to spower
                  if(s .ge. .8) wtfun=1.
                  buf(Ipt)=buf(Ipt)*wtfun
               end do
-           end if	
+           end if
 
            if(amp_scl .eq. 0.)then
               jmp_1=0.
@@ -564,7 +564,7 @@ c           iscr(isampptr) = npts
                 data(j,icnt) = 0.
              ENDDO
            ENDIF
-        End do	
+        End do
         nready = ntraces
         CALL podisc( lunodata, 0, 0 )
         RETURN
@@ -587,27 +587,27 @@ c
 c---------------------------------------------------------------------
 c
         subroutine get_weights(N_xwin,nwts,wtin,iq_median,
-     .                         iwt1,iwt2,wt,wtfac,istat) 
+     .                         iwt1,iwt2,wt,wtfac,istat)
 
         real*4   wt(N_xwin),wtin(N_xwin),wtfac
 
         do i=1,N_xwin
            wt(i)=0.
         end do
- 
+
         if(mod(nwts,2).eq.0)then
            print *,'nwts must be an odd number'
-           istat=1 
+           istat=1
            goto 199
         end if
- 
+
         if(iq_median.eq.1 .and. nwts.eq.N_xwin)then
            nwts=nwts-2
            do i=1,nwts
               wtin(i)=wtin(i+2)
            end do
         end if
- 
+
         nwts2= nwts/2
         Nxmid= 1+N_xwin/2
         iwt1 = Nxmid-nwts2
@@ -625,7 +625,7 @@ c**** pch
            jw=iw-iwt1+1
            wt(iw)=wtin(jw)
         end do
- 
+
         wtfac=0.
         do iw=1,N_xwin
            wtfac=wtfac+wt(iw)
@@ -637,7 +637,7 @@ c**** pch
            istat = 1
            goto 199
         end if
- 
+
         do iwx=1,N_xwin
            wt(iwx)=wt(iwx)*wtfac
         end do
@@ -657,7 +657,7 @@ c
      .             fracpos(Nvel,N_xwin),
      .             fracneg(Nvel,N_xwin),
      .             x,t,umin,umax
-         
+
 
         if (vred .ne. 0) then
            ured=1./vred
@@ -715,7 +715,7 @@ c
               ivv=ivel-Nvel/2
               u=-1.*(umin+float(ivv-1)*uinc)
               do ix=1,N_xwin
-                 x=float(ix-Nxmid+1)*dx  
+                 x=float(ix-Nxmid+1)*dx
                  t=u*x
                  S1(ivel,ix)=int(t/si_sec)
               fracX(ivel,ix)=t-float(S1(ivel,ix))*si_sec

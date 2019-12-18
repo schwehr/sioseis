@@ -9,7 +9,7 @@ c     Call this for every "panel", with lundata containing the fx data
 c  running from fmin to fmax, in complex, (nw*2 real words).
 c
 c        Positive frequencies between fmin & fmax are downward
-c        continued, stored in the complex array rows 
+c        continued, stored in the complex array rows
 c
 c  mod 18 Mar 97 - Add some info to error message when it doesn't fit.
 c  mod June 2000 - g77 - change type to print
@@ -34,7 +34,7 @@ c     .           Zrow(nxb,nrows*2),
      .           scr(1)
 
         integer*4 lundata
- 
+
         integer*4   H4(ntb)
         integer*2   H2(ntb)
         equivalence (H4(1),H2(1))
@@ -69,7 +69,7 @@ c
       Nxmig=Nx+Npadlt+Npadrt
       call powtwo(Nxmig,Nkx)
       call powtwo(Nt,Nft)
-c      write(*,*) 'Nx=',Nx,'  Nxmig=',Nxmig, '  Nkx=',Nkx, ' dx=',dx_km 
+c      write(*,*) 'Nx=',Nx,'  Nxmig=',Nxmig, '  Nkx=',Nkx, ' dx=',dx_km
 c      write(*,*) 'Nt=',Nt,'    Nft=',Nft, '  dt=',dt_sec
       pi=3.141592653589
       twopi=2.*pi
@@ -137,7 +137,7 @@ c         read(ivfile,rec=jz) (r(jx),jx=1,NxvFile)
                uav(jz) = max(uav(jz),ux(jx))
             end do
          end if
-         CALL wrdisc( iufile, ux, Nkx ) 
+         CALL wrdisc( iufile, ux, Nkx )
 c         write(iufile,rec=jz) (ux(jx),jx=1,Nkx)
       end do
 	 print *,' slowness done'
@@ -158,7 +158,7 @@ c****
 c     Get main panel of data - it's in w already (from iwmin to iwmax)
 c****
       istop = 0
-      DO ix = Npadlt+1,Nx+Npadlt 
+      DO ix = Npadlt+1,Nx+Npadlt
          CALL rddisc( lundata, r, nw, istat )
          CALL rddisc( lundata, c, nw, istat )
          if(Delay .gt. 0.)then
@@ -306,7 +306,7 @@ c            write(lunslice,rec=iz) (xz(ix),ix=1+Npadlt,Nx+Npadlt)
          Nsrcz=1
       end if
 c****
-c     Main loop over all depths 
+c     Main loop over all depths
 c****
       PRINT *,' Data is now in kx space.'
       idz= cmplx(0.,dz_km)
@@ -331,7 +331,7 @@ c           forward fft
 c            do ix=1,Nkx
 c               r(ix)=     real(data(ix,jw))
 c               c(ix)=-1.*aimag(data(ix,jw))
-c            end do  
+c            end do
             IF( .NOT. big ) THEN
                 index = (jw-1) * nkx
                 DO ix = 1, nkx
@@ -347,7 +347,7 @@ c            end do
             ENDIF
             call fastf(r,c,Nkx)
 c****       phase shift over all kx
-            w = dw*float(iw-1)                                             
+            w = dw*float(iw-1)
             u0w2 = (w*u0)**2.
             do jx = 1,Nkx
                ph1 = cmplx(u0w2-kx2(jx),0.)
@@ -461,7 +461,7 @@ c
       return
       end
 
-c 
+c
 c--------------------------------------------------------------------
 c
       subroutine get_taper(Nx,nspx,ctap)

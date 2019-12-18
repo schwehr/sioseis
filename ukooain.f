@@ -20,7 +20,7 @@ c   lhdr(16) = water depth
 c   ihdr(45) = type of coordinates (1=distance/length from origin (itype 8)
 c                                  (1=whatever the P190 is (itype 10)
 c                                  (3=source in decimal degrees (itype 19)
-c                                  
+c
 c   ihdr(36) = -10  (scalar used for the following coordinates)
 c   lhdr(19) = shot easting
 c   lhdr(20) = shot northing
@@ -151,21 +151,21 @@ c****
           lastshot = long_shotno
           IF( lhdr(3) .EQ. long_shotno .OR. lhdr(3) .LT. 0 ) THEN
               IF( angular_units .EQ. 1 ) THEN
-                  READ( cbuf(26:35), '(2(I2), F5.2, A1)') 
+                  READ( cbuf(26:35), '(2(I2), F5.2, A1)')
      &                  ideg,min,sec,alpha
                   dtemp = sec      ! Mac insists on DFLOAT(integer)
-                  source_lat = DFLOAT(ideg) + DFLOAT(min)/60.D0 + 
+                  source_lat = DFLOAT(ideg) + DFLOAT(min)/60.D0 +
      &                 dtemp/(60.D0*60.D0)
 c     &                DFLOAT(sec)/(60.D0*60.D0)
                   IF( alpha .EQ. 'S' ) source_lat = -source_lat
-                  READ( cbuf(36:46), '(I3, I2, F5.2, A1)') 
+                  READ( cbuf(36:46), '(I3, I2, F5.2, A1)')
      &                  ideg,min,sec,alpha
                   dtemp = sec      ! Mac insists on DFLOAT(integer)
                   source_long= DFLOAT(ideg) + DFLOAT(min)/60.D0 +
      &                 dtemp/(60.D0*60.D0)
 c     &                 DFLOAT(sec)/(60.D0*60.D0)
                   IF( alpha .EQ. 'W' ) source_long = -source_long
-              ELSE 
+              ELSE
                   READ( cbuf(26:35), '(F9.6,A1)') source_lat, alpha
                   IF( alpha .EQ. 'S' ) source_lat = -source_lat
                   READ( cbuf(36:46), '(F10.6,A1)') source_long, alpha
@@ -243,9 +243,9 @@ c****  positions is "significantly different" from the shots distance.
 c****  The problem is ukooain determines a bad origin (and range and rp number)
 c****  When the streamer is in a turn.  The user may not realize this!
           IF( tb_east_old + tb_north_old .NE. 0. ) THEN
-              tb_dist = DSQRT( (tb_east_old - tb_east_new) **2 
+              tb_dist = DSQRT( (tb_east_old - tb_east_new) **2
      &                       + (tb_north_old - tb_north_new) **2 )
-              sh_dist = DSQRT( (sh_east_old - sh_east_new) **2 
+              sh_dist = DSQRT( (sh_east_old - sh_east_new) **2
      &                       + (sh_north_old - sh_north_new) **2 )
               diff = tb_dist - sh_dist
               IF( diff .GT. 5. ) THEN

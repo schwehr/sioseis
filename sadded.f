@@ -5,7 +5,7 @@ c                       ------- ----
 c
 c  Document date: 7 August 1992
 c
-c      Process SADD performs a scalar addition to the seismic traces, 
+c      Process SADD performs a scalar addition to the seismic traces,
 c  i.e. a constant number specified by the parameter SCALAR is added to
 c  every amplitude.
 c      Only those shot/rps and traces specifically given have the scalar
@@ -40,7 +40,7 @@ c
       INTEGER fno, lno, ftr, ltr
       DATA names / 'SCALAR', 'LPRINT', 'FNO   ', 'LNO   ', 'FTR   ',
      &             'LTR   ' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       scalar = 0.

@@ -1,4 +1,4 @@
-      SUBROUTINE leeshdr( ishot_hr, ishot_min, shot_sec, 
+      SUBROUTINE leeshdr( ishot_hr, ishot_min, shot_sec,
      &    ifix_hr, ifix_min, fix_sec,
      &    dlat, dlong, wdepth, rmaggie)
 c****  Decode Lee Ellett's Geometrics External header.

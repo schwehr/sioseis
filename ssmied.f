@@ -1,9 +1,9 @@
       SUBROUTINE ssmied
-c                                                                       
+c
 c                          PROCESS SSMIGR
 c                          ------- ------
 c
-c  Document date:  
+c  Document date:
 c
 c                        Split-Step Migration
 c
@@ -98,21 +98,21 @@ c  EXAMPLE MIGRATION:
 c  Shallow Sediments near ODP HOLE 504B
 c  diskin
 c      ipath 504B.dmo.stack.224.624 set 0.0 8.0 end
-c  end 
+c  end
 c  ssmigr
 c      deltax 12.5 deltaz 10 vskip 1500 zskip 3000 ez 10000
 c      bpad 50 epad 50 mtap 25 twinlen 0.25
 c      ref 0 nvsmth 3 vpath v.scratch
-c      fmin 5 fmax 40 path ps.scratch sgypath vmodel.segy 
+c      fmin 5 fmax 40 path ps.scratch sgypath vmodel.segy
 c      fno  224 lno  224 vdp 1500.0 3480.0 1850.0 3490.0 1850.0 3721.3 end
 c      fno  424 lno  424 vdp 1500.0 3442.5 1850.0 3452.5 1850.0 3785.5 end
 c      fno  524 lno  524 vdp 1500.0 3397.5 1850.0 3407.5 1850.0 3694.3 end
-c      fno  624 lno  624 vdp 1500.0 3390.0 1850.0 3400.0 1850.0 3686.8 end 
+c      fno  624 lno  624 vdp 1500.0 3390.0 1850.0 3400.0 1850.0 3686.8 end
 c  end
-c  
+c
 c  PARAMETER DICTIONARY
 c  --------- ----------
-c  EZ     - End Depth, in meters.  The number of samples output will be 
+c  EZ     - End Depth, in meters.  The number of samples output will be
 c           EDEPTH  / DELTAZ + 1.  The first output sample is ALWAYS 0.
 c         - Required.  e.g.  ez 6000
 c  DELTAX - The distance between traces, in meters.
@@ -166,7 +166,7 @@ c           the water velocity in marine work. If using ZSKIP, then VSKIP
 c           is required.
 c  REF    - Reference slowness, u0, from a given depth.  The minimum
 c           slowness may provide a better reference than the average
-c           slowness for imaging features such as a rough basement 
+c           slowness for imaging features such as a rough basement
 c           surface beneath low velocity sediments.
 c         =0, minimum slowness.
 c         =1, average slowness.
@@ -175,14 +175,14 @@ c           Preset = 1
 c  PATH   - The pathname (filename) of a scratch file SSMIGR should use
 c           for the intermediate transposed data.  The purpose of this
 c           parameter is to allow the user to specify the exact disk
-c           partition to use in case the "current" partition does not 
+c           partition to use in case the "current" partition does not
 c           have enough space.
 c           preset = a scratch file in the current directory
 c           e.g.    path /user/scratch/moreroom
 c  VPATH  - The pathname (filename) of a scratch file SSMIGR should use
 c           for the transposed velocity slices.  The purpose of this
 c           parameter is to allow the user to specify the exact disk
-c           partition to use in case the "current" partition does not 
+c           partition to use in case the "current" partition does not
 c           have enough space.
 c           preset = a scratch file in the current directory
 c           e.g.    vpath /user/scratch/vmoreroomc
@@ -191,20 +191,20 @@ c           velocity file to be output for external purposes. Includes
 c           the smoothing operators.
 c           preset = none
 c           e.g.    sgypath /user/scratch/vmoreroomc.segy
-c   
+c
 c  Copyright (C) 1995 by:
 c  Woods Hole Oceanographic Institution and
 c  The Regents of The University of California, 1995
 c
 c  Written by Dan Lizarralde, WHOI, and adapted by Paul Henkart, SIO
-c  Modifications by Graham Kent & Dan Lizarralde, WHOI 
+c  Modifications by Graham Kent & Dan Lizarralde, WHOI
 c  ALL RIGHTS RESERVED.
 c
 c  Present limitations include 8192 traces, 5000 depth steps & 800 frequencies.
 c  If the number of depths * number of traces exceed 500,000 use sioseis.BIG
 c  which allows a product of nz*nx = 3,500,000, also remember padding when
 c  estimating your nx.
-c  
+c
       PARAMETER ( npars = 21 )                                          ! the number of user parameters
       PARAMETER ( maxvel = 55 )                                         ! the maximum number of velocity-depth pairs
       CHARACTER*80 token
@@ -242,14 +242,14 @@ c
      9            ( twinlen, vals(19) )
       EQUIVALENCE ( mtap, lvals(20) ),
      1            ( lunsegy, lvals(21) )
-     
+
       DATA names /'LPRINT ', 'FNO    ', 'LNO    ', 'VDP    ', 'BPAD   ',
      1            'EPAD   ', 'ZSKIP  ', 'FMIN   ', 'FMAX   ', 'DELTAX ',
      2            'DELTAZ ', 'EZ     ', 'PATH   ', 'VPATH  ', 'VSKIP  ',
      3            'REF    ', 'VINTPL ', 'NVSMTH ', 'TWINLEN', 'MTAP   ',
      4            'SGYPATH'/
-      DATA types / 6*'L',6*'F',2*'A','F',2*'L','L','F','L','A'/    
-c**** 
+      DATA types / 6*'L',6*'F',2*'A','F',2*'L','L','F','L','A'/
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0
@@ -301,7 +301,7 @@ c****
   150 CONTINUE
       vdp = 0
       lparam = nparam
-c****  
+c****
 c****   Got the parameter name, now get the value
 c****
       CALL getoke( token, nchars )                                      ! get the value
@@ -335,7 +335,7 @@ c****
      &                  token(1:nchars)
                     ierror = ierror + 1
                   ENDIF
-          ENDIF         
+          ENDIF
           GOTO 100
       ENDIF
   160 CALL dcode( token, nchars, areal, istat )                         ! convert the alpha number to an internal machine number
@@ -412,7 +412,7 @@ c****
 c****    Write the parameters to a disc file  and get another list!
 c****
       IF( lno .EQ. 0 ) lno = fno
-      nwrds = npars 
+      nwrds = npars
       CALL wrdisc( junit, lvals, nwrds )
       IF( nvels .GT. 0 ) CALL wrdisc( junit, vels, nvels )
       nlists = nlists + 1

@@ -26,7 +26,7 @@ CFLAGS :=
 #          -m32 does not work with gfortran on gcc version 4.1.2 20080704 (Red Hat 4.1.2-46)
 
 # Optimizations
-#CFLAGS += -02 
+#CFLAGS += -02
 #CFLAGS += -ffast-math
 #CFLAGS += -funroll-loops
 #CFLAGS += -fexpensive-optimizations
@@ -35,8 +35,8 @@ CFLAGS :=
 # Debugging and code checks
 #CFLAGS += -g  # Can leave on even when optimizing
 #CFLAGS += -Wall
-#CFLAGS += -Wimplicit-int 
-#CFLAGS += -Wimplicit-function-declaration 
+#CFLAGS += -Wimplicit-int
+#CFLAGS += -Wimplicit-function-declaration
 #CFLAGS += -Wnested-externs
 #CFLAGS += -Wimplicit
 #CFLAGS += -W
@@ -83,7 +83,7 @@ fkshex.o psfk.o ssmied.o ssmiex.o sspost2.o fastf.o slave.o \
 uadded.o uaddex.o umulted.o umultex.o histed.o histex.o cfiled.o cfilex.o \
 seg2ed.o seg2ex.o caljul.o xcored.o xcorex.o stked.o stkex.o \
 grdouted.o grdoutex.o xstared.o xstarex.o segdded.o segddex.o i24i32.o \
-bldgname.o leeshdr.o gpgga.o gpggaa.o dbt.o unsigned.o swelled.o swellex.o 
+bldgname.o leeshdr.o gpgga.o gpggaa.o dbt.o unsigned.o swelled.o swellex.o
 
 SIO2SUN_OBJ := sio2sun.o get_nbytes_sio.o planes_to_pixels.o swap32c.o
 
@@ -141,7 +141,7 @@ tar:
 
 
 sioseis: $(SIOSEIS_OBJ)
-	$(FC) $(FFLAGS) $(SIOSEIS_OBJ) $(LDFLAGS) -o sioseis 
+	$(FC) $(FFLAGS) $(SIOSEIS_OBJ) $(LDFLAGS) -o sioseis
 
 sio2sun:$(SIO2SUN_OBJ)
 	$(CC) $(CFLAGS) $(SIO2SUN_OBJ) -o sio2sun

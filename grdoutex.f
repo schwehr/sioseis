@@ -71,14 +71,14 @@ c   For a normal node grid we have:
 c   (1) nx = (x_max - x_min) / x_inc + 1 = 11
 c       ny = (y_max - y_min) / y_inc + 1 = 1
 c   (2) node # 0 is at (x,y) = (x_min, y_max) = (0,10) and
-c       represents the surface value in a box with dimensions 
+c       represents the surface value in a box with dimensions
 c       (1,1) centered on the node.
 c    For a pixel grid we have:
 c    (1) nx = (x_max - x_min) / x_inc = 10
 c        ny = (y_max - y_min) / y_inc = 10
 c    (2) node # 0 is at (x,y) =
 c            (x_min + 0.5*x_inc, y_max - 0.5*y_inc) = (0.5, 9.5)
-c            and represents the surface value in a box with 
+c            and represents the surface value in a box with
 c            dimensions (1,1) centered on the node.
 c
 c  Written by Paul Henkart, with some input and motivation from Dan
@@ -96,7 +96,7 @@ c                - Add grd version 2
 c
       PARAMETER (itsize = 262144 )
       COMMON /transp/ t(itsize)
-      DIMENSION buf(111), lbuf(111), ibuf(111), 
+      DIMENSION buf(111), lbuf(111), ibuf(111),
      &          scr(111), lscr(111), iscr(111)
       INTEGER*2 ibuf, iscr
       REAL*8 dtemp(10)

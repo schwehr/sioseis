@@ -64,7 +64,7 @@ C  100 AVE=AVE+ABS(BUF(I))/REALN                                        /* BUT I
   110 CONTINUE
       IF( IAND(lprint,4) .NE. 0 ) PRINT *,' Average absolute ave  = ',
      &     ave,' multiplier=',rmult
-      IF( iprint .NE. 0 .AND. last .NE. 0 ) 
+      IF( iprint .NE. 0 .AND. last .NE. 0 )
      &    PRINT *,ic-1,' multiplier =',rmult
       IF(ICOUNT.NE.1) GO TO 200
       DO 120 I=1,MIDPT                                                  /* DO THE FIRST WINDOW

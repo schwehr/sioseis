@@ -40,7 +40,7 @@ c
       CHARACTER*100 path
       DATA names / 'LPRINT', 'FFILEN', 'LFILEN', 'FTR   ', 'LTR   ',
      &             'IPATH ' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0
@@ -186,7 +186,7 @@ c          ifmt = ibuf(7) / 256
               PRINT *,' ***  ERROR  ***  Bad SEG2 data format of:',ifmt
               ierror = ierror + 1
           ENDIF
-          
+
           CALL getfil( 1, ihunit, token, istat )                        ! get an SEGY header file
           DO  i=1,40
               token = ' '

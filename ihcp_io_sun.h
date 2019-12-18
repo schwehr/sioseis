@@ -206,13 +206,13 @@ IHCPIO_SOFT_ACK		simulates ack sequence from device
 
 	(u_long larg[6])
 
-	larg[0] =	DMAIO CSR 
+	larg[0] =	DMAIO CSR
 	larg[1] =	DMAIO ADD
 	larg[2] =	DMAIO RANGE
 	larg[3] =	IHCP LATCHED FUNCTIONS
 	larg[4] =	IHCP INTERFACE STATUS
 	larg[5] =	IHCP DEVICE STATUS
-	
+
 	*/
 
 #define IHCPIO_GET_STATUS _IOR('H',5,int)	/* returns FORMATTED device	*/
@@ -245,7 +245,7 @@ IHCPIO_SOFT_ACK		simulates ack sequence from device
 #define 	IHCPIO_VLTR	0x00000000	/* remote line terminate*/
 #define 	IHCPIO_VEOT	0x00000001	/* remote eot		*/
 #define 	IHCPIO_VFED	0x00000002	/* remote form feed	*/
-#define 	IHCPIO_VCLR	0x00000003	/* remote buffer clear	*/ 
+#define 	IHCPIO_VCLR	0x00000003	/* remote buffer clear	*/
 
 #define IHCPIO_DATA_OUT	_IOWN('H',10,0)	/* CALLING PGM WILL AND IN THE  */
 					/* ACTUAL CHARACTER COUNT - DONE*/
@@ -309,7 +309,7 @@ IHCPIO_SOFT_ACK		simulates ack sequence from device
 
 
 /*	additional commands and arguments for (hopefully) compatibility
-	with SUN and Versatec drivers for the 10088 VME board	
+	with SUN and Versatec drivers for the 10088 VME board
 	the idea is to make them identical to the existing definitions
 	in both name and value, so existing code will run without change
 	(other than perhaps a new device name), and if re-compiled, can
@@ -386,7 +386,7 @@ struct lpregs {
 
 #endif	/* end of old definitions	*/
 
-/* define the old-style register bits for the compatibility code - 
+/* define the old-style register bits for the compatibility code -
 	do it outside the #ifndef so they will still be available
 	even if an old include file is used instead of this one to
 	define the old ioctl parameters	*/

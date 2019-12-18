@@ -73,7 +73,7 @@ C  PADDWB - WHEN GIVEN A VALUE OF YES, THE WATER BOTTOM TIME WILL BE ADDED
 C           TO THE VALUE OF PDIST ON EACH TRACE.
 C           PRESET=NO.  E.G. PADDWB YES
 c  DOUBLE - When given a value of yes, the correlations and convolution are
-c           performed in DOUBLE PRECISION.  THE USE OF THIS PARAMETER WILL 
+c           performed in DOUBLE PRECISION.  THE USE OF THIS PARAMETER WILL
 c           INCREASE THE CPU TIME CONSIDERABLY, but might make the decon work
 c           better especially if long windows are used.
 c           Preset = no.    e.g.  yes
@@ -229,9 +229,9 @@ C****
   230 CONTINUE
       IF( TYPE(NPARAM) .EQ. 'A') THEN
           CALL upcase(token,nchars)
-          IF( names(nparam) .EQ. 'DOUBLE' .AND. 
+          IF( names(nparam) .EQ. 'DOUBLE' .AND.
      *        token(1:nchars) .EQ. 'YES' ) double = 1.
-  
+
           IF(NAMES(NPARAM).EQ.'ADDWB'.AND.TOKEN(1:NCHARS).EQ.'YES')
      *        IADDWB=1
           IF(NAMES(NPARAM).EQ.'PADDWB'.AND.TOKEN(1:NCHARS).EQ.'YES')
@@ -274,7 +274,7 @@ C****
       IERROR=IERROR+1
  1030 LLNO=LNO
       IF( BUF(11) .EQ. -100. ) THEN
-          PRINT *, 
+          PRINT *,
      *    ' ***  ERROR  ***  AT LEAST ONE DESIGN WINDOW MUST BE GIVEN.'
           IERROR=IERROR+1
           GOTO 1200
@@ -287,7 +287,7 @@ C****
          ENDIF
       ENDDO
       DO i = idsgptr+2, idsgptr + MAX - 1, 2                                 ! ALLOW NEGATIVE TIMES FOR HANGING FROM WATER BOTTOM
-         IF( buf(i) .NE. 0. .AND. BUF(I) .LT. BUF(I-1) + .1 ) THEN 
+         IF( buf(i) .NE. 0. .AND. BUF(I) .LT. BUF(I-1) + .1 ) THEN
                       PRINT *,
      *    ' ***  WARNING  *** WINDOWS SHOULD BE AT LEAST .1 SEC APART.'
                       IWARN =IWARN+1

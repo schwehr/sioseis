@@ -23,11 +23,11 @@ c
           GOTO 1000
       ENDIF
 c
-      jtemp = inbuf(i)   
-      mant = IAND( jtemp, 8388607) 
+      jtemp = inbuf(i)
+      mant = IAND( jtemp, 8388607)
 c	print *,' in=',jtemp,' mant=',mant
 c the mantissa is bits 0-22, 8388607 is hex(007FFFFF)
-      mant =IOR( mant, 8388608)  
+      mant =IOR( mant, 8388608)
 c put the hidden bit on; 8388608 = hex(00800000)
       iexp = LRSHIFT( jtemp, 23 )
 c	print *,' mant=',mant,iexp
@@ -40,9 +40,9 @@ c get rid of the sign - bias = 127
       ELSE
           jsign = -1
       ENDIF
-      IF( iexp .GE. 0 ) THEN   
+      IF( iexp .GE. 0 ) THEN
 c is it greater than 1?
-          newexp = LRSHIFT( iexp, 2 ) + 65 
+          newexp = LRSHIFT( iexp, 2 ) + 65
 c divide by 4 (IBM is hex based)
           nshift = 3 - MOD(iexp,4)
       ELSE
@@ -52,11 +52,11 @@ c divide by 4 (IBM is hex based)
           nshift = MOD( itemp, 4 )
           IF( nshift .EQ. 3 ) newexp = newexp + 1
       ENDIF
-      newman = LRSHIFT( mant, nshift ) 
+      newman = LRSHIFT( mant, nshift )
 c IBM has the mantissa on the right
-      IF( jsign .LT. 0 ) newexp =IOR( newexp, 128 ) 
+      IF( jsign .LT. 0 ) newexp =IOR( newexp, 128 )
 c take care of the sign bit
-      newexp = LLSHIFT( newexp, 24 )  
+      newexp = LLSHIFT( newexp, 24 )
 c IBM exp is on the left
       iobuf(i) =IOR( newman, newexp )
 c	print *, newman,newexp,iobuf(i)

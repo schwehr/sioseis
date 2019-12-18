@@ -16,7 +16,7 @@ c           must be alligned correctly - the first word must be the
 c           4 exponents.
 c  obuf   - The output array of REAL data.  Must not be the same as ibuf
 c  nsamps - The number of data values to convert.
-c     
+c
 c  Copyright (C) Paul Henkart, Seismic Reflection Processors, San Diego, Ca.
 c mod 14 Aug 07 - g95 IAND requires arguments to be same type and kind.
 c  ALL RIGHTS RESERVED.

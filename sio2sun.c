@@ -133,7 +133,7 @@ main	(argc, argv)
 		ras.ras_depth = 8;
 		ras.ras_length = nbytes * nlines * 8;
 		ras.ras_type = RT_STANDARD;
-		ras.ras_maptype = RMT_EQUAL_RGB;  
+		ras.ras_maptype = RMT_EQUAL_RGB;
 		ras.ras_maplength = 768;	/* 768 = 256 * 3  */
 		if( endian < 0 ) istat = swap32( &ras, 8);
 		istat = fwrite( &ras, sizeof(char), 32, fout );
@@ -209,8 +209,8 @@ c    7      0   0   0         gray0     black
 			}
 			istat = fwrite( buf, sizeof(char), nbytes, fout );
 			if( istat != nbytes ) {
-				printf("output file problem. %d\n",istat); 
-				exit( 1 ); 
+				printf("output file problem. %d\n",istat);
+				exit( 1 );
 			}
 		} else {
 			istat = fread( r, sizeof(char), bytes_per_line, fin );

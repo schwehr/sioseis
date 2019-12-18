@@ -1,7 +1,7 @@
       SUBROUTINE flatex( BUF,LBUF,IBUF,SCR,LSCR)
 C     FLATEX IS THE EXECUTION PHASE OF THE SEISMIC REFLECTION PROCESS FLATEN..
-C  THE USER'S PARAMETERS MUST BE IN DISC FILE MUNIT (IN COMMON /FLATEN/) AND 
-c  THE TRACE WITH TRACE HEADER MUST BE IN MEMORY ARRAY BUF. 
+C  THE USER'S PARAMETERS MUST BE IN DISC FILE MUNIT (IN COMMON /FLATEN/) AND
+c  THE TRACE WITH TRACE HEADER MUST BE IN MEMORY ARRAY BUF.
 C
 C  ARGUMENTS:
 C  BUF    - THE TRACE TO BE PROCESSED, INCLUDING THE TRACE HEADER.  THE FIRST
@@ -131,7 +131,7 @@ c****  this occasionally (at the beginning of a SeaBeam file)
           DO 1060 i = 1, nave
              IF( depths(i) .GT. 0. ) THEN
                  divisr = divisr + 1.
-                 hdr = hdr + depths(i) 
+                 hdr = hdr + depths(i)
              ENDIF
  1060     CONTINUE
           IF( divisr .EQ. 0. ) RETURN
@@ -194,7 +194,7 @@ c****  this occasionally (at the beginning of a SeaBeam file)
       ENDIF
       IF( odelay .NE. delay ) THEN
           buf(46) = odelay
-          ibuf(55) = odelay *1000. 
+          ibuf(55) = odelay *1000.
       ENDIF
       RETURN
       END

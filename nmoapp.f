@@ -31,7 +31,7 @@ c  modified by pch aug 89 to kill data before the start index
 c  mod Oct 91 by pch - add itype so that movein works (data before the current is moved)
 c  mod Nov 91 by pch - Zero data before the start when MoveIn
 c  mod Feb 99 - Zero the sample if it comes from a time that has already
-c               been past.  i.e. inverted nmo?  
+c               been past.  i.e. inverted nmo?
 c  mod 27 Jul 99 - Zero it only if time is decreasing from the previous
 c               sample.  Once it starts increasing again, it's ok maybe.
 c               This just kills the part when the waveform becomes

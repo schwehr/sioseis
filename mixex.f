@@ -290,7 +290,7 @@ c             MAXSA=MAX0(MAXSA,ITABLE(I,5))
   700 CONTINUE
       IBUF(15)=1                                                         /* MAKE IT A LIVE TRACE
 c****
-c****  Do the header mix 
+c****  Do the header mix
 c****
  1000 CONTINUE
       IF( hdr+lhdr+ihdr .NE. 0 ) THEN
@@ -341,6 +341,6 @@ c****
               ENDIF
           ENDIF
       ENDIF
-          
+
       RETURN
       END

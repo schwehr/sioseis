@@ -7,7 +7,7 @@ c***            shot.  Also revert back to checking for shot number and
 c***            shot time being equal,  Sepr line 27 has duplicate shot
 c***            numbers.  The line also has dropped shots.
 c*** Mod 16 Dec 1992 by GMK (ESPs distance d is actually in 1/10's of meters
-c*              d = d/10. Also kill ghost shots THISFLAGSHOT = 3. Also kill 
+c*              d = d/10. Also kill ghost shots THISFLAGSHOT = 3. Also kill
 c*               shots w/ bougus bearing if type = 5 (ESP).
 c*   Mod 17 Dec 1992 Had a mix-up w/ OS bearing and MS bearing in code -- fixed.
 c*   Mod 18 Dec 1992 Place LDGO line # into CDP slot in trace header and fake some CDP trace
@@ -33,7 +33,7 @@ c*    These parameters can be calculated assuming one is given a LDGO log file a
 c*    other geometrical information (i.e. gun-antenna offset for both ships etc.....).
 c*    To find the proper shot in the log file, it is neccessary to know the field shot
 c*    number (bytes 245-248 BCD) for trace 0 header which is read during the input process.
-c*    The following variables are returned from the log file (binary) and are used to 
+c*    The following variables are returned from the log file (binary) and are used to
 c*    calculate offset and CDP number (type = 3 or 4):
 c*    Navigation file:
 c*        info header:   position (4byte words) total size = 1024 bytes
@@ -45,7 +45,7 @@ c*                       ildgoline = 20       LDGO line number
 c*
 c*        shot headers:  position (4byte words) total size = 256 bytes * number of shots
 c*                       msshot = 2            field shot number found in lbuf(3)
-c*                       thisshotflag = 5      = 1 if nav ship (i.e Ewing), or = 2 if other ship 
+c*                       thisshotflag = 5      = 1 if nav ship (i.e Ewing), or = 2 if other ship
 c*                       msdeadshot = 6        bad trace, nav ship
 c*                       osdeadshot = 7        bad trace, other ship
 c*                       ttjd = 9              julian day >
@@ -61,9 +61,9 @@ c*                       mslat = 23            latitude of nav ship (MS)  deg*10
 c*                       mslon = 24            longitude of nav ship (MS) deg*10**6
 c*                       mscdpno = 25          cdp number corresponding to this shot MS
 c*                       spcdpbin = 30         cdp bin size meters (*100)
-                                        
+
       integer*4 logbuf(256)
-      integer*4 ishot, ishotold, itrace, lhead(111),   
+      integer*4 ishot, ishotold, itrace, lhead(111),
      &idirshot1,idirshotn, inumrec, idirangfact, ishotpos, numtrys,
      &maxtrys,ildgounit, ishotmis, msshot, thisshotflag, msdeadshot,
      &osdeadshot, finalrange, mscourse, oscourse, bearostoms, distcdp1,
@@ -83,11 +83,11 @@ c****  shots when line3 is set to 1, only kill when line3 is 0
       data first /.true./, maxtrys /10/, first1 /.true./, line3/0/
 
       save
-                    
+
       type = IABS(itype)
-c*    Get variables from the lhead(lbuf) or ihead(ibuf) arrays regarding shot trace                    
+c*    Get variables from the lhead(lbuf) or ihead(ibuf) arrays regarding shot trace
       ishot  = lhead(3)
-      itrace = lhead(4)             
+      itrace = lhead(4)
 c*    If same shot, different trace - then skip past log file to savetime
       if (ishot.eq.ishotold) goto 99
       iday   = ihead(80)
@@ -104,7 +104,7 @@ c*    check to see if shot number is zero, if so kill it and exit subroutine
 c*    search through log file to find shot and compare the GMT to assure
 c*    that the proper trace is identified
 
-c*    get line variables         
+c*    get line variables
       if (first) then
          call podisc( ildgounit, 1, 0)                                  ! rewind
          call rddiscb( ildgounit, logbuf, 1024, istat)
@@ -115,13 +115,13 @@ c*    get line variables
 c*       get variables form line log header 1024 bytes long
          idirshot1 = logbuf(2)
          idirshotn = logbuf(3)
-         inumrec   = logbuf(7)    
+         inumrec   = logbuf(7)
          idirangfact = logbuf(19)
          ildgoline = logbuf(20)
 c*       disable if loop since we don't need info for each shot
 c         first = .false.
       endif
-                        
+
 c*    look for shot # in log file
 c*    skip 1024 bytes (255 4byte words) and nshots*256 bytes (64 4 byte words)  --> ishotpos
 c*    if shot = 0 i.e. lhead(3)=0, then go to mute trace end then exit - bad trace
@@ -159,15 +159,15 @@ c* Write vaules to screen for trace 1 only
        if (ifudgehour.ne.0) print*, '***Warning, hour mismatch of ',
      &  ifudgehour, ' with navigation file for shot#', msshot
        if (ifudgemin.ne.0) print*, '***Warning, minute mismatch of ',
-     &  ifudgemin, ' with navigation file for shot#', msshot     
+     &  ifudgemin, ' with navigation file for shot#', msshot
        if (ifudgesec.ne.0) print*, '***Warning, second mismatch of ',
      &  ifudgesec, ' with navigation file for shot#', msshot
-      endif     
-     
+      endif
+
 c*   Lamont timing mark on DSS-240 sucks the big one -- not consistent
 c*   we will risk for now, not using another check since its not robust enough
 c*   will use fudge parameters for now
-c*   if so, read variables for particular shot from 256 byte nav. header 
+c*   if so, read variables for particular shot from 256 byte nav. header
          thisshotflag = logbuf(5)                                       !=1, nav; = 2, os
          IF( itype .EQ. -3 ) thisshotflag = 1
          msdeadshot = logbuf(6)                                         != -1 bad nav shot
@@ -226,7 +226,7 @@ c*    will kill traces and place bogus range in header for now!
           lhead(10) = -999999
           goto 999
       endif
-           
+
 c*    again check to see if there is a bad trace in log file
       if (thisshotflag.eq.1 .and. msdeadshot.eq.-1.AND.line3.EQ.0) then
          ihead(15) = 2
@@ -234,12 +234,12 @@ c*    again check to see if there is a bad trace in log file
       elseif (thisshotflag.eq.2.and.osdeadshot.eq.-1.AND.line3.EQ.0)then
          ihead(15) = 2
          goto 999
-      endif                   
+      endif
 
 c*    we are now going to do the offset and cdp number calculations for type = 3,4 and 5
-c*    1st, we define the navigation and shooting parameters from the ldgo geometry file 
+c*    1st, we define the navigation and shooting parameters from the ldgo geometry file
 c*    via sioseis (for both the shooting and navigation ships)
-         
+
       if (first1) then
 	xbin  =	abs(xbinp)                                                   !bin size in meters for cdp.
 	ioff0 = abs(float(ioff0p))                                           !recording ship distance antenna to 1st receiver.)
@@ -269,7 +269,7 @@ c*    reverse bearing to ms to os ship - used for two ship, two streamer work!
 c*    recent experiments do not include this geometry - nevertheless is included for future work
 	if(thisshotflag.eq.1) then
            ilogstorb=ilogstorb-180                                      !we really want bearing shooting to recording.
-	endif                                                
+	endif
 
 c*    distance from initial navigation point to shot location
           ilogcdpdis = distcdp1                                         !distance along line ms this shot.
@@ -322,25 +322,25 @@ c*    which is preferable for SIOSEIS process SORT
         lhead(6) = ildgoline
         lhead(7) = nint(10000 + (ioffset/25.0) )
       endif
-        
+
 c*    calculate cdp number corresponding to log (type 3 and 4)
-          
+
       if (type.eq.3 .or. type.eq.4) then
-                    
+
 	rsshp=0.0
 
-c*    if the shooting ship is not the navigation ship, i.e. thisshotflag = 2  
+c*    if the shooting ship is not the navigation ship, i.e. thisshotflag = 2
 	if(thisshotflag.eq.2) then
 	  rsshp= float(ilogrange)/10.0
 	endif
-                                                              
+
 c*    if the shooting ship is not the lead ship, i.e. not 1 (2 source, 2 receiver geometry)
 	if(thisshotflag.eq.2) then
 	  rsshp=-rsshp
 	endif
 
 c*    calculate half offset variable
-	refdist=float(ioffset)*.5          
+	refdist=float(ioffset)*.5
 
 c*    if the shooting and recording ships are the same or the shooting ship
 c*    is the lead ship(1)
@@ -355,7 +355,7 @@ c*    midpoint distance away from navigational initial point
           dist=float(ilogcdpdis)+rsshp-dag1+refdist
         else
           dist=float(ilogcdpdis)+rsshp-dag2+refdist
-        endif 
+        endif
 
 c*    calculate cdp number and place it in segy header
 c	print *,' dist=',dist,' ilog=',ilogcdpdis
@@ -364,10 +364,10 @@ c	print *,' dist=',dist,' ilog=',ilogcdpdis
 
 c*    endif to calculate cdp
       endif
- 
+
 c*    put lat, lon, dead trace into segy header,
 c*    and ready it to be passed onto next process
-  
+
       lhead(19) = mslon                                                  !longitude*10**6
       lhead(20) = mslat                                                  !latitude*10**6
       ihead(15) = 1                                                      !good trace

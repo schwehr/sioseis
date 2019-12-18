@@ -21,9 +21,9 @@ c
 c
       alatrads = ABS(alat) * pi / 180.D0
       amlat = 111132.92D0 - 559.82D0 * DCOS(2.D0*alatrads)
-     &      + 1.175D0 * DCOS(4.D0*alatrads) 
+     &      + 1.175D0 * DCOS(4.D0*alatrads)
      &      - 0.0023D0 * DCOS(6.D0*alatrads)
-      amlong = 111412.84D0 * DCOS(alatrads) 
+      amlong = 111412.84D0 * DCOS(alatrads)
      &       - 93.5D0 * DCOS(3.D0*alatrads)
      &       + 0.118D0 * DCOS(5.D0*alatrads)
       RETURN

@@ -1,22 +1,22 @@
 c**********************************************************************
-      SUBROUTINE FFT2(C,MM,INV)                                        
+      SUBROUTINE FFT2(C,MM,INV)
 c**********************************************************************
 C...............................................................................
 C Standard Fast Fourier Transform routine from Cooley et al 1969 (reproduced in
 C Aki & Richards Quantitative Seismology p596)
 C      the inverse part of this from Bob Parker
 C MM  - There are 2**MM points on the trace being transformed. This trace is
-C       passed to the routine as complex array C                                
+C       passed to the routine as complex array C
 C...............................................................................
       COMPLEX C(*),U,W,T,CI
       SAVE PI
-      DATA PI/3.1415927/           
+      DATA PI/3.1415927/
 C
       N=2**MM
       NBY2=N/2
-      NM1=N-1         
+      NM1=N-1
       XN = FLOAT(N)
-      J=1                   
+      J=1
 C
       DO 7 I=1,NM1
       IF(I.GE.J) GO TO 5
@@ -43,18 +43,18 @@ C
   10  C(I)=C(I)+T
   20  U=U*W
 C
-      IF(INV.NE.0) THEN 
+      IF(INV.NE.0) THEN
         N1=1 + N/2
         DO 30 I = 2,N1
         CI=C(I)
         C(I)=C(N-I+2)/XN
-  30    C(N-I+2) = CI/XN 
+  30    C(N-I+2) = CI/XN
         C(1)=C(1)/XN
       ENDIF
       RETURN
       END
 c*********************************************************************
-      subroutine realtr(a,b,n,isn)                                    
+      subroutine realtr(a,b,n,isn)
 c*********************************************************************
 c              rearranges array for fft of a real series in place
 c              called after a forward fft, before an inverse fft
@@ -98,7 +98,7 @@ c
       b(j) = (im + bb)/2.
       a(k) = (aa - re)/2.
       a(j) = (aa + re)/2.
-      aa = cn - (cd*cn + sd*sn) 
+      aa = cn - (cd*cn + sd*sn)
       sn = (sd*cn - cd*sn) + sn
    30 cn = aa
       return

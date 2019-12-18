@@ -132,14 +132,14 @@ C****
                   stime = FLOAT(itemp) / 10.
                   IF( buf(50) .GT. stime + (nsecs * chart(1)) + .05 )
      &                stime = stime + .05
-                  IF( buf(50) .GT. stime + nsecs * chart(2) ) 
+                  IF( buf(50) .GT. stime + nsecs * chart(2) )
      &                stime = stime - .05
               ELSE
                   stime = INT(buf(50))
 c****             don't let it be too close to either end
                   IF( buf(50) .GT. stime + (nsecs * chart(1))+ .5 )
      &                stime = stime + .5
-                  IF( buf(50) .GT. stime + nsecs * chart(2) ) 
+                  IF( buf(50) .GT. stime + nsecs * chart(2) )
      &                stime = stime - .5
               ENDIF
           ENDIF
@@ -216,7 +216,7 @@ c**** iout = 0 means transfer it to buf!
       IF( IN .EQ. 0 .OR. IUSEAP .EQ. 0 ) THEN                           ! IS THE DATA IN THE AP?
           DO 130 I=1,NSAMPS                                             ! DO THE MOVE IN MEMORY
   130     SCR(NUMHDR+I)=BUF(NUMHDR+I)
-      ELSE 
+      ELSE
           CALL APGET(SCR(NUMHDR+1),IN,NSAMPS,2)                         ! SAVE THE TRACE IN THE SCRATCH AREA
       ENDIF
       IF( ibuf(15) .EQ. 2 ) THEN                                        ! zero out dead traces
@@ -335,7 +335,7 @@ c**** hate to do this, but ....
       IF( ostime .NE. stime .AND. ndone .GT. 1 .AND. hscale .EQ. 0.
 c     &    .AND. rstime .LE. -100. .AND. lastspace .LT. ndone-100 ) THEN
      &    .AND. rstime .LE. -100. ) THEN
-c****     watch out for too frequent jumps 
+c****     watch out for too frequent jumps
 c****     create a space in the plot when the time axis changes
           DO i=1,nspace
              CALL trplot(scr(nsamps+1),si,n2plot,0,1,2)
@@ -345,7 +345,7 @@ c****     create a space in the plot when the time axis changes
 c****         If a chart, annotate the new scale (time lines)
               stimel = stime
               IF( tlines(1) .NE. 0. ) THEN
-c                 annotate the new 
+c                 annotate the new
                   CALL trplot(scr(nsamps+1),si,n2plot,0,1,-3)
               ENDIF
           ENDIF
@@ -474,7 +474,7 @@ c****  stupid compiler insists mod has same integer length!
           itag = 1
           lastmn = ibuf(82)
       ENDIF
-      CALL getlanno( itemp, hdr, lhdr, ihdr, 
+      CALL getlanno( itemp, hdr, lhdr, ihdr,
      &     buf, lbuf, ibuf, fanno, lanno )
       CALL getlanno( anntyp2, hdr, lhdr, ihdr,
      &     buf, lbuf, ibuf, fanno, lanno2 )

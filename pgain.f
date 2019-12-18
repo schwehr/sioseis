@@ -8,7 +8,7 @@ c   started at time zero, but then only applied the gain from stime
 c   to etime)
 c
       DIMENSION t(1), b(1)
-      LOGICAL virgin 
+      LOGICAL virgin
       SAVE virgin
       DATA virgin/.TRUE./
 c  t : trace buffer nsamps long

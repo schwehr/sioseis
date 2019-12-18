@@ -36,11 +36,11 @@ c  23 Aug 91 - make it work (smuted was changed sometime or other and it broke s
 c                   - make maxset = 300
 c                   - make interp work
 c  27 Aug 95 - set stime to delay if delay > stime
-c  March 1999 - set the SEG-Y trace header start/end times in mils 
+c  March 1999 - set the SEG-Y trace header start/end times in mils
 c               (short words 56 & 57)
 c  21 March 00 - Spatial interpolation was incorrect.
 c  4 Oct 02 - Allow fno 0
-c  20 Apr 07 - Make iaddwb a multiplier 
+c  20 Apr 07 - Make iaddwb a multiplier
 c  12 Apr 10 - Eliminate writing the mute times to the segy header.
 c
       PARAMETER (MAXSET = 300)                                          ! THE MAXIMUM NUMBER OF ELEMENTS THE USER ARRAY CAN BE

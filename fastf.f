@@ -1,9 +1,9 @@
 	subroutine fastf(Fr,Fi,n)
-c	
+c
 c	n  = the number of data points=2**m
 c	Fr = the real data set
 c	Fi is the imaginary part of data set (=0.0 if only real)
-c	
+c
 c	first compute m
 c
 	real*4 Fr(n), Fi(n), Gr, Gi, Er, Ei, Eu, Ez

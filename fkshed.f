@@ -4,10 +4,10 @@ C                                 ------- -------
 C
 C  DOCUMENT DATE: 10 November 1992
 c
-c       Process FKSHIFT performs an extrapolation via a phase shift in 
+c       Process FKSHIFT performs an extrapolation via a phase shift in
 c  the FK domain.  FKSHIFT is depth migration of a horizontally layered
 c  media whose velocity is always increasing.
-c       The data must have been transformed into the FK domain prior to c  process FKSHIFT and it is left in the FK domain.  Use process TX2FK 
+c       The data must have been transformed into the FK domain prior to c  process FKSHIFT and it is left in the FK domain.  Use process TX2FK
 c  prior to FKSHIFT and FK2TX after FKSHIFT.
 c       FKSHIFT can be used to forward extrapolate shot gathers by
 c  specifying the true velocity and extrapolation height (thickness).

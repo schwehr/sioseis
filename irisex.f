@@ -16,11 +16,11 @@ c     of the job.  The last trace does NOT have the sioseis end of
 c     gather flag set, so it may be prudent to read any rps produced with
 c     process diskox with the diskin parameter forgat.
 c 2)  Process IRIS will also correct the shot times (the time of the
-c     first sample - recorded in the SEGY GMT) to be at the same GMT 
-c     rather than the IRIS trigger time.  The mil of the GMT is dropped 
+c     first sample - recorded in the SEGY GMT) to be at the same GMT
+c     rather than the IRIS trigger time.  The mil of the GMT is dropped
 c     also.  This should make timing a little easier to see on a seismic
 c     plot.  On output, all data is relative to the GMT in the SEGY
-c     header.  
+c     header.
 c     Proceedurally, this process uses the GMT of the first trace
 c     encountered, it subtracts 1, and uses that as the output time
 c     reference (ignoring the milliseconds).
@@ -31,7 +31,7 @@ c       then the output GMT is set to day 110 hour 2 min 24 sec 50
 c       and trace 1 has a delay of 1.107
 c           trace 2 has a delay of 0.974
 c           trace 3 has a delay of 1.002
-c      
+c
 c     THIS VERSION ACTUALLY TIME SHIFTS THE DATA
 c
 c  ARGUMENTS:
@@ -41,7 +41,7 @@ c  ibuf   - The trace, with SEGY header as TYPE INTEGER*2
 c  scr   - A scratch array.
 c
 c  COPYRIGHT (C) The Regents of the University of California
-c  ALL RIGHTS RESERVED.  
+c  ALL RIGHTS RESERVED.
 c  Written by Paul Henkart, Scripps Institution of Oceanography, 6 May 1990
 c
       DIMENSION buf(111), lbuf(111), ibuf(111), scr(111)

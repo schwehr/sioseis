@@ -2,7 +2,7 @@
 #CC = icc
 FC = gfortran
 CC = gcc
-LIBS = 
+LIBS =
 FFLAGS=-O
 #CC = gcc -traditional
 OBJECTS=test.o testc.o

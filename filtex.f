@@ -120,7 +120,7 @@ c****
       IF( interp .EQ. 0 ) THEN
           IF( lnum .LT. fno1 ) RETURN
           IF( lnum .GT. lno1 .AND. mlists .EQ. nlists ) RETURN
-      ENDIF 
+      ENDIF
       npasss = 0
       DO 150 i = 1, max
          pass(i) = rlist1( ipassptr+i-1 )
@@ -145,10 +145,10 @@ C****
   500 CONTINUE
       IF( interp .EQ. 0 ) THEN
           IF( lnum .GT. lno1 .AND. lnum .LT. fno2 ) RETURN
-      ENDIF 
+      ENDIF
       RATIO = FLOAT(lnum-lno1) / FLOAT(fno2-lno1)
       DO 510 i = 1, max
-  510 sets(i) = ratio * 
+  510 sets(i) = ratio *
      $ (rlist2(isetsptr+i-1)-rlist1(isetsptr+i-1))+rlist1(isetsptr+i-1)
 C****
 C****       SETUP THE INDEXES
@@ -322,11 +322,11 @@ c****
           DO i = 1, 15
              IF( nsamps .GT. nfft ) nfft = nfft + nfft
           ENDDO
-          DO i = nsamps, nfft-1                                         ! zero fill 
+          DO i = nsamps, nfft-1                                         ! zero fill
              a(in+i) = 0.
           ENDDO
 c         islope meanings: 1 = cosine, 2 = db/octave, < 0 = notch
-          islope = 2 
+          islope = 2
           IF( dbdrop .EQ. 0. ) islop = 1
           IF( ftype .EQ. 23 ) islope = -islope                          ! a notch filter
           IF( IAND(lprint,2) .NE. 0 ) PRINT *,' wood nfft=',nfft,
@@ -344,5 +344,5 @@ c****
           CALL lpbut3p( pass(1), srate, nsamps, a(in) )
           RETURN
       ENDIF
-          
+
       END

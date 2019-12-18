@@ -1,23 +1,23 @@
       SUBROUTINE fdfmex( buf, lbuf, ibuf, scr, lscr, iscr, istop,
-     *           nready ) 
+     *           nready )
 c-------------------------------------------------------------------------------
-c     FDIFEX is the SIOSEIS execution phase of process FDDIFF, finite 
-c  difference modelling of the diffraction process.  
+c     FDIFEX is the SIOSEIS execution phase of process FDDIFF, finite
+c  difference modelling of the diffraction process.
 c-------------------------------------------------------------------------------
-c 
+c
       INTEGER    ERROUT
       PARAMETER (ERROUT = 6)                                            ! error output for process
       PARAMETER ( MAXDTS = 10 )                                         ! the max. number of time-delta tau pairs
-      PARAMETER ( MAXNTR = 4000 )                                       ! the max. number of traces 
+      PARAMETER ( MAXNTR = 4000 )                                       ! the max. number of traces
       PARAMETER ( MAXSMP = 4000 )                                       ! the max. number of taus
 c
-      COMMON /edits/ ierror, iwarn, irun, now, icompt 
-      COMMON /fdmigr/ junit, nlists, nwrds 
+      COMMON /edits/ ierror, iwarn, irun, now, icompt
+      COMMON /fdmigr/ junit, nlists, nwrds
       COMMON /sioap/ iasgnd, irelse, in, iout, nextad
       COMMON /readt/ ilun, numhdr, numdat
-c 
-      INTEGER   fno, bpad, epad, opad, bclpad, eclpad 
-      REAL      maxdip, nrho, ldx 
+c
+      INTEGER   fno, bpad, epad, opad, bclpad, eclpad
+      REAL      maxdip, nrho, ldx
       DIMENSION buf(111), lbuf(111), scr(111), lscr(111)
       INTEGER*2 ibuf(111), iscr(111)
       INTEGER   dtpool(230,200), ttaustp(maxsmp), ttausiz(maxsmp)
@@ -47,7 +47,7 @@ C
      +adtrin,   adtrot,   adwin1,   adwin2,   adwin3,   adwin4,
      +adnliv,   adstak,   adscra
 C
-C Define a common block which is used to simulates the AP120-B data memory 
+C Define a common block which is used to simulates the AP120-B data memory
 C which has the size of ?K 32-bit floating point words.
 C
       REAL    apdata(0:5000000)
@@ -114,7 +114,7 @@ c
       nx     = lscr(23)
       maxsam = lscr(24)
       lunt   = lscr(25)
-      IF ( maxsam .EQ. 0 ) 
+      IF ( maxsam .EQ. 0 )
      *  maxsam = ibuf(58+ihdradd)+buf(46)/buf(49)+.5                    ! nsamps+delay/si
       maxmil = NINT( FLOAT(maxsam-1) * buf(49) * 1000.)                 ! Largest time in mils
       IF( maxsam*nx .GT. isize ) THEN
@@ -202,10 +202,10 @@ c****
           ENDIF
           DO 150 i = 1, ndtord                                          ! convert to integer milleseconds
   150     idtaus(i) = NINT( scr(i) * 1000.)
-          IF( IAND(lprint,2) .NE. 0 ) 
+          IF( IAND(lprint,2) .NE. 0 )
      *        PRINT *,' idtaus=',(idtaus(i),i=1,ndtaus)
       ENDIF
-c         
+c
       IF( mlists .LT. nlists ) GOTO 100
 c****
 c****    All the velocities are in array dtpool!
@@ -227,27 +227,27 @@ c     Remember that dtaus are time-delta tau pairs
          taustp(ntau) = itime
          tausiz(ntau) = idtaus(i+1)
          IF( itime .LT. idtaus(i) ) GOTO 240
-  250 CONTINUE                               
+  250 CONTINUE
 
 c**** GMK necessary to have the first tau step(actually the last taustep calculated)
-c**** GMK at time zero when doing the forward problem therefore the last taustep    
-c**** GMK (which is actually calculated first) is thrown out (contains only one sample)  
+c**** GMK at time zero when doing the forward problem therefore the last taustep
+c**** GMK (which is actually calculated first) is thrown out (contains only one sample)
       DO 251 i = 1, ntau-1
          ttaustp(i+1) = taustp(i)
          ttausiz(i+1) = tausiz(i)
- 251  CONTINUE   
-         
+ 251  CONTINUE
+
          ttaustp(1) = 0
          ttausiz(1) = taustp(1)
 
       DO 252 i = 1, ntau
          taustp(i) = ttaustp(i)
          tausiz(i) = ttausiz(i)
- 252  CONTINUE            
+ 252  CONTINUE
 C**** GMK if the last tausize is too large/small change it. This occurs
-C**** GMK when the taustep is not a multiple of the number of samples    
+C**** GMK when the taustep is not a multiple of the number of samples
       IF (tausiz(ntau).ne.(maxmil-taustp(ntau)) ) THEN
-         tausiz(ntau) = maxmil-taustp(ntau) 
+         tausiz(ntau) = maxmil-taustp(ntau)
       ENDIF
 
       IF( IAND(lprint,2) .NE. 0 ) THEN
@@ -274,7 +274,7 @@ c****
              ENDIF
   310     CONTINUE
       ENDIF
-c****   
+c****
 c****   FDDVEL needs to know the first shot number
 c****
       IF( lbuf(7) .EQ. 0 ) THEN
@@ -321,9 +321,9 @@ c****
   332     scr(nsamps+ndelay+i) = 0.
       ENDIF
 
-c**** GMK comment out the time reversal of data array scr because we need to propagate 
+c**** GMK comment out the time reversal of data array scr because we need to propagate
 c**** GMK in the opposite sense when doing the foward problem
-                              
+
 c     DO 335 i = 1, maxsam
 c335  buf(i) = scr(maxsam-i+1)
 
@@ -332,7 +332,7 @@ c335  buf(i) = scr(maxsam-i+1)
 
 
 c****
-c****   start to transpose the data into time slices 
+c****   start to transpose the data into time slices
 c****
       IF( .NOT. big ) THEN
           CALL trans1( buf, maxsam, nx, 0 )
@@ -340,7 +340,7 @@ c****
           CALL trans2( buf, maxsam, nx, lunt, 0 )
       ENDIF
       ndone = ndone + 1
-      IF( istop .EQ. 0 ) RETURN           
+      IF( istop .EQ. 0 ) RETURN
 
 
 c****
@@ -364,7 +364,7 @@ c****
           PRINT *,' ***  ERROR  ***  The number of traces in the job (',
      *           ntrcs,') is larger than nx (',nx,')'
           STOP
-      ENDIF                         
+      ENDIF
       call cmpslice(maxsam, nx, ntrcs, big, lunt)
 c
       call second(timea)
@@ -385,12 +385,12 @@ c
       DO 370 i = 1, ntau                                                ! make sure the file is big enough for positioning
   370 CALL wrdisc( lunvel, scr, nx )
 c
-c****  fddvel clobbers the ap 
+c****  fddvel clobbers the ap
 c**** GMK subroutine fdmvel was changed to fddvel to average of newly defined tausteps
       CALL fddvel( istart, ndone, si, dx, dtpool, dtpool, ntau, taustp,
      *     nx, lunvel, maxmil, vpadss, vpadse, vpadgs, vpadge,
      *     line3d, ncrbln, nline, maxsam, no )
-c                                 
+c
       call second(timea)
       write(ERROUT,*) ' Finished velocity multiplexing at:', timea
 c
@@ -400,8 +400,8 @@ c
            do 379 j = 1,ndone
  379        lscr(j) = 0
           print *,' Multiplexed velocity function - ntau: ', ntau,
-     *            ' ntraces: ', ndone 
-          DO 380 i = 1, ntau 
+     *            ' ntraces: ', ndone
+          DO 380 i = 1, ntau
              CALL rddisc( lunvel, scr(ndone+1), nx, istat )
              IF( istat .NE. nx ) THEN
                 PRINT *,' rddisc error in fdifex at 380, istat=',istat,
@@ -409,8 +409,8 @@ c
                 STOP
              ENDIF
              itemp = 0
-             do 381 j = 1, ndone   
-               lscr(ndone+j) = nint (2 * sqrt( scr(ndone+j) * ovgbase) ) 
+             do 381 j = 1, ndone
+               lscr(ndone+j) = nint (2 * sqrt( scr(ndone+j) * ovgbase) )
                if (iabs(lscr(ndone+j)-lscr(j)).gt.1 ) then
                  itemp = 1
                endif
@@ -429,7 +429,7 @@ c
 c****    FOWARD MODEL DIFFRACTIONS
 c****
       CALL fdmdif( gamma, rho, theta, si, ndone, bpad, epad, ntau,
-     *  taustp, tausiz, maxsam, lunvel, nx, lunt, ntrcs, maxsam, 
+     *  taustp, tausiz, maxsam, lunvel, nx, lunt, ntrcs, maxsam,
      *  nrho, fcrho, big )
 c
       call second(timea)
@@ -462,9 +462,9 @@ c****
       ndone = ndone + 1                                                 ! The number of traces processed
       IF( opad .EQ. 0 .AND. ndone .LE. bpad ) GOTO 1100
       IF( opad .NE. 0 ) THEN
-        IF ( ndone .LE. bpad + 1 ) 
+        IF ( ndone .LE. bpad + 1 )
      *    CALL podisc( jhdrun, 1, 0)                                    ! Use 1st trace header for bpad traces
-        IF ( ndone .GT. ntrcs - epad ) 
+        IF ( ndone .GT. ntrcs - epad )
      *    CALL podisc( jhdrun, 2, -numhdr)                              ! Repeat the last trace header
       ENDIF
       CALL rddisc( jhdrun, buf, numhdr, istat )
@@ -476,16 +476,16 @@ c
 c**** Time reverse the data so the data starts with time zero!!
 c**** Also reinstate the deep water delay, also remember that we changed
 c**** the number of samples in the data so change the header entry
-c****    
+c****
 
 c**** GMK we don`t need to flip the data back sense it was not done in the first
 c**** GMK place(foward modelling) so it is commented out
- 
+
 c      DO 1200 i = 1, maxsam
-c 1200 buf(numhdr+i) = scr(maxsam-i+1)   
+c 1200 buf(numhdr+i) = scr(maxsam-i+1)
 
        DO 1200 i = 1, maxsam
- 1200  buf(numhdr+i) = scr(i)   
+ 1200  buf(numhdr+i) = scr(i)
       delay  = buf(46)
       nsamps = maxsam
       IF( delay .GT. 0. ) THEN
@@ -497,7 +497,7 @@ c 1200 buf(numhdr+i) = scr(maxsam-i+1)
       ibuf(58+ihdradd) = nsamps
       numdat           = nsamps                                         ! some following process might use it from common
       ibuf(15+ihdradd) = 1                                              ! All traces are live after fdmigr
-      in               = 0                                              ! Mark data as not in the ap  
+      in               = 0                                              ! Mark data as not in the ap
 
       IF ( ntxcall .GE. nreadyy) THEN
         IF ( lunt .NE. 0 ) CALL frefil( 3, lunt, istst )                ! release scratch file

@@ -29,7 +29,7 @@ c
      &             'LTR   ', 'PRESTK', 'TYPE  ', 'SPOWER', 'NXWIN ',
      &             'REDVEL', 'VSIGN ', 'XSIGN ',
      &             'SET   ', 'WEIGHT', 'VMMI  ', 'UMMI  ' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0

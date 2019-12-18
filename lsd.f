@@ -4,8 +4,8 @@ c  -O = Odec - NOT IMPLEMENTED
 c
 c  mod 5 Feb 14 - honor segy rev 1 delay scalar
 c  mod ??????   - honor segy rev 1 water bottom scalar
-c  mod 28 Oct 14 - Replace iargc with command_argument_count() 
-c  mod 28 Oct 14 - Replace getarg with command_argument() 
+c  mod 28 Oct 14 - Replace iargc with command_argument_count()
+c  mod 28 Oct 14 - Replace getarg with command_argument()
 c  mod 24 Mar 14 - Finish some never finished changes on coordinates
 c
       INTEGER*2 ibuf
@@ -222,7 +222,7 @@ c****   5 is what I want to see for FLOAT decimal degrees
           IF( ibuf(66) .NE. 0 ) PRINT *,' Sweep length:',ibuf(66)
           IF( knudsen ) THEN
 c****         Valid on raw files only.  sioseis diskox doesn't swap the same way.
-              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &            CALL swap16( ibuf(95), 20 )
               PRINT *,' PingStartTimeMS:',ibuf(95)
               PRINT *,' TxPower:',ibuf(96)
@@ -244,9 +244,9 @@ c****         Valid on raw files only.  sioseis diskox doesn't swap the same way
               PRINT *,' EventMarkCode:',ibuf(112)
               PRINT *,' EventMarkNumber:',ibuf(113)
               PRINT *,' Scaler:',ibuf(114)
-              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) 
+              IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )
      &            CALL swap32( lbuf(58), 1 )
-              IF( ibuf(114) .LT. 0 ) 
+              IF( ibuf(114) .LT. 0 )
      &            temp = - FLOAT(lbuf(58)) / FLOAT(ibuf(114))
               PRINT *,' DataRate:',temp
           ENDIF

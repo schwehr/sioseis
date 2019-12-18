@@ -1,9 +1,9 @@
       SUBROUTINE doed( idisko, ibuf, buf, lbuf, scr, iscr, lscr )
-c                                                                            
+c
 c                          PROCESS DISKOX, where X = { A, B, C, D }
 c                          ------- ------
 c
-c   
+c
 c  Copyright (C) by The Regents of The University of California, 1988
 c  Written by Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca.
 c  ALL RIGHTS RESERVED.
@@ -23,7 +23,7 @@ c  20 Jul 97 - Allow negative fno/lno.  Change lno preset to -999999
 c  7 June 99 - Add parameter BIG for creating files > 2GB.
 c  12 Jul 99 - Allow 10 diskox processes!
 c  20 Sep 02 - Change BIG preset from NO to YES (0 to 1)
-c  18 Mar 03 - Add parameter TRACE0, write trace 0 
+c  18 Mar 03 - Add parameter TRACE0, write trace 0
 c  1 May 03 - Add parameter EXTHDR whether to write the Rev 1 Extended
 c             Textual records.  yes/no
 c  mod 4 Jun 03 - Add FORMAT BINARY, no headers at all
@@ -58,7 +58,7 @@ c
 c
       LOGICAL first
       SAVE first
-      INTEGER posaft, ofmt, fon, ftr, trinc, fno, ontrcs, decimf, 
+      INTEGER posaft, ofmt, fon, ftr, trinc, fno, ontrcs, decimf,
      &        rewind, flinc, big, renum, retrac
       REAL lrange
       CHARACTER*6 fmt
@@ -99,7 +99,7 @@ c
       DATA types /'A',11*'L', 'A',3*'F','L','F','L',2*'A','L',3*'A',
      &     2*'L'/
       DATA first/.TRUE./
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       IF( first ) THEN
@@ -290,7 +290,7 @@ c****
       ENDIF
       IF( ontrcs .GT. 0 .AND. retrac .EQ. -1 ) retrac = 1
       IF( ontrcs .GT. 0 .AND. fon .LE. 0 ) fon = 1
-      IF( fmt .NE. 'SEGY' .AND. fmt .NE. 'SIO' .AND. 
+      IF( fmt .NE. 'SEGY' .AND. fmt .NE. 'SIO' .AND.
      &    fmt .NE. 'SU' .AND. fmt .NE. 'BINARY' ) THEN
           PRINT *,' ***  ERROR  ***  FORMAT must be SU or BINARY.'
           ierror = ierror + 1

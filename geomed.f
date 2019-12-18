@@ -7,7 +7,7 @@ C  SUBROUTINE, BY COMPUTER OR OTHER MEANS, MAY BE OBTAINED ONLY FROM THE AUTHOR.
 c  mod 29 March 1991 by pch to add type 2 geometry
 c  mod 22 Apr 92 by pch and gmk to add LDGO navigation file processing.
 c         I.E. add navfil, offset and offset2
-c  mod 9 Mar. 94 - Allow INTEGER user parameters to be super big 
+c  mod 9 Mar. 94 - Allow INTEGER user parameters to be super big
 c                  (CALL lcode rather tha dcode on integer parameters).
 c  mod 26 jul 94 - Change SMEAR preset to be dbrps
 c  mod 11 Sept 96 - Add bgp (bird trace pairs) and cgp (compass trace pairs)
@@ -204,7 +204,7 @@ C****
       DO 190 I=1,NPARS                                                  ! SEE IF IT IS A PARAMETER NAME
          LEN=LENGTH(I)                                                  ! GET THE LEGAL PARAMETER NAME LENGTH
          IPARAM=I                                                       ! SAVE THE INDEX
-         IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) 
+         IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN)
      &       GO TO 200
   190 CONTINUE                                                          ! STILL LOOKING FOR THE NAME
       IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! END OF PARAM LIST?
@@ -362,7 +362,7 @@ c         type 17 is distance along the ship track
           iwarn = iwarn + 1
       ENDIF
       IF( dbrps .EQ. 0 ) dbrps = ABS(ggx)/2.
-      IF( dbrps .EQ. 0 .AND. type .NE. 17 .AND. type .NE. 18 .AND. 
+      IF( dbrps .EQ. 0 .AND. type .NE. 17 .AND. type .NE. 18 .AND.
      &    type .NE. 10 .AND. type .NE. 20 ) THEN
           PRINT *,' ***  ERROR  *** DBRPS required.'
           ierror = ierror + 1
@@ -424,7 +424,7 @@ C****
      &   navfil2, maxdfls, mindfls, setback, cknav
       IF( ngxps .GT. 0 ) WRITE (igunit) (BUF(I),I=1,ngxps)
       IF( nbgps .GT. 0 ) WRITE (igunit) (BUF(maxgxp+i),i=1,nbgps)
-      IF( ncgps .GT. 0 ) WRITE (igunit) 
+      IF( ncgps .GT. 0 ) WRITE (igunit)
      &    (BUF(maxgxp+maxbirds+i),i=1,ncgps)
       IF( IAND(LPRINT,1) .EQ. 1 ) THEN
           PRINT *, FS,LS,GGX,DFLS,DBRPS,SMEAR,YOFFA,YOFFB,LPRINT,type

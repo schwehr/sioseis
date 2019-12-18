@@ -1,5 +1,5 @@
       SUBROUTINE fdmied
-c                                                                       
+c
 c                          PROCESS FDMIGR
 c                          ------- ------
 c
@@ -15,21 +15,21 @@ c   popular by J. F. Claerbout at Stanford University.  For most stack
 c   sections, finite-difference migration gives results comparable to
 c   other schemes; however there are assumptions and stability
 c   limitations which must be considered.  For certain conditions,
-c   frequency domain (process FKMIGR) migration is more effective in 
+c   frequency domain (process FKMIGR) migration is more effective in
 c   resolving typical imaging and positioning problems.
 c
 c     Limitations
 c     ___________
 c
 c     Steep Dips
-c       It is possible to add more terms to the finite-difference 
+c       It is possible to add more terms to the finite-difference
 c  equation to obtain successively more accurate equations to deal with
 c  the steep dip problem.  However, these schemes quickly become
 c  impractical to implement due to their cost.  Further limitations on
 c  dip angle are imposed since the finite-difference method itself
 c  introduces errors.  The equation used in FDMIGR is known as the
 c  45-degree equation, and is capable of handling dips up to angles
-c  of 45 degrees with sufficient accuracy. 
+c  of 45 degrees with sufficient accuracy.
 c       A certain confusion exists regarding the meaning the meaning of
 c  the dips referred to in the 45 degree equation.  This is not simply
 c  the dip of continuous reflectors.  These are the dips included in all
@@ -40,9 +40,9 @@ c  distortion at higher dips.  The parameters in the algorithm are set
 c  to suppress those dips which are poorly imaged.
 c
 c     Velocity
-c       Within the finite-difference equation there is no term to 
-c  describe differences in velocity. Hence, a major assumption of the 
-c  scheme is that velocity is constant throughout the section.  In 
+c       Within the finite-difference equation there is no term to
+c  describe differences in velocity. Hence, a major assumption of the
+c  scheme is that velocity is constant throughout the section.  In
 c  practice, it is sufficient for the velocity to vary slowly enough
 c  that it looks roughly constant within the effective "aperture" of the
 c  algorithm.  This aperture can be thought of as a box whose time
@@ -54,7 +54,7 @@ c       Ideally, we would like to perform migration on all of space.  But
 c  in the real situation, we can only migrate a finite section of the
 c  earth, so we must consider the effects of the imposed boundaries.
 c  The main consideration is for the sides of the section, where we
-c  normally think of the earth as simply ceasing to exist, and the 
+c  normally think of the earth as simply ceasing to exist, and the
 c  events stopping. This view induces the mathematical equivalent of a
 c  vertical reflection coefficient, and events which are migrated
 c  towards it will be partly reflected back into the section.  In order
@@ -71,12 +71,12 @@ c     Comparison with FKMIGR
 c     ______________________
 c     a) Run Time
 c          One of the most practical considerations when deciding which
-c  migration scheme to use is the difference in cost.  Depending on the 
+c  migration scheme to use is the difference in cost.  Depending on the
 c  values of certain parameters used, FDMIGR can run 3 to 4 times as
 c  long as FKMIGR.  Clearly, if there is no advantage in data quality to
 c  be obtained, FDMIGR should not be used.
 c          Both FKMIGR and FDMIGR must migrate from time zero, so both
-c  processes replace the deep water delay with sufficienient zeroes.  The 
+c  processes replace the deep water delay with sufficienient zeroes.  The
 c  inserted zeroes are removed after migration so that the output traces
 c  will have the same delay as the input traces.  Deep water delays do not
 c  affect the migration run time.
@@ -85,18 +85,18 @@ c          Use of FDMIGR will produce inaccuracies if events are dipping
 c  by more than 45 degrees. FKMIGR, the frequency domain approach,
 c  migrates all dips with equal accuracy.
 c     c) Velocity
-c          In general, FDMIGR will perform better in the presence of 
+c          In general, FDMIGR will perform better in the presence of
 c  velocity variations, although both methods assume that velocity is
 c  slowly varying.
 c     d) Stability
 c           While FKMIGR is very stable in almost all conditions,
-c  FDMIGR uses parameters which, if mis-used, can cause the migration 
+c  FDMIGR uses parameters which, if mis-used, can cause the migration
 c  equation to become unstable. It is also possible to set values for
 c  particular data sets in order to control noise on the output section,
-c  but you should have a good understanding of finite-difference 
+c  but you should have a good understanding of finite-difference
 c  migration first. In general, the default values will produce stable
 c  results.
-c     e) Noise Suppression 
+c     e) Noise Suppression
 c          All migration algorithms tend to suppress random noise and
 c  enhance coherent events.  The result is that the output section will
 c  look more "mixed" than the input.  The effect will be more prominent
@@ -107,7 +107,7 @@ c
 c     Some Important Parameters
 c     _________________________
 c
-c       The parameter Rho is inserted into the expression for the 
+c       The parameter Rho is inserted into the expression for the
 c  discretization of the time derivative. This serves to counteract any
 c  potential growing waves from the expression for migration, as an
 c  explicit damping with time. It can be thought of as a "numerical
@@ -116,7 +116,7 @@ c  However, any deviation of Rho away from 1, by at most 1 percent,
 c  results in some loss of signal as well as noise.
 c        In the discretization of depth, the parameter Theta is
 c  introduced, with the most natural value being .500.  If Theta = 0 is
-c  used, there is a tendency to overshoot on variations, whereas 
+c  used, there is a tendency to overshoot on variations, whereas
 c  Theta = 1 will produce an overdamping of change.
 c        To discretize the horizontal distance component, an
 c  approximation to the second derivative is found by an iterative
@@ -128,10 +128,10 @@ c         In the ideal case, Tau would equal the sample rate of the
 c  data, meaning that the entire section would be migrated exactly one
 c  sample rate step at each pass through the section. While this scheme
 c  reduces the errors, it is impractical due to the huge run-time
-c  needed. In practise, Tau should be chosen in the range of 20 to 200 
+c  needed. In practise, Tau should be chosen in the range of 20 to 200
 c  ms. (.02 to .2 secs), with the smaller Tau values producing greater
 c  accuracy.  It is possible to vary Tau vertically, and this should be
-c  done in order to save run-time. Generally, the value of Tau should 
+c  done in order to save run-time. Generally, the value of Tau should
 c  decrease from shallow to deep data times. This is because greater
 c  accuracy is needed in the migration of the deeper events where the
 c  greatest movement is taking place.
@@ -164,11 +164,11 @@ c  OPAD   - A switch indicating that the pad traces (both bpad and epad) should
 c           be output in addition to the migrated input.
 c           Preset = no   range yes/no       e.g.   opad yes
 c  NRHO   - A parameter used to control the Tau step interpolation.
-c           Preset = 2.0   range 0. to 10000  
+c           Preset = 2.0   range 0. to 10000
 c  FCRHO  - A parameter used to control the Tau step interpolation.
 c           Preset = .99   range .0001 to 1.
 c  RHO    - A "hidden" migration parameter discussed above.
-c           Preset = .9990   range  0 to .9999  
+c           Preset = .9990   range  0 to .9999
 c  THETA  - A "hidden" migration parameter discussed above.
 c           Preset = .501  range  0 to 1.0
 c  GAMMA  - A "hidden" migration parameter discussed above.  Claerbout's
@@ -179,7 +179,7 @@ c  TSTEPS - A set of time-delta-tau pairs governing the tau step size (delta-
 c           tau) in the time interval terminating with the time given.
 c           Up to 7 pairs of time and delta-tau may be given.  The delta-tau
 c           values will be interpolated between the specified times and will be
-c           "straight-lined" at the trace ends.  The units of time and 
+c           "straight-lined" at the trace ends.  The units of time and
 c           delta-tau are seconds.
 c           Preset = REQUIRED        e.g. tsteps .5 .2 1.0 .1
 c  NX     - The total number of traces, including pads, to migrate.  The entire
@@ -201,7 +201,7 @@ c           space.
 c           preset = a scratch file in the current directory
 c           e.g.    path /user/scratch/moreroom
 c
-c   
+c
 c  Copyright (C) by The Regents of The University of California, 1988
 c  Written by Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca.
 c  and by Veritas Seismic Processors, Ltd., Calgary, Alberta.
@@ -262,7 +262,7 @@ c
      *            'BCLPAD', 'ECLPAD', 'NX    ', 'MAXSAM', 'PATH  ' /
       DATA types / 3*'L', 4*'F', 2*'L', 'A', 7*'F', 2*'L', 'F', 4*'L',
      *             'A' /
-c**** 
+c****
 c****    Set the parameter presets and various variable presets
 c****
       lprint = 0
@@ -321,7 +321,7 @@ c****
       GOTO 100
   150 CONTINUE
       lparam = nparam
-c****  
+c****
 c****   Got the parameter name, now get the value
 c****
       CALL getoke( token, nchars )                                      ! get the value
@@ -478,7 +478,7 @@ c****
              PRINT *,' ***  ERROR  ***  TSTEPS times must increase.'
              ierror = ierror + 1
          ENDIF
-         IF( i .LE.  ndtaus-3 .AND. dtaus(i+1) .GT. dtaus(i+3) ) THEN     
+         IF( i .LE.  ndtaus-3 .AND. dtaus(i+1) .GT. dtaus(i+3) ) THEN
              PRINT *,' ***  WARNING  ***  ',
      *           ' tsteps tau normally increases with time.'
              iwarn = iwarn + 1
@@ -514,8 +514,8 @@ c****
 c****
 c****    Write the FDMIGR parameters to a disc file  and get another list!
 c****
-      nwrds = npars 
-      lvals(17) = ndtaus 
+      nwrds = npars
+      lvals(17) = ndtaus
       CALL wrdisc( junit, lvals, nwrds )
       IF( nvels .GT. 0 ) CALL wrdisc( junit, vels, nvels )
       IF( ndtaus .GT. 0 ) CALL wrdisc( junit, dtaus, ndtaus )

@@ -60,7 +60,7 @@ C           PRESET=NO
 c  WBDVEL - Water bottom depth to time conversion velocity.  WBDVEL indicates
 c           that the water bottom depth should be used rather than the water
 c           bottom time WHEN ADDWB IS ALSO GIVEN.  The velocity given should be
-c           the two way velocity (e.g. 1500) to convert depth to time. 
+c           the two way velocity (e.g. 1500) to convert depth to time.
 c           preset = 0    e.g.  addwb yes wbtvel 1500
 C  END    - TERMINATES EACH PARAMETER LIST.
 C

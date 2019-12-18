@@ -5,7 +5,7 @@ c is = 1 or after ie = nsamps.
 c    The rationale is that "normal" (old) mute blindly zeroed
 c regardless of adjacent values and would cause "spikes" or
 c edge effects.
-c  
+c
 c   Paul Henkart, 3 September 2005, aboard Healy (so who owns this?)
 c
       DIMENSION buf(nsamps)

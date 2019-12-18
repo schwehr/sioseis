@@ -42,7 +42,7 @@ c
      &       timefix, timelast, timeshot, sec, speed, secs, scalar
       REAL*8 seclog, deglat, rminlat, deglong, rminlong, dpdlat, dpdlong
       LOGICAL first
-      SAVE 
+      SAVE
       DATA lastmin/-1/, timelast, timefix/2*400.D0/, scalar/100./
       DATA first/.TRUE./
 

@@ -23,7 +23,7 @@ c
 c mod 29 Mar 2016 - change to gpggaa to delete unused arguments and add istat
 c         istat = 0 if ok
 c               = 1 if not ok - an error ocurred
-c mod 13 Apr 2016 - detecting bad $GPGGA is uglier than I thought.  Don't try to correct anything 
+c mod 13 Apr 2016 - detecting bad $GPGGA is uglier than I thought.  Don't try to correct anything
 c        until all fields are examined.  i.e. lat may pass being the right length and being a
 c        number, but may be bad - the long may not be detected bad.
 c
@@ -115,7 +115,7 @@ c     Get the long
       dlong = dlong + dmin / 60.D0
       CALL getokec( out, n )
       IF( n .NE. 1 ) GOTO 10000
-      IF( out(1:1) .EQ. 'W' ) dlong = -dlong 
+      IF( out(1:1) .EQ. 'W' ) dlong = -dlong
 c
 c
 c     clean up for the next fix
@@ -123,12 +123,12 @@ c     clean up for the next fix
           delta_lat = dlat - last_lat
           delta_long = dlong - last_long
       ENDIF
-  
+
  9000 CONTINUE
       last_lat = dlat
       last_long = dlong
       RETURN
-      
+
 10000 CONTINUE
       dlat = last_lat + delta_lat
       dlong = last_long + delta_long

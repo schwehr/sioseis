@@ -4,7 +4,7 @@ C                             ------- ---  ----
 C
 C  DOCUMENT DATE:
 C
-c     NMO applies a travel-time correction to each trace.  The following 
+c     NMO applies a travel-time correction to each trace.  The following
 c  corrections are available:
 c  1)  Normal MoveOut or NMO: T(0) = SQRT(T(X)**2 - X**2/V(T)**2)
 c  2)  MoveIn or denmo: T(X) = SQRT(T(0)**2 + X**2/V(T)**2)
@@ -96,7 +96,7 @@ c           This scheme allows more flexibility for varying velocities along
 c           a reflection line (as opposed to hanging a single velocity
 c           function from seafloor).
 c           Preset = -9999.0      e.g. vtrkwb 100.0
-c           
+c
 C  END    - TERMINATES EACH PARAMETER LIST.
 C
 C
@@ -143,7 +143,7 @@ C       4)  ITYPE
 C       5)  ADDWB
 C       6)  LPRINT
 C       7)  VINTPL
-C       8)  VTRKWB 
+C       8)  VTRKWB
 c       11) lunvtp
 c       12) newx
 c       14) dstretch
@@ -212,7 +212,7 @@ C****
       STRETC=1.
       ITYPE=0
       IADDWB=0
-      LPRINT=0  
+      LPRINT=0
       VINTPL = 99999
       VTRKWB = -9999.0
       IF( first ) THEN
@@ -298,7 +298,7 @@ C****
               IF( token(nchars-3:nchars) .EQ. 'SEGY' .OR.
      *            token(nchars-2:nchars) .EQ. 'MAT') THEN
                   nsegyfile(nmonum) = 1
-                  IF ( token(nchars-2:nchars) .EQ. 'MAT' ) 
+                  IF ( token(nchars-2:nchars) .EQ. 'MAT' )
      &                 nsegyfile(nmonum) = 2
                   CALL getfil( 3, lunvtp, ctemp, istat )
               ELSE
@@ -385,7 +385,7 @@ C****
  1150        FORMAT(' ***  ERROR  ***  ILLEGAL VTP VELOCITY OF ',F10.4)
              IERROR=IERROR+1
          ENDIF
-         IF( vmul .NE. 1. .OR. vadd .NE. 0. ) 
+         IF( vmul .NE. 1. .OR. vadd .NE. 0. )
      &           buf(i) = (buf(i) - vadd) * vmul + vadd
          IF( II .NE. 1 ) THEN
              IF( buf(i) .LE. buf(i-2) .AND. vintpl .NE. 2 ) THEN
@@ -410,7 +410,7 @@ C****
              ENDIF
          ENDIF
       ENDDO
-      IF( nlists(nmonum) .GT. 0 .AND. itype .EQ. 5 .AND. 
+      IF( nlists(nmonum) .GT. 0 .AND. itype .EQ. 5 .AND.
      &    nvtps .NE. lastnvtps ) THEN
           PRINT *,' ***  ERROR  ***  Different number of IVTP pairs.'
           ierror = ierror + 1
@@ -464,13 +464,13 @@ C****
 c****
 c**** If we're to write a SEGY file for the velocities, do the SEGY headers
 c****
-      IF( lunvtp .NE. 0 .AND. nsegyfile(nmonum) .EQ. 1 .AND. 
+      IF( lunvtp .NE. 0 .AND. nsegyfile(nmonum) .EQ. 1 .AND.
      &    nlists(nmonum) .EQ. 1 ) THEN
           CALL podisc( ihunit, 0, 0 )
           CALL rddiscb( ihunit, buf, 3200, istat )
           CALL wrdiscb( lunvtp, buf, 3200 )
           CALL rddiscb( ihunit, buf, 400, istat )
-c****   syn doesn't set the sample interval 
+c****   syn doesn't set the sample interval
           ibuf(11) = numdat  !  number of samples
           ibuf(13) = 5   ! IEEE FP
           IF( icompt .EQ. 2 .OR. icompt .EQ. 4 )

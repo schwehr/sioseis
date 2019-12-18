@@ -1,4 +1,4 @@
-      SUBROUTINE get_sio_nav( navfil, year, day, hour, rmin, sec, 
+      SUBROUTINE get_sio_nav( navfil, year, day, hour, rmin, sec,
      &          dlat, dlong, ishotno, istat )
 c****
 c    Read a line from a SIO nav file

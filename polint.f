@@ -1,6 +1,6 @@
       SUBROUTINE polint( xa, ya, n, x, y, dy )
 c     Polynomial interpolation.  "Numerical Recipes", page 82 (sect 3.1)
-c  Given array XA and YA, each of length N, and given a value X, this 
+c  Given array XA and YA, each of length N, and given a value X, this
 c  routine returns a value Y, and an error estimate DY.  If P(x) is the
 c  polynomial of degree N-1 such that P(XA) = YA, i = 1,...N, then
 c  the returned value Y = P(X)

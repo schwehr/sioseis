@@ -39,7 +39,7 @@ C   DEAD   - A LEVEL BELOW WHICH AN AMPLITUDE IS CONSIDERED DEAD.
 C   MIDPT  - THE MID POINT OF THE WINDOW TO RECEIVE THE MULTIPLIER FOR THE WINDOW
 C            A FORWARD LOOKING WINDOW WOULD HAVE MIDPT=1
 c   agcpct - The percent AGC, expressed as percent/100.  agcpct
-c            multiplies the multiplier.  An agcpct < 1 has the 
+c            multiplies the multiplier.  An agcpct < 1 has the
 c            effect of lessening the AGC (makes it "softer").
 C
 C
@@ -122,7 +122,7 @@ C****
   300 CONTINUE
       TEMP=FLOAT(NPTS-NZEROS)                                           ! CHECK FOR NUMBER SIZE
       IF( TEMP .LE. 0. ) THEN
-          AVE = CLIP  
+          AVE = CLIP
       ELSE
           AVE = SUM / TEMP
       ENDIF
@@ -148,7 +148,7 @@ c      xmult = olevel / ave / (2.-agcpct)
           DO 390 I = 1, N
              BUFOUT(I) = BUFIN(I) * XMULT
              IF( CLIP .NE. 0. ) THEN
-                 IF( ABS(BUFOUT(I)) .GT. CLIP ) 
+                 IF( ABS(BUFOUT(I)) .GT. CLIP )
      *               BUFOUT(I) = SIGN(CLIP,BUFIN(I))
              ENDIF
   390     CONTINUE
@@ -157,7 +157,7 @@ c      xmult = olevel / ave / (2.-agcpct)
       I = INDXST + NDONE + MIDPT - 2
       BUFOUT(I) = BUFIN(I) * XMULT
       IF( CLIP .NE. 0.) THEN
-          IF( ABS(BUFOUT(I)) .GT. CLIP ) 
+          IF( ABS(BUFOUT(I)) .GT. CLIP )
      *        BUFOUT(I) = SIGN(CLIP,BUFIN(I))
       ENDIF
       IF( INDXST+NPTS+NDONE-1 .GT. INDXET ) GOTO 1000

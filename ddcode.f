@@ -1,5 +1,5 @@
       SUBROUTINE DDCODE(ALPHA,NCHARS,DREAL,ISTAT)
-C     DDCODE RETURNS A REAL*8 or DOUBLE PRECISION NUMBER, GIVEN A 
+C     DDCODE RETURNS A REAL*8 or DOUBLE PRECISION NUMBER, GIVEN A
 c  STRING OF CHARACTERS.  THIS RESEMBLES
 C  THE OLD DECODE STATEMENT FOUND IN PRE-FORTRAN 77.  DCODE DOES NOT WORRY ABOUT
 C  INTEGERS HOPING THAT THE CALLING ROUTINE CAN FIX IT IF IT NEEDS TO BE, AND
@@ -34,7 +34,7 @@ C
       ISTART=0
       JSTAT=0
       nchar = nchars
-      DO 100 I=1,NCHAR 
+      DO 100 I=1,NCHAR
 c      print *,' i=',i,' ichar=',ICHAR(alpha(i:i)),' c=',alpha(i:i)
       IF(ALPHA(I:I).GE.'0'.AND.ALPHA(I:I).LE.'9') GO TO 50              /* ASSUME ASCII!!
       IF(ALPHA(I:I).EQ.'.') GO TO 100                                    /* ALLOW A DECIMAL POINT
@@ -54,7 +54,7 @@ C   FINISHED SEARCH FOR ERRORS, NOW DECODE THE THING
 C
       IF(ISTAT.EQ.1) RETURN                                              /* DON'T DECODE AN ALPHA STRING
       CTEMP(1:30)=' '
-      CTEMP(1:NCHAR)=ALPHA(1:NCHAR)    
+      CTEMP(1:NCHAR)=ALPHA(1:NCHAR)
 c**** the following gyration is because VMS insists that there be a period
 c**** when using an F or G format!
       DO 150 i = 1, nchar
