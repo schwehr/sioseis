@@ -1,0 +1,44 @@
+#FFLAGS=  -O
+FFLAGS=  -O -Bstatic
+C = gcc -traditional
+OBJECTS=contro.o setptr.o upcase.o getpro.o dcode.o lcode.o ddcode.o ebcasc.o\
+secsdms.o ascebc.o getoke.o rdline.o rline.o tohex.o is_big_endian.o \
+magtap.o magsun.o syned.o synex.o sseis.o gasdev.o ran1.o pouted.o poutex.o inap.o rlseap.o \
+apsim.o tpchng.o touted.o wrttrc.o diskio.o rdtrc.o ibm2fp.o died.o diex.o \
+sfp2fp.o fp2sfp.o ie2ibm.o swap16.o swap32.o i24i32.o inedit.o inputx.o \
+ploted.o plotex.o trplot.o gentl.o gentl1.o maxsc.o maxsca.o prntx.o \
+v2itoh.o v2eps.o tlann.o sideann.o julcal.o getlanno.o spp.o spp2.o \
+filted.o filtex.o bpass.o window.o conv.o convol.o dconv.o tvfilt.o tvfvfc.o \
+shifts.o agced.o agcex.o agc.o frstnz.o agcap.o \
+decoed.o decoex.o pdecon.o decon.o eureka.o \
+wbted.o wbtex.o muteed.o muteex.o mute.o muteap.o zcmute.o \
+geomed.o geomex.o navgeom.o ukooain.o ldgogeom.o ldeogeom.o calcrp.o healy05.o \
+calcrp3d.o segyxy.o range.o getdep.o lendeg.o \
+avened.o avenex.o avevfc.o avenor.o debiex.o demean.o debias.o \
+mixed.o mixex.o shfted.o shftex.o weiged.o weigex.o moment.o flated.o flatex.o rectc.o \
+smuted.o smutex.o fftinv.o udeced.o udecex.o \
+t2fed.o t2fex.o ufiled.o ufilex.o fftfwd.o polarc.o gathed.o gather.o \
+nmoed.o nmoex.o nmo2ex.o nmo3ex.o nmovfc.o nmonap.o ivelt.o findv.o nmoapp.o int2rms.o velaed.o velaex.o \
+invplt.o stksem.o stkse.o semstk.o semst.o velplt.o plotvs.o clvplt.o cvnmo.o \
+stacked.o stackex.o acored.o acorex.o tx2fed.o tx2fex.o f2ted.o f2tex.o scalet.o \
+fkfied.o fkfiex.o shindx.o fkmied.o fkmiex.o fk2ted.o fk2tex.o hale.o mrgfk.o lenstr.o \
+spltfk.o gnrfft.o dskpos.o chkbin.o chkpra.o chkprc.o segded.o segdex.o \
+ldgo_tr0.o segd20.o prntx2.o doed.o doex.o fdmied.o fdmiex.o fdmvel.o avbufi.o \
+avintr.o vapsim.o fdmlin.o vsfdmc.o myspin.o xslice.o \
+transp.o dummies.o t2ded.o t2dex.o t2d.o t2dint.o tx2ted.o tx2tex.o fft.o \
+tp2ted.o tp2tex.o irisex.o gained.o gainex.o pgain.o filters.o lpbut3p.o \
+woodfilt.o \
+pseued.o pseuex.o headed.o headex.o sorted.o sortex.o indexx.o fdfmed.o \
+fdfmex.o fdmdif.o fddvel.o version.o refplot.o reltap.o \
+dmoed.o dmoex.o logsed.o logsex.o resaed.o resaex.o polint.o getdate.o \
+maxied.o maxiex.o maxoed.o maxoex.o iee2dr.o dr2iee.o pc2dr.o \
+despiked.o despikex.o sort.o tredited.o treditex.o \
+sadded.o saddex.o cated.o catex.o fkshed.o \
+fkshex.o psfk.o ssmied.o ssmiex.o sspost2.o fastf.o slave.o \
+uadded.o uaddex.o umulted.o umultex.o histed.o histex.o cfiled.o cfilex.o \
+seg2ed.o seg2ex.o caljul.o xcored.o xcorex.o stked.o stkex.o \
+grdouted.o grdoutex.o xstared.o xstarex.o \
+segdded.o segddex.o bldgname.o gpgga.o leeshdr.o
+
+sioseis:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) -o sioseis

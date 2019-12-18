@@ -1,0 +1,7 @@
+FC = ifort
+CC = icc
+FFLAGS= -O
+OBJECTS=hex2dec.o rdline.o getoke.o upcase.o rline.o rdline.o diskio.o
+
+hex2dec:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) -o hex2dec

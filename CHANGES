@@ -1,0 +1,1995 @@
+               SIOSEIS updates
+
+16)  1 Dec 88
+	a) poutex - changed to use pointers (setptr)
+	b) trplot - bad interpolation
+	c) diex - host floating point and ap simulator
+	d) velaed - VTYPE needed upcase
+	e) stack - increased buffer size
+17)  8 Dec
+	a) doed - remove IF( ierror .NE. 0 ) RETURN
+18)  12 Dec
+	a) diex - fno/lno noinc didn't work
+	b) diex - multiple fno/lno lists didn't work
+	c) doex - fk polaru didn't work
+	d) died - GOTO 130 if "No such parameter:
+	e) doed - GOTO 130 if "No such parameter:
+19)  ?? Dec
+	a)   FK stuff
+	b) contro, getpro - for process tx2tp
+20) 2 Jan 89
+	a) died, diex - added SSC stuff
+21) 5 Jan
+	a) inedit - fno 99999 didn't work
+22) 25 Jan
+	a) ploted - changed check for vscale to be 200*1.25
+	b) getoke - quotes didn't work anymore!
+	c) getoke - added # or ! or { to be line terminators (allow comments)
+23) 1 Feb
+	a) segded, segdex, seg20 - convert to VMS
+	b) gather - convert to VMS
+	c) diex - si not working
+	d) trplot - fix the bad interpolation change of 1 Dec.
+24) 6 Feb
+	a) ploted - remove vscale check altogether
+25) 8 Feb
+	a) stack - not big enough buffer for big delays
+26) 10 Feb
+	a) diex - renum on forgat didn't work
+27) 11 Feb
+	a) muteex - spatial variation on UNIX didn't work - f77 bug
+28) 17 Feb
+	a) ploted - comments
+	b) died, diex - save segy headers as EBCDIC
+	c) tx2fex, fk2tex, mrgfk, splitf, diex, doex - bad segy binary
+	   header length
+29) ?? Apr
+	a) ibm2fp - very small numbers (from the Cray) were wrong
+	b) diex - ntrgat not honored
+30) 12 Apr
+	a) stack - changed check for dead trace to GT 1 rather than
+	   NE 1 - Moore's data had live trace = 0
+	b) inputx - fis 99999 ignored ftr and ltr
+	c) rdtrc, wrttrc - bad unit number for internal segy headers
+31) 13 Apr
+	a) stack - was renumbering the output!
+	b) diex - calls to mrgfk used iptype rather than idtype
+	    "bad "sort" from binary header" huh?
+32) 14 Apr
+	a) wrttrc - made the calls to xx2ibm machine independent
+	b) stack, setptr - header word 17 = stack fold, 51 = -1
+33) 17 Apr
+	a) rdtrc - changed logic on shots with trace number 0
+        b) decoed, decoex, decon, dconv - added parameter double - NOT TESTED
+34) 27 Apr
+	a) diex - fgmt/lgmt didn't work
+35) 1 May
+	a) fkmiex - nx not set properly (dx was wrong because of that)
+36) 3 May
+	a) ploted, plotex - added parameter plotsi (not completed)
+37) 5 May
+	a) rdtrc - changed rewind from 10 to 30 for VMS tape I/O bug (qad)
+38) 8 May
+	a) tx2fex - changed inap call - length after power of 2!
+39) 11 May
+	a) shifts.c - Alliant needs first arg to be short rather than int
+40) 16 May
+	a) diex - changed 31.b back
+	b) mrgfk - added if( ftr and ltr not given and shot data
+41) 24 May
+	a) gathed - restart (frp) never converted to version 2 input lists
+42) 25 May
+	a) diskio.c - frefil closed and deleted ALL files, including stdin, stdout
+43) 1 June
+	a) segdex - stime and secs given and stime > delay and delay not 0
+	  caused bad number of samples to be calculated
+	b) segdex - ffilen and lfilen were not working
+44) 12 June - Changes Alistair made to fdmigr
+	a)  contro and diskio.f - Cray only - Change for Alistair's LINK
+	b)  fdmiex.f, fdmvel.f, fdmlin.f, fdmied
+	c)  add entries timer and second to dummies.f
+	d) remove vapsim.f, avintr.f, avbufi.f
+	e)  add myintr.f, mybufi.f, myspin.f, xslice.f
+45) 15 June
+	a)  fdmied - remove maxdip
+	b)  diskio.c - increase max units to 30
+46) 19 June
+	a)  diex - SSC trace headers are now 1024 bytes.
+47) 26 June
+	a)  udecex - prewhittener on nonap was wrong
+48) 28 June
+	a)  segdex - more stime/secs bugs when delay NE 0
+	b)  magtap.sun - remove some print statments
+        c)  rdtrc - tape changes when different unit numbers didn't work
+49) 10 July
+	a)  diex - had format ssc honor forgat 1
+	b)  diex - got forgat 1 to honor noinc
+50) 17 July
+	a)  dcode - was modifying nchars argument (didn't bother SIOSEIS!)
+51) 19 July
+        a)  muteex - print a warning when mute kills a trace
+        b)  died - correct documentation
+        c)  doed - correct documentation (add posaft)
+52) 20 July
+	a)  filtex - fixed and redid the spatial variation stuff
+	b)  filted - changed the documentation about spatial variation
+53) 24 July
+	a)  decoex - fixed and redid the spatial variation stuff.
+   ***  THIS MUST INCLUDE THE 17 APR. DECON UPDATE FOR DOUBLE  ***
+	b)  diex - fkpolaru didn't work right (dskpos and idtype probs.)
+	b)  mrgfk - fkpolaru didn't work right (dskpos=1 on non apollo)
+54) 25 July 
+	a)  filted - set the filter length counter ntotal =0 after each list
+55) 26 July
+	a)  wrttrc - same as April! - bad header unit number in common readt
+56)  9 August
+	a)  contro - increase maximum trace length to 30k samples (fkmigr 
+	             uses 3 buffers worth! so max fkmigr is 8k)
+	b)  contro - put maxsamps into common /edits/
+57)  11 August
+	a)  fdmied - changed the documentation for gamma.
+58)  16 August
+	a)  diex - removed 2 useless lines for SSC and trace headers
+	b)  velaex - put the constant velocity value in SEGY header ibuf(46)
+        c)  setptr - added icvelptr
+59)  18 August
+	a)  smuted, smutex - add parameter interp.
+	b)  nmoapp - zero the data if before the start (for move in)
+60)  23 August
+	a)  gentl, trplot - change dtable for Vax (Unix Vax only?) 
+	b)  filtex - bug in the July 20 changes!
+61)  25 August
+	a)  inedit, inputx - added forgat > 1 for combining rps
+	b)  tx2ted, tx2tex - added ohpath for using tx headers 
+62)  28-30 August
+	a)  diex - added forgat > 1 for combining rps
+	b)  diex - added nsamps and isi to binary header when SSC
+	c)  diex - extended an all zero trace header to mean EOF
+63)  4 Sept.
+	a)  wrttrc - Allow a trace id of 0 when positioning after.
+	b)  magtap.sun - give good message when > 32768 bytes are written
+64)  19 Sept.
+	a)  diex - Honor fsec and lsec
+	b)  rdtrc - put isi, and nsamps into the SEGY binary header when
+	SSC input so that the VISTA program works
+65)  20 Sept.
+	a)  wrttrc - VMS couldn't write IBM tapes (filter or not)
+	b)  wrttrc - no machine could write IBM tapes when filter in procs
+66)  27 Sept
+	a)  rdtrc - SSC tape header number of samples is wrong, use magtap istat
+67)  28 Sept
+	a)  fdmied - allow tsteps to be held over from list to list.
+	b)  fdmiex - changed a few debug statements
+	c)  dummies - second and timer to return rather than stop
+	d)  filted - change a pass of 0 to be pass 0.1
+68)  12 Oct
+	a)  diex - bad SSC forgat
+	b)  diex - set common numdat and ifmt when SSC
+69)  13 Oct
+	a) contro, tx2fed, tx2fex, fk2ted, fk2tex, diex, doex, fkmiex,
+           fkutil to retain SEGY trace headers.
+70)  14 Oct
+	a)  velaex - was doing velocities twice when the velocity increment changed
+71)  19 Oct
+	a)  died - The documentation said intrcs rather than ntrcs.
+72)  23 Oct
+	a)  inputx, diex - a)toss out non seismic data (ibuf(15) must be
+		0,1,2,3,6)
+	b)  diex - use 2000 samples when ssc header is zero
+	c)  correct 29 Aug SSC to SEGY binary header sample interval
+73)  1 Nov
+	a)  VMS tapeio.for - added tape status 2168 to mean EOF
+74)  5 Nov
+	a)  diex - noinc didn't work - use jntrcs rather than intrcs
+75)  10 Nov
+	a)  remove avenor parameter addwb because it didn't work
+76) 14 Nov
+	a) inputx, inedit, rdtrc  - add the SSC PHXV format to process input
+77) 16 Nov
+	a) died - the sort parameter needed an upcase
+	b) diex - sort didn't work
+	c) ploted - added anntyp 8 to mean plot by espn, 9 means no annotation
+	d) ploted - make the plot header line be blank unless column 1 is ASCII
+	e) died - zero the trace header when SSC so that ploted sees zeroes
+78)  20 Nov
+	a)  trplot - Alliant version must use IAND( rather than and
+79)  27 Nov
+	a)  weigex - when weigting by 0., use fill rather than multiply (NaN*0.)=NaN
+80)  28 Nov
+	a)  decon - skip the decon when the autocoreelation is zero.
+	b)  decoex - July mod for spatial variation had a bug.
+	c)  decoex - multiwindow decon didn't work
+81)  12 Dec
+	a)  inputx - forgat 1 and multiple lists didn't work.
+
+                              1990
+
+82)  7 Jan 90
+	a)  died, doed - make the Cray a Unix machine for file opening!
+	b)  diex - Allow the data part of the trace to be 1 sample short so that
+	    the Cray doesn't have problems when 1 trace and odd number of samples
+	c)  doex, spltfk - change crayibm to usscti
+	d)  contro - remove the Cray LINK
+83)  10 Jan 90
+	a)  died, diex - honor secinc
+	b)  inputx - add a kludge for VMS problem when junk in header word 50
+84)  29 Jan 90
+	a)  smutex - change start and end mute times to round when going to nsamps
+	b)  mute - don't taper if end of mute is within taper of the end of trace.
+85)  1 Feb 90
+	a)  diex - add logic for VMS end of file to be zero filled to a multiple of 512
+        b) diex - Use a new unit number on VMS on multiple files.
+        c) dio (VMS disk driver) - add statuses to the open statement.
+86)  1 Mar 90
+	a) diex - SSC files used IBM format instead of IEEE
+87)  3 Mar 90
+	a) rdline - YMP barfed on blank lines because print *,cbuf(1:0)
+	b) trplot - VMS didn't get the interpolation update of 1 Feb 1989
+	c) trplot - reduce nwrds to 288 from 294 on the Versatec 7224,
+		the 1 Feb 1989 change made it 294.  294 is the 7225 plotter!
+88)  11 Mar 90
+	a)  t2ded - conversion of interval to average velocities
+	b)  t2dex - incorrect list used when first list ignored.
+        c)  t2dex - rewrote spatial variation since the old spaghetti 
+                    didn't work and I couldn't follow it!
+89)  19 Mar 90
+	a)  diex - add logic to honor forgat when ltr is given.  
+	b)  inputx - add logic to honor forgat when ltr is given.
+90)  20 Mar 90
+	a)  diex - Correct error when trace is not a seismic or dead trace.
+        b)  diex - Allow a trace id of 9 to be a seismic trace see Oct 23
+	c)  doex - put the number of samples of the first trace and the
+	           sample interval of the first trace in the SEGY binary
+	           header.  GEOQUEST needs them!
+	d)  inputx - move the sample interval override so that secs works
+91)  22 Mar 90
+	a)  diskio.c - increase the maximum number of units to 40
+	b)  diskio.c - abort rather than just return when the number of units is	                exceeded
+	c)  fdmiex - silly thing was opening a dummy file for each user fno list
+92)  23 Mar 90
+	a)  diex, rdtrc - added the UTIG 16 bit "floating point" format.
+93)  5 Apr 90
+	a) ploted - use -wiggle when dir = ltr
+94)  24 Apr 90
+	a)  ploted, trplot, v2eps - added Epson printer (120 dots per inch)
+95) 2 May 90
+	a) died, diex, ploted, doed, doex - Made Apollo a Unix machine.
+96) 3 May 90
+	a)  died, diex - Added IRIS modified SEGY format
+97) 8 May 90
+	a) contro, getpro - added process IRIS
+	b) plotex, trplot - added seconds to the annotation by GMT.
+	c) irisex, make.sio - for process IRIS
+98) 29 May 90
+	a) ploted, trplot, plot2 - straighten out the Versatec 7224/7225
+           and 7424/7425 mess.
+	b) trplot
+99) 4 June 90
+	a) ploted, trplot, plot3 - add Versatec 7444 plotter.
+100) 28 June 90
+	a) contro, getpro - added processes gains and fddiff.
+	b) gained, gainex, pgain - added
+101)  1 July 90
+	a) doed, doex - allow and use ofmt 4 = 16 bit floating point.
+	b) fp2sfp - added
+102)  11 July 90
+	a)  vms had an old wbted and wbtex - affects spatial variation
+103)  13 July 90
+	a)  vms rdtrc had a bad unit number in common readt
+104)  14 July 90
+	a)  UCSC VMS had old diskox, affecting fon on post stack data.
+	b)  doex - Don't swap bytes on VMS trace header REAL words
+	    such as wbt (word 46-55 were swapped) - non standard stuff
+        c)  ploted, trplot - added anntyp 9 (gmt + rp)
+105)  22 July 90
+	a)  syned - correct bad check on fno/lno increasing
+	b)  stack - use NINT when converting floatin point delay to integer
+	c)  plotex - correct trace shift when stime < delay (&stime<>0)
+	d)  wbted, wbtex - allow floating point gmt for smoother interpolation.
+        e)  muteex - correct bad mute when spatially varying and the first
+	             shot is not in the first user list.
+106)  2 Aug 90
+	a)  wbtex - make spatial interpolation better by removing bizare 
+	            Prime bug stuff.
+	b)  plotex - make ftr, ltr, and ninc work!
+107)  8 Aug 90
+	a)  syned, synex - add noise (add gasdev.f and ran1.f)
+108)  21 Aug 90
+	a)  rdtrc - change meaning of a single eof to allow multiple SEGY files.
+109)  1 sept 90 
+	a)  magsun.c - Sun OS 4.1 introduced bug causing EOF on MTNOP
+110)  12 Sept 90
+	a)  t2dex - bad when using ap simulator (when filter in procs)
+	b)  t2dex - bad when first shot/rp is after the first vtp
+111) 23 Oct 90
+	a)  t2ded - changed documentation
+        b)  t2dex - added interval velocity depth conversion (t2dint)
+112) 25 Oct 90
+	a)  touted, wrttrc - added nfskip parameter 
+        b)  plotex - correct problem when dir ltr and nsamps < nsecs
+        c)  inputx, rdtrc - made ltr preset work (=ntrcs of segy header)
+113)  5 November 90
+	a) diex - the delay parameter no longer worked!
+	b) gained, gainex - added the OSU range scaling
+	c) shfted, shftex - added the OSU redvel, appvel, velh2o
+114)  8 November 90
+	a) filted, filtex - add OSU frequency domain filters and IIR
+               filters
+115) 13 Nov 90
+	a) decoex - zero after the data if design+prediction+fillen is
+		greater than the data length
+116) 19 Nov 90
+	a) t2dex - put sdepth in the SEGY header as the delay
+	b) contro - add parameters echo and noecho
+
+                 1991
+                 ----
+117) 9 Jan 91
+	a) diex - ipath2 didn't work with shot sorted data
+118)  12 Jan 91
+	a) gather - excluded (and printed a message) some traces incorrectly.
+	b) contro - Didn't output gather traces if entire job had less than maxrps rps
+119)  21 Jan 91
+	a) contro, getpro - add process pseudo
+	b) rdtrc - don't unpack non seismic traces (zero them)
+	c) rdtrc - don't renumber traces when trace 0 and trace id = 28
+120)  23 Jan 91
+	a) diex - DSS-240 traces with id=28 have nsamps=0, but are 2048-240 bytes
+121)  4 Feb 91
+	a)  acored - addwb yes didn't work
+122)  6 Feb 91
+	a)  scalet - add range check for big and small plot scalars
+	b)  diex - set and decimate caused bad nsamp.
+	c)  plotex - zero backend of data when stime > delay
+	d)  ploted - remove CHAR(15) from column 80 of Versatec plot header
+123)  10 Feb 91
+	a)  plot2.for - VMS Spool Versatec must have blanks in col 1.
+	b)  gained, gainex - added subwb and types 3-6
+124)  19 Feb 91
+	a)  headed, headex - added new process.
+	b)  doed, doex - added parameters decimf and secs.
+125)  5 Mar 91
+	a)  inedit - added nrskip and stime parameters
+                   - check for lis > fis
+	b)  rdtrc - added nrskip
+	c)  inputx - corrected deletion of file in upon startup
+		   - added the stime parameter
+                   - corrected ftr 99999
+                   - Allow headerless SEGY tapes
+        d)  contro - Added message when there are WARNINGS
+126)  7 Mar 91
+	a)  weiged, weigex - add WEIGHT parameter (record weight)
+	b)  synex - make it terminate correctly when values are given.
+127)  8 Mar 91
+	a) stack - was renumbering the output.  Just like Apr 89.
+128) 15 Mar 91
+	a) plotex - Bad plot when stime < delay and data nsamps < plot nsamps
+129)  Apr 91, aboard the Ewing
+	a)  geomed, geomex, calcrp  - for missing shot stuff
+	b)  mixed, mixex  -  for non rolling mix
+	c)  rdtrc, inputx - for stime/secs problem
+	d)  inedit  - for documentation
+	e)  gather - release the temporary file when end of gather job
+	f)  trplot - wiggle 0 and icdots 1 didn't work
+	g)  agced, agcex, agc - Add user parameters pctagc and center.
+	h)  inputx - add jform=4 for ldgo dss and use the GMT from trace 0
+         and use the shot number from trace 0 rather then the file number
+	i)  scalet - allow scalar = 0
+	j)  inputx - nis didn't work
+	k)  doex, wrttrc - Make Apollo an IEEE machine
+130) May 13
+	a)  wrttrc - print statement of shot/rp number didn't work on DEC
+131) May 21
+	a)  stack  -  put the fold in the trace header even when live!
+132) June 6
+	a)  plotex - ninc didn't work when shots and ltr ne intrcs.
+	b)  lpbut3p - typo
+	c)  rdtrc - UTIG 16 bit floating point was bad
+133)  June 28
+	a)  inputx - Sun compiler bug when skipping DSS-240 shot zeros.
+134)  July 22
+	a)  inputx - Add jform 5, for Western/USGS SEGY shot numbers.
+	b)  inedit, rdtrc - add nfiles  ***  THIS CHANGES THE DEFAULT ****
+135)  1 August   ver 3.1
+	a)  contro, died, diex, doed, doex - Add process sort
+	b)  Add process FDFMOD
+136)  8 Aug   ver 3.1.1
+	a)  ploted, plotex, refplot - rework hscale, add frange/lrange
+	b)  spp - Allow minus sign in annotation
+	c)  weigex - SUN bug - read 2 param list in lscr rather than scr
+	d)  wrttrc - eliminate writing eofs after every shot
+	e)  weiged - Made parameter w work!
+137)  13 Aug  ver 3.1.2
+	a)  contro, ploted, plotex, trplot - Add SRPATH & SIPATH
+	b)  magsun.c - close the tape unit on tape changes
+138)  20 Aug. ver 3.1.3
+	a) shfted, shftex - add reduce
+	b) ploted, plotex - add rstime
+138.5)   23 Aug. 
+	a) smutex - Made the parameter list the same as smuted.
+139)  29 Aug. ver 3.1.4
+	a) inedit, rdtrc - add device (Fortran mag tape interface)
+	b) magsun.c - release the tape between tape changes (SUN only)
+	c) contro, touted, toutex - add device
+140)  30 Aug. 91, ver3.1.5
+	a) contro, getpro, dummies - add DMO, LOGST1 and LOGST2
+141)  21 Oct. 91,  ver3.1.6
+	a)  spp  - swap bytes for DEC machines.
+        b)  nmoed, nmoex, nmoapp, nmonap - Add movein and SMO
+142)  28 Oct , ver 3.1.7
+	a)  sorted, sortex - Add parameter FLAG51
+	b)  contro, tx2fed, tx2fex, fk2ted, fk2tex - Add prestack stuff
+	c)  Add dmoed, dmoex, logsed, logsex
+	d)  magsun.c - Add UTIG changes for Exabyte
+143)  11 Nov, ver 3.1.8
+	a)  trplot - srpath wasn't working right.
+	b)  trplot - srpath and not opath caused bad annotation.
+	c)  ploted - Change vscale mismatch from error to warning.
+	d)  sortex - Correct setting of end-of-sort flag
+	e)  fkfiex, contro - Add prestack stuff.
+	f)  inedit, rdtrc - change nfiles preset to 99999
+144) 27 Nov, ver 3.1.9
+	a)  died, diex - allow ntrgat to set buf(51) to 0 on every trace
+	b)  fkmiex, contro - set realk to 0 for prestack fkmigr
+	c)  stack - set flag 51 to 0 on output
+145)  2 December, ver 3.1.10
+	a) nmoed, nmoex - add VINTPL parameter
+	b) gainex - use -alpha if range < 0 on exponential (type 2) gain
+	c) sorted - open rather than create opath if it already exists
+	d) diex - when reading a sort file, set istop=1 on last trace
+	e) contro - change the termination logic for sort/diskin.
+146)  9 Dec, ver 3.1.11
+	a) sorted, sortex, diex - Change for VMS disk I/O
+	b) sortex - some combinations of limits2 didn't work
+	c) sorted, sortex - limit1 0 0 didn't work due to bad presets
+	d) reltap - Make common/outdevice/ to outdev
+
+                        1992
+
+147)  15 Jan.
+	a) ploted - Add documentation about preset of opath when is srpath given.
+	b) magsun.c - Use UTIG version with Exabyte statuses.
+148)  16 Jan., ver 3.1.12
+	a) trplot - hscale didn't work with srpath.
+	b) diex - diskin parameter rewind didn't always work.
+	c) died - ltr was DEFAULT to 0 rather than PRESET
+149)  19 Jan. 1992
+	a) doex - Output disk file changes according to fno/lno didn't work.
+	b) doed - Change fno/lno to default rather than preset.
+150)  24 Jan. 1992,  ver 3.1.13
+	a)  ploted, trplot - add Versatec 8625
+	b)  diex - Add Iris real format
+	c)  plotex - Accomodate Iris format for number of samples.
+	d)  headed - Allow the same fno/lno on successive lists.
+151)  30 Jan 92, ver 3.1.14
+	a)  ploted, plotex - change stime preset to allow stime -1.
+	b)  tpchng - call reltap rather than freetp (for magtapf77)
+	c)  contro - get rid of an extra call closing the plot file,
+                     which caused some ieee errors.
+	d)  filters - frequency domain filters didn't work on Apollos.
+152)  31 Jan 92, ver 3.1.15
+	a)  filters - Filter type 2 (frequency domain high pass) didn't work
+153)  6 Feb 92, Version 3.2.0
+	a)  ploted, plotex - Added parameters ANN, HDR, LHDR, IHDR
+	b)  ploted, plotex - Add parameter ABSVAL
+	c)  smuted - xsets with 2 or more ranges didn't work.
+154)  11 Feb 92, Version 3.2.1
+	a)  inedit, inputx - Allow reading of rp tapes with fis/lis.
+        b)  ploted - change plot header - add getdate.c
+155)  5 Mar 92
+	a)  t2dex - bad index in iso-velocity check
+	b)  tp2tex - floating sample rate not set on output
+156)  2 Apr 92  - version 3.2.3
+	a)  ploted, trplot - add Raytheon TU-850 and HP-7600 plotters
+	b)  gained, gainex - add taking modulus of complex traces.
+157)  28 Apr 92  - version 3.2.4
+	a)  geomed, geomex - added LDGO navigation file
+	b)  gather - Drop dead traces (trace id=1)
+158)  4 May 92 - version 3.2.5
+	a)  pouted, poutex - Add FORMAT to process OUTPUT.  Allow
+		MATLAB and Fortran format statements.
+	b)  t2dex - addwb didn't work
+	c)  tpchng - Didn't work on "/dev" 
+	d)  inputx - secs and stime caused bomb on LDGO trace 0
+159)  12 May 92 - version 3.2.6
+	a)  contro, doex, wrttrc, gentl, trplot -  
+            Change icompt = 2 from DEC Vax word to DecStation IEEE word
+160)  2 June 92 - version 3.2.8
+	a)  calcrp - Apr. 91 update lost! - type 2 geom didn't work.
+	b)  geomed, geomex - added ldgogeom, reading LDGO nav file.
+	c)  trplot - add color
+161)  10 June 92 - version 3.2.9
+	a)  smuted, smutex - add tail muting (parameters ttp and xtp)
+162)  12 June 92 - version 3.2.10
+	a)  died, diex - Pad traces when SET is bigger than the trace.
+163)  19 June 1992 - version 3.2.11
+	a) magsun.c, magtap.sun.f - Add HP SCSI tape drives to SCSI list
+	b) tpchng - Tape changes didn't work. Call reltap with bad unit number
+164)  7 July 1992 - version 3.2.12
+	a) doex - Use ontrcs from common if not given by user.
+	b) diex - renum on stacked data didn't work
+165)  8 July 1992 - version 3.2.13
+	a) contro, getpro - Add processes MAXIN and MAXOUT
+	b) maxied, maxiex  - MicroMAX input
+	c) mixed, mixex - lno did work
+166)  12 August 92 - version 3.2.14
+	a) contro, getpro - Add processes SADD and DESPIKE
+        b)  weigex - multiple list didn't work when non-sequential records
+        c)  despiked - silly error
+167)  17 August 92 - version 3.2.15
+        a)  maxiex - use "original field number" (iffid) rather than ishot.
+        b)  headed - Didn't work on Vax  VMS due to VMS diskio and character.
+        c)  trplot - negative amplitudes weren't colored correctly
+        d)  sorted, sortex - Add parameter reverse
+168)  14 Sept 92 - version 3.2.16
+	a)  trplot - ltr plots filled 1 too many nibs 
+	b)  gained, gainex - redefined type 2 gain (OSU)
+        c)  tx2fk - terminate if delay changes
+169)  29 Sept 92 - Version 3.2.17
+	a)  inputx - add a message when skipping ldgo dss shot 0
+	b)  inedit, inputx - added parameter set
+	c)  contro - added process cat
+	d)  diex - Renum didn't work when ftr/ltr given
+                 - reset number of traces per shot to (ltr-ftr)/trinc +1
+170)  10 Nov. 92 - Version 3.2.18
+	a)  inputx - Subtract 1 from number of traces per shot on ldgo
+	b)  headed - Add HEADER for indexing trace header by names.
+	c)  inedit - Changed and added user documentation.
+        d)  inedit, inputx - Allow renum to change from list to list.
+	e)  ldgogeo - Allow duplicate shot numbers.
+	f)  contro - HPUX problem when no process to do.
+	g)  died, diex - trinc didn't work unless fno and lno were given
+                       - Remove the mass parameter (for SDSC Cray)
+	h)  contro - Add process FKSHIFT
+171)  16 Nov. 92 - Version 3.2.19
+	a)  gather - Check for dead trace first, in case first trace is bad.
+                   - Reset the preset for nwrds when first trace is funny.
+	b)  inedit - change nfiles preset to 1
+172)  30 Nov. 92 - Version 3.2.20
+	a) diex - Change 29 Sep change to reset number of traces only when = 0
+173)  29 Dec. 92 - Version 3.2.21
+	a) stack - Add parameter HEADER.
+	b) ldgogeom - Graham Kent changes for LDGO ESP and WAP geometry.
+174)  19 Jan. 1993 - Version 3.2.22
+	a) shftex - Correct reduction velocity shift when shift < delay
+	b) ploted - Permit vscale 1, 2, 4, 8, ..  when nibs=7222 for si .005
+	c) trplot - Was missing nibs 8625.
+	d) trplot, ploted, spp - Allow CMY plotters (vs RGB)
+175)  17 Feb. 93 - Version 3.2.23
+	a) diex - Add LDGO DSS-240 disk file input (trace 0 etc)
+	b) inputx - Save but set to dead, LDGO DSS-240 shots numbered 0
+176)  4 Mar. 93 - Version 3.2.24
+	a) trplot - make rtl and ltr plots "identical". (utig "bias")
+	b) gentl - timing lines were 1 nib off on ltr plots.
+	c) trplot - drop first and last 250 raster lines on Sun raster
+177)  5 May 93 - ver 3.2.25
+	a) ploted - bad error check for ann fanno
+	b) gainex - range scaling: use ABS(range)
+	          - range scaling: don't scale if ABS(range) < rscale
+	c) ploted, trplot - Add HP DesignJet 650c (color inkjet)
+	d) trplot - put nibs and plot size on line 1 of plotfile
+	e) diex - Changed from word read to byte read - odd 16 bit samps
+178)  26 May 93 - ver 3.2.26
+	a) nmoex - bad spatial interpolation when velocity decreased.
+	b) pouted, poutex - cleanup/fix the indices of the parameter list
+179)  6 June 93 - ver 3.2.27
+	a) shfted - allow fno 0
+	b) plotex - honor frange/lrange when not plotting by range
+	c) mixex - running record mix (type 2) disn't work correctly
+180)  23 June 93 - ver 3.2.28
+	a) shfted, shftex - Add laga and lagb parameters.
+181)  8 July 93 - ver 3.2.29
+	a) filters - frequency domain filters didn't zero before fft right
+	b) contro, tx2fed,tx2fex - contro made stacked data prestacked
+182)  13 July 93 - ver 3.2.30
+	a) mixex - ignore mute times if less than the delay
+	b) gained, gainex - Add fno & lno so that shots can be excluded.
+183)  20 July 93 - ver 3.2.31
+	a) trplot - Don't write the plotsize to opath if opath isn't given
+	b) sortex - Don't bomb when sort key 2 values are all the same
+184)  26 July 93 - ver 3.2.32
+	a) trplot - Eliminate crash on big sun rasterfile.
+	b) sortex - Sort didn't work when secondary key only had 1 to sort.
+185)  3 Aug 93 -ver 3.2.33
+	a) diex - set created the wrong delay when not an integer
+186)  9 Aug 93 -ver 3.2.34
+	a) diex - fix bug when ftr, ltr, trinc are given and ftr > 1
+187) 25 Aug 93 - ver 3.2.35
+	a) diex - Use Iris nsamps convention (use long word 58 for)
+	b) logsex - Allow logst1 to have different delay, nsamps from logst2
+	c) dmoex - Bug when using window rect
+	d) f2ted, contro, getpro - Allow f2t params not to be given.
+	e) t2fex - Increase window buffer to 1000 points
+	f) diex  - Use sample interval of 1./2048. if number of micros is 488
+188) 6 Sep 93 - ver 3.2.36
+	a) chkprc - "User friendly" polar coordinates failed due to 166)
+	b) magsun - Allow unit numbers 0 - 39
+	c) tutil - Allow tape records of 64KB
+	d) inputx, rdtrc - increase nwrds from 20,000 to 30,000
+	e) sort - increase allowable items to sort from 50,000 to 350,000
+189)  6 Oct 93 - ver 3.2.37
+	a) rdtrc - changed a check from rp trace to 'SHOT'
+	b) magtapf77 - Allow BIG (64kb) tape records.
+	c) contro - increased common for ap for the big sort
+190)  12 Oct 93 - ver 3.2.38
+	a) contro, sortex - Create BIG and small version, because
+           BIG uses 3,500,000 words which is too big for small machines
+	b) tx2fex - stime/etime didn't work correctly
+	c) fkshed, fkshex - fkshift params zextrap and odelay didn't work
+191)  21 Oct 93 - ver 3.2.39
+	a) geomex - Allow 100 GXP pairs to be given.
+	b) diex - Big sort needs big array.
+192)  5 Nov
+	a) sortex - changed from relative positioning to absolute.
+                    and added a kludge so it would run at the UTIG
+         v2hp (HP DesignJets) - Allow HUGE plots.
+193) 16 Nov. 1993 - ver 3.2.40
+	a) sortex - changed so that BIG sort files work
+	b) resamp - Add time domain resampling.
+	c) inap - Change nextad when warning about overwriting in ap
+	d) rdtrc - increase max words allowed on tape from 30000 to 32767
+	e) inputx - increase max words allowed on tape from 30000 to 32767
+               - toss out traces with id = 3 (SEGY dummy traces)
+	f) tx2fex - make sure trace length remains constant
+194)  26 Nov. 1993 - ver 3.2.41
+	a) fdmigr - remove a debug print statement
+	b) nmoex - Bad spatial variation when first trace of the job 
+                   was not a control point.
+195)  3 Dec. 1993 - ver 3.2.42
+	a) trplot - Add interpolation so any plot scale can be done.
+	b) gathed, contro - Let gather execute set the preseting of nwrds.
+                            (LDEO DSS-240 trace zero problem).
+196)  20 Dec. 1993 - ver 3.2.43
+	a) headex - correct spatial interpolation of REAL variables.
+	b) shftex - Correct sign of shift in the header when reduce yes
+
+                               1994
+197)  7 Jan 1994 - ver 3.2.44
+	a) trplot - interpolation at last sample was wrong (see 195)
+198)  9 Jan 1994 - ver 3.2.45
+	a) diskin - Implement noinc 99999 and trinc 99999
+	b) input - Don't allow nfiles to be used with the device param.
+199)  10 Mar 1994 - ver 3.2.46 (9 Mar 1994)
+	a) rdtrc - added saving of espn in Phoenix I format reads.
+	b) diskin - Allow user to give super large fno/lno
+		  - Do renum BEFORE ntrgat, rather than AFTER.
+		  - Honor ftr/ltr when reading by fgmt/lgmt and no trinc
+		  - Honor ftr/ltr when no fno/lno
+	c) geom -  Allow user to give super large fs/ls
+	d) poutex - Allow super large shot numbers
+	e) velan - allign +s in plot (invplt.f and clvplt.f)
+	f) weiged - Bad check for shot numbers increasing.
+200)	ver 3.2.47 (16 May 1994)
+	a) ploted -  Allow 45 seconds of data to be plotted (was 30).
+	b) contro - more problems with gather and end of job.
+	c) contro - problems with tx2fk and fk2tx and end of job.
+	d) segded, segdex - Add SEG-D Revision 1
+			  - Add Alliant Tech's IBM floating point.
+                          - Add parameter rewind
+                          - Increase max record length to 64KB
+	e) cat - shot concatenation didn't work.
+	f) contro - cat had problems with last shot (end of job).
+	g) ploted, trplot - Add OYO GS-624 plotter
+201)	ver 3.2.48 (16 June 1994)
+	a) segded, segdex - sub millisecond sample interval set wrong
+                          - add parameter DEVICE.
+	b) segdex - Set signal that data are not in the "ap".
+	c) diskin - require fno and lno when noinc is given.
+	d) despike - Add parameters TYPE and FAC
+		   - add type 2 despiking (Trehu/Sutton)
+	e) diskin - forgat and fno/lno together didn't work.
+	f) segdex - Change logic on fgmt/lgmt because of bad gmt on tape
+	g) geomed - Change smear preset to be dbrps.
+	h) contro - Allow 200 characters per user line (was 100).
+	i) touted - Set ounit when parameter device is given.
+202) July 1994
+	a)  magtapf77 - HP returns EOT when skip file is done.
+	b) tx2tp - Correct parameters PCNTI and PCNTO.
+	c) diex - Set unset variable vaxvms.
+	d) died - Add error if NOINC is given and FNO/LNO are not given.
+203) 5 Oct. 1994
+	a) segded, segdex - Add parameter LOADER.
+	b) segdex - Add LDEO trace 0 logic.
+	c) segdex - Add LDEO navigation.
+	d) tx2tp - Add warning about spatial aliasing
+	e) tx2tp - Increase number of input and output traces permitted.
+204) ver 3.2.50 (10 Nov. 1994)
+	a) gentl1 - add color (color plots with uneven sampling were bad).
+	b) ploted - Bad check for "BLACK" and "WHITE"
+	c) trplot - Use BCOLOR for amplitudes between negative and positive
+	d) trplot - Other "minor" changes to color.
+205) ver 3.2.51 (1 Dec. 1994)
+	a) ploted, trplot, spp - Added crt display (nibs 75)
+206) ver 3.2.52 (21 Dec. 1994)
+	a) segdin - change lday preset to fday (segded.f)
+	b)        - exit properly on lday (segdex.f)
+	c)        - correct error on delay
+	d) ldgogeom - fiddle with time differences of DSS and nav file
+
+                            1995
+207) ver 95.1 (3 Jan. 1995)
+	a) velan - Add the SEG-Y option to opath - gmk
+	b) header - Multiple lists with same shot number didn't work.
+NEW PROGRAM sio2sun - converts sioseis plotfiles to Sun rasterfiles.
+208) ver 95.2 (24 Feb. 95)
+	a) ploted, getdate - change getdate to getdate1 for HP-UX.
+	b) ploted, trplot - Add nibs 3436, 9315, 9800
+	c) ploted - Changed ICDOTS preset to 1
+			- Add parameter tlann (prevent time line annotation).
+	d) trplot - Add time line annotation.
+209) ver 95.3 (29 Mar. 1995)
+	a) diex, doex - recompute the time of the first sample when using
+              sets because of potential roundoff errors.
+	b) headed, headex - Add parameters BHDR (binary header modification)
+		and XN (trace header replacement by equation).
+	c) input - Add parameters no and tr.
+              - Add parameters allno and alltr
+	d) contro - Allow 33000 samples (space for 32767 plus segy header)
+	e) diskin - Check for traces > 32767 samples (IRIS format)
+			- Allow segy file with "short" last trace
+210) version 95.4 (15 May 1995)
+	a) contro - initialize ncdp (dropped first gather trace on SGI)
+	b) gather - correct occasional bad trace header.
+	c) plot, diskox - Document a 1994 change that prevents output file
+              creation when the parameters are given but the process is
+              not in procs.
+	d) contro, nmoed, nmoex - Create process nmo2
+	e) diskox - delay was wrong when SET given and input had a delay.
+	f) tx2fk - prestack use caused window to be clobbered.
+*******   FK2TX clobbers the entire ap simulator *** other processes
+      such as filter and nmo assume the simulator is intact  ******
+211) ver 95.5 (22 May 1995)
+	a) diskox - Implement parameter FORMAT for SU and true SEGY.
+	b) diskin - Allow FORMAT SU.
+	c) header - March update clobbered other HEADER parameters.
+sioplt - Change documentation.
+       - Add offset_x, decimate_x, decimate_y
+212) ver 95.6 (12 June 1995)
+	a) decon - Documentation did not include parameter SEATS
+	b) segdin - Add parameters FCSET and LCSET.
+		- Allow multiple channel sets
+		- Set fday if fgmt is given and fday is not.
+	c) plot - Change nibs 300 from NovaJet to HP color LaserJet.
+	d) resample - SEG-Y trace header value for sample rate was wrong!
+	e) sort - limits didn't work when doing reverse sorts.
+213) ver 95.7 (21 June 1995)
+	a) diskox - remove writing 210 in binary header
+	b) header - Add parameter CLEAN.
+	c) resample - Change header on dead traces.
+214) ver 95.8 (26 June 1995)
+	a) header - Correct bug when > 2 lists caused by 213 b)
+	b) diskox - decimation didn't change binary header interval.
+	c) filter - Increase max trace length in frequency filters.
+215) ver 95.9 (19 Sep. 1995)
+     a) velan - CVEL had a bad call which caused bomb on HPs.
+     b) contro - add process ssmigr
+               - reset idisko after edits in case diskox not a proc.
+               - Dec Alpha needs Versatec plot header byte swapped
+               - add an argument for despike
+     c) diskox - use index 1 rather than idisko when closing files
+               - Remove calls to SDSC Cray mass storage system
+               - Write "IRIS" trace header when nsamps > 32767
+     d) prout - Add parameter NOINC
+     e) filter - frequency domain amplitudes were too high by nfft
+                   - frequency domain notch filter was wrong.
+     f) plot - Add Versatec 8936
+             - Change timing line generation for Alpha.
+             - Add warning if first trace is zero or NaN.
+     g) input - Parameter TR  XN  (see March 95) didn't work
+              - Allow unit numbers up to 40
+     h) ldgogeom - some "fudges" had typos.
+     i) cat - initialize interp to 0
+            - Use "IRIS" trace header if nsamps > 32767
+     j) gather - Remove unneeded loop in edit that Alpha gave warning on.
+     k) maxin - Alpha caught bug in maxied.f
+     l) sad - initialize interp to 0
+     m) smute - Alpha caught bug when multiple lists.
+              - set start time to delay if delay > start time
+     n) syn - Multiple lists had problems.
+            - Use "IRIS" trace header if nsamps > 32767
+     o) despike - remove type parameter
+                - add QUART parameter.
+     p) decon - Multi-window bug when "big" distance between windows.
+     q) SSMIGR - Add ssmied.f, ssmiex.f, sspost2.f, fastf.f
+     r) transp - Add complex matrix transpose
+216) ver 95.10 (27 Oct. 1995)
+     a) wbt - Add automatic picker.
+     b) plot - ann rptr didn't work.
+     c) velan - Change vtuple preset to 0 0 0
+              - Use ibuf(46) for velocity when doing semblance.
+              - Semblance grid was off 1 column (see March 1994)
+     d) segdin - New LDEO "trace 0" format (off 1 byte)
+               - fcset didn't work
+     e) filter - Change wording of error message in frequency filters.
+sio2hp - Add parameter header (print SEG-Y readable header)
+       - Delete parameter color and make automatic color determination.
+     f) syn - Didn't do fno+1 to lno when tva was given.
+     g) segdin - Fujitsu and Exabyte loaders return incorrect status for EOT
+	          - special utig/ewing move tape after loader tape change.
+	h) ssmigr - change process name to PSMIGR (phase-shift)
+217) ver 95.11 (13 Nov. 1995)
+	a) segdin - Add parameters filinc, nfskip, format.
+	b) velan - Matlab header incorrect when nvels not an integer.
+	c) plot - Sun version had old time line annotation routine (tlann.c)
+        d) output - posaft -1 didn't work on SCSI drives on Suns
+	e) input - Add parameter REWIND.
+	f) output - Add parameter REWIND.
+218) ver 95.11.1 (21 Nov. 1995)
+     a) Sun tape I/O - close and open the tape when 2GB bytes in file.
+
+     b) HP tape I/O - EOF detection didn't work.
+     c) sadd - Didn't work if data are in the "ap".
+     d) plot - hscale and nsamps < nsecs caused bad padding.
+     e) nmo - Add parameter VTRKWB (velocity tracking according to h2o depth)
+     f) plot - Alpha didn't handle DesignJets properly.
+     g) sio2hp - Byte swap the HP-RTL binary header word for DEC.
+219) ver 95.12 (6 Dec. 1995)
+     a) input - Use of NO on "rp" tape and caused bad LTR preset.
+220) ver 96.1 (9 Jan. 1996)
+     a) plot - DesignJets vscale got erroneous warning message.
+     b) psmigr - correct BIG version
+               - correct indecies when fmin/fmax are given.
+     c) segdin - make eofless UTIG format work
+               - lgmt wasn't working.
+221) ver 96.2 (21 Feb. 1996)
+     a) resamp - Didn't work if filter was a process
+     b) diskox - Change lrange preset from 999999 to NONE
+     c) wbt - Short/long auto picker was wrong when ses not 0.
+     d)     - gmt/time or rp/time pairs needed extra end due to ses/sel err.
+            - Extra end was needed in user parameters.
+     e) gains - types 3 and 5 with subwb were bad.
+     f) plot - dir ltr color plots were bad.
+	        - negative/positive amplitudes had different roundoff
+     g) weight - Parameter "w" didn't work.
+			- Record weight didn't work when ap in use and data not in ap.
+
+sio2hp - Total rewrite of plot header labels (prints the SEG-Y header)
+
+222) ver 96.3 (9 Mar. 1996)
+     a) plot - Change the uneven plot sample interpolation spacing.
+     b) wbt - Require "extra" end only if auto water picker is used.
+     c) input - Clean up nfskip/nrskip/nfiles when DEVICE given.
+     d) filter - Allow filters up 500 points long.
+
+vtplot - Add spatial interpolation and add print option.
+
+223) ver 96.4 (10 Apr. 1996)
+     a) input - Couldn't turn allno or alltr off
+     b) diskin - Added parameters NO and TR.
+     c) despike - threshold didn't work due to Sept 15 update (remove type)
+     d) gains - Add type 8 because type 2 is too complicated.
+     e) syn - range wasn't in headers when values were given.
+     f) segdin - Allow iunit numbers up to 100 (from 8)
+     g) contro, tx2fk, fk2tx - Allow multiple rps in a single fk transform
+     h) header - Don't touch the SEGY binary header if params are prior input
+224) ver 96.5 (9 May 1996)
+     a) psmigr - Didn't work when many frequencies or man depths were used.
+               - Add smoothing in t and x
+               - add output of SEG-Y velocity file
+     b) diskin - Allow trace id = 100.  It means GPR.
+     c) gather - allow frp when geom not a process
+		     - Increase maxrps and maxtrs and make check for exceeding them
+     d) input - Multi tapes didn't work because of nfiles parameter
+		    - First trace after tape change might be bad
+     e) wbt - Auto picker was modifying the delay in the header!
+225) ver 96.6 (11 June 1996)
+     a) ufiltr - Remove spatial extrapolation and the STOP if between lists
+               - HP optimization problem reading filter points into scratc.
+     b) contro - Add processed UADD and UMULT
+     c) diskin - Change trace id of 100 (GPR) to trace id 1 (seismic)
+     d) input - Change trace id of 100 (GPR) to trace id 1 (seismic)
+     e) tx2fk, fk2tx - Prestk when nx not a power of 2 didn't work (apr. update)
+     f) inap - Increase initial trace allocation to 2 times the trace length
+     g) diskox - Change ftr preset to 0
+     h) agc - agcpct didn't work right.
+     i) wbt - Was using the rp trace number rather than the rp number!
+226) ver96.7 (17 Oct. 1996)
+     a) syn - ranges were not valid on traces > 1 when using tva.
+     b) segdin - make lfilen work if ltr is not given.
+               - Add parameter OFFLINE to eject tape at EOT.
+               - Put the file number into SEG-Y word 5 (energy source number)
+               - Add parameter tr0 for copying and saving trace 0
+               - Skip files with bad LDGO GMT times.
+               - Set newfile flag when EOT is found for output
+               - Allow multiple parameter lists!
+               - Check for unexpected general header instead of a trace.
+                 (Check/recover from Ewing SQTP error.)
+               - Check/recover from Ewing repeated shot numbers.
+               - Check/recover from Ewing "streamer build" error.
+               - Put Hydrosweep depth in word 16 too
+               - Convert water depth to time and put in word 50.
+     c) nmo - Print the first water depth when vtrkwb is given.
+              lprint 4 means print water depth on every trace 1.
+     d) diskox - Add parameter REWIND for "circular" files.
+               - posaft didn't work due to bad binary header read!
+               - bad number of bytes when odd number of samples on 16 bit integer
+     e) tape I/O - Wait if loop if open fails - probably offline!
+               - redo HP routines maghp.c
+               - redo magtap - now 1 routine for Sun, HP
+     f) diskin - fgmt/lgmt didn't work with giving ltr!
+               - Allow fno/lno/noinc to be negative
+               - Get around HP compiler bug on 16 bit integer SEG-Y
+     g) reltap - Write only 1 file mark and no rewind on rewind = 0
+     h) output - Write an EOF and both SEG-Y file headers when told to.
+                 (common variable newfile, set by segdin at EOT)
+               - Write trace 0 when told to do so (see segdin above).
+              - Clean up (redo) rewind/nfskip/posaft
+     i) tx2tp - Do prestack - Not completed.
+     j) plot - Change gmtinc to be day of year and gmt.
+     k) input - Differentiate between new trace0 and original trace0
+     l) geom - Add parameters BGP and CGP for bird depth and compass
+     m) filter - Add windowing.
+               - Add Warren Wood's filters.
+     n) sio2hp - Blank fill when plots are a different length is
+                 different on color plots than on B&W plots!
+     o) gains - type 1 used etime incorrectly
+     p) maxin - Didn't work because of bad update!
+227)  ver 96.8 (18 Nov. 1996)
+     a) shift - Add parameters DATUME and DATUMV
+     b) diskin - Add warning when shot and rp number and trace numbers are 0
+     c) filter - Fixed minimum phase so it works in all cases now.
+228) ver 96.9 (5 Dec. 1996)
+     a) tx2fk/fk2tx - giving header file AND prestk didn't work.
+     b) segdin - nfskip and nozero iunit didn't work.
+229) ver 97.1 (23 Jan. 1997)
+     a) shift - bad header when reduction velocity shift is non integral mils.
+              - add parameter INTERP
+     b) decon - Make design window include the last time.
+              - Bad multi-window merge zone.
+              - Make sure multi-window merge zone is at least .1 sec.
+              - Allow application window 1 sample long.
+              - Correctly handle application window off end of trace.
+     c) header - Allow math operations on up to 10 header values.
+230) ver 97.2 (13 Feb. 1997)
+     a) Sun tape I/O - Had forgotten to include the October magtap change.
+     b) contro - Add process HISTORY.
+231) ver 97.3 (17 Mar. 1997)
+     a) geom - stop writing shot/receiver coordinates in SEG-Y header.
+             - Honor lat/long in pure SEG-Y (seconds of arc).
+     b) diskin - Use "pure SEG-Y" seconds of arc for LDEO lat/long
+               - Add data format "SWAPPED".
+     c) segdin - Use "pure SEG-Y" seconds of arc for LDEO lat/long
+     d) diskox - Add parameter FLINC
+232) ver 97.4 (16 Apr 97)
+     a) diskin - Add data format "NOHEAD" (No file headers). Require IFMT.
+     b) segdin - Allow parameters to be on the same line as the process name.
+     c) fdmigr - Certain velocities caused overflow
+     d) contro, filters - Make frequency filter buffers common
+     e) nmo, nmo2 - Change the print statement when vtrkwb is used.
+     f) tx2fk - Do not reset AP nextad pointer to zero - Affects PRESTACK.
+233) ver 97.5 (12 May 1997)
+     a) tx2fk - Prestk was bad when first trace(s) of gather were dead.
+     b) filter - Use "efficient" minimum phase design.
+     c) smute, mute, input - Allow INTERP, ALLNO, ALLTR to be YES/NO
+     d) geom - Put a special case switch for bad LDGO nav files in ldgogeom.
+     e) filter, decon - Prevent loop when > 1 list and first shot < first list
+     f) filter - Add parameter INTERP, to prevent spatial interpolation.
+     g) fdmigr - Didn't work when another multi-input process was present.
+     h) filter - Allow MINPHA to be yes/no as well as 1/0.
+SIO2HP
+     a) Change parameter header to be a yes/no switch
+     b) Add parameter SLPATH for printing SIDE LABELS.
+LSD  - Added several options.
+234) ver 97.6 (26 June 1997)
+     a) nmo, nmo2 - Add parameter VMUL.
+     b) geom - Added parameter DECLIN.
+     c) plot - Removed HP plotters writing over first 8 characters of header.
+     d) wbt - Add parameter THRES
+     e) plot - small negative amplitudes in color plots was wrong.
+     f) plot - Changed coloring when no color is assigned at zero.
+     g) segdin - Don't modify process output's common for nsamps.
+               - Add parameter NEWFILE.
+     h) output - Binary header nsamps was bad when SEGDIN decimf and newfile used.
+     i) output, input, diskin, diskox - Allow REWIND to be YES/NO.
+235) ver 97.7 (22 July 1997)
+     a) plot - Positive amplitudes weren't filled - due to 26 June update
+     b) sort - Reverse of secondary key didn't work.
+             - Separate reverse into REV1 and REV2 and make the YES/NO
+     c) procs - If sort is given, but is not first, give warning.
+     d) avenor - Add parameter VEL.
+               - Print the average absolute average amplitude on lprint 4
+     e) diskox - Allow negative shot/rp numbers.
+     f) nmo - Add parameter VADD.
+     g) geom - Add parameter RPADD.
+     h) diskox - Allow negative fno/lno.
+     i) contro - Add process NMO3
+236) ver 97.8 (25 July 1997)
+     a) despike - Added SET, ADDWB, VEL, KILL, ALPHA, SES, SEL
+     b) t2d - Add edit error check for OSI > 32.
+                  August 1997
+     a) shift - add parameter INDICES
+237) ver 97.9 (13 Nov. 97)
+     a) wbt - Preset THRES correctly
+     b) segdin - OPEN needs a proper unit number on Ewing Sun.
+     c)        - Write trace 0 to file tr0.day-hhmm
+               - Comment out the above (use LDEO "nav tape"
+     d) output - Make the trace 0 length the same as the data traces
+     e) ldgo_tr0 - DMS2000 had a format bug in section 11.
+     f) geom - Increased max number of compasses parameter to 50.
+     g) contro - Do NOT rewind the output tape at the end of the job.
+     h) despike - Honor deep water delay.  Make ses/sel work again.
+                - Add window average threshold killer
+     i) input - Allow lower case yes/no for ALLNO, ALLTR, REWIND
+     j) gather - Wasn't flushing last gathers when process input and lno
+     k) plot - Add parameter WRAP
+     l) syn - Don't put the spike in TVA outside the trace buffer.
+     m) nmo - Add OPATH for the velocities.
+238) ver 97.8 (27 Dec 97)
+     a) segdin - Change MAX0 to AMAX1 for the Alpha
+     b) filter (woodfilt) - set ip2ge = 0 for Alpha
+     c) plot and wbt on Alpha only - change args to intrinsic functions
+     d) geom - BGS (bird group pairs) not set correctly
+     e) transp - Alpha didn't like double declaration of an array
+     f) segdin - change MAX0(real,real) to AMAX1(real,real) for Alpha
+               - Put nsamps into SEG-Y binary header for other packages!
+               - Make nsamps correct when decimating.
+     g) decon, stack, t2d, t2f - Change MAX0 to just MAX.
+     h) input, mix, stack, t2d, tp2tx, uadd, udecon, umult, velan
+               - Change MIN0 to just MIN
+     i) plot - Move where the ImageTool file (sipath) is written.
+239) ver 98.1 (11 Mar. 98)
+     a) nmo - bad time used in interpolating velocities in vtps. (July update)
+     b) diskin - Removed SEG-Y header stuff from the execute phase
+                 because it was done in the edit phase AND process
+                 header parameter BHDR is done in the edit phase.
+240) ver 98.2 (18 Mar. 98)
+     a) nmo - Added VINTPL 3 for different iso-velocity spatial variation
+     b) mix - Allow huge delays (in samples) for 3.5kHz data.
+241) ver 98.3 (17 Apr. 98)
+     a) history - ALL YES didn't work on non-Sun machines (rdline.f)
+     b) despike - Add MEDIAN.
+     c) geom - Added SIOSEIS navigation file
+     d) plot - More than 6 colors didn't work.
+241)  ver 98.4 (28 May. 1998)
+     a) velan - opath.mat and opath.segy had bad last sample.
+     b) wbt - Changed some of the lprint statements
+     c) despike - Edit failed when thres(1) = -thres(2)
+     d) plot - Add error check for decreasing tlines.
+     e) wbt - Threshold picking didn't honor prestk yes
+242) ver 98.5 (22 June 1998)
+     a) stack - put the EOG flag on every output trace
+     b) plot - rtl and ltr had different colors near zero.
+*******   Color plots in RTL are different from LTR  due to
+      "tiling effect".  There is no way around it!   ********
+     c) diskin - Update 98.1.b wasn't done quite right.
+
+SIO2HP
+     1) Multiple color plots on same paper didn't work.
+     2) Add parameter MARGIN
+
+243) ver 98.6 (4 Aug. 1998)
+     1) prout - Add parameter indices.
+     2) diskin/diskio - Diskio returned a valid unit number (the one for
+        ipath) when creation of a temporary file (seisXX) failed.
+     3) shift - Add parameters INDICES and SMULT.
+244) ver 98.7 (30 Sep. 1998)
+     1) contro - Add processes COFILT and SEG2IN.
+     2) diskin - Add format ODEC and make format SWAPPED pure.
+     3) diskin - Add parameter NSAMPS to override SEG-Y trace header
+     4) plot - interpolation was wrong which caused a striping effect.
+245) ver 98.8 (3 Nov. 1998)
+     1) contro - Add process XCORR
+     2) wbt - Add parameter PEAK
+     3) nmo - Add parameter NEWX
+246) ver 98.9 (21 Dec. 1998)
+     1) seg2in - Set the SEG-Y trace id to 1
+     2) gather - Allow FRP to be given without meaning restart.
+     3) plot - Add ann shot&tr and rp&tr
+     4) segdin - Didn't handle demux trace header extension.
+               - Ignore record length in the general header.
+     5) seg2in - Do error correction on shots with dropped bytes
+     6) geom - Add EPATH for entering elevations.
+247) ver 99.1 (11 Jan. 1999)
+     1) velan - CVEL bombed dues to incorrect number of args to nmoapp
+            (update 21 Oct. 91,  ver3.1.6)
+     2) prout - When printing indices, only print the indices.
+248) ver 99.2 (May 1999)
+     1) calcrp - Round the range to nearest integer
+     2) output - Allow new DEVICE and remove f77
+     3) tpchng - INQUIRE failed on Solaris 5.6
+     4) segdin - Had trouble with the extended header pointer.
+               - Create a trace 0 for geomex for the Digicourse streamer depth
+               - Change DEVICE to be unix device name and remove f77 tape I/O
+     5) geomex - The Digicourse block length was fixed length - must be variable
+     6) input - Change DEVICE to be unix device name and remove f77 tape I/O
+     7) diskio - Save the file name so that files can be deleted by
+                 frefil (c unlink need the file name).
+     8) magsun/maghp - Device name was done wrong.  bad strcpy args.
+     9) reltap - Remove calls to freetp
+    10) gather - change maxrps preset to number of input traces + 20
+    11) smute - Put the start/end smute time in mils into the SEG-Y
+                header (for stack).
+             - Set interp on when xtp is given.
+    12) plot - Time line annotation on color plots wrote outside array
+             - ASCII header info overflowed and program overlay bombed.
+    13) input - Set allno to 0 (off) if noinc or rpinc or sinc are given.
+    14) despike - Add parameter MINVAL for dead trace picking.
+    15) diskox - When rewind yes, use last shot/rp no rather than tr 1 for rewind
+    16) xcorr - Add parameter CATS
+    17) wbt - Add parameter SEPP.
+    18) gains - subwb was wrong on type 3
+OVERLAY - version 16 May 1999
+    1) Add optional parameter LTR for "left-to-right" plots.
+    2) Honor plots made with HSCALE.
+249) ver 99.3 (25 May. 1999)
+    1) geom - TYPE 3,4,5 (LDEO geom file) to calculate range in REAL.
+250) ver 99.4 (June 7, 1999)
+    1) diskio - Add opening/creating of files > 2GB.  Auto detect on read.
+              - Add entries getfil64, filsiz, getdir, godir, adrdisc64
+    2) diskox - Add parameter BIG to create a large file > 2GB
+    3) diskin - Add lprint 8 to print the disk address prior to each trace
+              - Honor ALLNO NO.
+251) ver 99.5 (24  Aug 1999)
+    1) contro - Add process STK and rename stacked.f and stack.f
+    2) diskox - Add processes DISKOE, DISKOF, DISKOG, ..., DISKOJ
+    3) diskin - Allow delay as an unsigned short integer for Knudsen
+              - If very large delay, then divide by 10 since Knudsen uses nanosec.
+    4) nmo - Change feb mod.  Zero data when time goes backwards, causing
+             "wavelet inversion".  Data is ok as long as time increases.
+    5) subroutines diskio, shifts
+    6) stk - Add TRIM median stack and XXT Range-range-time stack.
+    7) contro - Allow FLATTEN as well as flaten.
+    8) diskin - Change format KNUDSEN for data byte swap.
+    sio2hp - Check for IPATH being a Sun rasterfile.
+252) ver 99.7 (22 September 1999)
+    1) segdin - DEVICE didn't work.
+    2) geom - Add TYPE 7 - insert elevations into the header only.
+            - Allow elevation interpolation/extrapolation
+    3) weight - Add parameters HDR, IHDR, LHDR, INVERSE
+    4) plot - Truncate the shot/rp number to 4 char when sh&tr or rp&tr
+    5) diskio - Do the file name termination in diskio space
+253) ver 99.8 (29 October 1999)
+    1) diskin - Added parameter ALT
+              - Made IPATH2, ALT 2, mean read alternate traces
+    2) sort - INQUIRE failed on Solaris 5.6
+    3) diskin - Negative delay for Knudsen did in Geometric legal neg delay
+    4) smute - April mod didn't honor interp when it was given.
+254) ver 99.9 (24 December 1999)
+    1) magsun - Allow unit numbers up to 99
+    2) ldgo_tr0 (segdin) - Change for possible conversion for 4 digit year
+                         - Add LDEO header error diagnostics
+    3) geom - Check for rumored LDEO Y2K compliance
+    4) contro - close Fortran SCRATCH files opened by gather, input, plot
+    5) diskio - frefil didn't delete the scratch/temporary files.
+    6) contro - Open the scratch file for the parameters saving so
+                it can be deleted.
+    7) diskox -  Error out "gracefully" if OPATH is not writable.
+    8) tx2fk, fk2tx - Allow scratch file names > 6 characters.
+    9) diskin - Linux barfed on subroutine lcode's READ for fno/lno.
+255) ver 2000.1 (18 January 2000)
+    1) nmo - vtrkwb didn't spatially interpolate VTP when water depth decreased.
+    ATLANTEK - Terminates after first buffer - probably because buffer wasn't flushed
+               by the writing OS.  Fixed by checking for partial buffers.
+256) ver 2000.2 (15 February 2000)
+    1) diskin - Old trace 0 trace length bug workaround rejected new correct length
+    2) output - Was writing the wrong sort id in the binary header
+257) ver 2000.3 (31 March 2000)
+    1) geom - SGI version bombed because elevation unit number was not preset to 0.
+    2) smute - Tail mute didn't interpolate correctly.
+    3) cofilt - Change uinc and vinc calculation as per Harm.
+              - Make it work!
+    4) geom - Add UKOOA
+258) ver 2000.4 (26 April 2000)
+    1) geom - LS preset was incorrect.  Now LS defaults to FS.
+            - NAVFIl didn't work on SGI because of UKOOA change.
+    2) prout - INDICES and FORMAT did not woork together
+    3) wbt - PRESTK didn't work with THRES or PEAK
+Atlantek - remove call in attach for "streaming Centronics"
+
+259) ver 2000.5 (23 May 2000)
+    1) f2t - Add Hilbert transform and analytic trace outputs
+    2) gains, prout, f2t - Allow nsamps > 16K by not using SEGY header.
+260) ver 2000.6 (9 June 2000)
+    1) diskin - Add parameter NTODO
+    2) xcorr - 32 bit pilots didn't work (g77 detected)
+    3) psmigr -  g77 compiler idiosyncrasy
+    4) sort - g77 compiler idiosyncrasy
+    5) fdmigr - g77 compiler idiosyncrasy
+    6) geom - ldgo/ldeo geom g77 compiler idiosyncrasies
+    7) wbt -  g77 compiler idiosyncrasies
+    8) diskin - A byte swap problem on Intel segy headers
+    9) plot - g77 compiler idiosyncrasy
+261) ver 2000.7 (29 June 2000)
+    1) diskin - Use REAL sample interval for 4096 and 8192 sample rates
+    2) input - Use REAL sample interval for 
+               128, 2048, 4096, 8192, 15000, 16000, 32000
+    3) wbt - Add parameter INDEX for location to write the bottom time.
+    4) mix - Add type 4 mix (header mix only) and HDR, LHDR, IHDR
+262) ver 2000.8 (31 July 2000)
+    1) diskin - Skip ldgo_tr0 if the LDEO header is bad.
+    2) gains - Add TGP and ADDWB
+    3) nmo - Jan update for vtrkwb caused memory overwrite.
+    4) input - Non integer start time in SET caused bad delay.
+    5) input - allno and alltr didn't work because of mar 99 update
+Changed makefile from f77 -O to f77 -fast, which causes message:
+         Note: Nonstandard floating-point mode enabled 
+263) ver 2000.9 (7 Sept.2000)
+    0) Atlantek - 3 Sept 00 - Was dropping 3/4 of the rasters
+    1) output - Add TRACE0, preset = no, for optional trace0.
+              - Add OUNIT2 for optional copy of the tape.
+    2) segdin - When LDEO Hydrosweep water depth goes bad, use the last good one.
+              - ffilen/lfilen without ftr/ltr didn't work.
+              - reverse lat/long in SEGY header.  Should be long/lat
+              - Honor ffilen/lfilen & Syntron's weird file numbers when > 16665
+              - Use REAL*8 lat/long to decode trace 0.
+              - Change some recording error checks
+    3) despike - SES/SEL didn't work.
+    4) contro - Add process TREDIT
+              - Add warning if a processes parameters are give twice.
+    5) tredit/despike - Add LIMITS and KILL INSIDE and KILL OUTSIDE.
+    6) plot - Add parameter RECSP YES
+    7) input, segdin, output - Close the tape file during tape changes.
+    8) geom - Add type 9; calculate DFLS using SEGY long/lat
+            - type -9 uses lat/long rather than long/lat
+            - Use the range from the SEGY header if GXP is not given.
+    9) diskin - fno/lno and sort didn't work right
+    10) ALL, - Allow 200 characters on a parameter line (rdline bug)
+    11) SIOPLT - Black & white plots were reverse video
+    12) gains - Add parameters TADD and TMULT
+264) ver 2000.10 (14 Nov 2000)
+    1) diskio - Add podisc64 and podiscb64 for positioning larging files.
+    2) diskin - DEC/INTEL need to swap bytes in segy header word 20 & 22
+    3) geom - Stop writing over (clobbering) x-coordinate (word 19)
+    4) sort.BIG - allow up to 500,000 traces
+                - include June 1997 changes for reverse
+    5) mix - Mix by header introduced a bug in trace mix
+265) ver 2001.1 (23 Jan. 2001)
+    1) diskin - Make the sort "stack" if the rp number, rp trace number AND
+              the "cdp fold" (short integer word 17) is non-zero
+    2) make sioseis sioseis.small and sioseis.BIG sioseis
+    3) contro - Add process grdout
+    4) diskin - Make ODEC work
+266) ver 2001.2 (20 Feb. 2001)
+    1) diskin - Add/change some of the header bytes to swap on PC/DEC
+277) ver 2001.3 (19 Apr. 2001)
+    1) plot - The plotter size on nibs 200 (Versatec 1200) is 10.56 not 11.
+    2) fdmigr - Allow velocities < 350.  Now between 0 & 32000
+    3) nmo - interpolation was wrong on last pair when vintpl 1 and "thinning"
+    4) plot - Add parameter hpath (segy header file ouput)
+278) ver 2001.4 (30 May 2001)
+    1) seg2in - Byte swap problem on pclinux.
+    2) segdin - Y2K bug going from 2 digit SEGD to 4 digit SEGY
+    3) plot - Annotation type GMTRP and GMTSEC were confused.
+    4) plot - Change format of vscale in plot header to allow vscale > 99
+    5) geom - Write the surface location in header words 19 and 21 when
+              elevations are given.
+    6) diskin - Do NTRGAT, then RENUM, then RETRAC
+
+SIOPLT - Add trace editing (create weight parameters)
+SIOPLT - Add event picking (create wbt parameters)
+SIOPLT - Add trace-time picking (create ttp for mute)
+SIOPLT - Add trace-start-end time picking (create tsets for smute)
+SIO2HP - Change MARGINS preset to 1.0
+
+279) ver 2001.5 (12 June 2001)
+    1) seg2in - The byte swap change made the data format wrong.
+    2) contro - Wasn't calling grdout on the last trace when isatop = -1
+    3) grdout - Reverse the trace in time.
+              - Make SET work.
+              - Add some warnings.
+280) ver 2001.6 (21 June 2001)
+    1) nmo2,3 - Update to be the same as nmo.
+    2) wbt, contro - Add processes WBT2, WBT3
+    3) header, contro - Add processes HEADER2, HEADER3
+    4) diskin - Use REAL*8 args when reading trace 0 (see segdin Oct 2000)
+281) ver 2001.7 (26 July 2001)
+    1) shift - Change INTERP preset to NO when TSP, GSP, xSP
+               or RSHIFT.   INTERP is YES on all others.
+             - Do spatial interolation, when INTERP YES.
+    2) segdin - Add Ewing Spectra navigation
+              - lfilen didn't work when doing multiple channel sets.
+              - Preset retrac to 1 when doing multiple channel sets.
+    3) contro - Add process XSTAR.
+    4) tx2fk, fkmigr, fk2tx - set apmem to 5000000
+    5) fkmigr - Error out gracefully when too many frequencies (4096).
+    6) nmo - nmoin did not work with deep water delays.
+
+5 Sept 01 - sio2sun - gray scale didn't work due to array overflow
+
+282) ver 2001.9 (10 Sep 2001)
+    1) contro, xstar - Create process xstar
+    2) despike, tredit - Make sure SES and SEL don't get too small when
+                         ADDWB is used.
+
+SIO2HP - Allow gray scale
+
+283) ver 2001.10 (15 Nov. 2001)
+    1) gains - Add error check for tgp not in pairs
+    2) shift - Parameter indices required a second parameter to be given.
+    3) xstar - Add parameter xyzpath and binpath, and depth, deltad
+               for inserting the water depth into the SEGY header.
+    4) contro - Make xstar a multi input/output process so it can
+                interpolate water depths.
+    5) mute - Allow 500 mutes to be given (up from 50)
+284) ver 2001.11 (30 Nov. 2001)
+    1) plot - ltr gray scale didn't work.
+            - Do amplitude comparison to def in floating point.
+    2) maglinux - Redhat includes are different.
+    3) grdout - Correct the warning messages.
+286) ver 2002.1 (20 Feb. 2002)
+    1) plot - Add warning message when plot and data windows don't overlap.
+    2) xstar - Add parameter WIREOUT
+    3) plot - Linux choked on opening opath and hpath
+    4) xstar - Usage without depth created junk.
+             - Bad first ping didn't kill the trace properly.
+    5) despike - Add parameters WINLEN and HCYCLE.
+
+SIOPLT - Add many picking options
+
+287) ver 2002.2 (march) - incomplete
+    1) t2d -
+288)  ver 2002.3 (3 May 2002)
+    1) diskio.c - Change seek parameters to SEEK_CUR and SEEK_SET.
+    2) diskin, xstar - Allow single transducer GeoStar data
+    3) contro - bad xstar initialization on SGI
+    4) xstar - Multiply GeoStar sample interval by 2 (1 way time)
+    5) diskin - won't compile on HPs anymore, so comment out old DSS
+
+gstar2disk - Converts GeoStar data from a PC disk file to a big endian Xstar file.
+
+289) ver 2002.4 (2 Aug. 2002)
+    1) output - Allow OUNIT2 without OUNIT for testing with 1 drive.
+    2) segdin - ntrgat didn't set the rp number
+    3) magtap - buffer overflow; increase maxdrvs from 10 to 100
+    4) magsun - buffer overflow; increase nunits from 40 to 50
+    5) plot - Do ltr annotation at the TOP of the trace.
+    6) diskio - clean up and consolidate various versions
+              - Use 777 ownership on sioseis_tmp files.
+    7) tredit/despike - bad end time check on sel.
+    8) smute - Spatially interpolate the range or trace number when XSETS and TSETS
+    9) nmo - Add parameter DSTRETCH
+   10) contro, getpro, make - Add process SEGDDIN
+   11) ukooain - Put water depth in trace header.  Also use NINT.
+   12) rline, getoke - Add second unit (entries rline1, getoke1)
+   13) stack - remove zeroing of trace header words 19 & 21 (x-coords)
+   14) diskox - Count the parameters read correctly.
+   15) input, segdin, output - Give warning when DEVICE does not have 'bn'
+   16) diskox - SAVE mlists
+   17) segddin - parameter newfile implementation crashed segddin
+
+dutil - add option "ad"
+lst - change the tape unit argument to device
+sio2sun - Try to recover files that did not terminate correctly.
+
+290)  Ver 2002.5 (8 Aug. 2002)
+    1) segddin - Get nspfile to work
+               - Get retrac to work
+    2) diskin - Create FORMAT DSS-240 to eliminate new trace 28 problem
+291)  ver 2002.6 (29 Sep. 2002)
+    1) diskox - PC needed trace header byte swap when posaft -1
+    2) segddin, segdin - ldgo_tr0 - change min Hydrosweep depth from 100 to 10
+    3) diskox - Change BIG preset from NO to YES (0 to 1)
+    4) weight - Check for twp given multiple time in same list
+    5) segdin, segddin - Don't save or use water depths < 6
+
+sioplt - finish -vtp
+       - reconstruct pick visualization
+list.ewing - Add parameter device
+
+292)  ver 2002.7 (29 Oct. 2002)
+    1) segddin - Add parameter LDEOLIST for automatic seisnet pathnames.
+    2) geom - With type 9, don't calculate dfls if lat+long = 0.
+    3) geom - increase bgp to allow 50 pairs
+    4) geom - navfil was bad if first shot was first in navfil and was -long.
+    5) geom - Use floating point math rather than integer
+    6) nmo - Modify centerbeam warning message to print the depth used.
+    7) despike - Didn't work at all due to bad common name.
+    8) avenor - Added parameter hold.
+    9) output - Print the file number after writing an eof with newfile.
+    10) stk - Median stack bombed when all traces were 0 (muted).
+    11) diskin - Honor the new segy headers when the file changes.
+    12) input,segdin - Do the temporary file for file IN/in so it goes away.
+    13) output - Redo tape changes since hardware EOT is handled differently now.
+    14) segddin - First file in nspfile count was 1 shy.
+                - fcset 99 means use all channel sets.
+                - Force lcset to ncsets if lcset > ncsets
+293) ver 2002.8 (22 Nov. 2002)
+    1) diskin - PC version didn't swap bytes on binary header (previous update)
+    2) diskox - PC version didn't swap bytes for data of IEEE (Now legal SEGY)
+    3) diskin - Don't warn about xero shotno/trno when Edgetech
+    4) diskox - PC needed byte swap on data portion on IEEE
+    5) diskin - Allow delay > 20 sec.  Use format knudsen to convert from samples
+              - Allow 32 bit DELAY
+    6) xstar - xyz wrote over the first three samples
+    7) wbt - Add some error checking.
+    8) plot - Add parameter RECTIFY
+294) ver 2002.9 (20 Dec. 2002)
+    1) xstar, diskin - Square away 1 vs 2 trace XSTAR and 1 trace GSTAR.
+    2) xstar - Add parameters FTR, LTR, TYPE, WEIGHTS
+295) ver 2003.1 (22 Jan. 2003)
+    1) diskin - Reset defaults on fno/lno/ftr/ltr if ODEC or EDGETECH
+              - Square away the byte/word order of Edgetech NMEA string on PC
+    2) doex, syn - Allow 32 bit DELAY.
+    3) gains - comment out an unused statement.
+             - Bad error check on ntgp
+    4) wbt - Don't use zero window in solrat
+    5) plot - PC timing lines were off sometimes.
+            - annotation was bad on PC when nibs 75 was used
+    6) diskox - Allow all 10 diskox processes!
+    7) shift - Change some debug (lprint 2) messages
+    8) avenor - Use NINT to calculate window indices
+
+sioplt - numerous changes
+
+296) ver 2003.2 (7 Feb. 2003)
+    1) plot - Change default deflection on colors gray
+            - Don't plot negatives on ltr gray plots
+            - Add parameter DPTR.
+    2) tx2fx, fk2tx - AJH, Redo disk buffering because of OSX weirdness.
+
+sio2sun - Add a couple of plotters
+        - Get grayscale and color to work on PC
+
+297) ver 2003.2 (19 Mar. 2003)
+    1) gains - Increase params array to prevent buffer overflow
+    2) xstar - ltr didn't work
+             - weights had bad preset
+             - Add parameter DUMMIES and create dead traces when missing ping.
+             - Set intrcs = 1 on every ping.
+    3) plot - New parameter NOINC is equivalent to NINC.
+            - Make ninc/noinc work when first shot number is not 1.
+    4) nmo  - Add parameter IVTP - Interval velocity-time-pairs.
+    5) header - Add INTERP to be equivalent to SPAT and make the
+                preset NO when using equations, as per documentation.
+              - Make l10 = 0 - l10 work
+    6) stk  - Add PANEL or progressive stacks.
+    7) segddin, segdin - Make fcset preset = 99 (process all channel sets).
+    8) output, segddin, segdin - Separate SEG-D general header from LDEO header.
+    9) diskox - Add parameter TRACE0 YES and write trace 0.
+    10) segddin - Do the log differently if not LDEO.
+    11) geom - Use lunldeo rather than luntr0 for ldeo header.
+298) ver 2003.3 (1 Apr. 2003)
+    1) xstar - Make sure traces to be summed have the same sample interval
+             - Require parameter TYPE to be given.
+    2) nmo - Do IVTP addwb yes correctly.
+           - Add VINTPL 4
+           - Preset VINTPL to 4 when IVTP is given.
+    3) header - Multiple list didn't work.
+299) ver 2003.4 (28 May 2003)
+    1) diskin, diskox, input, output - Handle SEG-Y Rev 1 Textual Extension Records
+    2) diskox - Add parameter EXTHDR to NOT write the Rev 1 records.
+    3) syn - Add parameter EXTHDR
+    4) header - Create SEG-Y Rev 1 Textual Extension Records
+              - Add parameter REV1 FILENAME for user given TER
+    5) segdin, input, output - Bad error check for SGI tape device names.
+    6) diskox - Set the REV 1 "fixed trace length" flag when appropriate.
+              - Set binary header number of traces per ensemble.
+    7) diskio.c - getfil64, mode 3, needs close between creat64 and open.
+    8) geom - Add parameter writexy to write in SEGY words 19 & 21
+    9) diskox - Always rewrite nsamps and si into binary header.
+    10) diskin - Tighten the check for SEG-Y Rev 1 because of crap in the binary header
+    11) input - don't do byte swap on disk copy of the binary header.
+300) ver 2003.5 (17 June 2003)
+    1) header - Correct "crosstalk" between different types of parameters.
+    2) diskox - Redo the rewrite of the binary header.
+              - Add FORMAT BINARY, no headers at all.
+    3) geom - Add TYPE 10, write the UKOOA coordinates in the trace header.
+301) ver 2003.6 (17 June 2003)
+    1) gains - Add parameter WINLEN.
+    2) cofilt - Post stack data was treated like prestack gathers.
+    3) diskox - Do checks for SEG-Y Rev 1 differently so bad headers
+               (e.g. Edgetech) don't cause Extended headers.
+    4) xstar - Make sure sample interval is the same on both summed traces
+             - Change message when only one ducer used on dual ducer system
+             - set binary header words 151-153 to 0
+    5) shift - parameter indices was always being reset to 0.
+    6) segddin - Seisnet - New method of finding trace 1.
+    7) diskox - noinc was not honored with trace0 yes
+    8) diskin - Add FORMAT UTIG-OBS for 32 but delay
+              - Do Knudsen unsigned int delay under FORMAT KNUDSEN
+ver 2003.7 (18 July 2003)
+    1) grdout - Make gmt variables REAL*8
+    2) diskox - Write the output trace count to trace header long word 2.
+ver 2003.8 (14 August 2003)
+    1) plot - Do left time line annotation if nibs > 250
+    2)      - Add ANN2 (plote*.f, trplot.f spp.f spp2.f getlanno.f)
+    3) geom - Add SEGYXY - Compute range and rp number from SEGY xy.
+ver 2003.9 (26 October 2003)
+    1) diskio - Always use 64 bit arguments in lseek on podisc and podiscb.
+    2) filter - Minimum phase filter slope was off by a factor of 2.
+    3) geom - Add TYPE 11 (compute range and rp from SEG-Y header)
+            - Add TYPE 12 (Mladen's 3-D/cross-dip geom).
+            - Add param bin_h (bin height).
+            - Add parameter HPATH
+lsd - Allow nsamps = 0
+
+ver 2003.10 (1 December 2003)
+    1) gain - Make multiple lists work with TGP.
+ver 2004.1 (14 January 2004)
+    1) geom - Removed type 12 and added type 13 (UKOOA feathered streamer).
+    2) plot - Clean up difference between rtl and ltr on color and gray.
+    3) grdout - Add parameter HDRPAD for GMT's OSX implementation.
+    4) input - Change nfiles preset to 0 AND whether to terminate without
+               asking about file IN when nfiles = 1.
+ver 2004.2 (20 Apr. 2004)
+    1) input - Change nfiles preset to 0 so that nfiles terminates
+                   without the tape change question and file in.
+    2) geom - Account for a missing shot in the UKOOA file.
+    3) gains - Bad error check on 2003.10 update.
+    4) xstar - Change some warning messages.
+    5) segddin - Allow HydroSciences HTI format.
+               - Add 24 bit integer (seg-d 8015) format.
+    6) gains - Have TGP honor SUBWB
+    7) plot - Add the iSys V12 - nibs 2368
+            - Create sio2c to convert sioseis plotfiles to iSys Centronics
+ver 2004.3 (28 May 2004)
+    1) segddin - Honor the record length from general header #2
+               - Add automatic file name generation for the Geometrics.
+               - PC-Linux version didn't work.
+               - Honor $GPGGA in the extended header.
+    2) geom - Write the long & lat into SEG-Y header on SIO nav.
+    3) plot - anninc was not honored by fanno
+    4) diskin - Edgetech binary header conflicted with SEG-Y Rev 1
+    5) shift - lshift wasn't working.
+ver 2004.4 (8 July 2004)
+    1) segddin - Bad $GPGGA string (GPS) caused error.
+               - Bad file number when extended header is used.
+    2) fdmigr - Zero dead traces before processing them
+              - Velocity inversion causes garbage, so warn.
+              - Increase buffering (apdata) to 5000000.
+    3) segddin - Add parameter DESCALE and honor the MP factor.
+    4) segdin - Add parameter DESCALE and honor the MP factor.
+    5) stack - Use the entire trace header of the first trace.
+    6) diskin - Refine fgmt/lgmt/fday/lday on day boundaries.
+ver 2004.5 (1 Sep. 2004)
+    1) plot - ann2 didn't work on color or grayscale plots.
+    2) geom - sionav failed across 180/-180 boundary.
+    3) diskin - Put Edgetech course and speed into SEGY words 63 & 64
+    4) fdmigr - Check for nx > 16384
+ver 2004.6 (13 Oct. 2004)
+    1) segdin, segddin - The extended file number was wrong.
+    2) diskin - Save trace 0 on a circular disk file whenever it occurs.
+    3) segdin, segddin - The MP factor is a sign and a magnitude.
+    4) diskio - Correct a buffer overflow on some file names.
+    5) prout - Change the format length of the REAL sample interval.
+    6) plot - Correct bad index on last color rasterline
+
+sio2hp  - ver 2.9 - Multiple color plots didn't work.
+        - Add documentation for DesignJet 2500, 5500 for RTL
+ver 2004.7 (17 Nov. 2004)
+    1) xstar - Use first trace only in sum when sample interval differs.
+ver 2005.1 (15 Feb. 2005)
+    1) xstar - Add parameter MKREAL.
+             - Edgetech scalar may have been bad on first trace.
+             - on type 2, divide the summation by the number of traces added.
+    2) geom - Bad edit check for navfil and type 3,4,5.
+    3) diskin - On Edgetech, use topside cpu clock when no NMEA clock
+    4) weight - Allow hdr/lhdr/ihdr to be given without any other weights.
+    5) gains - Double the sample interval after doing complex modulus
+    6) plot - Polynomial interpolation gave bad result on a dataset.
+    7) grdout - Set HDRPAD to NO when on a byte backwards machine (PC).
+    8) f2t - When analytic output, divide the sample interval by 2.
+ver 2005.2 (25 Mar. 2005)
+    1) prout - indices didn't honor ftr/ltr.
+    2) geom - Change units of cross-line offset to meters.
+    3) f2t, gains - Write the integer sample interval by rounding the real.
+    4) diskox - OFMT 0 means OFMT = IFMT.
+    5) plot = NSECS 0 means the plot will be the length of the first trace.
+
+sioplt - 22 Apr 2005 - only save two picks for display when plot is moved.
+
+ver 2005.3 (1 Apr. 2005)
+    1) geom - Add parameters bin_off, fbinx, fbiny, lbinx, lbiny
+    2) xstar - Redo logic for missing traces, pings, and stacking.
+ver 2005.4 (20 May 2005)
+    1) tx2fk, fkmigr, fk2tx - Allow 16K samples.
+    2) shift - Honor shot and receiver datums when doing datum shift.
+             - Honor the SEGY elevation scalar when doing datum shifts.
+ver 2005.5 (16 Jun 2005)
+    1) resamp - Add warning message if decimation is exactly 2 or 4.
+    2) diskox - Add opath DATE and SHOTNO to generate file name.
+    3) segdin, segddin - Set newfile = 0 before every trace.
+    4) segddin - Make lprint 32 print the ASCII External header.
+    5) prout - Use REAL*8 to print indices.
+    6) geom - Use REAL*8 for feather angle and crossline offset.
+            - Honor SEG-Y scalar for X/Y coordinates.
+            - UKOOA shot coordinates were not REAL*8.
+            - Add lprint 128 to print cross-line stuff.
+    7) header - Do header math in REAL*8.
+ver 2005.7 (25 Sep. 2005)
+    1) diskin - Preset LGMT to FGMT.
+    2) plot - Allow a shot number of 0 (Knudsen).
+    3) contro, diskin - Allow REALTIME on PROCS list.
+    4) getoke - Add entry getoke1c
+    5) geom - Add type 14 = healy05
+            - navfil for Geometrics/Bergen log file
+            - epath for SeaBeam centerbeam path
+            - Changed navgeom scalar from 10 to 1000
+            - bad dfls after missing shot.
+            - Bad dateline crossing
+            - epath for Knudsen depth files
+    6) segddin - Add lprint of the K constants
+    7) velan - Increase max allowable semblance segy samps to 4000
+    8) despike - Add endmute to min/max
+    9) stack - Add NEW (add non-zero values only)
+    10) diskio - Put the pid in tmp file names.
+    11) f2t, gains, diskox - All nsamps > 32767
+    12) wbt - Honor scalar (segy short word 35).
+    13) geom, healy05 - Bad arcseconds calculation
+    14) prout - Add parameter INFO
+    14) FK2TX - Add parameter KILL
+ver 2006.1 (31 January 2006)
+    1) segddin - SIO Geometrics SEG-D external header format changed.
+ver 2006.2 (25 May 2006)
+    1) contro - Automatic determination of endianness
+    2) segddin - Change nspfile preset to 99999 as per documentation
+    3) weight - change GOTO block for gfortarn
+    4) header - BHDR didn't work on Linux because wrdiscb had extra arg
+    5) diskin, diskox - gfortran chokes on internal reads/writes
+                that were necessary for VMS
+    6) several - FLOAT(i*2) fails gfortran - must be REAL(i*2)
+    7) many - change dimensions from (1) to (111)
+    8) geom - Change lprint 128 and other cross-dip stuff.
+            - SEGY header for feathering angle and cross-dip offset are
+              relative to the processing line rather than the shot line.
+    9) syn - Add parameter NOINC.
+    10) gather - Redo messages for max maxrps and maxtrs.
+               - Allow a gather to have 2G words.
+               - Get rid of FRP restart stuff
+               - Change maxtrs to 100 from intrcs.
+    11) diskio/podisc - OSX 8 byte int arithmetic is bad when a 4 byte int is involved.
+    12) diskin - Add checks for "edit only" when irun = 0
+    13) rdline - Use frefil 4 (delete scratch files) before STOP
+    14) header - Allow negative fno/lno and ftr/ltr.
+    15) stack - Change NEW preset from 0 to 1
+    sio2sun, lsd - Automatic determination of endianness
+ver 2006.3 ( 15 June 2006)
+    1) sort - IKEY2 did not work.
+    2) diskio/podisc - OSX lseek "address" is off_t is int, not long long
+    3) diskin - ibm2fp needs to use LRSHIFT rather than RSHIFT
+    4) diskox - ie2ibm needs to use LRSHIFT & LLSHIFT for int/long in shifts.c
+    5) dutil - tohex needs to use LRSHIFT & LLSHIFT for int/long in shifts.c
+    6) shift - PC Linux (gfortran) bug with EQUIVALENCE
+    7) shifts.c - lshifti & rshift are short integer, llshift & lrshift are int
+    8) weight - Add parameter TYPE and weighting my inverse standard deviation
+    9) many/all - Change AND(lprint to IAND(lprint
+
+    10) tohex - lshift/rshift
+    11) pclinux - gfortran is bad - use xsopac and g77
+ver 2006.4 (21 July 2006)
+    1) geom - Add type 16 (Healy06) - get nav from centerbeam file
+            - Add type 17 (range from first trace)
+            - Add NAVFIL2
+            - Add istop
+            - Redo segyxy for type 17 
+    2) header, t2f, f2t, diex, doex - finagal ibuf(58) to allow large nsamps.
+    3) contro - increase max trace length from 33000 to 50000
+              - Add istop to geomex
+    4) rlseap - add error if too many (>maxsam*3) samples are taken out.
+    5) mute - Honor the water depth scalar when wbdvel is given.
+    6) diskin - Change LGMT from a default to a preset (don't reset)
+              - Day > lday caused crash.
+    7) plot - When hscale and current range < previous, drop the current
+            - Left justify ANN2
+            - Do NOT use FNO unless given so that decreasing shots will plot.
+            - Don't even try plot trace that are outside the plot window.
+            - LTR timing lines should start at "top" bot "bottom"
+    8) header - large nsamps needs proper byte swap on PC
+ver 2006.5 (27 Sep 2006)
+    1) plot - Corrected screwy time lines on some ltr plots
+            - Added time line annotations on dir ltr when nibs > 200
+            - When plotting by range don't plot the trace if dx = 0.
+    2) geom - type 9 NMEA string different than expected.
+    3) diskin - Linux ODEC didn't work
+ver 2006.6 (10 October 2006) 
+    1) segddin - Preset NSPFILE to 9999999  (See May update!)
+               - $GPGGA gave bad lat/long minutes
+               - $GPGGA failed when timestamp was good but fix was bad
+    2) diskin - ODEC needs to swap year/day/hr/min/sec on non-Linux
+              - ODEC writes a bad ping every now and then
+    3) diskox - Don't do newfile (nspfile) if OPATH is not DATE or SHOTNO
+    4) plot - modify annotation fonts on ltr plots
+            - ann2 fanno yielded annnotation incremented by 1
+    5) geom - Set lat/long to 0 when bad fix in $GPGGA.
+ver 2006.7 (12 October 2006)
+    1) t2d - Change OSI preset to 1.
+           - Change SDEPTH/EDEPTH preset to not given.
+           - Set delay and nsamps on every trace.
+           - Print min and max depth of job on last trace of job.
+    2) geom - Use last DFLS when bad type 9 and account for it when good again.
+    3) segddin - Honor NMEA $DBT string for water depth.
+ver 2006.8 (8 November 2006)
+    1) tx2fk - Change TWINLEN from time to samples.
+             - Change TWINLEN to 25 samples.
+    2) ap simulator - Increase initial buffer size to first trace length * 3
+    3) segddin - Allow the SIO segd external header and nav format.
+               - Modify the SIO nav format, for it changed.
+ver 2006.9 (22 December 2006)
+    1) diskin - format swapped didn't swap the nav
+    2) inap - save nextad so we know when buffer overflow happens
+    3) stack - Recalculate buffers when a really big trace comes along.
+    4) contro - Create new type of warning - SEVERE WARNING  and parameter
+                OVERRIDE.
+    5) getpro - Make giving the same process twice in procs a severe warning.
+
+distance - was incorrect when negative degrees
+sio2hp - Bad auto color determination.
+sio2hp - Do auto byte swap determination.
+
+ver 2007.1 (12 January 2007
+    1) segddin - stack didn't honor extended (> 9999) shot numbers.
+    2) gains, contro - Add GAINS2, GAINS3
+    3) t2f - First pad sample was not zeroed.
+           - Windowing was incorrect, if requested.
+2007.2 (19 January 2007)
+    1) geom - Add parameter MAXDFLS.
+            - Change the way type 17 calculates  rp numbers.
+            - Add parameter MINDFLS.
+2007.3 (14 February 2007)
+    1) geom - Add parameter SETBACK
+            - Calculate source and receiver coordinates.
+    2) stack - Compute the rp coodinates (source + receiver ) / 2 and
+              store on header words 19 & 20 and zero 21 & 22
+    3) header - Add parameter SWAP.
+    4) prout - Do negative lat/long correctly on info.
+    5) getpro - Change duplicate procs a regular warning, not severe.
+    6) diex - format swapped didn't work on Intel.
+ver 2007.4 (27 February 2007)
+    1) prout - Add parameter TRLIST
+    2) gains - Type 5 - don't multiply when t LE 0 because of subwb
+ver 2007.5 (17 April 2007)
+    1) gains - Type 5 - Don't do anything when (time-wbt) LE 0
+    2) plot - Add parameter CHART.
+            - Add parameter PLOTTER and make it equivalent to NIBS.
+            - ANN SHOTTR gave rp trace number when sorted by rp.
+    3) diskin - NOINC with RPs didn't work on Palmer data because blah blah
+ver 2007.6
+    1) stack - The 2005 "new" algorithm was lost in 2006, so it was redo
+ne.
+    2) smute - Allow ADDWB 2X
+    3) plot - make HPATH a SEG-Y file so lsd etc work on it.
+ver 2007.7 (5 July 2007)
+    1) tx2tp - prestack didn't work.
+    2) tp2tx - prestack didn't work.
+    3) geom - multiple user lists was wrong due to adding adding setback.
+            - Allow GXP to carry over when multiple lists are given.
+    4) sort - Check for the maximum number of traces that can be sorted.
+    5) wbt - Add error is prestk is not yes or 1.
+    6) diskin - Check for SEGY REV1 on SEGY files only.
+              - Ignore "shots" with nsamps 0  and trace id 0.
+    7) syn - Add parameter TTVA
+    8) tx2fk - Abort/stop when 2 or less traces in x.
+             - distinguish between nprestk and prestk
+             - Sort by range only when nprestk > 1
+    9) contro - Increase MAXSAM to 64K (64356)
+ver 2007.8 (23 July 2007)
+    1) tx2fk, fk2tx - Allow 32K time samples.
+    2) fkmigr - redo buffering so a max of 16K time samples cam be done.
+    3) diskin - Allow ipath /dev/null to insert dead shots.
+              - Still confusion on when to byte swap the binary header.
+    4) segddin - Allow $SDDBT for NMEA water depth.
+    5) syn - Parameter values didn't work.
+    6) getokec (segddin and dbt) - Allow vacuous field.
+    7) plot - When nsecs = 0, limit the amount to plot by the plotter size.
+ver 2007.9 (15 August 2007)
+    1) numerous - g95 IAND requires same TYPE and KIND
+                - g95 doesn't allow variable value assignment on TYPE decalartion
+    2) geom - g95 send ERR rather than END on subsequent reads after first eof
+    3) fk2tx - g95 doesn't do internal write to get ihdrpath
+    4) plot, wbt, mute - get rid of aritimetic IF statement for gfortran
+ver 2007.9-g95 (14 Nov. 2007)
+    1) diskin - fday not preset BEFORE byte swap on byte swapped machines.
+    2) gains - Add message if SUBWB YES but water bottom time < .0001
+    3) plot - If CHART and no STIME, use the deep water delay.
+            - If CHART and no NSECS, use nsamps * si.
+    4) fk2tx - g95 change was bad.
+    5) plot - g95 change for color was bad.
+            - dir ltr and varying length traces shifted the annotation
+ver 2007.10 (5 Dec. 2007)
+    1) header - Add parameters NOINC and TRINC.
+    2) geom - Add type 18 for adding lat/long to segy header from ascii file.
+    3) diskin - Make retrac = 1 if non-zero (given).
+    4) prout, contro - Flush print and stdout when TRLIST is used.
+ver 2007.11 (19 Dec. 2007) 
+    1) plot - Add parameter TRIM.
+    2) contro - Drop printing "END OF SIOSEIS RUN" due to g95/c flush problem.
+ver 2008.1 (25 Jan. 2008)
+    1) geom - type 18 failed when segy recor numbers decreased and in cdp taper.
+            - Exit gracefully if NAVFIL file doesn't exist.
+    2) contro - Add print of icompt to debug.
+    3) plot - Exclude the bottom when TRIM.
+    4) wbt - Honor TRACK when converting depth to time with VEL.
+
+February 2008 - Intel Macs under OSX 10.5 no longer exexute OSX 10.3 PowerPc binaries.
+        g95 does not compile either.  gfortran binary from hpc/sourceforge works.
+        Recompile of sioseis works.
+        OSX 10.5 Intel machines are little endian - Intel byte order.
+        Change sio2sun to automatically detect endianness.
+
+ver 2008.2 (5 Mar. 2008)
+    1) velan - spectra Matlab file header on Intel needs to be set for Intel.
+    2) geom - Correct bad changes done in January
+            - Honor SEG-Y Rev 1 use of decimal lat/long (coordinates)
+ver 2008.3 (23 Apr. 2008)
+    1) segddin - LDEO external header stuff was broken.
+               - detect and reset FORMAT for LDEO external header ($1)
+               - redo the log file
+    2) segddin, geom - lots of bad lprint statements (tohex buffering, etc)
+    3) geom - Increase max channels for depths and compasses to 1000
+            - Stop making Syntrak external header look like old trace 0
+            - Redo type 9 with "Bad fix".
+    4) plot - Change NIBS/PLOTTER preset to 2859
+    5) diskox - trace0 didn't work on Intel
+ver 2008.4 (20 May 2008)
+    1) diskin, diskio - podisc(lun, 0, 0 ) is bad practice and didn't work.
+    2) diskio, seg2in - That change made relative addressing bad.
+    3) plot (tlann.c) - Use absolute value of time for negative time.
+    5) diskio - still problems with podisc
+    6) segddin - water depth was not going into word 54 (needed by nmo/vtrkwb)
+    7) segddin - extended file number was bad
+    8) diskio - Do the podisc as set to 0 followed by 4 set_cur (aloows 8GB)
+    9) segddin - If LDEO, check for shot and file skips
+    10) nmo - Bad warning message when centerbeam goes south
+ver 2008.5.2 (23 May 2008)
+    1) contro - Filter common buffers should be COMPLEX.
+    2) plot - Preset of nsecs 0 gave wrong length at times.
+    3) nmo - vtrkwb and decreasing water bottom caused ap buffering problems.
+ver 2008.6.10 (7 July 2008)  (C) Regents of U.C.
+    1) geom - If gxp(1) is not given, use intrcs.
+            - Preset dbrps to ABS(ggx)/2
+    2) diskin - Detect and correct the bad segd nav wrote prior to 2005.
+    3) segdin - Correct the nav (arcseconds) when reading tape!
+    4) gains - Change warning message.
+    5) gains - Set start to 1 if it goes negative due to a bad wbt.
+    6) wbt - Give warning if unrealistic water depth when using vel.
+    7) diskin - Allow IPATH to be 200 characters long
+    8) wbt - check & correct for a byte swap issue (Knudsen) on water depth.
+    9) diskox - nsamps > 16384 didn't work on Intel
+              - Allow decimation factor > 10
+              - Decimation didn't do enough samples.
+              - Do DECIMF before SETS to limit size.
+   10) segddin - Reset ftr on each channel set
+ver 2008.7.5 (18 July 2008)
+    1) plot - Refine CHART
+            - Give warning on color plots when nsamps > 8001
+            - Limit generation of time lines to nsecs.
+    2) avenor - Use nsamps from common rather than header for unsigned int
+    3) resamp - Use nsamps from common rather than header for unsigned int
+    4) diskox - Allow opath of 200 characters.
+    5) diskin - SET calculated the output number of samples incorrectly.
+ver 2008.7.6 (22 July 2008)
+    1) segddin - Add odd/even to STACK
+atlantek - Allow merging of two plot files by using first half of each.
+    7) segddin - file numbers > 16 bits (65535) were wrong.
+    8) segddin - Allow shooting the line backwards with decreasing shot numbers
+    9) stack - When HEADER NORMAL, save the shot number in word 5 before zeroing
+ver 2008.8.4 (2 Aug. 2008)
+    1) diskio - Allow filenames up to 200 characters
+    2) diskox - Allow filenames up to 200 characters
+    3) tx2fk - Allocate ap for nt complexes
+             - args to fwindo must be real, but do loop index must be integer
+    4) fk2tk - call getfil for temp file didn't have enough space for filename
+    5) plot - Add ann/ann2 LAT and LONG
+    6) plot - nsecs given didn't work.
+    7) t2d - Change water bottom time to depth also so plot's CHART works
+    8) diskox - Catch when SETS creates too big a trace
+              - Catch when end SET time is smaller than the delay
+    9) prout - Add info 2 to print the sum of amplitudes within each window.
+    10) syn - Do not reposition param file to reread VALUES since they are saved
+ver 2008.9.3 (22 Aug. 2008)
+    1) lsd - allow 200 character file name
+    2) t2d - the water bottom depth (word 50) is in km not m
+    3) plot - remove unused array iscr from trplot.f
+            - the lat/long annotation was quite right
+            - still problems when nsecs is given and data are < nsecs
+            - ann2 didn't spp all 8 characters
+            - Still problems with chart annotation
+ver 2008.10.12 (10 Nov. 2008)
+    1) contro, sort - increase apmem from 5GW to 10GW (giga-words)
+    2) fk2tx - prestk 1 didn't work.
+    3) sort - Do disk addresses as unsigned integers - should allow 16GB file.
+    4) gather, diskin, diskox, syn - Use c's unsigned short for trace header
+              number of samples
+    5) seg2in - seg2in ffilen/lfilen didn't work.
+    6) nmo - Add parameter XFACTOR
+    7) t2f - Add coords AMPL to output non-negative frequencies only.
+    8) t2xfk - nprestk wasn't working.
+    9) gather - unsigned('-'   was bad for EOG flag
+    10) syn - Allow 32k samples (unsigned integer)
+    11) t2d - Calculate depth as a REAL rather than and INTEGER.
+    12) plot - fixed buffer overflow on very very large amplitudes
+    13) diskin - UTIG-OBS didn't work on Intel
+ver 2008.12.3 (11 Dec. 2008)
+    1) gains - Kill the trace if subwb yes and the water bottom time is 0.
+    2) xcorr - ppath didn't work on Intel
+    3) diskin - Add format WAV
+ver 2009.1.6 (13 Jan 2009)
+    1) t2d - Process dead traces so that the trace header is changed
+    2) avenor - Skip window if past the end of data or is 0 samples long
+    3) diskin - Generate an error when nsamps > sioseis max (64k)
+    4) diskox - Rev 1 fixed trace flag was set incorrectly.
+    5) plot - Use delay in seconds (buf(46)) so big delays work (>32k mils)
+    6) header2/3 - Reel header changes (CXX) didn't work on HEADER2 & HEADER3
+    7) diskio.c - Linux wasn't updated with podisc doing seek four times 92GB vs 8GB)
+    8) sortex - Remove  Mod 22 Sep 08 - Use unsigned integer arithmetic for disk addresses
+ver 2009.2.4 (9 Feb. 2009)
+    1) diskin - Allow/honor IPATH 200 characters long.
+    2) segdin - Add 24 bit integer (format 8036)
+    3) segdin - Allow tape record of 128KB.
+lsd - allow decimal lat/long when word 45 = 3
+    4) diskin - When ODEC, set word 45 to 3 (decimal degrees for lat/long)
+CREATE program SEGD2DISK - read a segd tape to a directory.
+
+ver 2009.3.4 (17 Mar. 2009)
+    1) diskin - Error when shots and noinc given and ntrcs in header is 0
+    2) diskox - Reset the segy bin header "ntraces" only if user gave ontrcs.
+    3) seg2in - Allow 5 digit file numbers.
+
+SIOPLT - Displays on Intel are LSBfirst, so swap the raster lines within the byte.
+       - Header time pick crashes.  STRUCT needs to be passed as &
+
+ver 2009.4.11 (11 June 2009)
+    1) inap - Always set ap nextad to 65536 to prevent ap overwrite when nsamps increases.
+    2) logst - changes to nsamps needed to be done the "new" way (common numdat)
+    3) tx2fk, fk2tx - changes to nsamps needed to be done the "new" way (common numdat)
+                New limit is 32K complex frequencies (65K samples)
+    4) dmo, fkshift, cat, cfilter, despike, gain, sort, ssmigr - 
+             Use numdat or unsigned.c for nsamps
+    5) cat - wasn't working
+    6) diskox - implement appending to a file opened by a previous diskox
+    7) tx2fx - Make PRESTK > 1 an error.
+    8) sort - 4) above was done wrong
+    9) fk2tx - 3) didn't use the input (tx) nsamps
+    10) fkshift - 4) was bad
+    11) avenor - levs wasn't working
+    12) stk - 4) above was done wrong.
+ver 2009.5.4 (15 July 2009)
+    1) diskox - Add parameter RETRAC and add RENUM (make the same as FON).
+    2) diskin - Add parameter RANDOM
+    3) diskin - Change ALLNO preset to NO.
+    4) diskox - Change FIXED to mean montonicallyn increasing shot & trace numbers.
+              - Set fixed flag on rp sorted files only if every rp has same cdp.
+    5) contro - Add new process SWELL.
+    6) diskin - Byte swap trace header words 46-60 rather than 46-53.
+    7) sort - Write warning if input file > 2GB (may not work if address > 32bits)
+    8) diskin - Turn RANDOM off if file > 2GB due to 32bit disk addresses.
+ver 2009.6.15 (14 September 2009)
+    1) plot - Use NINT(delay*1000) for first time line on hig res
+    2) prout - Add info 3 for NGDC Knudsen meta-data.
+    3) prout - Add OPATH
+    4) prout - Cygwin doesn't have OPEN APPEND
+    5) prout - Cygwin doesn't like DFLOAT(real)
+    6) diskio - podisc address can't be unsigned because negative relative
+              - create function podiscun.
+    7) prout - rewrite ptrlst so OPATH works.
+             - Add WBDEPTH@S, WBDEPTH@R, WBTIME tp TRLIST
+    8) gather - Change from podisc to podisc_un
+    9) plot - Don't adjust stime to nearest 10 mils if si < 1 mil
+    10) geom - Add CKNAV
+    11) plot - Add SECS and make it same as NSECS
+    12) plot - When using trim, put a time line at the last data point.
+    13) wbt - When vel and tracking, used last only after 5 nonzerodepths.
+    14) geom - Correct heading calculation
+             - Add lprint 1024 to print dfls and heading
+    15) prout - Add DELAY to prout TRLIST
+    16) geom - compute the angle for setback differently
+ver 2009.7.7 (5 Nov. 2009)
+    1) wbt - add parameter PASS and have SOL, PEAK and THRES use it.
+    2) gather - no changes, but was "played" with for the podiscun problem.
+    3) diskio - podiscun was in 8 bytes rather than 4 bytes.
+    4) despike - Add SOLRAT (same as in wbt) and make same as fac
+    5) despike - Add PASS and do offline filtering when ses/sel.
+    7) swell - Add INDEX 
+ver 2009.8.3 (19 Nov. 2009)
+    1) diskin - save binhdr(31) (data domain) on first trace, reset on every trace
+    2) t2d - set common binhdr(31) = 6 for depth domain.
+    3) plot - drop the decimal point from the side annotation when depth domain.
+ver 2009.9.4 (2 Dec. 2009)
+    1) wbt - redo prestk logic to include shots as well as rps.
+           - do prestk first thing so that all auto picks use it.
+    2) diskin - dcode error didn't increment error counter.
+    3) despike - kill didn't work with thres
+    4) geom - cygwin choked on unreachable call to podisc
+ver 2010.1.5 (14 Jan. 2010)
+    1) stk - Add parameter TRIMOUT 
+           - Changed the meaning of TRIM to be TRIMOUT or save inner.
+           - trim percentages are now of the total number of non-zero samples.
+    2) swell - nready was 1 too big at the end
+    3) contro/swell - nswell needed to be set to 0 & end correctly.
+    4) shift - dataum correction has wrong sign
+    5) plot - very small sample interval missed the uneven test.
+ver 2010.2.0 (25 Mar. 2010)
+    new makefile - just 1 makefile now.
+    Change name of version.f files to avoid naming conflicts for 1 dir src.
+    Numerous minor changes to get rid of some compiler warnings.
+

@@ -1,0 +1,6 @@
+FC = /usr/local/bin/gfortran
+CC = /usr/local/bin/gcc
+OBJECTS=t.o
+
+t:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) $(LIBS) -o t

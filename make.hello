@@ -1,0 +1,8 @@
+#FC = /usr/local/bin/gfortran
+#CC = /usr/local/bin/gcc
+FC = gfortran
+CC = gcc
+OBJECTS=hello.o
+
+hello:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) $(LIBS) -o hello

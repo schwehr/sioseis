@@ -1,0 +1,6 @@
+LIBS = /users/paul/lib/pchlib.a
+FFLAGS=-O
+OBJECTS=mutil.o magtapf77.o
+
+mutil:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) $(LIBS) -o mutil 

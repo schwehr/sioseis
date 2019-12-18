@@ -1,0 +1,118 @@
+      SUBROUTINE TPCHNG(LUNOLD,LUNNEW,IRING)
+C    IN THE FOLLOWING DISCUSSION, FILE XXX IS FILE IN IF THE REEL
+C  IS AN INPUT REEL AND IS FILE OUT IF THE REEL IS AN OUTPUT REEL.
+C     TPCHNG RELEASES (UNASSIGNS) TAPE UNIT LUNOLD AND ASSIGNS TAPE, THE CALLING ROUTINE SHOULD INITIATE (START
+C  A REWIND ON THE OLD TAPE AND THEN CALL SUBROUTINE TPCHNG.  TPCHNG WILL
+C  UNASSIGN THE OLD TAPE UNIT AND REQUEST (VIA THE OPERATOR'S CONSOLE) THE NEW
+C  TAPE UNIT NUMBER TO BE TYPED INTO FILE XXX.
+C     THE OPERATOR TELLS TPCHNG THE NEW TAPE UNIT NUMBER BY USING THE EDITOR.
+C  HE SHOULD DO THIS AFTER THE NEW TAPE IS MOUNTED AND READY.  HE MAY USE ANY
+C  TERMINAL, INCLUDING THE OPERATOR'S CONSOLE, HOWEVER, HE MUST KNOW THE UFD OF
+C  THE JOB REQUESTING THE TAPE CHANGE. INPUT REEL CHANGES ARE REQUESTED VIA FILE
+C  UFD>IN AND OUTPUT REEL CHANGES ARE REQUESTED VIA FILE UFD>OUT.
+C     THE MAJOR HANG UPS WITHOUT USING TPCHNG IS THAT THERE IS NO WAY FOR THE
+C  OPERATING SYSTEM (PRIMOS) TO READ FROM THE OPERATOR'S CONSOLE - THUS NO WAY
+C  FOR A PHANTOM TO COMMUNICATE WITH THE OUTSIDE WORLD WITHOUT USING A FILE.
+C  ANOTHER HANGUP IS THAT THERE IS NO WAY TO DO TAPE ASSIGNMENTS INTERNALLY FROM
+C  A PROGRAM.  THEREFORE, THIS ROUTING MAKES PRIMOS DO THE TAPE ASSIGNMENTS.
+C
+C     THE FOLLOWING EXAMPLE WILL WORK FROM THE OPERATOR'S CONSOLE, PROVIDING
+C  THAT THE TAPE JOB IS RUNNING UNDER UFD HENKART.
+C           ED
+C           1
+C           FILE HENKART>IN
+C  THE NEW INPUT TAPE UNIT WILL BE 1.
+C
+C     TPCHNG WAITS FOR FILE XXX TO EXIST, THEN ASSIGNS THE NEW UNIT, THEN
+C  DELETES THE FILE XXX.
+C     IF THERE ARE ENOUGH TAPE DRIVES AVAILABLE, THE MOST EFFICIENT TAPE CHANGE
+C  WOULD BE TO MOUNT THE NEW TAPE ON A FREE DRIVE WITH A FREE UNIT NUMBER AND
+C  TO CREATE FILE XXX PRIOR TO THE ACTUAL TAPE CHANGE.  IN THIS CASE, THE
+C  REEL CHANGE WILL HAPPEN BEFORE YOU CAN SAY JACK ROBINSON.
+C
+C  IF MORE THAN ONE JOB IS RUNNING FROM THE SAME UFD AND BOTH JOBS USE
+C  TPCHNG FOR TAPE CHANGES, THE WRONG FILE MAY BE USED.  THIS IS CAUSED BY
+C  TPCHNG NOT KNOWING WHICH XXX FILE IS FOR WHICH JOB.  THE OBVIOUS SOLUTION
+C  IS NOT TO RUN MORE THAN ONE JOB AT A TIME FROM THE SAME UFD.
+C
+C
+C  ARGUMENTS:
+C     LUNOLD - THE UNIT NUMBER OF THE TAPE DRIVE TO BE RELEASED BACK TO THE
+C              SYSTEM FOR USE BY OTHER JOBS.  INTEGER*4
+c            < 0, do not do anything to the drive!
+C     LUNNEW - THE UNIT NUMBER OF THE TAPE DRIVE REPLACING LUNOLD.  THE NUMBER
+C              THAT THE OPERATOR TYPED IN WILL BE RETURNED TO THE CALLING
+C              ROUTINE VIA LUNNEW.  INTEGER*4
+C            <0,  THE OPERATOR WANTS TO TERMINATE THE JOB
+C     IRING  - INDICATES WHETHER THE TAPE IS AN INPUT OR OUTPUT REEL.
+C              INDCATES WHETHER FILE IN OR FILE OUT SHOULD BE USED. INTEGER*4
+C            =0,  THE REEL IS AN INPUT REEL (NO WRITE RING.).  FILE IN
+C                 MUST BE USED.
+C            =1,  THE REEL IS AN OUTPUT REEL (WRITE RING IN).  FILE OUT
+C                 MUST BE USED.
+C
+C
+C  COPYRIGHTED BY:
+C     PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, APRIL 2, 1979
+c  Mod 30 Jan 92 - Use reltap rather than freetp because of the new
+c                  device parameter.
+c Mod 6 May 92  - Use astapef77 when '/dev'
+c Mod 29 Aug 96 - Add lunold < 0 logic
+c Mod Feb 99 - Get rid of the f77 stuff
+c Mod Mar 99 - INQUIRE is core dumping on Solaris, so use GETFIL
+c            - Something screwy going on with OPEN and CLOSE and
+c              getfil and frefil.  Files are not being released, so
+c              get rid of the fortran stuff.
+C
+      INTEGER*4 LUNNEW, IRING
+      CHARACTER*10 ifile, junka
+      COMMON /outdev/outdevice
+      CHARACTER*80 outdevice, inputdev
+      COMMON /inputdev/ inputdev
+C
+      iprint = 0
+      IF( lunold .GE. 0 ) CALL reltap( lunold, iring+1)
+   10 IF( IRING .EQ. 0 ) THEN
+         PRINT *,' Mount new input tape and put unit number in file IN'
+         ifile = 'IN'
+      ELSE
+        PRINT *,' Mount new output tape and put unit number in file OUT'
+         ifile = 'OUT'
+      ENDIF
+   20 CONTINUE
+      CALL GETFIL(4,LUN,ifile,ISTAT)
+      IF( istat .LT. 0 ) THEN
+          ifile ='in'
+          IF( iring .EQ. 1 ) ifile = 'out'
+          CALL GETFIL(4,LUN,ifile,ISTAT)
+          IF( istat .LT. 0 ) THEN
+              CALL SLEEP(10)
+              ifile = 'IN'
+              IF( iring .EQ. 1 ) ifile = 'OUT'
+              iprint = iprint + 1
+              IF( iprint .LT. 11 ) GOTO 10
+              GO TO 20
+          ENDIF
+      ENDIF
+      CALL rddiscb( lun, junka, 3, nc )
+      junka(nc:nc) = ' '
+      CALL dcode( junka, nc-1, areal, istat )
+      lunnew = NINT(areal)
+      IF( LUNNEW .GE. 0 ) THEN
+          IF( iring .EQ. 0 ) THEN
+              IF( inputdev(1:4) .EQ. '/dev' ) THEN
+                  CALL ASTAPE( LUNNEW, inputdev, IRING )
+              ELSE
+                   CALL ASTAPE( LUNNEW, ifile, IRING )
+              ENDIF
+          ELSE
+              IF( outdevice(1:4) .EQ. '/dev' ) THEN
+                  CALL ASTAPE( LUNNEW, outdevice, IRING )
+              ELSE
+                  CALL ASTAPE( LUNNEW, ifile, IRING )
+              ENDIF
+          ENDIF
+      ENDIF
+      CALL frefil( 3, lun, istat )                                      ! close, release and delete the file
+      RETURN
+      END

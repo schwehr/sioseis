@@ -1,0 +1,5 @@
+FFLAGS=-O -Bstatic
+OBJECTS=mperdeg.o lendeg.o
+
+mperdeg:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) -o mperdeg $(LIBS)

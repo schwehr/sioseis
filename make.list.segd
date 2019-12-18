@@ -1,0 +1,5 @@
+FFLAGS=-O -Bstatic
+OBJECTS=list.segd.o magsun.o magtap.sun.o rdline.o getoke.o upcase.o dcode.o swap16.o julcal.o diskio.o tohex.o
+
+list.segd:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) -o list.segd

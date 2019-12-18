@@ -1,0 +1,7 @@
+FFLAGS=-O -Bstatic
+LIBS = ../../lib/pchlib.a
+OBJECTS=tutil.o magtap.o magsun.o getoke.o rdline.o upcase.o dcode.o \
+swap16.o swap32.o ebcasc.o ibm2fp.o diskio.o complement.o
+
+tutil:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) $(LIBS) -o tutil $(LIBS)

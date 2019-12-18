@@ -1,0 +1,11 @@
+#FC = ifort
+#CC = icc
+FC = gfortran
+CC = gcc
+LIBS = 
+FFLAGS=-O
+#CC = gcc -traditional
+OBJECTS=versatec.o diskio.o dummies.o
+
+versatec:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) -o versatec $(LIBS)

@@ -1,0 +1,11 @@
+#FC = ifort
+#CC = icc
+FC = /usr/local/bin/gfortran
+CC = /usr/local/bin/gcc
+LIBS = 
+FFLAGS=-O
+#CC = gcc -traditional
+OBJECTS=atlantek.o diskio.o v.o
+
+atlantek:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) -o atlantek $(LIBS)

@@ -1,0 +1,6 @@
+LIBS = /usr/people/henkart/lib/pchlib.a
+FFLAGS=-O -Bstatic
+OBJECTS=lst.o
+
+lst:$(OBJECTS)
+	f77 $(FFLAGS) $(OBJECTS) $(LIBS) -o lst

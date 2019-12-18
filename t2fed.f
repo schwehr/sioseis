@@ -1,0 +1,262 @@
+      SUBROUTINE T2FED
+C                                 PROCESS T2F
+C                                 ------- ---
+C
+C  DOCUMENT DATE: 11 JANUARY 1987                                             69
+C
+C       PROCESS T2F CONVERTS TRACES FROM THE TIME DOMAIN TO THE FREQUENCY
+C  DOMAIN.  EACH TRACE IS WINDOWED, PADDED WITH ZEROES TO A POWER OF 2,
+C  TRANSFORMED, AND OPTIONALLY CONVERTED TO POLAR COORDINATES.  TRACES LEFT IN
+C  RECTANGULAR COORDINATES ARE IN COMPLEX FORM SUCH THAT THE IMAGINARY PART
+C  OF EACH FREQUENCY IMMEDIATELY FOLLOWS THE REAL (REAL-IMAGINARY PAIRS).
+C  TRACES IN POLAR FORM HAVE THE FREQUENCY SPECTRUM IN THE FIRST HALF OF THE
+C  OUTPUT TRACE WHILE THE WRAPPED PHASE SPECTRUM IS IN THE SECOND HALF OF THE
+C  TRACE.
+C       EACH OUTPUT TRACE WILL CONTAIN A POWER OF 2 + 2 NUMBER OF SAMPLES AND IS
+C  THE NUMBER OF SAMPLES USED IN THE FFT (FFTLEN+2).  THERE ARE FFTLEN/2+1
+C  FREQUENCIES IN THE OUTPUT TRACE REPRESENTING FREQUENCIES 0 (DC) TO THE
+C  NYQUIST FREQUENCY (1./(2*SAMPLE INTERVAL)).
+C       ANY SEISMIC PROCESS MAY BE USED ON FREQUENCY DATA, BUT SOME POST T2F
+C  PROCESSES MAY NOT MAKE GEOPHYSICAL SENSE.  FREQUENCY DOMAIN PLOTS MAY BE
+C  MADE USING POLAR COORDINATES AND PLOTTING THE FIRST HALF OF THE TRACE.
+C  BANDPASS FILTER AND DECONVOLUTION SHOULD BE DONE IN THE TIME DOMAIN USING
+C  PROCESSES FILTER AND DECON UNTIL THE FREQUENCY DOMAIN PROCESSES ARE WRITTEN.
+C       A GOOD REVIEW OF THE FREQUENCY DOMAIN IS "A GUIDED TOUR OF THE FAST
+C  FOURIER TRANSFORM" BY G.D.BERGLAND IN "IEEE SPECTRUM", JULY 1969.
+C
+C  THE PARAMETER DICTIONARY
+C  --- --------- ----------
+C  STIME  - START TIME, IN SECONDS, OF THE DATA TO TRANSFORM.  The use of STIME
+c           causes the the deep water delay to be set to 0. and the first time
+c           sample on an inverse transform (PROCESS F2T) to be 0.
+C           PRESET = THE DELAY OF THE TRACE.  E.G.  STIM3 3.3
+C  ETIME  - END TIME, IN SECONDS, OF THE DATA TO TRANSFORM.  THE DATA AFTER
+C           ETIME WILL BE PADDED WITH ZEROES IN ORDER FOR THE DATA LENGTH BE
+C           A POWER OF 2.
+C           PRESET = THE ENTIRE DATA TRACE.    E.G.  ETIME 4.0
+C  WINDOW - THE TYPE OF WINDOW TO APPLY BEFORE COMPUTING THE FFT.
+C         =HAMM, HAMMING
+C         =HANN, HANNING
+C         =BART, BARTLETT (TRIANGULAR)
+C         =RECT, RECTANGULAR (BOX CAR - NO WINDOW)
+C         =BLAC, BLACKMAN
+C         =EBLA, EXACT BLACKMAN
+C         =BLHA, BLACKMAN HARRIS
+C           PRESET=HAMM  E.G. WINDOW RECT
+C  WINLEN - THE WINDOW LENGTH, IN SECONDS.  A WINDOW LENGTH OF ZERO CAUSES
+C           THE ENTIRE TIME DOMAIN GATE TO BE WINDOWED.  A NON ZERO LENGTH
+C           INDICATES THAT WINLEN DATA WILL BE MODIFIED AT BOTH ENDS OF EACH
+C           DATA GATE.
+C           PRESET=0  E.G. WINLEN .2
+C  COORDS - THE COORDINATES OF THE OUTPUT TRACE.
+C         =RECT, RECTANGULAR COORDINATES.  THE OUTPUT TRACE WILL BE COMPLEX.
+C                THE TRACE VALUES WILL CONSIST OF REAL AND IMAGINARY PAIRS.
+C                THE USE OF RECTANGULAR COORDINATES IS SLIGHTLY FASTER THAN
+C                POLAR COORDINATES, AND IS UNDERSTOOD BY FREQUENCY DOMAIN
+C                PROCESSES SUCH AS F2T.
+C         =POLR, POLAR CORDINATES.  THE FIRST HALF OF THE OUTPUT TRACE WILL BE
+C                THE AMPLITUDE SPECTRUM AND THE SECOND HALF OF THE TRACE WILL
+C                BE THE PHASE SPECTRUM.
+C           PRESET = RECT   E.G.  COORDS POLR
+C  FFTLEN - THE NUMBER OF POINTS TO USE IN THE FFT.  T2F WILL MAKE THIS A
+C           POWER OF 2 IF IT IS NOT.
+C           PRESET = THE NUMBER OF POINTS IN THE TRACE.  E.G. FFTLEN 1024
+C  END    - TERMINATES EACH PARAMETER LIST.
+C
+C  WRITTEN AND COPYRIGHTED (C) BY:
+C  PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, JANUARY 1984
+C  ALL RIGHTS ARE RESERVED BY THE AUTHOR.  PERMISSION TO COPY OR REPRODUCE THIS
+C  SUBROUTINE, BY COMPUTER OR OTHER MEANS, MAY BE OBTAINED ONLY FROM THE AUTHOR.
+C
+c  mod 2 Oct. 2008 - Add coords AMPL
+c
+      PARAMETER (NPARS = 12)                                             /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (NWRDS = npars)                                          /* THE NUMBER OF WORDS IN EACH PARAMETER LIST
+      CHARACTER*4 LWINDS(8)
+      COMMON /T2F/ MUNIT,NLISTS
+      INTEGER FFTLEN,FNO,FTR
+      CHARACTER*4 WINDOW,COORDS
+      CHARACTER*6 NAMES(NPARS)
+      CHARACTER*1 TYPES(NPARS)
+      DIMENSION LENGTH(NPARS)
+      CHARACTER*80 TOKEN
+      DIMENSION VALS(NPARS),LVALS(NPARS)
+      EQUIVALENCE (VALS(1),LVALS(1))
+      DIMENSION SCR(NWRDS),LSCR(111)
+      EQUIVALENCE (SCR(1),LSCR(1))
+      COMMON /EDITS/ IERROR,IWARN,IRUN,NOW,ICOMPT
+C
+C
+      EQUIVALENCE (WINLEN,VALS(2)),
+     3            (FFTLEN,LVALS(3)),
+     5            (LPRINT,LVALS(5)),
+     6            (FNO,LVALS(6)),
+     7            (LNO,LVALS(7)),
+     8            (FTR,LVALS(8)),
+     9            (LTR,LVALS(9)),
+     *            (ADDWB,LVALS(10)),
+     1            (stime, vals(11)),
+     2            (etime, vals(12))
+      DATA LWINDS/'HAMM','HANN','GAUS','BART','RECT','BLAC',
+     *  'EBLA','BLHA'/
+      DATA NAMES/'WINDOW','WINLEN','FFTLEN','COORDS','LPRINT',
+     *   'FNO   ','LNO   ','FTR   ','LTR   ','ADDWB ','STIME ',
+     *   'ETIME '/
+      DATA TYPES/'A','F','L','A','L',4*'L','A','F','F'/
+      DATA LENGTH/6,6,6,6,6,4*3,3*5/
+C****
+C****      SET THE PRESETS
+C****
+      WINDOW='HAMM'
+      WINLEN=0.
+      FFTLEN=0.
+      COORDS='RECT'
+      LPRINT=0
+      FNO=1
+      LNO=9999999
+      FTR=1
+      LTR=9999
+      IADDWB=0
+      stime = -1.
+      etime = -1.
+      LLNO = 0
+      NLISTS=0
+      NS=0
+C****
+C****   GET A PARAMETER FILE
+C****
+      CALL GETFIL(1,MUNIT,TOKEN,ISTAT)
+C****
+C****   THE CURRENT COMMAND LINE IN THE SYSTEM BUFFER MAY HAVE THE PARAMETERS.
+C****   GET A PARAMETER LIST FROM THE USER.
+C****
+      NTOKES=1
+  100 CONTINUE
+      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                          /* CONVERT THE TOKEN TO UPPERCASE
+      IF(NCHARS.GT.0) GO TO 150
+      IF(NOW.EQ.1) PRINT 140
+  140 FORMAT(' <  ENTER PARAMETERS  >')
+      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      NTOKES=0
+      GO TO 100
+  150 CONTINUE
+      NTOKES=NTOKES+1
+      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          /* SAVE THE INDEX
+      IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
+  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+      IF(NS.NE.0) GO TO 230
+      PRINT 191, TOKEN(1:NCHARS)
+  191 FORMAT(' ***  ERROR  *** T2F DOES NOT HAVE A PARAMETER ',
+     *  'NAMED ',A10)
+      IERROR=IERROR+1
+      GO TO 100
+C****
+C****    FOUND THE PARAMETER NAME, NOW FIND THE VALUE
+C****
+  200 CONTINUE
+      NS=0
+      NPARAM=IPARAM
+  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+      CALL GETOKE(TOKEN,NCHARS)
+      CALL UPCASE(TOKEN,NCHARS)
+      NTOKES=NTOKES+1
+      IF(NCHARS.GT.0) GO TO 230                                         /* END OF LINE?
+      IF(NOW.EQ.1) PRINT 140                                            /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
+      CALL RDLINE                                                        /* GET ANOTHER LINE
+      NTOKES=0
+      GO TO 210
+  230 CONTINUE
+      IF(TYPES(NPARAM).NE.'A') GO TO 240
+      IF(NAMES(NPARAM).EQ.'ADDWB'.AND.TOKEN(1:NCHARS).EQ.'YES')
+     *    IADDWB=1
+      IF(NAMES(NPARAM).EQ.'COORDS') COORDS=TOKEN(1:NCHARS)
+      IF(NAMES(NPARAM).EQ.'WINDOW') WINDOW=TOKEN(1:NCHARS)
+      GO TO 100
+  240 CONTINUE
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      GO TO 100
+  420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
+      VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+      GO TO 100
+  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+      LVALS(NPARAM)=AREAL
+      GO TO 100
+C****
+C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
+C****
+ 1000 CONTINUE
+      DO 1010 I=1,8
+      ITEMP=I
+      IF(WINDOW.EQ.LWINDS(I)) GO TO 1030
+ 1010 CONTINUE
+      PRINT 1020,WINDOW
+ 1020 FORMAT(' ***  ERROR  ***  ',A4,' IS NOT A VALID WINDOW TYPE.')
+      IERROR=IERROR+1
+ 1030 IWINDO=ITEMP
+      IF(COORDS.EQ.'RECT'.OR.COORDS.EQ.'POLR' .OR. coords .EQ. 'AMPL' )
+     &    GO TO 1050
+      PRINT 1040,COORDS
+ 1040 FORMAT(' ***  ERROR  ***  ',A4,' IS NOT A VALID COORDINATE SYSTEM.
+     *   ')
+ 1050 CONTINUE
+      IF( stime .LT. -1. .OR. stime .GT. 50. ) THEN
+          PRINT *,' ***  ERROR  ***  Illegal stime.'
+          ierror = ierror + 1
+      ENDIF
+      IF( etime .LT. -1. .OR. etime .GT. 50. ) THEN
+          PRINT *,' ***  ERROR  ***  Illegal etime.'
+          ierror = ierror + 1
+      ENDIF
+      IF( etime .LE.stime.AND. stime.NE.-1. .AND.etime.NE.-1.) THEN
+          PRINT *,' ***  ERROR  ***  STIME must be less that ETIME.'
+          ierror = ierror + 1
+      ENDIF
+      IF( winlen .LT. 0 ) THEN
+          PRINT *,' ***  ERROR  ***  Illegal WINLEN of',winlen
+          ierror = ierror + 1
+      ENDIF
+c      IF( winlen .EQ. 0 ) THEN
+c          PRINT *,' ***  WARNING  ***  WINLEN not given.'
+c          iwarn = iwarn + 1
+c      ENDIF
+      LSCR(1)=FNO
+      LSCR(2)=LNO
+      LSCR(3)=FTR
+      LSCR(4)=LTR
+      LSCR(5)=IWINDO
+      SCR(6)=WINLEN
+      LSCR(7)=FFTLEN
+      IF( coords .EQ. 'RECT' ) lscr(8) = 1
+      IF(COORDS.EQ.'POLR') LSCR(8)=2
+      IF( coords .EQ. 'AMPL' ) lscr(8) = 3
+      LSCR(9)=LPRINT
+      LSCR(10)=IADDWB
+      scr(11) = stime
+      scr(12) = etime
+      IF(IAND(LPRINT,1).EQ.1) THEN
+         PRINT *,' T2F PARAMETERS:',(LSCR(I),I=1,5),
+     *   SCR(6),(LSCR(I),I=7,10),scr(11),scr(12)
+     
+      ENDIF
+      CALL WRDISC(MUNIT,SCR,NWRDS)
+      NLISTS=NLISTS+1
+      LLNO=LNO
+      LNO=9999999                                                        /* DEFAULT THE DEFAULTS
+      NS=0                                                              /* SET THE NUMBER OF MULTI-VALUED PARAMETER ENTRIES BACK TO ZER0
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+      CALL UPCASE(TOKEN,NCHARS)
+      NTOKES=NTOKES+1
+      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NOW.EQ.1) PRINT 140
+      CALL RDLINE                                                        /* GET ANOTHER LINE
+      NTOKES=0
+      GO TO 2020
+ 2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
+      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      END

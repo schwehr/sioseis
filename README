@@ -1,0 +1,42 @@
+"make options:"
+
+  clean   - remove all objects and executables"
+  all     - build everything"
+  tar     - create a release source tar using VERSION"
+
+  sioseis - build just sioseis"
+  sio2sun - build just sio2sun"
+  sio2hp  - build just sio2hp"
+  lsd     - build just lsd"
+  lsh     - build just lsd"
+  dutil   - build just dutil"
+
+makefile uses FC=gfortran and CC=gcc.
+Many compiler flags are commented out in an effort of finding what
+compiles on "every" machine I could find.  The most common denominator.
+
+As of 2010, tape I/O probably will not work on non Sun computers 
+    (mtio.h and other issues)
+
+Make sure to use compatible versions of gcc and gfortran.
+(At IGPP, there are two gccs, so the one used to compile gfortran must be used).
+
+
+OSX:
+X86_64 machines may have to use CFLAGS = -m32
+CFLAGS = -O2 and other CFLAGS may be turned on.
+
+
+Linux:
+Older Redhat systems may have to use FC=f77 or FC=/usr/bin/f77
+gcc  -m32 does not work with gfortran on gcc version 4.1.2 20080704 (Red Hat 4.1.2-46)
+gcc   -O and -02 do not work under gcc version 4.1.2 20080704 (Red Hat 4.1.2-46)
+
+
+Suns:
+FC=f77 
+CC=cc
+Remember to use gmake rather than Sun's make.
+In make.sioseis use  magsun.o rather than  magmacosx.o
+
+See http://sioseis.ucsd.edu

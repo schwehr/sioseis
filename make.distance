@@ -1,0 +1,7 @@
+FC=gfortran
+CC=gcc
+FFLAGS=  -O
+OBJECTS=distance.o lendeg.o rdline.o getoke.o ddcode.o diskio.o rline.o
+
+distance:$(OBJECTS)
+	$(FC) $(FFLAGS) $(OBJECTS) -o distance $(LIBS)
