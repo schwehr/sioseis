@@ -15,7 +15,6 @@ FFLAGS :=
 FFLAGS += -O2
 FFLAGS += -funroll-loops
 FFLAGS += -fexpensive-optimizations
-FFLAGS += -ffast-math
 
 # Fortran debugging and code checks
 #FFLAGS += -g
@@ -27,7 +26,6 @@ CFLAGS :=
 
 # Optimizations
 #CFLAGS += -02
-#CFLAGS += -ffast-math
 #CFLAGS += -funroll-loops
 #CFLAGS += -fexpensive-optimizations
 #CFLAGS += -DNDEBUG  # Turn off any asserts
