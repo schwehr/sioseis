@@ -2,106 +2,85 @@
 
 VERSION:=${shell cat VERSION}
 
-FC=gfortran
-CC=gcc
-#  On Macs  SEE SIOSEIS README - varies with the OSX version and macports
-#FC=/usr/local/gfortran/bin/gfortran
-#CC=/usr/local/gfortran/bin/gcc
-
+# FC=gfortran
+# CC=gcc
 
 FFLAGS :=
-
-# Fortran optimizations
+FFLAGS += -g
 FFLAGS += -O2
-FFLAGS += -funroll-loops
-FFLAGS += -fexpensive-optimizations
-
-# Fortran debugging and code checks
-#FFLAGS += -g
-#FFLAGS += -Wall
+# TODO(schwehr): Enable more warnings
+# FFLAGS += -Wall
+# FFLAGS += -Wextra
 
 CFLAGS :=
-#CFLAGS += -m32
-#          -m32 does not work with gfortran on gcc version 4.1.2 20080704 (Red Hat 4.1.2-46)
+CFLAGS += -O2
+CFLAGS += -g
+# TODO(schwehr): Enable more warnings
+# CFLAGS += -Wall
+# CFLAGS += -Wextra
+# CFLAGS += -DNDEBUG  # Turn off any asserts
 
-# Optimizations
-#CFLAGS += -02
-#CFLAGS += -funroll-loops
-#CFLAGS += -fexpensive-optimizations
-#CFLAGS += -DNDEBUG  # Turn off any asserts
+LDFLAGS := -lgfortran
 
-# Debugging and code checks
-#CFLAGS += -g  # Can leave on even when optimizing
-#CFLAGS += -Wall
-#CFLAGS += -Wimplicit-int
-#CFLAGS += -Wimplicit-function-declaration
-#CFLAGS += -Wnested-externs
-#CFLAGS += -Wimplicit
-#CFLAGS += -W
-#CFLAGS += -Wredundant-decls
-
-
-LDFLAGS:=-lgfortran
-
-SIOSEIS_OBJ:=contro.o setptr.o upcase.o getpro.o dcode.o lcode.o ddcode.o ebcasc.o\
-is_big_endian.o tohex.o secsdms.o ascebc.o getoke.o rdline.o rline.o \
-magtap.o magmacosx.o syned.o synex.o sseis.o gasdev.o ran1.o \
-pouted.o poutex.o ptrlst.o inap.o rlseap.o shifts.o \
-apsim.o tpchng.o touted.o wrttrc.o diskio.o rdtrc.o ibm2fp.o died.o diex.o swp_trhdr.o \
-sfp2fp.o fp2sfp.o ie2ibm.o swap16.o swap32.o swap64.o inedit.o inputx.o \
-ploted.o plotex.o trplot.o gentl.o gentl1.o maxsc.o maxsca.o \
-tlann.o sideann.o julcal.o getlanno.o spp.o spp2.o \
-filted.o filtex.o bpass.o window.o conv.o dconv.o convol.o tvfilt.o tvfvfc.o nzcros.o \
-agced.o  agcex.o agc.o frstnz.o agcap.o decoed.o decoex.o pdecon.o decon.o eureka.o wiener.o\
-cross.o zero.o dot.o fold.o \
-wbted.o wbtex.o muteed.o muteex.o mute.o muteap.o zcmute.o \
-geomed.o geomex.o navgeom.o ukooain.o ldgogeom.o ldeogeom.o calcrp.o rpxy.o \
-segyxy.o range.o getdep.o lendeg.o calcrp3d.o sionav2segy.o get_sio_nav.o \
-avened.o avenex.o avevfc.o avenor.o debiex.o demean.o debias.o \
-mixed.o mixex.o shfted.o shftex.o weiged.o weigex.o moment.o flated.o flatex.o rectc.o \
-smuted.o smutex.o fftinv.o udeced.o udecex.o \
-t2fed.o t2fex.o ufiled.o ufilex.o fftfwd.o polarc.o gathed.o gather.o \
-nmoed.o nmoex.o nmo2ex.o nmo3ex.o nmovfc.o nmonap.o ivelt.o findv.o nmoapp.o int2rms.o \
-velaed.o velaex.o \
-invplt.o stksem.o stkse.o semstk.o semst.o velplt.o plotvs.o clvplt.o cvnmo.o \
-stacked.o stackex.o acored.o acorex.o tx2fed.o tx2fex.o f2ted.o f2tex.o scalet.o \
-fkfied.o fkfiex.o shindx.o fkmied.o fkmiex.o fk2ted.o fk2tex.o hale.o mrgfk.o lenstr.o \
-spltfk.o gnrfft.o dskpos.o chkbin.o chkpra.o chkprc.o segded.o segdex.o \
-ldgo_tr0.o segd20.o prntx2.o doed.o doex.o fdmied.o fdmiex.o fdmvel.o avbufi.o \
-avintr.o vapsim.o fdmlin.o vsfdmc.o myspin.o xslice.o \
-transp.o dummies.o t2ded.o t2dex.o t2d.o t2dint.o tx2ted.o tx2tex.o fft.o \
-tp2ted.o tp2tex.o irisex.o gained.o gainex.o pgain.o filters.o lpbut3p.o \
-woodfilt.o \
-headed.o headex.o sorted.o sortex.o indexx.o fdfmed.o \
-fdfmex.o fdmdif.o fddvel.o sioseis_version.o refplot.o reltap.o \
-dmoed.o dmoex.o logsed.o logsex.o resaed.o resaex.o polint.o getdate.o \
-despiked.o despikex.o sort.o tredited.o treditex.o \
-sadded.o saddex.o cated.o catex.o fkshed.o \
-fkshex.o psfk.o ssmied.o ssmiex.o sspost2.o fastf.o slave.o \
-uadded.o uaddex.o umulted.o umultex.o histed.o histex.o cfiled.o cfilex.o \
-seg2ed.o seg2ex.o caljul.o xcored.o xcorex.o stked.o stkex.o \
-grdouted.o grdoutex.o xstared.o xstarex.o segdded.o segddex.o i24i32.o \
-bldgname.o leeshdr.o gpgga.o gpggaa.o dbt.o unsigned.o swelled.o swellex.o
+SIOSEIS_OBJ :=
+SIOSEIS_OBJ += contro.o setptr.o upcase.o getpro.o dcode.o lcode.o ddcode.o ebcasc.o
+SIOSEIS_OBJ += is_big_endian.o tohex.o secsdms.o ascebc.o getoke.o rdline.o rline.o
+SIOSEIS_OBJ += magtap.o magmacosx.o syned.o synex.o sseis.o gasdev.o ran1.o
+SIOSEIS_OBJ += pouted.o poutex.o ptrlst.o inap.o rlseap.o shifts.o
+SIOSEIS_OBJ += apsim.o tpchng.o touted.o wrttrc.o diskio.o rdtrc.o ibm2fp.o died.o diex.o swp_trhdr.o
+SIOSEIS_OBJ += sfp2fp.o fp2sfp.o ie2ibm.o swap16.o swap32.o swap64.o inedit.o inputx.o
+SIOSEIS_OBJ += ploted.o plotex.o trplot.o gentl.o gentl1.o maxsc.o maxsca.o
+SIOSEIS_OBJ += tlann.o sideann.o julcal.o getlanno.o spp.o spp2.o
+SIOSEIS_OBJ += filted.o filtex.o bpass.o window.o conv.o dconv.o convol.o tvfilt.o tvfvfc.o nzcros.o
+SIOSEIS_OBJ += agced.o  agcex.o agc.o frstnz.o agcap.o decoed.o decoex.o pdecon.o decon.o eureka.o wiener.o
+SIOSEIS_OBJ += cross.o zero.o dot.o fold.o
+SIOSEIS_OBJ += wbted.o wbtex.o muteed.o muteex.o mute.o muteap.o zcmute.o
+SIOSEIS_OBJ += geomed.o geomex.o navgeom.o ukooain.o ldgogeom.o ldeogeom.o calcrp.o rpxy.o
+SIOSEIS_OBJ += segyxy.o range.o getdep.o lendeg.o calcrp3d.o sionav2segy.o get_sio_nav.o
+SIOSEIS_OBJ += avened.o avenex.o avevfc.o avenor.o debiex.o demean.o debias.o
+SIOSEIS_OBJ += mixed.o mixex.o shfted.o shftex.o weiged.o weigex.o moment.o flated.o flatex.o rectc.o
+SIOSEIS_OBJ += smuted.o smutex.o fftinv.o udeced.o udecex.o
+SIOSEIS_OBJ += t2fed.o t2fex.o ufiled.o ufilex.o fftfwd.o polarc.o gathed.o gather.o
+SIOSEIS_OBJ += nmoed.o nmoex.o nmo2ex.o nmo3ex.o nmovfc.o nmonap.o ivelt.o findv.o nmoapp.o int2rms.o
+SIOSEIS_OBJ += velaed.o velaex.o
+SIOSEIS_OBJ += invplt.o stksem.o stkse.o semstk.o semst.o velplt.o plotvs.o clvplt.o cvnmo.o
+SIOSEIS_OBJ += stacked.o stackex.o acored.o acorex.o tx2fed.o tx2fex.o f2ted.o f2tex.o scalet.o
+SIOSEIS_OBJ += fkfied.o fkfiex.o shindx.o fkmied.o fkmiex.o fk2ted.o fk2tex.o hale.o mrgfk.o lenstr.o
+SIOSEIS_OBJ += spltfk.o gnrfft.o dskpos.o chkbin.o chkpra.o chkprc.o segded.o segdex.o
+SIOSEIS_OBJ += ldgo_tr0.o segd20.o prntx2.o doed.o doex.o fdmied.o fdmiex.o fdmvel.o avbufi.o
+SIOSEIS_OBJ += avintr.o vapsim.o fdmlin.o vsfdmc.o myspin.o xslice.o
+SIOSEIS_OBJ += transp.o dummies.o t2ded.o t2dex.o t2d.o t2dint.o tx2ted.o tx2tex.o fft.o
+SIOSEIS_OBJ += tp2ted.o tp2tex.o irisex.o gained.o gainex.o pgain.o filters.o lpbut3p.o
+SIOSEIS_OBJ += woodfilt.o
+SIOSEIS_OBJ += headed.o headex.o sorted.o sortex.o indexx.o fdfmed.o
+SIOSEIS_OBJ += fdfmex.o fdmdif.o fddvel.o sioseis_version.o refplot.o reltap.o
+SIOSEIS_OBJ += dmoed.o dmoex.o logsed.o logsex.o resaed.o resaex.o polint.o getdate.o
+SIOSEIS_OBJ += despiked.o despikex.o sort.o tredited.o treditex.o
+SIOSEIS_OBJ += sadded.o saddex.o cated.o catex.o fkshed.o
+SIOSEIS_OBJ += fkshex.o psfk.o ssmied.o ssmiex.o sspost2.o fastf.o slave.o
+SIOSEIS_OBJ += uadded.o uaddex.o umulted.o umultex.o histed.o histex.o cfiled.o cfilex.o
+SIOSEIS_OBJ += seg2ed.o seg2ex.o caljul.o xcored.o xcorex.o stked.o stkex.o
+SIOSEIS_OBJ += grdouted.o grdoutex.o xstared.o xstarex.o segdded.o segddex.o i24i32.o
+SIOSEIS_OBJ += bldgname.o leeshdr.o gpgga.o gpggaa.o dbt.o unsigned.o swelled.o swellex.o
 
 SIO2SUN_OBJ := sio2sun.o get_nbytes_sio.o planes_to_pixels.o swap32c.o
 
-SIO2HP_OBJ= sio2hp.o getparams.o sio2hp_version.o rline.o diskio.o is_big_endian.o \
-swap16.o upcase.o dcode.o rdline.o getoke.o
+SIO2HP_OBJ := sio2hp.o getparams.o sio2hp_version.o rline.o diskio.o is_big_endian.o
+SIO2HP_OBJ += swap16.o upcase.o dcode.o rdline.o getoke.o
 
-LSD_OBJ=lsd.o secsdms.o is_big_endian.o swap16.o swap32.o diskio.o unsigned.o
+LSD_OBJ := lsd.o secsdms.o is_big_endian.o swap16.o swap32.o diskio.o unsigned.o
 
-LSH_OBJ:=lsh.o secsdms.o is_big_endian.o swap16.o swap32.o diskio.o unsigned.o
+LSH_OBJ := lsh.o secsdms.o is_big_endian.o swap16.o swap32.o diskio.o unsigned.o
 
-DUTIL_OBJ=dutil.o swap64.o dd2ieee.o complement.o diskio.o \
-getoke.o rdline.o swap16.o swap32.o dr2iee.o dcode.o tohex.o \
-ibm2fp.o ebcasc.o upcase.o shifts.o rline.o mp32ieee.o
+DUTIL_OBJ := dutil.o swap64.o dd2ieee.o complement.o diskio.o
+DUTIL_OBJ += getoke.o rdline.o swap16.o swap32.o dr2iee.o dcode.o tohex.o
+DUTIL_OBJ += ibm2fp.o ebcasc.o upcase.o shifts.o rline.o mp32ieee.o
 
-JUL2CAL_OBJ=jul2cal.o julcal.o dcode.o getoke.o rdline.o rline.o diskio.o
+JUL2CAL_OBJ := jul2cal.o julcal.o dcode.o getoke.o rdline.o rline.o diskio.o
 
-CAL2JUL_OBJ=cal2jul.o caljul.o dcode.o getoke.o rdline.o rline.o diskio.o
+CAL2JUL_OBJ := cal2jul.o caljul.o dcode.o getoke.o rdline.o rline.o diskio.o
 
 default:
-	@echo
 	@echo
 	@echo "        Welcome to SIOSEIS ${VERSION}"
 	@echo
@@ -134,12 +113,12 @@ tar:
 	mkdir ${DIST}
 	cp -p *.f *.c *.h [A-Z]* make* ${DIST}/
 	tar cf ${TAR} ${DIST}
-	bzip2 -9 ${TAR}
+	xz -9 ${TAR}
 	rm -rf ${DIST}
 
 
 sioseis: $(SIOSEIS_OBJ)
-	$(FC) $(FFLAGS) $(SIOSEIS_OBJ) $(LDFLAGS) -o sioseis
+	$(FC) $(FFLAGS) $(SIOSEIS_OBJ) $(LDFLAGS) -o $@
 
 sio2sun:$(SIO2SUN_OBJ)
 	$(CC) $(CFLAGS) $(SIO2SUN_OBJ) -o sio2sun
