@@ -96,12 +96,12 @@ c****     (like the line is shot backwards from the way it was surveyed).
               GOTO 1000
           ENDIF
           IF( isegydir .LT. 0 .AND. isegyrecno .LT. navrec1 ) THEN
-              REWIND navfil     ! rewind and start from the begining
+              REWIND navfil     ! rewind and start from the beginning
               CALL get_sio_nav( navfil, year2, day, hour, rmin, sec,
      &              dlat2, dlong2, navrec2, istat )
               IF( istat .NE. 0 ) THEN
 c****         the segy trace is before the first nav point
-                  REWIND navfil     ! rewind and start from the begining
+                  REWIND navfil     ! rewind and start from the beginning
                   CALL get_sio_nav( navfil, year2, day, hour, rmin, sec,
      &              dlat, dlong, navrec2, istat )
                   GOTO 1000

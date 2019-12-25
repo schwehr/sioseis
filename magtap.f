@@ -40,7 +40,7 @@ c         =-5,  An unknown tape drive error has occurred - the status PRINTed
 c               can be dissected into bits and diagnosed using the status bits
 c               listed in the Emulex controller manual or listed for your
 c               convenience in routine mag.c
-c         =-6,  A parity has occurred on read - the data transfered may be
+c         =-6,  A parity has occurred on read - the data transferred may be
 c               garbage or it may be good!
 c         =-10, Illegal MAGTAP function.
 c

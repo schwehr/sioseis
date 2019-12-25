@@ -1,5 +1,5 @@
       SUBROUTINE tx2tex( buf, lbuf, ibuf, scr, istop, nready )
-c     tx2tex is the execution phase of SIOSEIS proces TX2TP or the
+c     tx2tex is the execution phase of SIOSEIS process TX2TP or the
 c  transformation from time-space domain to the tau-p space using the
 c  slant stack technique developed by Mary Kappus = HOP.
 c            HOP is the application of the paper "A new

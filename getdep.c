@@ -106,7 +106,7 @@ float linterp (x,y,ndin,xint)
 int ndin;
 float *x,*y,xint;
 /*
-   linear interpolation, just about as basic as you wanna get.
+   linear interpolation, just about as basic as you want get.
    given a function y(x), finds y for any desired x value which
    is specified by xint.  ndin is the number of data points in
    the x array

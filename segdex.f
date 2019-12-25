@@ -81,7 +81,7 @@ c  mod Mar 99 - Bugger.  General header 1 has the extended header block
 c               in BCD and general header 2 has it in binary. F!@#$%^&
 c  mod March 1999 - Muck about to get the Digicourse stuff from the new
 c                   LDEO Syntron system.  geomex needs it.
-c  mod Sept 2000 - The LDEO Hydrosweep water depth is bad (0?) occassionally
+c  mod Sept 2000 - The LDEO Hydrosweep water depth is bad (0?) occasionally
 c                  so save it and use the last one when it's zero.
 c mod Sept 2000  - ffilen/lfilen without ftr/ltr didn't work.
 c                - reverse lat/long in SEGY header.  Should be long/lat
@@ -403,7 +403,7 @@ c          rev = IAND(rshift(iscr(22),8),i255)+FLOAT(IAND(iscr(22),i255))/10.
 c****
 c****  decode the scan type header - We're in deep dodo if there is more
 c****  than one scan type (channel set) for the seismic data.  Assume that
-c****  the last scan type is seismic and the first are for auxillary channels.
+c****  the last scan type is seismic and the first are for auxiliary channels.
 c****
       intrcs = 0
       DO 150 i = fcset, lcset

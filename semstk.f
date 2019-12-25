@@ -40,7 +40,7 @@ C
       CALL SVESQ(STK,1,ANS,N)                                            /* FIND THE ENERGY OF A WINDOW
       I=I+1                                                              /* INCREMENT THE WINDOW COUNTER
       IF(I.GE.NDOWS) GO TO 20                                            /* ANY MORE WINDOWS
-      STK=STK+N                                                          /* FIND THE BEGINING OF THE NEXT WINDOW
+      STK=STK+N                                                          /* FIND THE BEGINNING OF THE NEXT WINDOW
       ANS=ANS+1                                                          /* INCREMENT THE RESULTS ADDRESS
       GO TO 10
    20 ANS=IANS                                                            /* RESET THE ANSWERS ADDRESS TO THE BEGINNING

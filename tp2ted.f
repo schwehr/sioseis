@@ -34,7 +34,7 @@ c           Preset =
 c  NX     - The number of ranges to calculate.  NX is the increment
 c           between the start and end ranges (SEX).
 c           Preset = the number of input time traces
-c  IHPATH - Input header pathname.  TP2TX will ouput the data with the
+c  IHPATH - Input header pathname.  TP2TX will output the data with the
 c           SEGY trace headers from disk file IPATH rather than from the
 c           input tau-p traces.
 c           Preset =  none

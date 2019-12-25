@@ -62,7 +62,7 @@ c  14 Oct 02 - Add parameters ANNTYP2, ANN2 and RECTIFY.
 c  31 Jan 03 - colors gray needed the deflections to be * 2.
 c  7 Feb 03 - Do error check for deflection-graylevel pair order.
 c           - Add parameter dptr (dots per trace).
-c  24 Feb 03 - Make new paramter NOINC equivalent to NINC.
+c  24 Feb 03 - Make new parameter NOINC equivalent to NINC.
 c  13 Jan 04 - Increase defs and colors to 9 in common
 c  14 Apr 04 - Add nibs 2368 - iSys V12
 c  11 May 06 - Don't do nsecs 0 in ploted since diskin might change nsamps

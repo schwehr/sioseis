@@ -987,7 +987,7 @@ c****     arcsec = 60sec/min * 60min/deg = 3600. sec/deg
           lbuf(21) = NINT(buf(21)*3600.*100.)
           lbuf(22) = NINT(buf(22)*3600.*100.)
           ibuf(45) = 2
-c  ODEC writes corrupt buffers occassionally, the length is fine, the contents are not.
+c  ODEC writes corrupt buffers occasionally, the length is fine, the contents are not.
           IF( lbuf(1) .NE. 1 .AND. ibuf(15) .NE. 1 ) THEN
               nbytes = lastnum * 2 + 320
               CALL podiscb( idunit, 2, nbytes )
@@ -1168,7 +1168,7 @@ c****  28 = LDEO trace 0 stuff, 100 means GPR (ground penetrating radar)
      *    ibuf(15) .NE. 6 .AND. ibuf(15) .NE. 9 ) GOTO 310
 c****   VMS ftp fills the end of a 512 byte block with zeroes, so the
 c****  rddisc might not know when end of file is!!  To boot, when this
-c****  file is transfered to another machine, the problem is there too!
+c****  file is transferred to another machine, the problem is there too!
 c****  So, if numdat, the number of samples in the trace, is zero, make
 c****  it the end of the job!  All hell is going to break loose with
 c****  zero samples!   - why?
@@ -1218,7 +1218,7 @@ c**** know whether it's before or after gather or stack.  gather and stack
 c**** can't set it because there may be a diskox before it .  Sigh.  So,
 c**** stack normally (parameter HEADER, which preset=NORMAL) sets the shot
 c**** number, shot trace number, and range to zero.
-      IF( JSORT .ne. 0 ) THEN                                           ! is the user overiding?
+      IF( JSORT .ne. 0 ) THEN                                           ! is the user overriding?
           IF( jsort .EQ. 1 ) sort = 'shot'
           IF( jsort .EQ. 2 ) sort = 'cdp'
           IF( jsort .EQ. 3 ) sort = 'stack'

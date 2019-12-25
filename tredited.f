@@ -17,7 +17,7 @@ c
 c  PARAMETER DICTIONARY
 c  --------- ----------
 c  THRES  - The minimum and maximum amplitude threshold.  Amplitudes
-c           that exceed the treshold are replaced through linear
+c           that exceed the threshold are replaced through linear
 c           interpolation of the adjacent "good" amplitudes.
 c           Preset = 0 0    e.g.   thres -1.e6 1.e6
 c  FAC    - The tolerance factor used in the Trehu/Sutton method

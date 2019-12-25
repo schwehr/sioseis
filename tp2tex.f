@@ -145,7 +145,7 @@ c             the FFT program
           lub2 = itemp                                                  ! this ensures that lub2 is a power of 2!
           IF( idtype .NE. 7 ) THEN
               PRINT *,' ***  ERROR  *** The input to TP2TX must be in',
-     *                ' tau-p - i.e. run thru process TP2TX.'
+     *                ' tau-p - i.e. run through process TP2TX.'
               STOP
           ENDIF
           IF( setau(1) .EQ. 99999. ) THEN
@@ -248,7 +248,7 @@ c         IF( x(i) .GT. xmax ) xmax = x(i)
 c      ENDDO
 c	 IF( IAND(lprint,2) .NE. 0 ) PRINT *,' nx=',nx,' xmin=',xmin,
 c     &    ' xmax=',xmax
-c      space2 computes indeces igpnt, iapnt, imod(nx) of the s array
+c      space2 computes indices igpnt, iapnt, imod(nx) of the s array
 c       index ipntr is recomputed
       CALL SPACE2(np,nx,lens)
       IF( np .GT. mdist ) THEN

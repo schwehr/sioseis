@@ -1,9 +1,9 @@
       SUBROUTINE setptr
 c****    Set the pointers or indices of the SEGY trace header.
 c****  The problem with using constants is that the SEGY header
-c****  contains 16 and 32 bit integers, wherease ANSII Fortran 77
+c****  contains 16 and 32 bit integers, whereas ANSII Fortran 77
 c****  only knows INTEGER, which happens to be INTEGER*8 on the
-c****  Cray!  Most routines don't reaaly need to know the
+c****  Cray!  Most routines don't really need to know the
 c****  difference.  On the Cray, the header is expanded into
 c****  a 200 word header and the 16 bit integer values are moved.
 c****

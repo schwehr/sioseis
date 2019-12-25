@@ -28,7 +28,7 @@ c           when ABS(range) .GE. rscale;
 c           where range is the range in the SEGY header, rscale
 c           and alpha are given by the user.  SIGN is the Fortran SIGN
 c           function which means that ABS(rscale) is used when range is
-c           positive and -ABS(rscale) is used when range is neagtive.
+c           positive and -ABS(rscale) is used when range is negative.
 c         = 3,  a(i) = a(i) * t ** alpha
 c         = 4,  a(i) = a(i) ** alpha
 c         = 5,  a(i) = a(i) * e ** (alpha * t)
@@ -51,7 +51,7 @@ c  RSCALE - The range scalar used in TYPE 2 gain.
 c           PRESET = 1.
 c  SUBWB  - Subtract water bottom time switch.  Type 3 and 5 ONLY.
 c         = YES, The water bottom time is subtracted from the data time
-c                in the gain types that use time as a vaiable.  e.g.
+c                in the gain types that use time as a variable.  e.g.
 c                a(i) = a(i) * t ** alpha     becomes
 c                a(i) = a(i) * (t-wbt) ** alpha
 c  FNO    - The first shot/rp number the parameter list applies to.
@@ -191,7 +191,7 @@ c****
           ierror = ierror + 1
       ENDIF
       IF( itype .EQ. 0 .AND. winlen .NE. 0 ) THEN
-          PRINT *,' ***  WARNING  ***  Amplitude runnig average only.'
+          PRINT *,' ***  WARNING  ***  Amplitude running average only.'
           iwarn = iwarn + 1
       ENDIF
       IF( itype .LT. 0 .OR. itype .GT. 10 ) THEN

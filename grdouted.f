@@ -1,7 +1,7 @@
       SUBROUTINE grdouted
 c
 c     The edit phase of SIOSEIS process grdout, which writes a GMT
-c  grd formated file.
+c  grd formatted file.
 c
 c  Written by Paul Henkart, January 2001
 c  Copyright (C) 2001 The Regents of the University of California

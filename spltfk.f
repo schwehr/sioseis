@@ -14,7 +14,7 @@ c Inputs:
 c  entry : The type of entry into spltfk. This is defined in terms of
 c            constants in splitgbl.inc
 c           = TRNSPARM - Transfer relevant input parameters to local storage
-c           = CHCKBNY  - Check the binary header/input paremeter for consistency
+c           = CHCKBNY  - Check the binary header/input parameter for consistency
 c           = WRTETRC  - Split & Write a trace to disk.
 c
 c idunit : The file stream for the current output process
@@ -306,7 +306,7 @@ c
         endif
 c
         if (idtype.ne.IDFKPLRU)
-     $     RETURN                                                       ! Dont do anything. Not our data type
+     $     RETURN                                                       ! Don't do anything. Not our data type
 c
         if (.not.chkprc() ) then                                        ! An FK process ?
           DataID(idisko) = NOFKCONV
@@ -458,7 +458,7 @@ c    sWrHdr writes an SEGY format trace header to disk. The header is format
 c appropriately for the different computers supported by SIOSEIS.
 c
 c Inputs :
-c    SplParam(1) : The relevent control parameters are passed through the
+c    SplParam(1) : The relevant control parameters are passed through the
 c                  SplParam block. The elements used by sWrHdr are
 c    at COMPOFS  :  The computer type
 c    at DUNITOFS : The file stream no.
@@ -730,7 +730,7 @@ c appropriately for the different computers and output data types supported by
 c SIOSEIS.
 c
 c Inputs :
-c    SplParam(1) : The relevent control parameters are passed through the
+c    SplParam(1) : The relevant control parameters are passed through the
 c                  SplParam block. The elements used by sWrHdr are
 c    at COMPOFS  :  The computer type
 c    at DUNITOFS : The file stream no.

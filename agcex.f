@@ -67,7 +67,7 @@ C****
       IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     /*  OR BY RP
       IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      /* IS IT THE SAME AS THE LAST SHOT (RP)
       LLNUM=LNUM                                                         /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LNO) GO TO 10                                          /* IS IT IN OR BEFORE THE LAST LIST
       GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
@@ -149,7 +149,7 @@ C****
       IF( IAND(LPRINT,2) .NE. 0 )
      &    PRINT *, ISTART,IEND,OLEVEL,CLIP,NDEAD,DEAD,MIDPT,SPEC,NPTS,
      &               agcpct
-c****  Subroutine AGC is weird, it uses indeces ISTART and INDEX of the array
+c****  Subroutine AGC is weird, it uses indices ISTART and INDEX of the array
 c****  rather than the passed arguments.  Therefore always send AGC the entire
 c****  trace!
       IF(IN.EQ.0) GO TO 2020

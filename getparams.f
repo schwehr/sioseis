@@ -17,7 +17,7 @@ c  COLOR - A logical switch (yes or no) indicating whether the plots
 c          named in IPATH are color or not.  This is needed only on
 c          color plotters (DesignJet 650C, models 2858 and 2859) when
 c          plotting a black and white plot.
-c  RO    - Rotate Coodrinate System.  Rotates the plotter's coordinate
+c  RO    - Rotate Coordinate System.  Rotates the plotter's coordinate
 c          system 90, 180, and 270 degress counterclockwise.
 c          Allowable values are: 0, 90, 180, 270
 c          Preset = 0.

@@ -6,13 +6,13 @@ C   GETOKE RETURNS CONSECUTIVE TOKENS (ITEMS BETWEEN A DELIMITER), ONE PER CALL,
 C   FROM CHARACTER STRING in COMMON/sioln1/. AN ALPHA STRING IS RETURNED IN
 C   TOKEN WHEN IT STARTS AND ENDS WHEN SINGLE QUOTES.  (THE QUOTES ARE NOT
 C   RETURNED.  THE STRING MUST BE TERMINATED WITH A QUOTE AND A BLANK, SO THAT
-C   QUOTES MAY BE INCUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
+C   QUOTES MAY BE INCLUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
 C   A BLANK).
 c       nchars will be a zero if end of line is detected or an comment character
 c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo),
-c   # (Unix). Any of theses comment characters will work on any machine!
+c   # (Unix). Any of these comment characters will work on any machine!
 C
-C  AGUMENTS:
+C  ARGUMENTS:
 C    CBUFO  - THE CHARACTER*(*) STRING SET BY GETOKE CONTAINING THE NEXT TOKEN
 C             FOUND.  CBUFO MUST BE NCHARS+1 CHARACTERS LONG (SINCE C STRINGS
 C             MUST BE TERMINATED WITH A NULL).
@@ -84,12 +84,12 @@ c**** toss out non ASCII characters
       GO TO 40                                                          ! GO LOOK AT THE NEXT CHARACTER
   100 CONTINUE
       IF( NCHARS .EQ. 0 ) RETURN                                        ! DON'T TRY TO MOVE ZERO CHARACTERS!!
-      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARCTER IS A BLANK WITHIN QUOTES
+      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARACTER IS A BLANK WITHIN QUOTES
       jchar=jchar+1
       nchars=nchars+1
       go to 40
-c****  end the returned string with a null character so that c rcognizes
-c**** the end of sting!!
+c**** end the returned string with a null character so that c rcognizes
+c**** the end of string.
   110 IF( nchars .GT. 0 ) CBUFO(1:NCHARS)=CBUFIN(ISTART:jchar)
       cbufo(nchars+1:nchars+1) = null
       jchar=jchar+1                                                     ! STRIP OFF THE BLANK
@@ -105,13 +105,13 @@ C   GETOKE RETURNS CONSECUTIVE TOKENS (ITEMS BETWEEN A DELIMITER), ONE PER CALL,
 C   FROM CHARACTER STRING in COMMON/sioln1/. AN ALPHA STRING IS RETURNED IN
 C   TOKEN WHEN IT STARTS AND ENDS WHEN SINGLE QUOTES.  (THE QUOTES ARE NOT
 C   RETURNED.  THE STRING MUST BE TERMINATED WITH A QUOTE AND A BLANK, SO THAT
-C   QUOTES MAY BE INCUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
+C   QUOTES MAY BE INCLUDED IN THE STRING SO LONG AS THE QUOTE IS NOT FOLLOWED BY
 C   A BLANK).
 c       nchars will be a zero if end of line is detected or an comment character
 c   is detected.  A comment character is either ! (VMS & Cray), { (Apollo),
-c   # (Unix). Any of theses comment characters will work on any machine!
+c   # (Unix). Any of these comment characters will work on any machine!
 C
-C  AGUMENTS:
+C  ARGUMENTS:
 C    CBUFO  - THE CHARACTER*(*) STRING SET BY GETOKE CONTAINING THE NEXT TOKEN
 C             FOUND.  CBUFO MUST BE NCHARS+1 CHARACTERS LONG (SINCE C STRINGS
 C             MUST BE TERMINATED WITH A NULL).
@@ -180,12 +180,12 @@ c**** toss out non ASCII characters
       GO TO 40                                                          ! GO LOOK AT THE NEXT CHARACTER
   100 CONTINUE
       IF( NCHARS .EQ. 0 ) RETURN                                        ! DON'T TRY TO MOVE ZERO CHARACTERS!!
-      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARCTER IS A BLANK WITHIN QUOTES
+      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARACTER IS A BLANK WITHIN QUOTES
       jchar=jchar+1
       nchars=nchars+1
       go to 40
 c****  end the returned string with a null character so that c rcognizes
-c**** the end of sting!!
+c**** the end of string.
   110 IF( nchars .GT. 0 ) CBUFO(1:NCHARS)=CBUFIN(ISTART:jchar)
       cbufo(nchars+1:nchars+1) = null
       jchar=jchar+1                                                     ! STRIP OFF THE BLANK
@@ -251,12 +251,12 @@ c**** toss out non ASCII characters
       GO TO 40                                                          ! GO LOOK AT THE NEXT CHARACTER
   100 CONTINUE
       IF( NCHARS .EQ. 0 ) RETURN                                        ! DON'T TRY TO MOVE ZERO CHARACTERS!!
-      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARCTER IS A BLANK WITHIN QUOTES
+      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARACTER IS A BLANK WITHIN QUOTES
       jchar=jchar+1
       nchars=nchars+1
       go to 40
 c****  end the returned string with a null character so that c rcognizes
-c**** the end of sting!!
+c**** the end of string.
   110 IF( nchars .GT. 0 ) CBUFO(1:NCHARS)=CBUFIN(ISTART:jchar)
       cbufo(nchars+1:nchars+1) = null
       jchar=jchar+1                                                     ! STRIP OFF THE BLANK
@@ -322,12 +322,12 @@ c**** toss out non ASCII characters
       GO TO 40                                                          ! GO LOOK AT THE NEXT CHARACTER
   100 CONTINUE
       IF( NCHARS .EQ. 0 ) RETURN                                        ! DON'T TRY TO MOVE ZERO CHARACTERS!!
-      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARCTER IS A BLANK WITHIN QUOTES
+      IF(IQUOTE.ne.1) GO TO 110                                         ! THE CURRENT CHARACTER IS A BLANK WITHIN QUOTES
       jchar=jchar+1
       nchars=nchars+1
       go to 40
 c****  end the returned string with a null character so that c rcognizes
-c**** the end of sting!!
+c**** the end of string.
   110 IF( nchars .GT. 0 ) CBUFO(1:NCHARS)=CBUFIN(ISTART:jchar)
       cbufo(nchars+1:nchars+1) = null
       jchar=jchar+1                                                     ! STRIP OFF THE BLANK

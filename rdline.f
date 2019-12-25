@@ -12,7 +12,7 @@ C  ALL RIGHTS ARE RESERVED BY THE AUTHOR.  PERMISSION TO COPY OR REPRODUCE THIS
 C  SUBROUTINE, BY COMPUTER OR OTHER MEANS, MAY BE OBTAINED ONLY FROM THE AUTHOR.
 c
 c  mod 11 Feb. 97 - Add luno - when positive, write the line image to luno
-c  mod 4 Oct 00 - Use FORMAT(A200) rather tha FORMAT(A100)
+c  mod 4 Oct 00 - Use FORMAT(A200) rather than FORMAT(A100)
 c  mod 24 May 06 - Use frefil 4 (delete scratch files) before STOP
 
       PARAMETER (MAXC=200)

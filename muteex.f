@@ -7,7 +7,7 @@ C  BY LINEAR INTERPOLATION.  LIKEWISE, TIMES FOR TRACES NOT SPECIFIED BY THE
 C  USER OBTAINED THROUGH EXTRAPOLATION OR INTERPOLATION.  DEEP WATER DELAYS ARE
 C  HONORED - I.E. MUTE TIMES ARE RELATIVE TO TIME ZERO REGARDLESS OF THE TIME
 C  OF THE FIRST DATA SAMPLE.
-C     SUBROUTINE MUTEED CONTAINS THE EXPLAINATION OF THE USER PARAMETERS AND THE
+C     SUBROUTINE MUTEED CONTAINS THE EXPLANATION OF THE USER PARAMETERS AND THE
 C  ORDER OF THE USER PARAMETERS ON DISC.
 C
 C  ARGUMENTS:
@@ -69,7 +69,7 @@ C****
       TRNO=LBUF(4)                                                      /* THE TRACE NUMBER WITHIN THE SHOT
       IF(LBUF(7).NE.0) TRNO=LBUF(7)                                      /* THE TRACE NUMBER WITH AN RP
       IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LASTNO) GO TO 10                                        /* IS IT IN OR BEFORE THE LAST LIST
       GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
@@ -81,7 +81,7 @@ C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
       CALL RDDISC( MUNIT, LSCR, NWRDS, ISTAT )
       LASTNO=LNO
-      DO 120 I=1,MAXTTP                                                  /* SAVE THE CURRENT PARMETER SET
+      DO 120 I=1,MAXTTP                                                  /* SAVE THE CURRENT PARAMETER SET
   120 OLDTTP(I) = curttp(i)
       MLISTS=MLISTS+1
       ISIG=1

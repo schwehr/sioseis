@@ -8,9 +8,9 @@ c     Process SMUTE performs either a surgical mute or a tail mute to
 c  the seismic traces.  A surgical mute zeroes a portion of the trace
 c  according to user given start and end times.  A tail mute zeroes the
 c  end or tail of the trace starting at a user given time.  SMUTE is
-c  similiar to process MUTE except that MUTE always zeroes the front or
+c  similar to process MUTE except that MUTE always zeroes the front or
 c  beginning of the trace.
-c     SMUTE was designed for removing occassional bad areas, so spatial
+c     SMUTE was designed for removing occasional bad areas, so spatial
 c  interpolation is turned off except when using tail muting (parameter
 c  XTP, which is similar to process MUTE parameter XTP).
 c     As with process MUTE, a 5 sample linear ramp is applied to the
@@ -55,8 +55,8 @@ C           A TRACE NUMBER LESS THAN THE SMALLEST GIVEN WILL BE MUTED TO THE MUT
 C           TIME OF THE SMALLEST TRACE NUMBER.  LIKEWISE, TRACES WITH A TRACE
 C           NUMBER LARGER THAN THE LARGEST GIVEN WILL BE MUTED TO THE MUTE TIME
 C           OF THE LARGEST GIVEN.  TTP MUST BE GIVEN IN INCREASING TRACE NUMBERS.
-C           E.G.  TTP 4 2. 20 5. - TRACES 1 THRU 4 WILL BE MUTED TO 2. SECONDS,
-C           TRACES 20 AND UP WILL BE MUTED TO 5. SECONDS, AND TRACES 5 THRU 19
+C           E.G.  TTP 4 2. 20 5. - TRACES 1 THROUGH 4 WILL BE MUTED TO 2. SECONDS,
+C           TRACES 20 AND UP WILL BE MUTED TO 5. SECONDS, AND TRACES 5 THROUGH 19
 C           WILL BE MUTED BETWEEN 2. AND 5. SECONDS (PROPORTIONATELY).
 C           PRESET=NONE
 C  XSETS  - RANGE-START TIME-END TIME TRIPLES.  A LIST OF RANGE AND MUTE WINDOW

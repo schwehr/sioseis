@@ -1,6 +1,6 @@
       SUBROUTINE spp2( c, ibuf )
 c     SPP simulates the Versatec Simultaneous Print/Plot mode by ORing a
-c  character arry into a set of raster lines.
+c  character array into a set of raster lines.
 c     The way this program works is that it has only numeric fonts.  When
 c  SPP gets a non blank annotation (c), it moves 16 lines of digitized
 c  font into a storage buffer.  Each call to SPP then ORs the top line of

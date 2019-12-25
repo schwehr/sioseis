@@ -112,7 +112,7 @@ c****
                  IF( token(1:3) .EQ. 'YES' ) all = 1.
                  GOTO 100
              ENDIF
-             CALL dcode( token, nchars, areal, istat )                  ! conver
+             CALL dcode( token, nchars, areal, istat )                  ! convert
              IF( istat .NE. 2 ) ierror = ierror + 1                     ! was the an error decoding it?
              GOTO 100
          ENDIF

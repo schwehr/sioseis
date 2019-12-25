@@ -68,7 +68,7 @@ C****
       IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     /*  OR BY RP
       IF(LNUM.EQ.LLNUM) GO TO 1000
       LLNUM=LNUM
-   70 IF(LNUM.GE.FNO) GO TO 100                                         /* IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                         /* IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) GO TO 500                                         /* IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LASTNO) GO TO 10                                       /* IS IT IN OR BEFORE THE LAST LIST
       GO TO 500                                                         /* IT MUST BE BETWEEN THE 2 LISTS
@@ -86,7 +86,7 @@ C****
   115 OLD(I)=CUR(I)
       GO TO 130
   118 CONTINUE
-      DO 120 I=1,MAX                                                    /* SAVE THE CURRENT PARMETER SET
+      DO 120 I=1,MAX                                                    /* SAVE THE CURRENT PARAMETER SET
   120 OLD(I)=SCR(I+4)
   130 CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)
       LASTNO=LNO

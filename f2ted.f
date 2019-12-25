@@ -8,7 +8,7 @@ c       Process F2T transforms frequency domain data to the time domain.
 c  Process T2F must have been used to create the frequency domain.  The
 c  frequency domain data may be in rectangular or polar coordinates.
 c  F2T permits the user to select any time domain sample interval, thus
-c  acheiving a resampling of time domain data.
+c  achieving a resampling of time domain data.
 c       Resampling is performed as follows:
 c  1)  Convert the frequency domain to polar coordinates if it isn't.
 c  2)  Interpolate (spline) both the frequency and phase spectra.

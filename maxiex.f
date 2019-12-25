@@ -1,6 +1,6 @@
       SUBROUTINE maxiex( buf, ibuf, lbuf, istop )
 c     MicroMAX disk file input.
-c     Amoung the problems with this format are:
+c     Among the problems with this format are:
 c  1)  I don't know what type of machine wrote the data.  I'm going to
 c  assume that it was an IEEE machine.  I'll also assume that the machine
 c  we're running on is IEEE.  That leaves big endian vs. little endian.

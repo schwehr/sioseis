@@ -64,7 +64,7 @@ C
      *     ' sf cu s1 s3 un qu')
       CALL RDLINE                                                        /*  READ A LINE OF INPUT FROM THE USER
       CALL GETOKE(ITYPE,NCHART)                                          /* GET THE FIRST TOKEN INTO STRING ITYPE
-      IF(NCHART.EQ.0) GO TO 111                                          /* TRY AGAIN IF NO CHARCTERS INPUT
+      IF(NCHART.EQ.0) GO TO 111                                          /* TRY AGAIN IF NO CHARACTERS INPUT
       CALL GETOKE(M,NCHAR)                                              /* GET THE NUMBER OF THINGS TO DO
       N=1                                                               /* PRESET THE NUMBER OF THINGS TO DO
       IF(NCHAR.EQ.0) GO TO 120
@@ -334,7 +334,7 @@ c****   Unassign the tape drive
 c****
  3500 CONTINUE
       jstat = freetpf77(iunit)
-      iasgnd(iunit+1) = 0                                                /* clear the assigment table entry
+      iasgnd(iunit+1) = 0                                                /* clear the assignment table entry
       GOTO 111
 c****
 c****    Dump in HEX

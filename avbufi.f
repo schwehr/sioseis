@@ -58,7 +58,7 @@ c reason:       add 8192 sample limit with no sample rate or length restriction.
 c  17 june 1988 by pch to make f77, non-vms, non-ap, non-veritas
 c  17 june 1988 by pch to make f77 - changing 's','c','e' to 1,2,3 respectively.
 c  17 june 1988 by pch to make sh an argument rather that who knows - like
-c     how is sh set overwise?
+c     how is sh set otherwise?
 c
 c  4/25/89 a.j.h. - Added rbuf to the subroutine arguments. This array is a
 c                   real array equivalent to buf. This allows velocities to be

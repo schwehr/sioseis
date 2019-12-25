@@ -3,7 +3,7 @@ C****
 C      A SUBROUTINE TO PLOT A SEISMIC VARIABLE AREA WIGGLE TRACE PLOT ON A
 C VERSATEC PLOTTER FROM A REAL TRACE ALREADY IN MEMORY.  THIS IS FOR THE VERSTEC
 C OR ANY RASTER PLOTTER.  THIS IS WRITTEN FOR THE PRIME COMPUTER AND USES
-C SEVERAL MACHINE DEPENDANT ITEMS (SUCH AS SUBROUTINE T$VG AND THE FACT THAT
+C SEVERAL MACHINE DEPENDENT ITEMS (SUCH AS SUBROUTINE T$VG AND THE FACT THAT
 C PRIME FORTRAN WRITES ARRAYS THE WAY IT DOES)
 C
 C  VARIABLES NEEDED:
@@ -42,7 +42,7 @@ C                <0, NEGATIVE NUMBERS ARE SHADED
 C                    A SMALL PCTFIL REDUCES RUN TIME SOMEWHAT.
 C         VSCALE - VERTICAL SCALE IN INCHES PER SECOND.
 C         TRPIN  - TRACES PER INCH, OR THE HORIZONTAL SCALE
-C         ITYPE  - THE TYPE OF SCALING TO PERFORM BEFORE PLOTING
+C         ITYPE  - THE TYPE OF SCALING TO PERFORM BEFORE PLOTTING
 C                =0, NO SCALING.
 C                =1, THE MAXIMUM VALUE WILL SPAN DEF INCHES.
 C                =2, THE MAXIMUM AND MINIMUM VALUES WILL SPAN DEF INCHES.
@@ -125,7 +125,7 @@ c               - Do trace to def comparison in floating point
 c mod 6 Feb 03 - Annotation on ltr grayscale & color was not black
 c mod 7 Feb 03 - Add ndptr (number of dots to fill) - sorta like clip
 c mod 31 Jul 03 - Do left side time line annotation if nib > 200
-c mod 4 Aug 03 - Increase iwrdcount by 6 to accomodate lanno2
+c mod 4 Aug 03 - Increase iwrdcount by 6 to accommodate lanno2
 c              - Add spp2 to hold lanno2.
 c mod 14 Jan 04 - ndptr 1 plots were empty
 c mod 7 Mar 04 - That mod caused negatives to be filled when ndptr=0
@@ -138,7 +138,7 @@ c mod 16 Feb 05 - subroutine polint gave a huge erroneous answer.
 c mod 29 Jul 06 - left justify lanno2
 c mod 22 Mar 07 - Remove some Printronix and C.Itoh stuff
 c               - Add itag 3 (Time line annotation only)
-c mod 14 Nov 07 - Bizzare.  When dir ltr and nsamps changes, the annotation
+c mod 14 Nov 07 - Bizarre.  When dir ltr and nsamps changes, the annotation
 c              location is wrong - force nsamps to be the same when dir ltr
 c mod Dec 07 - Add TRIM
 c mod 24 Jun 08 - Skip time line annotation if it'll cause a buffer overflow.
@@ -202,7 +202,7 @@ c****  There is still some question about bit/byte order on DEC and
 c****  Printronix.  Does prntx/prntx2 take care of it?
 c****  The confusion is probable because:
 C****  NON-DEC GOES 2**15,2**14,2**13,...,2**0
-C****  DEC UNIX GOES 2**0,2**1,2**2,....,2**15    , THERFORE USE DTABLE
+C****  DEC UNIX GOES 2**0,2**1,2**2,....,2**15    , THEREFORE USE DTABLE
 c***** DEC VMS goes 2**8,2**9,..2**15, 2**0,2**1,....2**7
       DATA ITABLE/-32768,16384,8192,4096,2048,1024,512,
      *          256,128,64,32,16,8,4,2,1/

@@ -4,7 +4,7 @@ c                               PROCESS IRIS
 c                               ------- ----
 c  Doc date: 13 May 1990
 c
-c    Convert IRIS data logger data into standard SEGY formated data.
+c    Convert IRIS data logger data into standard SEGY formatted data.
 c  It is assumed that all the data input through process diskin in a
 c  single job are a "single event".  The DISKIN parameter FORMAT may be
 c  used to read the IRIS data traces.

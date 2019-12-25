@@ -1,6 +1,6 @@
       SUBROUTINE reltap( lun, itype )
 c    A stupid routine to release a tape drive using the various
-c  idiosyncracies of sioseis.  I.E. This writes 2 EOFs if it's an
+c  idiosyncrasies of sioseis.  I.E. This writes 2 EOFs if it's an
 c  output tape, because process output doesn't know when the last shot,
 c  so output doesn't write the eofs (which it used to do, and then back
 c  over them so the next write writes over the eof, but that's no

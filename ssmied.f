@@ -63,7 +63,7 @@ c    the end traces which are tapered down within the pad region. This
 c    is highly recommended as it reduces Gibbs phenomena and Nyquist
 c    noise.  It should be kept in mind, however, that a power of 2 FFT
 c    is used and that the length of the FFT is determined as the next
-c    power of 2 abover (data panel lenght)+BPAD+EPAD.  So if you are
+c    power of 2 abover (data panel length)+BPAD+EPAD.  So if you are
 c    migrating 1900 traces and you pad with 100 on each side, you will
 c    be using a 4096 FFT for each depth step. If you had padded with 50
 c    on each you would be using a 2048 FFT, much faster.
@@ -76,7 +76,7 @@ c    smiles from the data panel ends sides.  An exponental taper on the
 c    order of MTAP=25 traces is recommended.  The example below should
 c    clarify the issue.  It is important to note that the FFT length is
 c    not based on the length of the exponential taper, only on the
-c    (data panel lenght)+BPAD+EPAD, so that if care is not taken data
+c    (data panel length)+BPAD+EPAD, so that if care is not taken data
 c    may be affected by the exponental taper.
 c
 c    MTAP=5

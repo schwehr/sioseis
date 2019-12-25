@@ -210,7 +210,7 @@ c****   When prestack, use the depth from the first trace for all others in the 
           IF( ABS(depth-depth1)*2./vel(numwbt) .GT. track(numwbt) )
      &        depth = depth1
       ENDIF
-c****  Knudsen also gives zero when it can't find the water botton.
+c****  Knudsen also gives zero when it can't find the water bottom.
 c****  Use the last good one if this is zero.
       depth1 = depth
       buf(jndex(numwbt)) = depth / (vel(numwbt) / 2.)

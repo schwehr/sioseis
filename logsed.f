@@ -35,8 +35,8 @@ c  TSAMP1 - The new sample rate (*1000) for the log stretched trace.
 c           May be different than time sample rate.
 c           Used in Process LOGST1
 c           Preset = 0.004  (250 samples/sec)
-c  TSAMP2 - The new sample rate (*1000) subsquent to log compression.
-c           May be different than intial sampling or log sampling.
+c  TSAMP2 - The new sample rate (*1000) subsequent to log compression.
+c           May be different than initial sampling or log sampling.
 c           Used in Process LOGST2
 c           Preset = 0.004  (250 samples/sec)
 c  TCUT   - Time cut for log stretch/destretch.
@@ -105,7 +105,7 @@ c****
              ns = ns + 1
              CALL upcase( token, nchars )
 
-c*GMK        NO TOKENS THAT ARE CHARATERS - CONVERT TO ALPHANUMERIC
+c*GMK        NO TOKENS THAT ARE CHARACTERS - CONVERT TO ALPHANUMERIC
 
              CALL dcode( token, nchars, areal, istat )                  ! convert the alpha number to an internal machine number
              IF( istat .NE. 2 ) ierror = ierror + 1                     ! was the an error decoding it?

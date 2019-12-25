@@ -1,7 +1,7 @@
       subroutine chkbin(MrgParam,buf,lbuf,ibuf,scr,lscr,iscr)
 c------------------------------------------------------------------------------
 c This is a bugfix routine that DIEX calls on input to check to see whether
-c we have a new style or old syle binary trace header on disk files. The
+c we have a new style or old style binary trace header on disk files. The
 c old header was 100 4 byte words long while the new one is 50
 c------------------------------------------------------------------------------
 c.. Include file for SplitFK, MrgFK & related processes

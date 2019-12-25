@@ -10,7 +10,7 @@ c  reflection coefficient" trace.  PSEUDO requires the user to take
 c  two passes at the data; the first one to calculate and print the
 c  multiplier used for the conversion and the second pass to apply
 c  the multiplier.  The shot/rps used to calculate the multiplier
-c  are controled by process DISKIN - PSEUDO uses all the traces given
+c  are controlled by process DISKIN - PSEUDO uses all the traces given
 c  to it by process DISKIN.  All seismic lines within a project
 c  should have the same SCALE applied.
 c      PSEUDO determines a multiplier (SCALE) from a window across a

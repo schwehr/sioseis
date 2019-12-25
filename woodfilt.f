@@ -430,7 +430,7 @@ C     DO A FOURIER TRANSFORM OF LENGTH FOUR (FROM BIT REVERSED ORDER)
  60   IF (IP2-IP4) 70,160,160
  70   IP3=IP2*4
 C     IP3=IP2*IFACT
-C     COMPUTE TWOPI THRU WR AND WI IN DOUBLE PRECISION, IF AVAILABLE.
+C     COMPUTE TWOPI THROUGH WR AND WI IN DOUBLE PRECISION, IF AVAILABLE.
       THETA=TWOPI/FLOAT(IP3/IP1)
       SINTH=SIN(THETA/2.)
       WSTPR=-2.*SINTH*SINTH
@@ -732,7 +732,7 @@ c
         jt1 = (jx2-1)*nt + itop
         jt2 = (jx2-1)*nt + ibot
 c
-c Copy relevent portion of trace
+c Copy relevant portion of trace
         do 20, k = jt1,jt2,nksam
           i1 = i1 + 1
           data(i1) = data(k)

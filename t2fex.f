@@ -69,7 +69,7 @@ C****
    50 CONTINUE
       LNUM=LBUF(3)                                                      /*  IS THE DATA ON TAPE SORTED BY SHOT
       IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LASTNO) GO TO 10                                        /* IS IT IN OR BEFORE THE LAST LIST
       GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
@@ -257,7 +257,7 @@ C****
           CALL vmov(nextad,1,in,1,nsamps)                               /* move nfft complexes
       ELSE
           CALL POLAR(NEXTAD,2,NEXTAD,2,nfft)                            /* CONVERT TO POLAR COORDINATES
-          CALL VMOV(NEXTAD,2,IN,1,nfft)                                 /* MOVE THE AMPLITUDE SPECTRUM TO THE FIRST HALF OFTHE TRACE
+          CALL VMOV(NEXTAD,2,IN,1,nfft)                                 /* MOVE THE AMPLITUDE SPECTRUM TO THE FIRST HALF OF THE TRACE
           CALL VMOV(NEXTAD+1,2,IN+nfft,1,nfft)                          /* MOVE THE PHASES TO THE SECOND HALF
       ENDIF
 C*****

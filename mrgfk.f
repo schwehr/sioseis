@@ -16,7 +16,7 @@ c       These processes require the data be in internal format with
 c       traces having wavenumbers in 0 -> +nyq and frequencies between
 c       -nyq -> 0 -> +nyq.
 c
-c   To maintain maximal independance from diex ( the usual disk input) MRGFK is
+c   To maintain maximal independence from diex ( the usual disk input) MRGFK is
 c called at appropriate points from DIEX and handles the majority of the disk
 c I/O functions in this case
 c
@@ -292,7 +292,7 @@ c**************************                           **************************
 c
       if ( entry.eq.MRGINIT) then
         if(iscr(IDTYPPTR).ne.IDFKPLRU)
-     *    RETURN                                                        ! Only interested in user polar cordinate data
+     *    RETURN                                                        ! Only interested in user polar coordinate data
 c
         if (chkprc()) then                                              ! FK process. Setup to reformat data
           iptype = IPTFKU                                               ! Change data type to ensure call back
@@ -304,7 +304,7 @@ c
 c
           if(inpnum.ne.2**pow2(inpnum-1)+1) then
             print '(2A)',' **** DIEX(mrgfk) ERROR ****',
-     $             ' FK data file doesnt have 2**n + 1 traces'
+     $             ' FK data file does not have 2**n + 1 traces'
             STOP
           endif
 c
@@ -352,7 +352,7 @@ c          nt      = ibuf(ISAMPPTR) - 2                                  ! No. o
 c
           if(nt.ne.2**pow2(nt)) then
             print '(2A)',' **** DIEX(mrgfk) ERROR ****',
-     $            ' FK data trace length doesnt have 2**n + 2 samples'
+     $            ' FK data trace length does not have 2**n + 2 samples'
             STOP
           endif
 c
@@ -805,7 +805,7 @@ c   CONTRO:DIEX:MRGFK:sRdTrc
 c
 c Externals:
 c   SWAP16, SWAP32       : DEC byte swap routines
-c  I22I8, I42I8, IBMCRAY : Convertion routines for CRAY
+c  I22I8, I42I8, IBMCRAY : Conversion routines for CRAY
 c  IBMFP                 : Convertio routine for Host FP
 c   RDDISC, EXIT
 c

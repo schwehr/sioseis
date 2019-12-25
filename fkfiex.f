@@ -43,7 +43,7 @@ c Last Modified
 c      12/20/88 ajh   Altered Logic of line addition at v = 0
 c                     Changed definition of vzerop
 c                     Added more Debug info
-c      3/16/89 ajh  Added read of binary header info thru common /READT/
+c      3/16/89 ajh  Added read of binary header info through common /READT/
 c     7 Nov 91 pch  Add reinitialization stuff for prestack.
 c 8 Apr 09 - Use common numdat rather than segy header word ISAMPPTR
 c 27 Sept 10 - Don't cal FrmWnd if cut/pass goes across 0

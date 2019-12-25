@@ -22,7 +22,7 @@ c  $GPGGA,084137.20,3308.8335151,N,11841.8790745,W,1,09,0.9,6.6,M,-34.0,M,,*52
 c
 c mod 29 Mar 2016 - change to gpggaa to delete unused arguments and add istat
 c         istat = 0 if ok
-c               = 1 if not ok - an error ocurred
+c               = 1 if not ok - an error occurred
 c mod 13 Apr 2016 - detecting bad $GPGGA is uglier than I thought.  Don't try to correct anything
 c        until all fields are examined.  i.e. lat may pass being the right length and being a
 c        number, but may be bad - the long may not be detected bad.

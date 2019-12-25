@@ -115,7 +115,7 @@ C Revised by:   N.M.M.                          Date:   May, 1987
 C Reason:       Add 8192 sample limit with no sample rate or length restriction.
 c
 c  17 June 1988, by pch to make f77 for non-vms, non-ap,  and non-veritas!
-c  August - pch.  the vrms array is a virual array, not in Cray!  So,
+c  August - pch.  the vrms array is a virtual array, not in Cray!  So,
 c                vrms is now stored on disc.  vrms contains a velocity
 c                for every tau step of every trace.  It must be
 c                transposed too, all of each time steps next to each
@@ -162,7 +162,7 @@ C
       DATA nsofar/1/, icol/1/
 C
 C
-C.... Calculate some loop indeces and partially calculate G. (see notes above)
+C.... Calculate some loop indices and partially calculate G. (see notes above)
 c      print *,' strzon=',strzon,' ntrzon=',ntrzon,' dt=',dt,' dx=',
 c     * dx,' lunvel=',lunvel,' lenint=',lenint
 c      print *,vpadss,vpadse,vpadge,vpadge

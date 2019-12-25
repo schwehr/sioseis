@@ -55,7 +55,7 @@ C  The Parameter Dictionary
 C  --- --------- ----------
 C
 C  STIME  - The start time of the data for the entire data set.  Any trace
-C           that has an intial time (delay) greater than stime will be zero
+C           that has an initial time (delay) greater than stime will be zero
 C           padded so that the data starts at stime.  Any trace that has a
 C           delay greater than stime will be truncated.
 C           preset = the delay of the first trace.
@@ -104,7 +104,7 @@ C                output frequency trace is a poiwer of two.  The k dimension
 C                is also ordered as it comes directly out of the fft, 0 to
 C                nyquist followed by the most negative k.
 C
-C         =POLAR,Polar cordinates.  The first half of the output trace will be
+C         =POLAR,Polar coordinates.  The first half of the output trace will be
 C                the amplitude spectrum and the second half of the trace will
 C                be the phase spectrum, each ordered 0 to nyquist back to 0.
 C                The k dimension is reordered so that the first trace is the

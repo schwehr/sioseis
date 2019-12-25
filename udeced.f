@@ -5,7 +5,7 @@ C                        ------- ------
 C
 C DOCUMENT DATE: 26 February 1988
 C
-c     UDECON calulates and applies a Wiener deconvolution filter given a series
+c     UDECON calculates and applies a Wiener deconvolution filter given a series
 c  of input and desired output values or the crosscorrelation and autocorrelatio
 c  functions.  The output appears in the "standard output" (print file) and may
 c  be the input, output, crosscorrelation, autocorrelation, the Wiener filter

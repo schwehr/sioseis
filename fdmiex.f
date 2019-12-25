@@ -484,7 +484,7 @@ c****
       ibuf(15+ihdradd) = 1                                              ! All tr
       in               = 0                                              ! Mark d
       IF ( ntxcall .GE. nreadyy) THEN
-        IF ( lunt .NE. 0 ) CALL frefil( 3, lunt, istst )                ! releas
+        IF ( lunt .NE. 0 ) CALL frefil( 3, lunt, istst )                ! release
         call second(timea)
         IF( IAND(lprint,4) .NE. 0 )
      *   write(ERROUT,*) ' Finished FD Migration at:',timea

@@ -12,7 +12,7 @@ c  similar to subroutine IBM2FP.
 c
 c  ARGUMENTS:
 c  ibuf   - The input array (of SEG-D 20 bit exponent data).  The array
-c           must be alligned correctly - the first word must be the
+c           must be aligned correctly - the first word must be the
 c           4 exponents.
 c  obuf   - The output array of REAL data.  Must not be the same as ibuf
 c  nsamps - The number of data values to convert.

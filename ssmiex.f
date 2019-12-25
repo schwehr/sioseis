@@ -294,7 +294,7 @@ C***GMK Clean scratch array
                   ibuf(12) = nz
                   ibuf(13) = 5
                   ibuf(15) = 1
-C***GMK WRITE OUT TAPE ID HEADER WITH APPROPRIATE VAULES FOR VELOCITY FILE
+C***GMK WRITE OUT TAPE ID HEADER WITH APPROPRIATE VALUES FOR VELOCITY FILE
                   CALL WRDISC(lunsegy, buf, 100)
                ENDIF
                CALL rddisc( lunhdr, buf, numhdr, istat )

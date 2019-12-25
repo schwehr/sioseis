@@ -99,7 +99,7 @@
 	a)  udecex - prewhittener on nonap was wrong
 48) 28 June
 	a)  segdex - more stime/secs bugs when delay NE 0
-	b)  magtap.sun - remove some print statments
+	b)  magtap.sun - remove some print statements
         c)  rdtrc - tape changes when different unit numbers didn't work
 49) 10 July
 	a)  diex - had format ssc honor forgat 1
@@ -289,7 +289,7 @@
         e)  muteex - correct bad mute when spatially varying and the first
 	             shot is not in the first user list.
 106)  2 Aug 90
-	a)  wbtex - make spatial interpolation better by removing bizare
+	a)  wbtex - make spatial interpolation better by removing bizarre
 	            Prime bug stuff.
 	b)  plotex - make ftr, ltr, and ninc work!
 107)  8 Aug 90
@@ -459,7 +459,7 @@
 150)  24 Jan. 1992,  ver 3.1.13
 	a)  ploted, trplot - add Versatec 8625
 	b)  diex - Add Iris real format
-	c)  plotex - Accomodate Iris format for number of samples.
+	c)  plotex - Accommodate Iris format for number of samples.
 	d)  headed - Allow the same fno/lno on successive lists.
 151)  30 Jan 92, ver 3.1.14
 	a)  ploted, plotex - change stime preset to allow stime -1.
@@ -657,7 +657,7 @@
 		  - Honor ftr/ltr when no fno/lno
 	c) geom -  Allow user to give super large fs/ls
 	d) poutex - Allow super large shot numbers
-	e) velan - allign +s in plot (invplt.f and clvplt.f)
+	e) velan - align +s in plot (invplt.f and clvplt.f)
 	f) weiged - Bad check for shot numbers increasing.
 200)	ver 3.2.47 (16 May 1994)
 	a) ploted -  Allow 45 seconds of data to be plotted (was 30).
@@ -1245,7 +1245,7 @@ Changed makefile from f77 -O to f77 -fast, which causes message:
     1) plot - The plotter size on nibs 200 (Versatec 1200) is 10.56 not 11.
     2) fdmigr - Allow velocities < 350.  Now between 0 & 32000
     3) nmo - interpolation was wrong on last pair when vintpl 1 and "thinning"
-    4) plot - Add parameter hpath (segy header file ouput)
+    4) plot - Add parameter hpath (segy header file output)
 278) ver 2001.4 (30 May 2001)
     1) seg2in - Byte swap problem on pclinux.
     2) segdin - Y2K bug going from 2 digit SEGD to 4 digit SEGY
@@ -1718,7 +1718,7 @@ ver 2007.1 (12 January 2007
 2007.3 (14 February 2007)
     1) geom - Add parameter SETBACK
             - Calculate source and receiver coordinates.
-    2) stack - Compute the rp coodinates (source + receiver ) / 2 and
+    2) stack - Compute the rp coordinates (source + receiver ) / 2 and
               store on header words 19 & 20 and zero 21 & 22
     3) header - Add parameter SWAP.
     4) prout - Do negative lat/long correctly on info.
@@ -1817,7 +1817,7 @@ ver 2008.4 (20 May 2008)
     5) diskio - still problems with podisc
     6) segddin - water depth was not going into word 54 (needed by nmo/vtrkwb)
     7) segddin - extended file number was bad
-    8) diskio - Do the podisc as set to 0 followed by 4 set_cur (aloows 8GB)
+    8) diskio - Do the podisc as set to 0 followed by 4 set_cur (allows 8GB)
     9) segddin - If LDEO, check for shot and file skips
     10) nmo - Bad warning message when centerbeam goes south
 ver 2008.5.2 (23 May 2008)

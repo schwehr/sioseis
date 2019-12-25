@@ -5,7 +5,7 @@ cd /dev
 ln -s rmt/0bn nrst0
  *  The first rule of Unix mag tape i/o is that the tape drives are accessed
  * by file descriptors, thus, each tape unit (0, 1, 2, 3) must be assigned
- * (thru ASTAPE) before it can be used.
+ * (through ASTAPE) before it can be used.
  *
  *   The various entry points in mag.c are:
  * astape(lun,name,wring)   -  assigns the tape - gets a file descriptor
@@ -30,7 +30,7 @@ ln -s rmt/0bn nrst0
  *      Returns a long integer containing the status of the read.
  *          >0,  The number of bytes read.
  *          =0,  Shouldn't happen
- *          <0,  A tape read error occured.
+ *          <0,  A tape read error occurred.
  *
  * Function wrmt(lun,buffer,nbytes)  -  Write nbytes from buffer to lun.
  *      lun   - The tape drive unit number to write on.
@@ -39,7 +39,7 @@ ln -s rmt/0bn nrst0
  *      Returns the status of the write operation.
  *          >0,  The write wrote nbytes to tape. (everything ok!).
  *          =0,  Shouldn't happen.
- *          <0,  An error occured.
+ *          <0,  An error occurred.
  *
  * Function weofmt(lun) - Write a file mark on tape unit lun.
  *      Returns the operation status.  Long integer.
@@ -58,7 +58,7 @@ ln -s rmt/0bn nrst0
  *           <0, Error
  *
  * Function skrfmt(lun) - Skip 1 record forward on lun (position in next IRG).
- *                        No data is transfered.
+ *                        No data is transferred.
  *      Returns the operation status.  Long integer.
  *           =0, OK
  *           <0, Error
@@ -81,7 +81,7 @@ ln -s rmt/0bn nrst0
  * untape(lun) - rewinds, set offline and closes (frees) lun.
  *
  * clrmt(lun) - clears the tape drive controller status register.  This must be
- *              done after any errors have ocurred.
+ *              done after any errors have occurred.
  *
  * statmt(lun) - returns the error status of the tape drive. (mtget.mt_erreg)
  *               mtget.mt_erreg seems to be fairly machine and controller
@@ -129,9 +129,9 @@ ln -s rmt/0bn nrst0
  *                 6 - on line
  *                 7 - EOF
  *               8-12 - error
- *                 13 - retry occured
+ *                 13 - retry occurred
  *                 14 - successful operation
- *                 15 - excution started (busy)
+ *                 15 - execution started (busy)
  *              SUN XYLOGIC 472 (trial and error)
  *              bit 2,3 - online and ready bits
  *                 5 - protected (no ring)
@@ -158,7 +158,7 @@ ln -s rmt/0bn nrst0
  * modified 16 May 1989 by pch: add message when drive can't be opened
  * modified 4 Jan 1990 by pch: chmod 600 when assigning the drive and after
  *                             closing it
- * modified Sept 1990 by pch: comment out clrmt since Sun OD 4.1 now
+ * modified Sept 1990 by pch: comment out clrmt since Sun OS 4.1 now
  *                writes a file mark on MTNOP (no op) !
  * mod Aug 91 - set  fd[unitno] = 0;   when releasing tapes
  * mod 31 Oct 91 - for UTIG Exabyte changes

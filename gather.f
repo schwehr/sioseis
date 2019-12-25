@@ -74,7 +74,7 @@ c                  trace is dead and has a bad trace header.
 c  mod 3 May 95 - compute nsamps = nwrds - numhdr when generating mintrcs
 c  mod 25 Apr 96 - Increase the max allowable traces (maxrps*maxtrs) and
 c                - Add a check for exceeding max!
-c  mod 2 Oct 97 - Set numdat/nsamps when flushing becuase it may not be
+c  mod 2 Oct 97 - Set numdat/nsamps when flushing because it may not be
 c            set coming in when isig is 0 (e.g. process input did that!)
 c  mod May 06 - Delete all the restart stuff (frp).
 c             - Redo the maximum maxtrs/maxrps messages.
@@ -88,7 +88,7 @@ c  mod 30 Aug 09 - Cygwin didn't like podiscun, so made it podiscun.
 c  mod 7 May 10 - Argh.  unsigned disk address logic fails because a negative
 c                 disk address was used to indicate the slot was empty.
 c                 Change ltable(2) to be a trace counter rather than disk addr.
-c  mod 3 Jun 10 - Add warning if FRP is far away from the firts rp read.
+c  mod 3 Jun 10 - Add warning if FRP is far away from the first rp read.
 c
 C****
 C****
@@ -124,7 +124,7 @@ C****
       IF( nwrds .LE. 60 ) nwrds = numhdr + numdat
 C     A DISC FILE MUST BE FILLED (WRITTEN TO) BEFORE YOU CAN POSITION IN IT!
 C     THUS, WRITE TO THE FILE AS MUCH AS EVER MAY BE NEEDED.  IN OTHER WORDS, I
-C     CAN NOT POSTION TO WORD 1 BEFORE WORD 0 HAS BEEN WRITTEN!
+C     CAN NOT POSITION TO WORD 1 BEFORE WORD 0 HAS BEEN WRITTEN!
 C     I AM NOT USING WORD 0 BECAUSE I CAN'T TELL THE DIFFERENCE BETWEEN 0 AND -0.
 C     A NEGATIVE DISC ADDRESS IN THE TABLE MEANS THE DISC SPACE IS AVAILABLE,
 C     WHEREAS A POSITIVE ADDRESS MEANS A TRACE IS ALREADY THERE!.

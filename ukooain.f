@@ -28,7 +28,7 @@ c   lhdr(21) = receiver easting
 c   lhdr(22) = receiver northing
 c
 c   Call ukooain for every trace.
-c   Don't play with the ukooa file betweeen calls to ukooain.
+c   Don't play with the ukooa file between calls to ukooain.
 c
 c   S line name, shot number, easting & northing for shot, time
 c   R channel number, easting & northing (meters), receiver depth (meters)

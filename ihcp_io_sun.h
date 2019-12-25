@@ -79,7 +79,7 @@ is supported for that particular board.
 
 argument is used in some of the ihcp ioctl calls to provide values to
 the driver ioctl routine, or return values to the calling program.  In
-one case - data out - it contains an array of charater data to be sent
+one case - data out - it contains an array of character data to be sent
 to the attached device.  the argument is restricted to a maximum of 255
 bytes - by unix, and by the driver.
 
@@ -250,7 +250,7 @@ IHCPIO_SOFT_ACK		simulates ack sequence from device
 #define IHCPIO_DATA_OUT	_IOWN('H',10,0)	/* CALLING PGM WILL AND IN THE  */
 					/* ACTUAL CHARACTER COUNT - DONE*/
 					/* THIS WAY SO COUNT CAN BE A   */
-					/* VARAIBLE, NOT CONSTANT !!!   */
+					/* VARIABLE, NOT CONSTANT !!!   */
 
 					/* sends char array in ARG to	*/
 					/* fifo if room. if not - return*/
@@ -268,7 +268,7 @@ IHCPIO_SOFT_ACK		simulates ack sequence from device
 #define IHCPIO_STREAM_OFF _IO('H',14)	/* turns off data streaming	*/
 
 #define IHCPIO_GET_FLAGS _IOR('H',15,int)	/* returns unit's "flags" word	*/
-					/* fron driver's unit array	*/
+					/* from driver's unit array	*/
 
 #define 	IHCP_DMA_WAIT 0x80000000	/* waiting for dma end	  */
 #define 	IHCP_RDY_WAIT 0x40000000	/* waiting for rdy & fifo */

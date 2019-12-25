@@ -5,7 +5,7 @@ c  Copyright (C) The Regents of the University of California
 c  Written by:  Paul Henkart, Scripps Institution of Oceanography
 c
 c  mod 24 Jan 92 - Allow successive lists to have the SAME fno/lno.
-c  mod 16 Aug 92 - VMS didn't work becuase of disk I/O in EBCDIC header
+c  mod 16 Aug 92 - VMS didn't work because of disk I/O in EBCDIC header
 c  mod 19 Oct 92 - Add parameter HEADER.
 c  mod 15 Mar 95 - Add parameter BHDR
 c  mod 16 Mar 95 - Add parameter XN1
@@ -25,7 +25,7 @@ c  mod 2 June 03 - Only do the binary header stuff if the proper process
 c                  HEADER is in the procs list.
 c                - variable itype was being used for too many things!
 c  mod 27 Apr 06 - BHDR didn't work on Linux because wrdiscb had extra arg
-c                - gfortran (linux) doesn't allow GOTO into differnt blocks.
+c                - gfortran (linux) doesn't allow GOTO into different blocks.
 c  mod 25 May 06 - Allow negative fno and lno.
 c  mod 24 Jul 06 - Change lno preset to 9999987
 c  mod 12 Feb 07 - Add parameter SWAP
@@ -308,7 +308,7 @@ c****
                   ENDIF
                   GOTO 100
 c                  nswap = nswap -1
-c                  PRINT *,' ***  ERROR  ***  SWAP indices must start wit
+c                  PRINT *,' ***  ERROR  ***  SWAP indices must start with
 c     &h I or L.'
 c                  ierror = ierror + 1
               ENDIF

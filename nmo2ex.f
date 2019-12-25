@@ -8,7 +8,7 @@ C  REALLY BEING SOLVED HERE IS  TX=SQRT(T0+X**2/V**2).  T0 IS ANY ARRAY OF TIME
 C  VALUES EACH SEPARATED BY THE SAMPLE INTERVAL, X IS THE SHOT-RECEIVER DISTANCE
 C  OF THE TRACE, AND V IS THE USER'S VELOCITY FUNCTION.  THUS, TX IS WHERE
 C  THE DATA IS BEFORE NMO.
-C     SUBROUTINE NMOED CONTAINS THE EXPLAINATION OF THE USER PARAMETERS AND THE
+C     SUBROUTINE NMOED CONTAINS THE EXPLANATION OF THE USER PARAMETERS AND THE
 C  ORDER OF THE USER PARAMETERS ON DISC.
 C
 C  ARGUMENTS:
@@ -195,7 +195,7 @@ C****
           newx = lscr(12)
           ICORE=1
       ENDIF
-   70 IF(LNUM.GE.FNO.OR.MLISTS.EQ.1) GO TO 100                          ! IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO.OR.MLISTS.EQ.1) GO TO 100                          ! IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) GO TO 500                                         ! IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LASTNO) GO TO 10                                       ! IS IT IN OR BEFORE THE LAST LIST
       GO TO 500                                                         ! IT MUST BE BETWEEN THE 2 LISTS
@@ -215,7 +215,7 @@ C****
           DO 113 I=1,MAXVTP
   113     OLDVTP(I)=CURVTP(I)
       ELSE
-          DO 120 I=1,MAXVTP                                             ! SAVE THE CURRENT PARMETER SET
+          DO 120 I=1,MAXVTP                                             ! SAVE THE CURRENT PARAMETER SET
   120     OLDVTP(I)=SCR(I+npars)
           NOVTPS=LSCR(npars)
           LASTNO=LNO
@@ -478,7 +478,7 @@ C****
       IF( IUSEAP .EQ. 1 ) THEN
           CALL APWR                                                     ! WAIT FOR THE COMPUTATIONS TO FINISH
           CALL APGET(LSCR,IN,NSAMPS,0)                                  ! GET THE INDEXES
-          CALL APWD                                                     ! WAIT FOR THE INDEXES TO FINISH TRANSFERING FROM THE AP
+          CALL APWD                                                     ! WAIT FOR THE INDEXES TO FINISH TRANSFERRING FROM THE AP
       ENDIF
 c**** NMONAP returned the REAL TX array in a(nextad)  and the indices in LSCR
 c          CALL NMONAP(RANGE,DELAY,SI,NSAMPS,IVELAD,LSCR, jtype, a(nextad) )

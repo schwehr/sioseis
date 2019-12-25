@@ -34,8 +34,8 @@ C  IS EITHER AN INPUT PROCESS OR THAT HAS DATA READY (SIGNALED THROUGH IOUT).
 C
 C  COPYRIGHTED BY:
 C   PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, FEBRUARY 1980
-c  mod 20 nov 90 by pch - add hidden paremeters noecho and echo
-c  mod 12 Jan 91 by pch - fix weird gather bug when end occured before any
+c  mod 20 nov 90 by pch - add hidden parameters noecho and echo
+c  mod 12 Jan 91 by pch - fix weird gather bug when end occurred before any
 c           traces were output,
 c  mod 21 Jan 91 by pch - add process pseudo
 c  mod 11 April 91 by pch to add an argument to mixex
@@ -97,7 +97,7 @@ c  mod 21 May 07 - Clean up prestack TX2TP
 c  mod 16 Jul 07 - Increase MAXSAM to 64536 from 50000
 c                - Use all 3 trace buffers as scratch buffers for FKMIGR
 c  mod 5 Dec 07 - Flush the print buffer before "END OF SIOSEIS RUN"
-c  mod 19 Dec 07 - That fortran print comes out before the c bufffer is
+c  mod 19 Dec 07 - That fortran print comes out before the c buffer is
 c                  flushed, so just stop printing "END OF SIOSEIS RUN"
 c  mod 2 Aug 08 - txed and fked must be initialized.
 c  mod 19 Sep 08 - increase apmem from 5mw to 10 mw (megawords) for sort
@@ -129,7 +129,7 @@ c ierror - counts the errors in the edit phase
 c iwarn counts the warnings in the edit phase
 c irun = 0 for edit only jobs
 c      = 1 for edit and execute
-c now = 0 for batch or backgrount jobs
+c now = 0 for batch or background jobs
 c     = 1 for interactive jobs
 c icompt = 1 for PRIME
 c        = 2 for Ultrix DecStation (IEEE words in Dec byte order)
@@ -417,14 +417,14 @@ C****
           GOTO 10
       ENDIF
 C****
-C****     GOT A PROCESS NAME  -  NOW CALL THAT PROCESS' EDIT
+C****     GOT A PROCESS NAME  -  NOW CALL THAT PROCESS'S EDIT
 C****
   100 CONTINUE
       IF( lprint .EQ. 1 ) PRINT *,' Debug info:  Computer type =',
      &    icompt
 C****  MAKE SURE THAT THE NAME IS THE RIGHT LENGTH.  THIS MAKES SURE THAT
 C****  THE IS A DELIMITER BETWEEN THE PROCESSES.  WITHOUT THIS CHECK, A
-C****  PROCESS COULD BE SKIPPED IF THE DELIMITED WAS OMMITTED. (I.E.
+C****  PROCESS COULD BE SKIPPED IF THE DELIMITED WAS OMITTED. (I.E.
 C****  PROCS INPUT FILTER OUTPUT END WOULD RUN WITHOUT DOING THE FILTER!
       IF( NCHARS .NE. LENGTH(NAMNUM) ) THEN
           PRINT *, ' ***  ERROR  ***  Process name ',CTOKEN(1:NCHARS),
@@ -434,10 +434,10 @@ C****  PROCS INPUT FILTER OUTPUT END WOULD RUN WITHOUT DOING THE FILTER!
       ENDIF
       IF( iok(namnum) .EQ. -1 ) THEN
           PRINT *,' ***  WARNING  *** These process ',names(namnum),
-     &             ' parameters supercede the previous ones.'
+     &             ' parameters supersede the previous ones.'
           nsevere = nsevere + 1
       ENDIF
-      IOK(NAMNUM) = -1                                                  !  THE PROCESS' PARAMETERS ARE GIVEN!
+      IOK(NAMNUM) = -1                                                  !  THE PROCESS'S PARAMETERS ARE GIVEN!
       IF( lprint .NE. 0 ) THEN
           PRINT *,' about to enter edit of ',names(namnum)
       ENDIF
@@ -818,7 +818,7 @@ C*****  TO DO ADDITIONAL WORK,  THEREFORE CARRY ON IF THERE IS SUCH A PROCESS.
       ENDIF
       IINRW=1                                                           ! A SIGNAL INDICATING THAT INPUT WAS DONE & THE UNIT MAY BE REWOUND
       IF(ISTOP.GE.0) GO TO 1250                                         ! ISTOP=-1 IF OPERATOR IS STOPPING THE JOB
-C****                           ISTOP=1 IF THE USER IS STOPPING THRU PARAMETERS
+C****                           ISTOP=1 IF THE USER IS STOPPING THROUGH PARAMETERS
       IF( istop .EQ. -1 ) GOTO 1220
 c      ISTOP=1
 c      GO TO 1210
@@ -859,7 +859,7 @@ c****     before anything was output.
           GOTO 1010                                                     ! NOW PROCESS THAT TRACE
       ENDIF
       IF( ncdp .NE. 0 ) THEN
-c         this means that the last time thru was to get rid of a trace and we
+c         this means that the last time through was to get rid of a trace and we
 c         now need a new input trace
           ncdp = 0
           IF( kstop .EQ. 1 .AND. istop .EQ. 0 ) THEN
@@ -1075,7 +1075,7 @@ C****
 C****                COMPEN EXECUTE
 C****
  3600 CONTINUE
-c      CALL COMPEX(BUF(INDEX1),BUF(INDEX1),BUF(INDEX1),BUF(INDEX3),
+c      CALL COMPLEX(BUF(INDEX1),BUF(INDEX1),BUF(INDEX1),BUF(INDEX3),
 c     *   BUF(INDEX3))
       GO TO 1010
 C****
@@ -1581,7 +1581,7 @@ c****
       GO TO 1010
 c****
 c****           XSTAR
-c****  This is somewhat messy becuase sometimes there's no output
+c****  This is somewhat messy because sometimes there's no output
 c****  and sometimes there's more than one trace to output.
  8600 CONTINUE
       IF( nxstar .EQ. 1 ) THEN

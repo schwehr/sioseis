@@ -27,13 +27,13 @@ c Called from : CONTRO
 c
 c Externals :
 c  PODISC, RDDISC    : Disk i/o routines
-c                               INCLUE FILES
+c                               INCLUDE FILES
 
 c-------------------------------------------------------------------------------
 
 c*GMK THESE ARE THE INCLUDE FILE WHICH HAVE BEEN PASTED INTO THE EXECUTABLE CODE
-c*    MANY OF THESE VARIABLES ARE NOT USED FOR DMO BUT I WONT GO CRAZY AND CHOP
-c     OUT THE UNNECESSARY ONES - JUST INCASE I NEED THEM LATER!
+c*    MANY OF THESE VARIABLES ARE NOT USED FOR DMO BUT I WON'T GO CRAZY AND CHOP
+c     OUT THE UNNECESSARY ONES - JUST IN CASE I NEED THEM LATER!
 c INCLUDE FILES
 c.. Include file defining constants of use globally throughout SIOSEIS
 c
@@ -202,7 +202,7 @@ c*GMK Checks to see if coordinates are rect. polar or non-FK
            LocCoord = CDPOLAR
                print *, ' *** DMO Error *** ',
      *           ' PROCESS DMO dose not accept data
-     *in  POLAR COORINATES.'
+     *in  POLAR COORDINATES.'
                STOP
              else
                print *, ' *** DMO Error *** ',

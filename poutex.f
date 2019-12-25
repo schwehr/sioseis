@@ -142,7 +142,7 @@ c
       ENDIF
       IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      ! IS IT THE SAME AS THE LAST SHOT (RP)
       LLNUM=LNUM                                                        ! NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
-   70 IF(LNUM.GE.FNO) GO TO 100                                         ! IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF( mlist .EQ. 1 .AND. info .NE. 0 ) GOTO 1400
       IF(MLISTS.EQ.1) RETURN                                            ! IS IT BEFORE THE FIRST LIST
       IF(LNUM.LE.LASTNO) GO TO 10                                        ! IS IT IN OR BEFORE THE LAST LIST
@@ -161,7 +161,7 @@ C****
   115 OLD(I)=CUR(I)
       GO TO 130
   118 CONTINUE
-      DO 120 I=1,MAX                                                    ! SAVE THE CURRENT PARMETER SET
+      DO 120 I=1,MAX                                                    ! SAVE THE CURRENT PARAMETER SET
   120 OLD(I)=SCR(nwrds-max+i)
   130 CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)
       CALL rddisc( munit, form, 20, istat )

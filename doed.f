@@ -37,7 +37,7 @@ c  mod 29 Nov 12 - Warn that IBM output may/will not work (gcc47 on Mac fails)
 c  mod 30 Jan 13 - Remove that warning because LRSHIFT was changed to zero vacated bits
 c
 c  *** Programmer notes:
-c   idisko is set by the contoller (contro). DISKOA = 1, DISKOB = 2, etc.
+c   idisko is set by the controller (contro). DISKOA = 1, DISKOB = 2, etc.
 c
       PARAMETER ( npars = 27 )                                          ! the number of user parameters
       PARAMETER ( maxdo = 10 )

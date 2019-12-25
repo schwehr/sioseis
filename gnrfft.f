@@ -1,7 +1,7 @@
       subroutine gnrfft(ar,nlen,direct,norm)
 c
 c-------------------------------------------------------------------------------
-c This is the routine that is called by SIOSEIS to perform the fft of a real tim
+c This is the routine that is called by SIOSEIS to perform the fft of a real time
 c series. This is a glue routine that defines a common call interface between
 c SIOSEIS and FFT routine that have been optimized for different machines.
 c
@@ -69,7 +69,7 @@ c
 c   For the forward transform, this routine returns the Nyquist frequency
 c component packed into the imaginary part of the zero frequency component.
 c It expects the Nyquist frequency component packed here for the inverse
-c transfrom.
+c transform.
 c
       complex a(0:n-1)
 c                  The array to be transformed

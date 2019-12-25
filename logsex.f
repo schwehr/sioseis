@@ -225,7 +225,7 @@ c*GMK finished leave process logstr1
 
 
 
-c*GMK Enter at 501 if data needs to be compressed subsquent to DMO
+c*GMK Enter at 501 if data needs to be compressed subsequent to DMO
 501   continue
 
 c*GMK Going to log compress the data.  Data are then
@@ -286,7 +286,7 @@ c*GMK Zero scratch array SCR to place final interpolated trace values
          scr(k) = 0.0
 1200  continue
 
-c*GMK Find first sample greater than frist value for log stretch, and do the same
+c*GMK Find first sample greater than first value for log stretch, and do the same
 c*    for largest value but firsat sample less than greatest log time value.
 
       islog = nint( (slog)/rtsamp2 ) + 1

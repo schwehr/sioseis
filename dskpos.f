@@ -28,7 +28,7 @@ c at OHDROFS  : The length of the binary Header. This is a bug fix so as to read
 c               old style 100 word headers.
 c   MrgParam
 c Outputs:
-c    Mrgparam : The following MrgParam elments are set by DskPos
+c    Mrgparam : The following MrgParam elements are set by DskPos
 c at IDARNOFS : The misalignment parameter. This indicates how many 16 bit words
 c                away we are from a 64 bit word alignment on the CRAY
 c at CPOSOFS  : The current position within the file
@@ -41,7 +41,7 @@ c Externals:
 c   PODISC
 c
 c Last Modified
-c   12/21/88 ajh.  : Altered Logic so that reinitialization occured when the
+c   12/21/88 ajh.  : Altered Logic so that reinitialization occurred when the
 c                    File stream number changed between successive calls
 c------------------------------------------------------------------------------
 C INCLUDE FILES

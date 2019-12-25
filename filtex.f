@@ -224,7 +224,7 @@ C****
       DO 1200 I=1,NDOWS                                                 ! NOW FILTER IT!
       J=I*2
       N=INDXS(J)-INDXS(J-1)                                             ! THE NUMBER OF DATA POINTS IN THIS WINDOW
-      IINADR=NEXTAD+INDXS(J-1)-1                                        ! THE AP ADRESS OF THE 1ST POINT TO BE FILTERED
+      IINADR=NEXTAD+INDXS(J-1)-1                                        ! THE AP ADDRESS OF THE 1ST POINT TO BE FILTERED
       IOUTAD=IN+INDXS(J-1)-1                                            ! PUT THE OUTPUT WHERE THE INPUT WAS
       SCR(1)=LEVS(I)                                                    !  TAKE CARE OF THE FRONT OF THE WINDOW (UP RAMP)
       NRAMP1=0

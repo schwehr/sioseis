@@ -355,7 +355,7 @@ c****             it was 16 bit swapped earlier, so swap the short word order
           ncsets = IAND( iscr(18),i15) * 10 +
      &             IAND( rshift(iscr(19),12), i15)
           IF( icompt .EQ. 2 .or. icompt .EQ. 4 ) THEN
-c****  between fortran and endiannes this sucks.  We did a 16 bit byte swap before
+c****  between fortran and endianness this sucks.  We did a 16 bit byte swap before
               idumb(1) = iscr(17)
               idumb(2) = iscr(18)
               CALL swap16( idumb, 2 )
@@ -1088,13 +1088,13 @@ c****     Use the SIOSEIS negative number in file IN/in convention of tapes.
           CLOSE(UNIT=lunin,STATUS='DELETE')
           IF( i .LT. 0 ) GOTO 1015
  1030     CONTINUE
-c****  Need the next DELETE incase an empty or bad file IN exists
+c****  Need the next DELETE in case an empty or bad file IN exists
           CLOSE(UNIT=lunin,STATUS='DELETE')
 c      ENDIF
  1040 CONTINUE
       IF( stack .GT. 0 ) THEN
 c****     the stack loop never times out because shooting may be temporarily suspended
-c****     because of mammals.  We don't want to have to restart sioseis everytime that happens.
+c****     because of mammals.  We don't want to have to restart sioseis every time that happens.
 c****     A bit of Marx brothers - Who is on first and What is on second.
           OPEN( UNIT=stack, FILE=cpath,
      &          FORM='FORMATTED', STATUS='OLD')

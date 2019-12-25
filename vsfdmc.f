@@ -16,7 +16,7 @@ C             Calls routines to calculate P at this time slice and Tau Step
 C  VSFDMCAR - Calculates the RHS of the Difference equation.
 C
 C  VSFDMRUV - A glue routine that calls VSRUVAPS
-C  VSRUVAPS - AP Simulator routine to recusively calculate U & V. This is an
+C  VSRUVAPS - AP Simulator routine to recursively calculate U & V. This is an
 C             intermediate stage to calculating the new Pressure
 C
 C  VSFDMPN1 - A glue routine that calls VSPN1APS
@@ -308,7 +308,7 @@ c                                 (P(n+1,j) is the desired time slice.)
 c                       T       = 3 point convolutional operator = (-1, 2, -1).
 c                       R       = The calculated value of the three terms.
 c
-c PARAMETERS:   All parameters begining with the letter "A" refer to main data
+c PARAMETERS:   All parameters beginning with the letter "A" refer to main data
 c               (MD) memory locations and arrays. All arrays are input except
 c               AR and AS3. (NOTE: All arrays are assumed to have 0-elements at
 c               at either end so that the convolution with the 3 point "T"
@@ -759,7 +759,7 @@ C
       subroutine setaux(lslice)
       integer lslice
 C-------------------------------------------------------------------------------
-C   Setaux is responsible for setting up the auxilary AP scratch array APSCR.
+C   Setaux is responsible for setting up the auxiliary AP scratch array APSCR.
 C This array holds intermediate results between time slices as well as scratch
 C results during calculation.
 C   This routine must be called once a Tau step so as to initialize the j+2 time

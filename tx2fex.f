@@ -396,7 +396,7 @@ c
           call podisc(ixunit, POSABS, DSKSTRT)
           call podisc(ohdrtxfk, POSABS, DSKSTRT)                        ! Ensure correct positioning
           stime = ustime
-          if (ustime.eq.-1.) stime = delay                               ! Preset stime if user didnt give it
+          if (ustime.eq.-1.) stime = delay                               ! Preset stime if user didn't give it
           etime = uetime
           if (uetime.eq.-1.) etime = delay + FLOAT(nsamps-1)*si          ! same with etime
           nlen     = nint((etime - stime)/si) + 1                       ! No. of time samples per trace
@@ -408,7 +408,7 @@ c
           dskhdr1  = 0
           nspace1  = dskhdr1 + nlen                                     ! Total length of trace on 1st scratch disk
 c
-C..     Convert user defined outout data type to Coord system & Data ID
+C..     Convert user defined output data type to Coord system & Data ID
           if ( lcoord.eq.CDRECT ) then
                LocCoord = CDRECT
                LocId    = IDFKRCT
@@ -436,7 +436,7 @@ c             nextad = nextad + nlen*2
       endif                                                             ! of routine initialization
 c
 c***********************                                ***********************
-c     Accumlate incoming traces on disk. Padding and windowing as necessary
+c     Accumulate incoming traces on disk. Padding and windowing as necessary
 c***********************                                ***********************
 c
       IF( ibuf(ITRIDPTR).eq.DEADTR) then
@@ -657,7 +657,7 @@ c.. We are going to transpose data into a series of range traces of length nx
 c.. with a constant time sample.
 c
       nsizec  = MAXMEM / nx / 2                                          ! No. of range traces in memory at one time
-      if(nsizec.gt.nlen) nsizec = nlen                                  ! Cant have more than data length
+      if(nsizec.gt.nlen) nsizec = nlen                                  ! Can't have more than data length
       ntimes =  nlen / nsizec                                            ! Number of passes through data
       nrem   =  mod (nlen, nsizec)
       if (nrem .eq. 0) then                                             ! Add one if remaining time samples

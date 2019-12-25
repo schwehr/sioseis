@@ -12,7 +12,7 @@ c     A sweep of Nvel velocities ranging from vmin to vmax is
 c     performed across a window of N_xwin traces centered about
 c     each sample of each trace.  The slope of the velocities are
 c     determined from the approximate intertrace spacing dx and the
-c     sign of the trace offset if Vsign=1. (A usefull upgrade would
+c     sign of the trace offset if Vsign=1. (A useful upgrade would
 c     be to include actual trace spacing.)
 c
 c     If Vsign=1, then the positive direction is defined as the direction
@@ -412,7 +412,7 @@ c          amp_0=amp_0+abs(data(it,Nx2+1))*vnpts
         amp_scl=0.
         if(amp_0.eq.0) THEN
            PRINT *,' Error: Average amplitude of first trace=0.'
-           PRINT *, '       Scaling wont work. Try a new N1.'
+           PRINT *, '       Scaling will not work. Try a new N1.'
            STOP
         ENDIF
 c

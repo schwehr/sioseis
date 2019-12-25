@@ -39,7 +39,7 @@
  *
  * argument is used in some of the ihcp ioctl calls to provide values to
  * the driver ioctl routine, or return values to the calling program.  In
- * one case - data out - it contains an array of charater data to be sent
+ * one case - data out - it contains an array of character data to be sent
  * to the attached device.  the argument is restricted to a maximum of 255
  * bytes - by unix, and by the driver.
  *
@@ -291,7 +291,7 @@
 #define IHCPIO_DATA_OUT	_IOWN('H',10,0)		/* CALLING PGM WILL AND IN THE  */
 						/* ACTUAL CHARACTER COUNT - DONE */
 						/* THIS WAY SO COUNT CAN BE A   */
-						/* VARAIBLE, NOT CONSTANT !!!   */
+						/* VARIABLE, NOT CONSTANT !!!   */
 						/* see ioctl description above  */
 
 						/* sends char array in arg to   */
@@ -530,7 +530,7 @@ struct lpregs {
  * under a particlar driver.
  *
  * THESE DEFINES SHOULD NOT BE MODIFIED HERE - THESE ARE THE DEFAULTS USED WHEN THERE
- * ARE NO OVERRIDING VAULES SUPPLIED TO insmod
+ * ARE NO OVERRIDING VALUES SUPPLIED TO insmod
  * IF IT IS NECESSARY TO CHANGE THE DEFAULT BEHAVIOR OF THE DRIVER,
  * MAKE CHANGES BY SUPPLYING APPROPRIATE VALUES TO insmod
  *

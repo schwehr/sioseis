@@ -16,7 +16,7 @@ c  b : scratch buffer
 c  dt : sample interval in msec
 c  nsamps : number of samples
 c  stime : start time of trace in msec
-c  etime : endding time to apply gain function
+c  etime : ending time to apply gain function
 c  timmax : maximum time expected in msec
 c  alpha : exponent to the time
 c

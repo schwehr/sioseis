@@ -47,7 +47,7 @@ C                  =1,  AP IS ASSIGNED - DO NOT CALL APINIT
 C          IRELSE - AP RELEASE SWITCH
 C                 =0,  AP SHOULD BE RELEASED BEFORE RETURNING
 C                 =1,  AP SHOULD BE LEFT ASSIGNED
-C          IN     - A SWITCH INDICATING WHETHER THE DATA IS ALREDY IN THE AP
+C          IN     - A SWITCH INDICATING WHETHER THE DATA IS ALREADY IN THE AP
 C                 =0,  THE DATA IS NOT IN THE AP.
 C                 =1,  THE DATA IS IN THE AP AT ADDRESS IN
 C          IOUT   - A SWITCH INDICATING WHETHER THE DATA SHOULD BE LEFT IN THE AP
@@ -76,7 +76,7 @@ C****
   180 CALL VCLR(IPAD2,1,NZEROS)                                         /* START THE BACK END PAD
       CALL APPUT(FILTER,IAPFLT,NFPTS,2)                                 /*  START THE FILTER INTO THE AP
       INC=1                                                              /* THE DATA INCREMENT FOR CORRELATION
-      IADDR=IAPFLT                                                      /* THE DATA ADRESS FOR CORRELATION
+      IADDR=IAPFLT                                                      /* THE DATA ADDRESS FOR CORRELATION
       IF(ITYPE.GE.0) GO TO 200
       INC=-1                                                            /* THE INC FOR CONVOLUTION
       IADDR=IAPFLT+NFPTS-1

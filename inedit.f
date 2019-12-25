@@ -182,7 +182,7 @@ C  SECS   - THE NUMBER OF SECONDS OF DATA TO PROCESS.  SECS IS HELD CONSTANT
 C           FOR ALL TRACES WITHIN THE JOB.  THE TOTAL TIME LENGTH OF EACH TRACE
 C           IS THE SUM OF THE DELAY AND SECS.  If the data is not SECS
 c           long, zeroes are NOT added or padded and the trace will be
-c           less tha SECS long.
+c           less than SECS long.
 C           PRESET= ALL THE DATA ON THE TRACE.
 c  SET    - The start and end times of the data to read from disk.  SET
 c           is a pair of times in seconds.  The use of SET causes the
@@ -483,7 +483,7 @@ C****
       NTOKES=1
   100 CONTINUE
       ns = 0
-      CALL GETOKE(TOKEN,NCHARS)                                         ! GET A TOKEN FROM THE USER PARAMTER LINE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! GET A TOKEN FROM THE USER PARAMETER LINE
       CALL UPCASE(TOKEN,NCHARS)
       IF( NCHARS .LE. 0 ) THEN
           IF(NOW.EQ.1) PRINT 140
@@ -655,7 +655,7 @@ C****
       IF( FIRST ) THEN
           FIRST=.FALSE.
           ILUN=IUNIT
-          IF( LPRINT .EQ. 1 ) PRINT *,' INPUT PARAMTERS:'
+          IF( LPRINT .EQ. 1 ) PRINT *,' INPUT PARAMETERS:'
           IN=0                                                          !  SET THE AP ADDRESS TO 0
           SSECS=SECS
           JFMT=IFMT

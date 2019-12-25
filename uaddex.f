@@ -69,7 +69,7 @@ C****
    60 IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
       IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      /* IS IT THE SAME AS THE LAST SHOT (RP)
       LLNUM=LNUM                                                         /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMTER LIST
+   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(MLISTS.EQ.1) RETURN                                            /* If BEFORE THE FIRST LIST, don't do it!
       IF(LNUM.LE.LNO) GO TO 10                                          /* IS IT IN OR BEFORE THE LAST LIST
       RETURN                                                            /* IT MUST BE BETWEEN THE 2 LISTS

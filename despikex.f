@@ -309,7 +309,7 @@ c****            here if bad to the end of the trace.  Zero it.
 c***      Got here if finished the whole trace and all is ok
           RETURN
   110     CONTINUE
-c****     Got here if we found the begining and end of the "spikes"
+c****     Got here if we found the beginning and end of the "spikes"
           IF( kill .NE. 0 ) GOTO 9000
           IF( istart .EQ. 1 ) THEN
               DO 120 i = 1, iend

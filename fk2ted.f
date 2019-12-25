@@ -24,7 +24,7 @@ C           before the output tx data is written to disk. Thus it is usually
 C           safe to put this file in the same directory as the final output. If
 C           procedure TX2FK is present in the procs list then this scratch
 C           file is the same as the 2nd scratch file of TX2FK. Care should be
-C           taken not to specify this file twice. Only the first filename wil
+C           taken not to specify this file twice. Only the first filename will
 C           be used by SIOSEIS.
 C           Default: Implementation dependent.
 C

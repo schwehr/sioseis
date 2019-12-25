@@ -9,7 +9,7 @@ c  Copyright (C) 1985
 c  Paul Henkart, Scripps Institution of Oceanography, La Jolla, Ca. 92093
 c
 c  mod 12 Dec 99 - Make plot2.f into aplot.f
-c  mod Feb (??) 00 - Position the disk everytime and close and reopen
+c  mod Feb (??) 00 - Position the disk every time and close and reopen
 c                    the file if eof is hit.
 c  mod May (??) 00 - Had v.c drop the Centronics left over from Versatec days
 c  mod 3 Sept 00 - Oops, The May change should have done the disk read

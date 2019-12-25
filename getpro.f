@@ -32,7 +32,7 @@ C
       COMMON /pnames/ pnames
 c****  beware of length of pnames since chkprc uses it!
       CHARACTER*7 pnames(namess)
-C    iok array is to signal that a process' parameters are required
+C    iok array is to signal that a process's parameters are required
       COMMON /REQUIR/ IOK(NAMESS)
       COMMON /EDITS/ IERROR,IWARN,IRUN,NOW,ICOMPT,isite, maxsamps,
      & nbperw, ireal, nsevere, override
@@ -153,7 +153,7 @@ C****     THE PARAMETER FILE EXIST.
       ENDIF
       IF(J.EQ.14) IOK(J)=1                                              /* REQUIRE AUTOCORRELATION PARAMETERS
       IF(J.EQ.15) IOK(15)=1                                             /* PRINTER OUTPUT
-      IF(J.EQ.16) IOK(16)=1                                              /* REQUIRE WEIGHT PARAMTERS TO BE GIVEN
+      IF(J.EQ.16) IOK(16)=1                                              /* REQUIRE WEIGHT PARAMETERS TO BE GIVEN
       IF(J.EQ.17) IOK(17)=1                                              /* SHIFT
       IF(J.EQ.19) IOK(19)=1
       IF(J.EQ.20) IOK(20)=1                                              /* MIX

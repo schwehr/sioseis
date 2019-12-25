@@ -77,7 +77,7 @@ C****   DO THE WINDOW IF IT'S NOT THE FIRST OR LAST WINDOW
 C****
   200 TEMP=(RMULT-RMULT1)/(MIDPT-MIDPT1+1)                               /* GET THE INTERPOLATOR
       X=0.
-      DO 220 I=MIDPT1,MIDPT                                             /* REMBER THAT MIDPT1 WAS THE MIDPOINT OF THE LAST WINDOW
+      DO 220 I=MIDPT1,MIDPT                                             /* REMEMBER THAT MIDPT1 WAS THE MIDPOINT OF THE LAST WINDOW
       X=X+1.
   220 OBUF(I)=BUF(I)*(RMULT1+X*TEMP)
       RMULT1=RMULT                                                       /* SAVE THE MULTIPLIER AND MIDPOINT FOR THE NEXT WINDOW

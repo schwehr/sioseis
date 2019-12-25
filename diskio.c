@@ -110,14 +110,14 @@ may be (optionally) deleted (unlinked).
   CALL PODISCB( LUN, MODE, NBYTE )
   PODISC positions and open the disc file associated with lun.  The positioning
 may be to an absolute address or relative to the current file pointer.
-The first address is 0, the second adress is 1, etc.
+The first address is 0, the second address is 1, etc.
   ARGUMENTS:
     LUN  - The unit number of the file to be positioned.
     MODE - The mode of positioning.
          =1, The file is positioned to the ABSOLUTE word address.
          =2, The file is positioned nwrd RELATIVE to the current file pointer.
     NWRD - The number of 4 byte words to position to. The number of 32 words.
-    NBYTE - The byte number to postion to.
+    NBYTE - The byte number to position to.
 
 
   CALL RDDISC( LUN, BUFFER, NWRDS, ISTAT )
@@ -144,7 +144,7 @@ unit lun.
   WRDISCB writes nbytes bytes from buffer to disc file associated with lun.
 If the device is a tty, then write to it and hope that it is finished by the time
 we do another (e.g. if a plot is sent to the C.ITOH printer we shall not
-worry about the XONN/XOFF protocal - GETFIL sets TTY devices to raw mode).
+worry about the XONN/XOFF protocol - GETFIL sets TTY devices to raw mode).
   ARGUMENTS:
    LUN    - The logical unit number of the file to write to.
    BUFFER - The array in memory to write to disc.
@@ -436,7 +436,7 @@ static	struct    stat	stbuf;
 			*lun,status,stbuf.st_size);
 #endif
 			if( status != -1 ) {
-				fd[*lun] = status; /* return the file desriptor  */
+				fd[*lun] = status; /* return the file descriptor  */
 				strcpy(fname[*lun],tname);
 				*istat = 0;  /* everything is ok */
        /*          if( strncmp("/dev/tty", name, 8 ) == 0 ) {
@@ -566,34 +566,34 @@ static	struct    stat	stbuf;
 
 
 
-	void podisc_( lun, mode, addres)
+	void podisc_( lun, mode, address)
       int32_t     *lun;
       int32_t     *mode;
 /*  unsigned doesn't work because mode 2 may have a negative  */
-/*      unsigned long     *addres; */
-      int32_t     *addres;
+/*      unsigned long     *address; */
+      int32_t     *address;
 
 {
 #if debug
-      printf(" podisc, lun=%d, mode=%d, addr=%d(dec) %x(hex)\n",*lun,*mode,*addres,*addres);
+      printf(" podisc, lun=%d, mode=%d, addr=%d(dec) %x(hex)\n",*lun,*mode,*address,*address);
 #endif
       origin = SEEK_SET;  /* preset to origin of the beginning of the file */
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
-      temp64 = *addres;
+      temp64 = *address;
       offset64 = temp64 + temp64 + temp64 + temp64 ;  /* the address was given in units of 4 bytes */
 /*  convert to long long int before doing the addition  */
 /*  do it as addition since gcc does not do long long multiplication  */
 	 if( *mode == 1 || *mode == 0 ) {
 /* this is for when lseek offset has to be 32 bit word */
-	 	/*offset = *addres * 4;*/
-	 	offset = *addres;
+	 	/*offset = *address * 4;*/
+	 	offset = *address;
 		status = lseek( fd[*lun], (off_t)0, SEEK_SET) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 	 } else {
-	 	offset = *addres;
+	 	offset = *address;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
 		status = lseek( fd[*lun], offset, SEEK_CUR) ;
@@ -602,7 +602,7 @@ static	struct    stat	stbuf;
       status64 = status;
       if( status64 == -1 ) {
           /*    positioning an unopened file has a status of -1  */
-		fprintf( stderr, "Warning: disk address= %d%d, status= %d, addres= %d\n",offset64,status64,temp64);
+		fprintf( stderr, "Warning: disk address= %d%d, status= %d, address= %d\n",offset64,status64,temp64);
 		lseek( fd[*lun], (off_t)0, SEEK_SET );
 	 }
       return;
@@ -610,21 +610,21 @@ static	struct    stat	stbuf;
 
 /*****     podiscun    ******/
 /*****  mode 2 with negative relative address will fail !!!!!!!!  */
-        void podiscun_( lun, mode, addres_un )
+        void podiscun_( lun, mode, address_un )
       int32_t     *lun;
       int32_t     *mode;
-      u_int32_t	  *addres_un;
+      u_int32_t	  *address_un;
 
 {
 #if debug
-      printf(" podiscun, lun=%d, mode=%d, addr=%d \n",*lun,*mode,*addres_un);
+      printf(" podiscun, lun=%d, mode=%d, addr=%d \n",*lun,*mode,*address_un);
 #endif
       origin = SEEK_SET;  /* preset to origin of the beginning of the file */
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
-      temp64 = *addres_un;
+      temp64 = *address_un;
 /*      offset64 = temp64 + temp64 + temp64 + temp64 ; */
       if( *mode == 1 || *mode == 0 ) {
-        /*offset = *addres * 4;*/
+        /*offset = *address * 4;*/
                 status = lseek( fd[*lun], (off_t)0, SEEK_SET) ;
                 status = lseek( fd[*lun], temp64, SEEK_CUR) ;
                 status = lseek( fd[*lun], temp64, SEEK_CUR) ;
@@ -635,23 +635,23 @@ static	struct    stat	stbuf;
          }
       if( status == -1 ) {
           /*    positioning an unopened file has a status of -1  */
-                fprintf( stderr, "Warning: disk address= %d%d, status= %d, addres= %d\n",offset64,status,temp64);
+                fprintf( stderr, "Warning: disk address= %d%d, status= %d, address= %d\n",offset64,status,temp64);
                 lseek( fd[*lun], (off_t)0, SEEK_SET );
          }
       return;
 }
 
 
-	void podisc64_( lun, mode, addres64)
+	void podisc64_( lun, mode, address64)
       int32_t	*lun;
       int32_t	*mode;
-      int64_t	*addres64;  /* 64 bit address  */
+      int64_t	*address64;  /* 64 bit address  */
 
 {
 #if debug
-	printf(" podisc64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*addres64);
+	printf(" podisc64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address64);
 #endif
-	temp64 = *addres64;
+	temp64 = *address64;
       offset64 = temp64 + temp64 + temp64 + temp64;  /* the address was given in units of 4 bytes */
       origin = SEEK_SET;  /* preset to origin of the beginning of the file */
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
@@ -663,16 +663,16 @@ static	struct    stat	stbuf;
       return;
 }
 
-	void podiscb_( lun, mode, addres)
+	void podiscb_( lun, mode, address)
       int     *lun;
       int     *mode;
-      int     *addres;
+      int     *address;
 
 {
 #if debug
-      printf(" podiscb, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*addres);
+      printf(" podiscb, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address);
 #endif
-      offset64 = *addres ;  /* the address was given in units of bytes */
+      offset64 = *address ;  /* the address was given in units of bytes */
       origin = SEEK_SET;  /* preset to origin of the beginning of the file */
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
       status64 = lseek( fd[*lun], offset64, origin) ;
@@ -683,16 +683,16 @@ static	struct    stat	stbuf;
       return;
 }
 
-	void podiscb64_( lun, mode, addres64)
+	void podiscb64_( lun, mode, address64)
       int32_t     *lun;
       int32_t     *mode;
-      int64_t	*addres64;
+      int64_t	*address64;
 
 {
 #if debug
-	printf(" podiscb64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*addres64);
+	printf(" podiscb64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address64);
 #endif
-      offset64 = *addres64 ;  /* the address was given in units of bytes */
+      offset64 = *address64 ;  /* the address was given in units of bytes */
       origin = SEEK_SET;  /* preset to origin of the beginning of the file */
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
       status64 = lseek( fd[*lun], offset64, origin) ;
@@ -703,18 +703,18 @@ static	struct    stat	stbuf;
       return;
 }
 
-	void adrdisc_( lun, addres )
+	void adrdisc_( lun, address )
 	int32_t	*lun;
-	int32_t	*addres;
+	int32_t	*address;
 
 {
-	*addres = lseek( fd[*lun], (off_t)0, SEEK_CUR );
+	*address = lseek( fd[*lun], (off_t)0, SEEK_CUR );
 #if debug
-	printf("addr= %d \n",*addres);
+	printf("addr= %d \n",*address);
 #endif
 /*
    This is wrong on OSX - it prints when the address < 2GB -
-like everytime it's called.  What to do?  Just wait until it's
+like every time it's called.  What to do?  Just wait until it's
 wrong and the calling program gets the wrong answer?  Guess so,
 so comment the warning out.
    The right way to do it would be to do the lseek with 64 bits
@@ -724,13 +724,13 @@ knows it got a bad address.
 	return;
 }
 
-	void adrdisc64_( lun, addres64 )
+	void adrdisc64_( lun, address64 )
 	int32_t	*lun;
-	int64_t	*addres64;
+	int64_t	*address64;
 
 {
-	*addres64 = lseek( fd[*lun], (off_t)0, SEEK_CUR );
-/*	printf("addr64= %d\n",*addres64);  what's the format for longlong?  */
+	*address64 = lseek( fd[*lun], (off_t)0, SEEK_CUR );
+/*	printf("addr64= %d\n",*address64);  what's the format for longlong?  */
 	return;
 }
 

@@ -8,7 +8,7 @@ c       PROCESS SEGDIN reads seismic tape formatted in the SEG-D format
 c  or the SEG-D, Revision 1 format (see Geophysics, April 1994).
 c  Three demultiplexed data formats are available:
 c  1)  20 bit binary format.
-c  2)  IBM floating point (SEG-D hexidecimal).
+c  2)  IBM floating point (SEG-D hexadecimal).
 c  3)  IEEE floating point (SEG-D, Revision 1.).
 c       Reel changes and job termination may be done in the normal tape
 c  manner, that is; the new tape unit number should be inserted in a
@@ -133,7 +133,7 @@ c
 c  FCSET  - First channel set.  The SEG-D format allows all traces with
 c           similar characteristics to be grouped together.  If traces
 c           have different trace length, all traces with the same length
-c           are grouped together.  Likewise, auxillary traces belong
+c           are grouped together.  Likewise, auxiliary traces belong
 c           to a different set from seismic traces.
 c           Preset = total number of channel sets.
 c
@@ -187,7 +187,7 @@ c  mod 23 Feb 99 - Change DEVICE to be passed to astape and remove all
 c                  reference to the F77 tape interface.
 c  mod 4 Sep 99 - Call astape if DEVICE is given (magtap doesn't do it!)
 c  mod 28 Mar 01 - Add RETRAC to renumber the traces within each shot;
-c                  especially usefull when multiple channel sets,
+c                  especially useful when multiple channel sets,
 c                  because each channel set starts with trace 1
 c                  and SEGY doesn't like duplicate trace numbers.
 c  mod 29 Apr 01 - Y2K bug going from 2 digit SEGD to 4 digit SEGY
@@ -211,7 +211,7 @@ c  This does cause a headache because either the edit passes some stuff to
 c  the execution phase or the edit has to reformat the trace(s).  Therefore,
 c  The edit doesn't reformat/demultiplex the data, it passes such info as
 c  the number of scans per tape block on to the execution.
-c  e.g. The "UTIG" data has 16 auxillary channels, each being a separate
+c  e.g. The "UTIG" data has 16 auxiliary channels, each being a separate
 c           channel set, and 96 seismic traces in the 17th channel set.
 c
       PARAMETER ( npars = 30 )                                          ! the number of user parameters

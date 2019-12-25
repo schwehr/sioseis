@@ -12,7 +12,7 @@ c    This renumbers the output shot/rp numbers and trace numbers so there are
 c  monotonically increasing.
 c    The disk writes must be done in two steps, the header and the data because
 c  in order to read the correct amount of data you need to know how much to
-c  read, which is in the header.  This is particularily important in VMS because
+c  read, which is in the header.  This is particularly important in VMS because
 c  the header and data are in different "records".
 c      NOTE:  The SEGY headers in the temporary file are not really SEGY
 c  since the binary header is in host oriented integers rather than SEGY
@@ -450,7 +450,7 @@ c****
           CALL podisc( lunsort(idisko), 1, 0 )                          ! rewind
           CALL rddisc( lunsort(idisko), token, 20, istat )
           CALL rddisc( lunsort(idisko), ntraces, 1, istat )
-c          CALL rddisc( lunsort(idisko), lscr, ntraces*3, istat )        ! get past the disk addreses
+c          CALL rddisc( lunsort(idisko), lscr, ntraces*3, istat )        ! get past the disk addresses
           CALL podisc( lunsort(idisko), 2, ntraces*3 )
           DO 205 i = 1, ntraces
              CALL rddisc( lunsort(idisko), itemp, 1, istat )            ! get the number of samples

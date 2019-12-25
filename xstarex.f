@@ -11,7 +11,7 @@ c  mod 29 Oct 01 - Add luntmp for interpolating the water depths
 c  mod 10 Jan 02 - Add a message about water depth/time on the first shot
 c                  when doing XYZ file stuff.
 c  mod 16 Jan 02 - Use the more precise lat/long in header 21 & 23
-c  mod 20 Feb 02 - nready not ser correctly when depth not given.
+c  mod 20 Feb 02 - nready not set correctly when depth not given.
 c  mod 30 Apr 02 - If it only has 1 trace, it's a GeoStar, so don't
 c                  stack or insist on two ducers.
 c  mod 3 May 02 - GeoStar sets the sample interval to 1 way travel
@@ -113,7 +113,7 @@ c**** If Edgetech, always output just 1 trace per shot/ping
       ntrcs = 1
 c**** Insist the user give parameter FORMAT EDGETECH in process DISKIN,
 c**** which takes care of the trace number and shot time BS, but more
-c**** importantly, DISKIN and INPUT have aleady clobbered long words 45-47
+c**** importantly, DISKIN and INPUT have already clobbered long words 45-47
       IF( lbuf(3) .NE. lbuf(1) .AND. iwarn .LT.10.OR.lbuf(4).EQ.0) THEN
           iwarn = iwarn + 1
           PRINT *,
@@ -166,7 +166,7 @@ c****     NO stack or summing of traces
       ENDIF
 c****
 c****  Convert to Envelope and apply trace scale Factor
-c****  Do the work in the array processor so we can use the memeory.
+c****  Do the work in the array processor so we can use the memory.
 c****  Hopefully this isn't too cute.  As a reminder, inap puts
 c****  the trace at ap(in).  ap(nextad) is a scratch area, so reserving
 c****  some space is accomplished by remembering where nextad is, then
@@ -253,7 +253,7 @@ c****  Martin Jakobsson's weird Xstar version 5
 c      5120 bytes/tr - 240 segy header = 4880 bytes
 c      4880 - 80 bytes of zeroes = 2400 samples per trace
 c      packets 2-8, 7 * 2400 = 16,800 samples per trace
-c****  The documenation says there are 8*3976 words or
+c****  The documentation says there are 8*3976 words or
 c      (8192-240 bytes = 7952 bytes or 3976 words)
 c      packet #1 is missing!
 c****

@@ -66,12 +66,12 @@ c  mod 19 May 95 - Allow the SU format.
 c  mod 5 Apr 95 - Add check for max trace length
 c  mod 3 June 94 - Add error if NOINC is given and FNO/LNO are not.
 c  mod 9 Mar. 94 - Allow INTEGER user parameters to be super big
-c                  (CALL lcode rather tha dcode on integer parameters).
+c                  (CALL lcode rather than dcode on integer parameters).
 c  mod 9 Jan. 94 - Add noinc 99999 and trinc 99999
 c  mod 19 Oct 93 - Change documentation for SORT
 c  mod 10 Nov 92 - Require ftr and ltr to be given when trinc is given.
 c                - remove Cray MASS parameter.
-c  mod 7 July 92 - Add stack to the sort parameter possiblities.
+c  mod 7 July 92 - Add stack to the sort parameter possibilities.
 c  mod 24 Feb 92 - remove the version stuff to read header of 1st trace
 c  mod 17 Jan 92 - ltr was DEFAULTED to 0 rather than PRESET.
 c  mod 5 Dec 91 - SPATH must be opened at execute time for VMS!
@@ -759,7 +759,7 @@ c****    to 32767 and then uses lbuf(58)
           CALL frefil( -2, lun, istat )                                 ! close, free, don't delete the data file
       ENDIF
 c****
-c****  take care of some trace header overrides since some proceses (plot)
+c****  take care of some trace header overrides since some processes (plot)
 c****  look at the trace header
 c****
       IF( si .NE. 0 ) THEN

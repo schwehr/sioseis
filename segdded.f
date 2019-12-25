@@ -19,7 +19,7 @@ c   mod 29 Oct 02 - If fcset = 99, then use all channel sets.
 c                 - If lcset > ncsets, then lcset = ncsets
 c  Mod 19 Mar 03 - Separate the ldeo external header into it's own lun
 c  mod 20 Mar 03 - Make fcset 99 the preset.
-c  mod 22 Apr 03 - Print the number of channels in each channel set whe fcset=99
+c  mod 22 Apr 03 - Print the number of channels in each channel set when fcset=99
 c  mod 5 Mar 04 - Add iformat 3 for Hydroscience
 c               - Allow Hydrosciences format with a 32 byte file header
 c  mod 22 Apr 04 - Allow iformat 4 for SIO-RT.
@@ -36,7 +36,7 @@ c                - Warn if FCSET not given and LCSET is given.
 c  mod 21 Apr 08 - Append the LOG file if possible.
 c  mod 17 Jul 08 - Add shot_inc (second parameter of parameter STACK)
 c                - finish up right if errors
-c  mod 18 Apr 11 - Change retrac so that <0 means cummulative trace count,
+c  mod 18 Apr 11 - Change retrac so that <0 means cumulative trace count,
 c                  =0 means use the segd trace number, >0 means use user given.
 c  mod 6 Oct 11 - Change "bad" ftr and ltr values into warnings rather than errors.
 c  mod 19 Dec 11 - Wait for the STACK file to exist rather than erroring.

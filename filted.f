@@ -80,7 +80,7 @@ C           BE ADDED TO THE WATER BOTTOM TIME OF THE TRACE.  (WATER BOTTOM TIMES
 C           MAY BE ENTERED VIA PROCESS WBT).
 C           PRESET=NO
 c  FTYPE  - Filter type.  Time varying filter is permitted with time domain
-c           filtering only.  See parameter MINPHA for minumum phase filters.
+c           filtering only.  See parameter MINPHA for minimum phase filters.
 c         = 0, John Shay's frequency domain zero phase bandpass.
 c         = 1, John Shay's frequency domain low pass. The corner
 c              frequency is the first value of parameter PASS.

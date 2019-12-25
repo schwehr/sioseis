@@ -672,7 +672,7 @@ c
 c           long_nsamps = ibuf(ISAMPPTR)
 c           IF( long_nsamps .EQ. -32768 ) long_nsamps = 32768
            CALL ushort2long( ibuf(ISAMPPTR), long_nsamps )
-           if( nshift .gt. 0 ) then                                     ! Orignal start > delay
+           if( nshift .gt. 0 ) then                                     ! Original start > delay
               ibuf(ISAMPPTR) = min ( nt - nshift, long_nsamps )
               numdat = min ( nt - nshift, long_nsamps )
               do 1250 i = numhdr + 1, numhdr + long_nsamps

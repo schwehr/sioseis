@@ -22,11 +22,11 @@ c           will put the data in test.dat and will create the two
 c           MicroMAX headers, test.hd1 and test.hd2.
 c           REQUIRED.    e.g. opath 05118813
 c  FORMAT - The output file data word format.
-c         = VMS, The output will be formated for a VMS VAX
+c         = VMS, The output will be formatted for a VMS VAX
 c           (Dec floating point)
-c         = ULTRIX, The output will be formated for a DecStation or PC.
+c         = ULTRIX, The output will be formatted for a DecStation or PC.
 c           (IEEE floating point, little endian)
-c         = SUN, the output will be formated for an IEEE big endian
+c         = SUN, the output will be formatted for an IEEE big endian
 c           computer.
 c
 c

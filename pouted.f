@@ -52,7 +52,7 @@ C  ADDWB  - WHEN GIVEN A VALUE OF YES, THE WINDOWS GIVEN VIA SETS WILL
 C           BE ADDED TO THE WATER BOTTOM TIME OF THE TRACE.  (WATER BOTTOM TIMES
 C           MAY BE ENTERED VIA PROCESS WBT).
 C           PRESET=NO
-c  FORMAT - Indicates how the output should be formated.
+c  FORMAT - Indicates how the output should be formatted.
 c         = MATLAB, Each trace printed will be in a separate file
 c           suitable to use as ASCII input to MATLAB.  The file name
 c           will be "sh" or "rp" followed by the shot/rp number followed

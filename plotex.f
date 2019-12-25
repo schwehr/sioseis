@@ -170,7 +170,7 @@ c      ENDIF
 c      print *,' lnum=',lnum,' fno=',fno,' lno=',lno,' ninc=',ninc,
 c     &' ltrac=',ltrac,' ftr=',ftr,' ltr=',ltr
 c      print *,' 7=',lbuf(4),lbuf(7),' intrcs=',intrcs
-      IF(LNUM.LT.FNO.AND.LTRAC.LT.FTR.AND.MLISTS.GT.1) GO TO 10         ! IS THIS SHOT BEFORE THIS PARAMTER LIST
+      IF(LNUM.LT.FNO.AND.LTRAC.LT.FTR.AND.MLISTS.GT.1) GO TO 10         ! IS THIS SHOT BEFORE THIS PARAMETER LIST
       IF(LNUM.LT.FNO.OR.LTRAC.LT.FTR) RETURN                            ! IS THIS SHOT BEFORE ANY LIST?
       IF( ltrac .GT. ltr ) RETURN
       IF( ninc .GT. 1 ) THEN

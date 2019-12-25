@@ -876,7 +876,7 @@ C**
       Subroutine ChkErr(PreTyp,xLine,nLine,j1,j2,cType1,cType2)
 c-------------------------------------------------------------------------------
 c   ChkErr is called by routine ChkOrd to print diagnostic messages
-c locating the position of the error in the input specfications. It prints the
+c locating the position of the error in the input specifications. It prints the
 c input type & values that caused the error.
 c
 c Inputs:

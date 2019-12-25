@@ -64,7 +64,7 @@ c  ival2 - The list of secondary values (unsorted)
 c  isamp - the list of nsamps (trace lengths) (unsorted)
 c  indx1 - The disk addresses in sorted order
 c  indx2 - A sublist of secondary values
-c  iscr  - The indeces within the secondary sort
+c  iscr  - The indices within the secondary sort
 c  iorder -
 c  iflag - The "end-of sort" flags in sorted order
       REAL    APDATA(0:iapsiz)

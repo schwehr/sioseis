@@ -1,6 +1,6 @@
       SUBROUTINE xstared
 c     Process XSTAR converts EdgeTech's XSTAR chirp data into a
-c  more useful format.  The enhacements are:
+c  more useful format.  The enhancements are:
 c  0)  Look for pings with only 1 ducer (trace).
 c  1)  Perform a complex modulus to convert to amplitude.
 c  2)  Change the sample interval and data length to account

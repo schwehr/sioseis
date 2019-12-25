@@ -33,7 +33,7 @@ c*    The following code was modified from a LDGO program that calculates offset
 c*    for various geometries, namely type = 3 (CDP), type = 4 (WAP) and type = 5 (ESP).
 c*    These parameters can be calculated assuming one is given a LDGO log file and some
 c*    other geometrical information (i.e. gun-antenna offset for both ships etc.....).
-c*    To find the proper shot in the log file, it is neccessary to know the field shot
+c*    To find the proper shot in the log file, it is necessary to know the field shot
 c*    number (bytes 245-248 BCD) for trace 0 header which is read during the input process.
 c*    The following variables are returned from the log file (binary) and are used to
 c*    calculate offset and CDP number (type = 3 or 4):
@@ -155,8 +155,8 @@ c*    set  match variables from nav header and compare to values read in from tr
 c*    Did we find the proper shot in nav file
 
       if ( msshot.eq.lhead(3) ) then
-c* Lets check for fun and see how off the DSS-240 vaules are:
-c* Write vaules to screen for trace 1 only
+c* Lets check for fun and see how off the DSS-240 values are:
+c* Write values to screen for trace 1 only
       if ( itrace .eq. 1) then
        if (ifudgeday.ne.0) print*, '***Warning, day mismatch of ',
      &  ifudgeday, ' with navigation file for shot#', msshot
@@ -290,9 +290,9 @@ c*    angfact is used to retrieve more precise angle measurements (usually 100)
            d=float(ilogrange)/10.0                                      !ship ship distance (tenths of meters)
            theta=angfact*float(ilogstorb-ilogrsh)*radeg                 !bearing angle between shooting ship and nav. ship
            phi=angfact*float(ilogssh-ilogrsh)*radeg                     !feather angle of shooting ship w/ respect to nav. ship
-           ymd=d*sin(theta)                                             !perpindicular projection w/ respect to nav. ship of s-s distance
+           ymd=d*sin(theta)                                             !perpendicular projection w/ respect to nav. ship of s-s distance
            xmd=d*cos(theta)                                             !parallel projection w/ respect to nav. ship of s-s distance
-           yda=(dag2+float(ixsdist))*sin(phi)                           !perpindicular projection w/ respect to nav. ship of source feathering
+           yda=(dag2+float(ixsdist))*sin(phi)                           !perpendicular projection w/ respect to nav. ship of source feathering
            xda=(dag2+float(ixsdist))*cos(phi)                           !parallel projection w/ respect to nav. ship of source feathering
        else
            ymd=0
@@ -321,7 +321,7 @@ C*GMK Make ioffset real
         ioffset= range                                                  !make range an integer
         lhead(10) = nint(ioffset)
 
-c*    calculate cdp number (LDGO line number) and psuedo cdp trace number for
+c*    calculate cdp number (LDGO line number) and pseudo cdp trace number for
 c*    ESP binning of ranges i.e. 25 m range increments will have same trace #
 c*    which is preferable for SIOSEIS process SORT
 

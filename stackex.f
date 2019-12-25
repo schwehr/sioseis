@@ -54,7 +54,7 @@ c  mod 29 Jul 06 - Change mindel from 16000 to 9999999 for bug delay and smal
 c                  sample interval like on Knudsen!
 c  mod 19 Dec 06 - Reallocate buffers if the input trace is bigger than expected.
 c  mod 12 Jan 07 - Compute the coordinates of the RP and put them in the
-c                header loaction of the shot and zero the receiver (x,y)
+c                header location of the shot and zero the receiver (x,y)
 c  mod 28 Jul 08 - Put the shot number (word 3) into the energy source
 c            number (word 5) before zeroing it.  Hope ProMax is ok with that.
 c  mod 12 Apr 10 - Eliminate mute times in seconds (header words 47 & 48)
@@ -313,7 +313,7 @@ c          x_src will be the average x_src.   x_src is now the sum of all the x_
 c      TRACE(48)=MINMUT*SR                                               ! END MUTE
       TRACE(46)=MINDEL*SR                                               ! DELAY
       delay = FLOAT(mindel) * sr
-      NOTRCS=1                                                          ! THE NUMBER OF TRACES PER OUPUT RECORD (RP)
+      NOTRCS=1                                                          ! THE NUMBER OF TRACES PER OUTPUT RECORD (RP)
       NDONE=0
       NREADY=1                                                          !  TELL THE WORLD THERE IS A STACKED TRACE FINISHED
       IFREE=IFREE-1                                                     ! STACK NO LONGER NEEDS TO SAVE THE AP MEMORY

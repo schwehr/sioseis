@@ -8,7 +8,7 @@ c  mod 29 March 1991 by pch to add type 2 geometry
 c  mod 22 Apr 92 by pch and gmk to add LDGO navigation file processing.
 c         I.E. add navfil, offset and offset2
 c  mod 9 Mar. 94 - Allow INTEGER user parameters to be super big
-c                  (CALL lcode rather tha dcode on integer parameters).
+c                  (CALL lcode rather than dcode on integer parameters).
 c  mod 26 jul 94 - Change SMEAR preset to be dbrps
 c  mod 11 Sept 96 - Add bgp (bird trace pairs) and cgp (compass trace pairs)
 c  mod 30 Apr 97 - Allow negative TYPE.
@@ -306,7 +306,7 @@ c         type 17 is distance along the ship track
       PRINT 1030
  1030 FORMAT(' ***  ERROR  ***  GROUP NUMBERS IN GXP MUST INCREASE.')
       IERROR=IERROR+1
- 1050 CONTINUE                                                          !  MAKE SURE GXP IS TRUELY IN PAIRS
+ 1050 CONTINUE                                                          !  MAKE SURE GXP IS TRULY IN PAIRS
       IF(MOD(NGXPS,2).EQ.0) GO TO 1060
       PRINT 1055
  1055 FORMAT(' ***  ERROR  ***  GXP MUST BE IN PAIRS!')

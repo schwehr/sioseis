@@ -170,7 +170,7 @@ c****     this corresponds to Veritas 'S','C','E'
               dtpool(5,ncol) = dtpool(5,ncol) + 1
           ENDIF
           DO 120 i = 1, npairs
-             dtpool(itemp1+i,ncol) = scr(i*2) * 1000. + .5              ! time in miliseconds!
+             dtpool(itemp1+i,ncol) = scr(i*2) * 1000. + .5              ! time in milliseconds!
              dtpool(itemp2+i,ncol) = scr(i*2-1)                         ! velocity
   120     CONTINUE
           IF ( lno .NE. 0 .AND. fno .NE. lno ) THEN                     ! Constant velocity from fno to lno (fno NE lno)
@@ -322,7 +322,7 @@ c****
       ENDIF
 
 c**** GMK comment out the time reversal of data array scr because we need to propagate
-c**** GMK in the opposite sense when doing the foward problem
+c**** GMK in the opposite sense when doing the forward problem
 
 c     DO 335 i = 1, maxsam
 c335  buf(i) = scr(maxsam-i+1)
@@ -426,7 +426,7 @@ c
 c          call exit
       ENDIF
 c
-c****    FOWARD MODEL DIFFRACTIONS
+c****    FORWARD MODEL DIFFRACTIONS
 c****
       CALL fdmdif( gamma, rho, theta, si, ndone, bpad, epad, ntau,
      *  taustp, tausiz, maxsam, lunvel, nx, lunt, ntrcs, maxsam,
@@ -479,7 +479,7 @@ c**** the number of samples in the data so change the header entry
 c****
 
 c**** GMK we don`t need to flip the data back sense it was not done in the first
-c**** GMK place(foward modelling) so it is commented out
+c**** GMK place(forward modelling) so it is commented out
 
 c      DO 1200 i = 1, maxsam
 c 1200 buf(numhdr+i) = scr(maxsam-i+1)

@@ -288,7 +288,7 @@ c      IF( icompt .EQ. 2 .OR. icompt .EQ. 4 ) CALL swap64(dtemp,10)
           PRINT *,' Title: ',cards(4)
           PRINT *,' Command: ',cards(5)
           PRINT *,' Comment: ',cards(9)
-          PRINT *,' node offest ',lscr(3),' (0 means normal mode)'
+          PRINT *,' node offset ',lscr(3),' (0 means normal mode)'
           PRINT *,' x_min:',dtemp(1)
           PRINT *,' x_max:',dtemp(2)
           PRINT *,' x_inc:',dtemp(7)

@@ -7,7 +7,7 @@ C     INPUTX IS CONTROLLED BOTH BY THE USER'S PARAMETERS AND THE COMPUTER
 C  OPERATOR.  THE PARAMETER LISTS MUST BE IN DISC FILE IPARUN.
 C  DATA IS READ FROM TAPE USING THE VARIABLES IN THE FIRST PARAMETER LIST UNTIL
 C  THE LIST IS EXHAUSTED, THEN ANOTHER LIST IS READ FROM DISK AND TAPE READING
-C  IS DONE ACCORDING THE NEW VAIABLES.  THIS CONTINUES UNTIL THE LAST PARAMETER
+C  IS DONE ACCORDING THE NEW VARIABLES.  THIS CONTINUES UNTIL THE LAST PARAMETER
 C  SET IS EXHAUSTED OR THE OPERATOR ANSWERS A REEL CHANGE WITH A -1 AND THEN
 C  INPUTX SETS ARGUMENT ISTOP TO 1 TO INDICATE THAT THERE IS NO MORE DATA TO
 C  BE INPUT.
@@ -60,7 +60,7 @@ c   mod 17 May 10 - Comment out creating real mute times in header words 47 & 48
 c  mod 14 Aug 07 - g95 IAND args must be same sized.
 c  mod 19 Oct 02 - Change the temporary file stuff for file IN/in.
 c  mod 31 Jul 00 - The new delay was wrong when the start time of SET was not
-c            an integer number of seconds (e.g. set 1.5 3.5 had a delay od 1)
+c            an integer number of seconds (e.g. set 1.5 3.5 had a delay of 1)
 c  mod 22 Dec 97 - Change MIN0 to MIN
 c  mod 24 May 96 - Change trace id from 100 (GPR) to 1 (seismic)
 c  mod 6 Dec 95 - Set ltr if not given and itrindex is given.
@@ -318,7 +318,7 @@ c****     Skip it if LDGO and more than a day away from the last
               lastday = ibuf1(80)
               ibad = 0
           ENDIF
-          IF(TIME.LT.TIME1) GO TO 160                                   !  IS THIS SHOT BEFOR THE FIRST TO PROCESS?
+          IF(TIME.LT.TIME1) GO TO 160                                   !  IS THIS SHOT BEFORE THE FIRST TO PROCESS?
           IF(TIME.LE.TIME2) GO TO 170                                   !  IS IT BEYOND THE LAST TIME TO PROCESS?
  137      READ(IPARUN,END=140) IREELN,JLUN,LTYPE,FIS,LIS,SINC,
      &        FTR,LTR,TRINC,ISI,IDELAY,NTRGAT,TIME1,TIME2,ISRCF,
@@ -553,9 +553,9 @@ C****  ABLE TO READ OTHER PEOPLE'S GATHERS!!!!
       GOTO 250
   240 ISTOP=1                                                           ! we hit the end and there are no more parameter lists
       RETURN
-  250 IF(IREEL.EQ.IREELN) GO TO 300                                     ! IS THERE A REEL CHANGE THRU PARAMETERS
+  250 IF(IREEL.EQ.IREELN) GO TO 300                                     ! IS THERE A REEL CHANGE THROUGH PARAMETERS
 C****
-C****   TAKE CARE OF REEL CHANGES SPECIFIED THRU THE USER'S PARAMETERS
+C****   TAKE CARE OF REEL CHANGES SPECIFIED THROUGH THE USER'S PARAMETERS
 C****
       IF( inputdev .NE. ' ' ) THEN
           PRINT *,' ***  ERROR  ***  Can not go backwards on ', inputdev

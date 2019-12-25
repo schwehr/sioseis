@@ -5,7 +5,7 @@ C
 C  ARGUMENTS:
 C  IAPADR - THE AP ADDRESS OF THE BEGINNING OF THE ARRAY TO BE SCANNED.
 C  NSAMPS - THE NUMBER OF SAMPLES OR ELEMENTS TO BE SCANNED.
-C  NELEM  - THE ELEMENT COUNT COMMPUTED BY FRSTNZ.  THE FIRST ELEMENT
+C  NELEM  - THE ELEMENT COUNT COMPUTED BY FRSTNZ.  THE FIRST ELEMENT
 C           (AT AP ADDRESS IAPADR) IS 1.
 C  ISCR   - THE AP ADDRESS OF AN AP SCRATCH ARRAY AT LEAST NSAMPS+2 LONG.
 C
@@ -20,7 +20,7 @@ C
       ISCR2=ISCR1+1                                                      /* THIS POINTS TO THE AP ADDRESS OF THE MINIMUM
       CALL APWR                                                          /* WAIT FOR RESULTS TO BE COMPLETED
       CALL APGET(A,ISCR2,1,2)                                            /* THE ADDRESS IS FLOATING POINT!
-      CALL APWD                                                          /* WAIT FOR DATA TRANSMISION COMPLETION
-      NELEM=A                                                            /* COMPUTE THE ELEMENT COUNT FROM THE BEGGINNING OF THE ARRAY
+      CALL APWD                                                          /* WAIT FOR DATA TRANSMISSION COMPLETION
+      NELEM=A                                                            /* COMPUTE THE ELEMENT COUNT FROM THE BEGINNING OF THE ARRAY
       RETURN
       END

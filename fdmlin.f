@@ -16,8 +16,8 @@ C              line. This routine provides the looping through all Tau steps,
 C              migrating seismic data from and back to array buf in the
 C              process. This routine also handles data transfers to/from memory
 C              and AP. The maximum number of time slices that can be held
-C              in the AP will be packed in a large array and transfered to the
-C              AP to minimise costly AP transfers.
+C              in the AP will be packed in a large array and transferred to the
+C              AP to minimize costly AP transfers.
 C
 C PARAMETERS:  GAMMA (R4) = Constant in migration calculation.
 C              RHO   (R4) = Constant in migration calculation.
@@ -283,7 +283,7 @@ c
           DO 172 i = 1, lslice*6                                        ! Zero time slices at j+1, j+2
   172     apdata(apnj1+i-1) = 0.
 c
-          call setaux(lslice)                                           ! Zero auxillary slices
+          call setaux(lslice)                                           ! Zero auxiliary slices
 c
 c         call fdmChck3(3,esamp,tauc)
 C
