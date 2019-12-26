@@ -10,62 +10,47 @@
 */
 #include <stdio.h>
 
-int	lshift_sio_(i,n)
-   short   *i;
-   int   *n;
-
-{
-    return(*i<<*n);
+int lshift_sio_(short *i, int *n) {
+    return *i << *n;
 }
 
 
-int	rshift_sio_(i,n)
-   short   *i;
-   int   *n;
-{
-/*    REMEMBER THAT C standard leaves vacated bit undefined  */
-   int	a,b,c,d,d1;
-   static short x[15] = {32767,16383,8191,4095,2047,1023,511,255,125,63,31,15,7,3,1};
+int rshift_sio_(short *i, int *n) {
+    // REMEMBER THAT C standard leaves vacated bit undefined
+    static const short x[15] = {32767, 16383, 8191, 4095, 2047, 1023, 511, 255, 125, 63, 31, 15, 7, 3, 1};
 
-   c = *i;
-   d = *n;
-   d1 = *n -1;
-   if(d==0) return(*i);
-   b = c >> d;
-   a = b & x[d1];
-   return(a);
+    const int c = *i;
+    const int d = *n;
+    const int d1 = *n -1;
+    if (d == 0) return *i;
+    const int b = c >> d;
+    const int a = b & x[d1];
+    return a;
 }
 
 
-int	llshift_(i,n)
-   long   *i;
-   int   *n;
-
-{
-    return(*i<<*n);
+int llshift_(long *i, int *n) {
+    return *i << *n;
 }
 
 
-int	lrshift_(i,n)
-/*    REMEMBER THAT C standard leaves vacated bit undefined  */
-   long   *i;
-   int   *n;
-{
-   int	a,b,c,d,d1;
-   static long x[31] = {2147483647, 107371823, 536870911, 268435455,
-		134217727, 67108863, 33554431, 16777215,
-		8388607, 4194303, 2097151, 1048575,
-		524287, 262143, 131071, 65535,
-		32767, 16383, 8191, 4095,
-		2047, 1023, 511, 255,
-		125, 63, 31, 15,
-		7, 3, 1};
-   c = *i;
-   d = *n;
-   d1 = *n -1;
-   if(d==0) return(*i);
-   b = c >> d;
-   a = b & x[d1];
-   return(a);
-
+int lrshift_(long *i, int *n) {
+    // REMEMBER THAT C standard leaves vacated bit undefined
+    // int a,b,c,d,d1;
+    static const long x[31] = {
+        2147483647, 107371823, 536870911, 268435455,
+        134217727, 67108863, 33554431, 16777215,
+        8388607, 4194303, 2097151, 1048575,
+        524287, 262143, 131071, 65535,
+        32767, 16383, 8191, 4095,
+        2047, 1023, 511, 255,
+        125, 63, 31, 15,
+        7, 3, 1};
+    const int c = *i;
+    const int d = *n;
+    const int d1 = *n -1;
+    if (d == 0) return *i;
+    const int b = c >> d;
+    const int a = b & x[d1];
+    return a;
 }

@@ -1,21 +1,9 @@
-icomplement_(a, n, b)
-	short	*a, *b;
-	int		*n;
-{
-	int	i;
-
-	for( i=0; i<*n; i++) b[i] = ~a[i];
-	return;
+void icomplement_(short *a, int *n, short *b) {
+    for(int i = 0; i < *n; i++)
+        b[i] = ~a[i];
 }
 
-
-
-lcomplement_(a, n, b)
-	long		*a, *b;
-	int		*n;
-{
-	int	i;
-
-	for( i=0; i<*n; i++) b[i] = ~a[i];
-	return;
+void lcomplement_(long *a, int *n, long *b) {
+    for(int i = 0; i < *n; i++)
+        b[i] = ~a[i];
 }

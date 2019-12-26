@@ -213,22 +213,23 @@ mod 13 Apr 15 - podiscb64 didn't work
 /* #include <sgtty.h>
 	struct    sgttyb    term; */ /*  if the device is a tty then it's not disk!  */
 
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
-
-#define   MAXFDS    40  /* the most files allowed in UNIX */
-#define   PMODE     0755 /* read, write, execute for owner, read and exec for group */
-#define	PMODE_ALL	0777 /* read, write, execute for everybody  */
-char *strcat();
-char *strcpy();
-void mknamec( nam )
-	char 	*nam;
+#define MAXFDS    40  /* the most files allowed in UNIX */
+#define PMODE     0755 /* read, write, execute for owner, read and exec for group */
+#define	PMODE_ALL 777 /* read, write, execute for everybody  */
+void mknamec(char *nam)
 {
-	while( *nam != ' ' && *nam != '\0' ) *nam++;
-        *nam = '\0';
+    // TODO(schwehr): bug
+    while(*nam != ' ' && *nam != '\0')
+        *nam++;
+    *nam = '\0';
 }
 
 /* 0 is stdin
@@ -246,29 +247,22 @@ static	int	reserved[MAXFDS] = {0, 1, 2, -1, -1, 5, 6, 7, -1, -1,
                                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-static	int       origin;
-static	char      fname[MAXFDS][200];
-static	char      tname[200];
-static	int       nbytes;
-static	int       status;
-static	int       i;
-static	int		pid;
+static	int origin;
+static	char fname[MAXFDS][200];
+static	char tname[200];
+static	int nbytes;
+static	int status;
+static	int i;
+static	int pid;
 static	struct    stat	stbuf;
-	int64_t	  offset64, temp64;
-	int64_t   status64;
-	void	exit();
-	off_t	offset;
+int64_t	  offset64, temp64;
+int64_t   status64;
+off_t	offset;
 
 
-
-     void getfil64_(mode, lun, name, istat)
-          int32_t   *mode;
-          int32_t   *lun;
-          char      *name;
-          int32_t   *istat;
-{
+void getfil64_(int32_t *mode, int32_t *lun, char *name, int32_t *istat) {
 #if debug
-	printf("getfil64, mode= %d, lun= %d\n",*mode);
+  printf("getfil64, mode= %d, lun= %d\n", *mode, *lun);
 #endif
 	*istat = 0;
 	*lun = -1;
@@ -283,7 +277,7 @@ static	struct    stat	stbuf;
 	}
 	if(*mode == 1 ) {
 		pid = getpid();
-		sprintf(name, "sioseis_%dtmp%d\0", pid,*lun);
+		sprintf(name, "sioseis_%dtmp%d", pid,*lun);
 		status = creat( tname, PMODE );
 		close(status);
 		strcpy(fname[*lun],name);
@@ -324,13 +318,7 @@ static	struct    stat	stbuf;
 
 
 
-	void getfil_(mode, lun, name, istat)
-          int32_t   *mode;
-          int32_t   *lun;
-          char      *name;
-          int32_t   *istat;
-
-{
+void getfil_(int32_t *mode, int32_t *lun, char *name, int32_t *istat) {
       *istat = 0;
 #if debug
 	printf("getfil, mode= %d\n",*mode);
@@ -341,7 +329,7 @@ static	struct    stat	stbuf;
 			exit(0) ; }
 		if(*mode == -1 ) {
 			pid = getpid();
-			sprintf(name, "sioseis_%dtmp%d\0", pid,*lun);
+			sprintf(name, "sioseis_%dtmp%d", pid,*lun);
 			status = creat( name, PMODE_ALL ); /* read and write */
 			close(status);
 			status = open(name,2); }
@@ -463,17 +451,15 @@ static	struct    stat	stbuf;
 }
 
 
-	void frefil_( mode, lun, istat)
-        int32_t    *mode;
-        int32_t    *lun;
-        int32_t    *istat;
-
-{
-        char    cmd[80];
+void frefil_(int32_t *mode, int32_t *lun, int32_t *istat) {
+    (void)istat;  // Unused arg
 
 #if debug
       printf("frefil, mode= %d, lun= %d\n",*mode,*lun);
 #endif
+
+    char cmd[80];
+
       if( *mode == -2) {   /* -2 means just close lun - do not release the unit */
             status = close( fd[*lun] );    /* close -- delete a descriptor  */
             return; }
@@ -514,16 +500,11 @@ static	struct    stat	stbuf;
       }
 }
 
-	void filsiz_(name, bsize)
-	char      *name;
-	int64_t	  *bsize;
-
-{
-	strcpy(tname,name);
-	mknamec( tname );   /* make sure the name terminates with a NULL */
-      stat(tname, &stbuf);
-      *bsize = stbuf.st_size;
-      return;
+void filsiz_(char *name, int64_t *bsize) {
+    strcpy(tname, name);
+    mknamec(tname);  // make sure the name terminates with a NULL
+    stat(tname, &stbuf);
+    *bsize = stbuf.st_size;
 }
 
 /* GETCWD
@@ -540,40 +521,26 @@ static	struct    stat	stbuf;
     Works on Sun and HP.  bombs on SGI.  - paul
 */
 
-	void getdir_(cwd, istat, cwd_len)
-	char      *cwd;
-	int32_t       *istat;
-	int32_t       cwd_len;
-{
+void getdir_(char *cwd, int32_t *istat, int32_t cwd_len) {
 	*istat = -1 ;
 /*	printf("GETDIR: cwd_len = %d\n", cwd_len); */
 	getcwd(cwd, cwd_len);
 	*istat = 0 ;
 /*	printf("GETDIR: cwd = %s\n", cwd); */
-	return;
 }
 
-	void godir_(dir, istat)
-	char        *dir;
-	int32_t         *istat;
-{
+void godir_(char *dir, int32_t *istat) {
 	*istat = -1 ;
 /*	printf("GODIR: dir = %s\n", dir); */
-	if (( *istat == chdir( dir ) ) == 0) return;
+	if ((*istat == chdir(dir)) == 0) return;
 	perror("godir");
-	return;
 }
 
 
 
-	void podisc_( lun, mode, address)
-      int32_t     *lun;
-      int32_t     *mode;
-/*  unsigned doesn't work because mode 2 may have a negative  */
-/*      unsigned long     *address; */
-      int32_t     *address;
-
-{
+// unsigned doesn't work because mode 2 may have a negative:
+// unsigned long *address;
+void podisc_(int32_t *lun, int32_t *mode, int32_t *address) {
 #if debug
       printf(" podisc, lun=%d, mode=%d, addr=%d(dec) %x(hex)\n",*lun,*mode,*address,*address);
 #endif
@@ -602,20 +569,14 @@ static	struct    stat	stbuf;
       status64 = status;
       if( status64 == -1 ) {
           /*    positioning an unopened file has a status of -1  */
-		fprintf( stderr, "Warning: disk address= %d%d, status= %d, address= %d\n",offset64,status64,temp64);
+		fprintf( stderr, "Warning: disk address= %ld%ld, status= %ld, address= %p\n",offset64,status64,temp64, address);
 		lseek( fd[*lun], (off_t)0, SEEK_SET );
 	 }
-      return;
 }
 
 /*****     podiscun    ******/
 /*****  mode 2 with negative relative address will fail !!!!!!!!  */
-        void podiscun_( lun, mode, address_un )
-      int32_t     *lun;
-      int32_t     *mode;
-      u_int32_t	  *address_un;
-
-{
+void podiscun_(int32_t *lun,int32_t *mode, u_int32_t *address_un) {
 #if debug
       printf(" podiscun, lun=%d, mode=%d, addr=%d \n",*lun,*mode,*address_un);
 #endif
@@ -635,19 +596,13 @@ static	struct    stat	stbuf;
          }
       if( status == -1 ) {
           /*    positioning an unopened file has a status of -1  */
-                fprintf( stderr, "Warning: disk address= %d%d, status= %d, address= %d\n",offset64,status,temp64);
+                fprintf( stderr, "Warning: disk address= %ld%d, status= %ld, address= %p\n",offset64,status,temp64, address_un);
                 lseek( fd[*lun], (off_t)0, SEEK_SET );
          }
-      return;
 }
 
-
-	void podisc64_( lun, mode, address64)
-      int32_t	*lun;
-      int32_t	*mode;
-      int64_t	*address64;  /* 64 bit address  */
-
-{
+// address64 - 64 bit address
+void podisc64_(int32_t *lun, int32_t *mode, int64_t *address64) {
 #if debug
 	printf(" podisc64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address64);
 #endif
@@ -657,18 +612,12 @@ static	struct    stat	stbuf;
       if( *mode == 2 ) origin = SEEK_CUR;   /* mode = 2 means relative to the current position */
       status64 = lseek( fd[*lun], offset64, origin) ;
       if( status64 < 0 ) {
-		fprintf( stderr, "Warning: disk address, %d, less than 0, setting to 0\n",status64);
+		fprintf( stderr, "Warning: disk address, %ld, less than 0, setting to 0\n",status64);
 		lseek( fd[*lun], (off_t)0, SEEK_SET );
       }
-      return;
 }
 
-	void podiscb_( lun, mode, address)
-      int     *lun;
-      int     *mode;
-      int     *address;
-
-{
+void podiscb_(int *lun, int *mode, int *address) {
 #if debug
       printf(" podiscb, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address);
 #endif
@@ -680,15 +629,9 @@ static	struct    stat	stbuf;
 		fprintf( stderr, "Warning: disk address, less than 0, setting to 0\n");
 		lseek( fd[*lun], (off_t)0, SEEK_SET );
       }
-      return;
 }
 
-	void podiscb64_( lun, mode, address64)
-      int32_t     *lun;
-      int32_t     *mode;
-      int64_t	*address64;
-
-{
+void podiscb64_(int32_t *lun, int32_t *mode, int64_t *address64) {
 #if debug
 	printf(" podiscb64, lun=%d, mode=%d, addr=%d\n",*lun,*mode,*address64);
 #endif
@@ -700,14 +643,9 @@ static	struct    stat	stbuf;
 	fprintf( stderr, "Warning: disk address, %d, less than 0, setting to 0\n",status);
 	lseek( fd[*lun], (off_t)0, SEEK_SET );
       }
-      return;
 }
 
-	void adrdisc_( lun, address )
-	int32_t	*lun;
-	int32_t	*address;
-
-{
+void adrdisc_(int32_t *lun, int32_t *address) {
 	*address = lseek( fd[*lun], (off_t)0, SEEK_CUR );
 #if debug
 	printf("addr= %d \n",*address);
@@ -721,26 +659,14 @@ so comment the warning out.
 and error out if the address is > 32 bits - then the caller
 knows it got a bad address.
 */
-	return;
 }
 
-	void adrdisc64_( lun, address64 )
-	int32_t	*lun;
-	int64_t	*address64;
-
-{
+void adrdisc64_(int32_t *lun, int64_t *address64) {
 	*address64 = lseek( fd[*lun], (off_t)0, SEEK_CUR );
 /*	printf("addr64= %d\n",*address64);  what's the format for longlong?  */
-	return;
 }
 
-	void rddisc_(lun, buffer, nwrds, istat)
-       int32_t     *lun;
-       int32_t     *buffer;
-       int32_t     *nwrds;
-       int32_t     *istat;
-
-{
+void rddisc_(int32_t *lun, int32_t *buffer, int32_t*nwrds, int32_t*istat) {
        nbytes = *nwrds * 4 ;  /* nwrds is the number of 4 byte words to read */
 #if debug
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
@@ -756,17 +682,10 @@ knows it got a bad address.
        else *istat = status / 4 ;  /* convert the number of bytes read to words */
        *istat = status / 4;
        if ( *istat == 0 ) *istat = -1 ;  /* istat=-1 means end of file  */
-       return;
 }
 
 
-	void rddiscb_(lun, buffer, n, istat)
-       int32_t     *lun;
-       int32_t     *buffer;
-       int32_t     *n;
-       int32_t     *istat;
-
-{
+void rddiscb_(int32_t *lun, int32_t *buffer, int32_t *n, int32_t *istat) {
 	nbytes = *n ;
 #if debug
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
@@ -782,15 +701,9 @@ knows it got a bad address.
        else *istat = status ;
        *istat = status;
        if ( *istat == 0 ) *istat = -1 ;  /* istat=-1 means end of file  */
-       return;
 }
 
-	void wrdisc_(lun, buffer, nwrds)
-       int32_t     *lun;
-       int32_t     *buffer;
-       int32_t     *nwrds;
-
-{
+void wrdisc_(int32_t *lun, int32_t *buffer, int32_t *nwrds) {
 #if debug
 /*       watch out if it's a 64 bit file  */
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
@@ -802,15 +715,9 @@ knows it got a bad address.
              printf(" ***  ERROR  ***  Disk file write error on unit %d, status = %d\n",*lun,status);
              perror("wrdisc");
              exit(1); }
-       return;
 }
 
-	void wrdiscb_(lun, buffer, n)
-       int32_t     *lun;
-       int32_t     *buffer;
-       int32_t     *n;
-
-{
+void wrdiscb_(int32_t *lun, int32_t *buffer, int32_t *n) {
 #if debug
 	offset = lseek( fd[*lun], (off_t)0, SEEK_CUR );
 	printf(" wrdiscb, lun=%d, to byte %d %d, nwrds=%d\n",*lun,offset,*n);
@@ -821,19 +728,14 @@ if( status != nbytes ) {
 		printf(" ***  ERROR  ***  Disk file write error on unit %d, status = %d\n",*lun,status);
 		perror("wrdisc");
           exit(1); }
-	return;
 }
 
-	void fdsync_( lun )
-	int32_t     *lun;
-
-{
+void fdsync_(int32_t *lun) {
 	status = fsync( fd[*lun] );
 	status = fflush( stdin );
 #if debug
 	printf("fdsync:  fd= %d, lun= %d, status= %d\n",fd[*lun],*lun,status);
 #endif
-	return;
 }
 
 /* end */

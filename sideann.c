@@ -1,28 +1,12 @@
-int sideann( digit, cbuf, cbuf_inc, nibs, start, complement, idir )
-	int		digit;
-	unsigned char	cbuf[];
-	int		cbuf_inc;
-	float	nibs;
-	int		start;
-	int		complement;
-	int		idir;
+// sideann or's a single digit, rotated 90 degrees into a raster buffer.
+// digit is the numerical number (0-9) to be or'd
+// The byte increment between raster lines must be cbuf_inc, thus cbuf
+// must have the raster lines contiguous.
+// start = 1, means to insert blanks before the digit
 
-/* sideann or's a single digit, rotated 90 degrees into a raster buffer.
-digit is the numerical number (0-9) to be or'd
-The byte increment between raster lines must be cbuf_inc, thus cbuf
-must have the raster lines contiguous.
-start = 1, means to insert blanks before the digit
+// Paul Henkart,  Scripps Oceanography,  February 1995
+// (C) 1995, Regents of The University of California
 
-*  Paul Henkart,  Scripps Oceanography,  February 1995
-*  (C) 1995, Regents of The University of California
-
-mod July 2007 - Change the font from < 250 to < 200 so that the iSys plotter
-                gets flipped font on idir < 1
-mod 30 Apr 2010 - Do the annotation even if nibs is 600
-*/
-
-{
-	int	i, j, k, n, nl, index;
 /*  in c the fast index is the last. e.g. [i][j], j is the fast index */
 /*  index 1 is the "digit", index 2 is raster line, index 3 is byte */
 	static unsigned char	bits100[12][8][2] = {
@@ -99,7 +83,7 @@ mod 30 Apr 2010 - Do the annotation even if nibs is 600
 			0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8,
 			0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8,
 			0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8, 0x00, 0x01, 0xf8 };
-	static unsigned char	bits300[12][26][5] = {
+static unsigned char	bits300[12][26][5] = {
 /* zero */0x00, 0x07, 0xff, 0x80, 0x00,
 		0x00, 0x3f, 0xff, 0xe0, 0x00,
 		0x00, 0x7f, 0xff, 0xf8, 0x00,
@@ -702,6 +686,8 @@ mod 30 Apr 2010 - Do the annotation even if nibs is 600
 		0x0f, 0xff, 0x00, 0x00, 0x00,
 		0x0f, 0xff, 0x00, 0x00, 0x00 };
 
+int sideann(int digit, unsigned char cbuf[], int cbuf_inc, float nibs, int start, int complement, int idir) {
+    int i, j, k, n, nl, index;
 
 	nl = 0;
 	index = 0;
@@ -781,4 +767,5 @@ mod 30 Apr 2010 - Do the annotation even if nibs is 600
 		}
 		return(nl);
 	}
+    return nl;
 }
