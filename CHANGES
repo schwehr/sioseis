@@ -1992,4 +1992,240 @@ ver 2010.2.0 (25 Mar. 2010)
     new makefile - just 1 makefile now.
     Change name of version.f files to avoid naming conflicts for 1 dir src.
     Numerous minor changes to get rid of some compiler warnings.
-
+    1) maxsc, wbtex, muteex, range, ufilex, polarc, findv, caljul
+       - get rid of arithmetic IF
+    2) mute - Round when converting from time to samples.
+            - Use the first list if before the first list (extrapolate)
+    3) nmo - Stop use segy header mute times in seconds (real 47 & 48)
+    4) stack, stk - Use integer end mute in mils rather than real seconds.
+    5) smute - Eliminate writing start and end times in the segy header.
+    6) sionav2segy - Use millisecond of timestamp if word 84 is > 4
+    7) navgeom - Check for a change in millisecond in check for time changing.
+    8) plot - Allow 600dpi HP plotter Z2100 (plotter 2124 and 2144)
+    9) gather - revert to old gather
+    10) diskio - podiscun was wrong.
+    11) gather - redo temporary disc addressing - should allow monster gathers. (16GB)
+    12) tredit, despike, velan, fk2tx, t2d, shift, mute, input, acorr
+              - Comment out creating real mute times in header words 47 & 48
+    13) diskin, nmo, segddin - Eliminate use of header word 54 for real water depth.
+    14) diskin - Add FORMAT BINARY and ASCII
+    15) geom - Add warning if DFLS not set and type 1, 2, or 6
+    16) gather - Add warning if FRP is far away from the first rp read.
+    17) plot -  pctfil 0 ndptr 0 still put in 1 raster of fill
+    18) prout - Add FORMAT ASCII (replaces MATLAB)
+    19) diskio - On Sun, make getfil64 use creat64 and open64,
+    20) diskox - On Sun, create file using creat64
+    21) diskin - On Sun, open file using open64
+    22) diskio - On Sun, getfil64 with mode < 0 didn't exist.
+    23) decon - Add lprint 8
+    24) despike - Check for NaN on every sample.
+                - Allow despike without any parameters (thus do NaN check).
+    25) plot - Add lat100 and long100 to ANN and ANN2.
+    26) wbt - procs filter wbt didn't pass the filtered data to the next process
+    27) velan - do byte swap for segy opath
+    28) geom - add type 19 to read UKOOA and put decimal lat/long in 20/19
+    29) shift - interp preset didn't work for rshift
+    30) geom - UKOAA: Make H2000, H2001, H2002 less finicky
+    31) fkfilt - Don't cal FrmWnd if cut/pass goes across 0
+Program VERSATEC.   Langseth has 7224 (if the can find it) and 7225 plotters.
+    32) diskio - Linux    long   is 64 bits, so explicitly define fortran args.
+    33) plot - tlann.c also had arguments as   long
+    34) plot - Correct tline annotation when ltr and  > 9.
+    35) plot - Do end-of-plot time line annotation when ltr & nibs=200 (e,g, 7224)
+    36) procs - Check for syn, diskin, segddin being in the same list.
+    37) velan - finish the segy output on Intels
+    38) plot - The zeroing of dead traces was done in scr rather than buf
+    39) prout - Add info 4 - print the energy of each window.
+    40) fdmigr - Add some warnings
+    41) plot - HPATH needed byte swaps to make it "standard"
+Program SIO2SUN - Add new 600dpi plotters 2124 and 2144
+Program SIOPLT - Byte swap HPATH if on Intel.
+ver 2010.3.1 (6 Dec. 2010)
+    1) geom - Add type 20
+            - Set rpadd if not given and rp < 0
+    2) diskin - 2GB files didn't work when fno was given
+              - random access didn't work with multiple fno/lno lists
+    3) swell - save live trace pick and use the last good one when trace is dead
+ver 2011.1.3 (20 Jan. 2011)
+    1) diskin - random (rev 1) didn't work when secs was given (and fno was given)
+    2) diskin - random (rev 1) didn't work when fno was before the first trace in file.
+    3) diskin - random (rev 1) didn't work when t2d was in procs and nsamps changed
+ver 2011.2.22 (22 July 2011)
+    1) decon - Add parameter GAP
+    2.1) decon - Separate predic and gap
+    2.2) conv - Type 2, half correlation did too many points.
+    3) diskin - zero the back of the trace when secs > original trace length
+    4) shift - datume used the segy scale factor incorrectly and thus the sign was wrong.
+    5) decon - Add parameter NZCROSS
+    6) geom - Print message if UKOOA file does not start with 'H'
+    7) diskin - Add parameter LNTODO
+              - Add parameter FNTODO and equivalence it to NTODO
+    8) geom/UKOOA - Increase MAXTR to 2000 (4 * 468 = 1872) from 500
+    9) segddin - Add retrac < 0 to be the number of traces accumalted in the shot so far (match UKOOA)
+    10) geom/UKOOA - Multiple streamers didn't work right
+    11) diskin -  FORMAT ASCII didn't set the REAL si (buf(49))
+    12) resamp - Didn't work when the data were in "the ap" (when filter was used).
+    13) diskin - Make FORMAT KNUDSEN to do swap16 on trace header bytes 181-240
+    14) header - swap lxx ryy = ???  failed because ryy looks like a swap index.
+    15) shift - indices without I/L/R didn't give error.
+    16) gains - Add TYPE 10 and parameter V
+    17) prout - Allow INDICES and FORMAT when only 1 INDICES
+    18) nmo - Add parameter HIRES and do interpolation rather than nearest sample
+    19) diskin - Random I/O didn't work with user overriding SORT (Promax shot file)
+    20) velan - Increase semblance buffer from 4000 samples to 10000 samples
+    21) diskin, segddin, dutil, - AND out the vacated bits after a right shift.
+    22) segddin - Mess with ***  WARNING  *** Water depth has not changed in 50 shots.
+ver 2011.3.12 (21 Nov. 2011)
+    1) diskin - Print warning when nsamps in binhdr and trace header differ.
+    2) diskin - Attempt to allow file names with "\ " in them (fails in diskio.c)
+    3) diskin - Set the user parameter SORT to SHOT when binary header says it is and buf(7) > 0
+    4) plot - Allow 4 digit trace number on SH&TR and RP&TR
+    5) diskin - Redo message when Rev 1 and fixed and shot not in file.
+    6) diskin - set the shot trace number to 1 when it's 0 along with the rp num and rp tr no.
+    7) geom - Modify "DFLS not given" message.
+    8) plot - Modify "too many samples" message
+    9) segddin - Change "bad" ftr and ltr values into warnings rather than errors.
+    10) prout - Add FOLD to TRLIST
+    11) plot - Add WBDEPTH@S, WBTIME, FOLD to ANN and ANN2
+    12) segddin - Redo reading NMEA strings from the external header
+    13) segddin - Bad decode of filen because c doesn't zero the vacated bits on right shifts
+    14) diskin - When realtime, change the order of getting the disk address relative to header.
+    15) diskin - When realtime, change the order of getting the disk address relative to trace.
+    16) segddin - Honor file "in" when STACK is used.
+    17) segddin - Wait for the STACK file to exist rather than erroring.
+ver 2012.1.18 (11 June 2012)
+    1) diskin - noinc didn't work when shot tr and rp tr = 0 (see ver 2011.3.6)
+    2) segddin - Close and free the STACK file while waiting so we don't use too many units.
+    3) contro - comment out pseudo
+    4) diskin - Multi fno lists didn't work when diskin overrode random
+    5) nmo - kbig was set wrong and may explain "NMO caused wavelet inversion"
+    6) nmo - Call to polint in HIRES was bad (good thing hires was never documented!
+    7) ukooa - Keep a copy of cbuf because others (e.g. segddin) also use rline1
+    8) geom - Allow dfls not given when type 8 (ukooa)
+    10) prout - format ASCII was bad.
+    11) wbt - Honor prestk when using vel.
+    12) fdmigr - Check for no traces input.
+    13) fdmigr - Bad TSTEPS warning.
+    14) diskox - Set the binary header sort entry (15) based on rp trace number
+    15) diskox -  POSAFT was using the number of samples from the input rather than output.
+    16) diskox - RENUM was bad.
+    17) UKOOA - Some Langseth p190 were not read correctly.
+    18) gains - type 5 (exponential) subwb yes was wrong.
+              - type 5 tmult was wrong.
+ver 2012.2.8 (19 July 2012)
+    1) diskox - Binary header sort entry of 11 June 12 (2012.1.14) was wrong
+    2) nmo - Allow non-increase velocities in spatial variation on VINTPL 2
+    3) nmo - Redo DSTRETCH
+    4) nmo - Eliminate the data zero due to inversion.
+    5) mute - bad mute when the trace/range was < the first given.  (bad 1 Apr 10 update)
+    6) nmo - Finish HIRES
+    7) nmo - Redo dstretch again.  Now (tx-t0) / t0
+    8) diskox - FON stopped working - bad update 2012.1.16
+ver 2012.3.7 (11 Sept. 2012)
+    1) prout - Add INFO 5 (statistics)
+    2) diskox - delay in ms set incorrectly when SET is given
+    3) ukooa - Mac didn't compile     DFLOAT(sec)/(60.D0*60.D0)
+    4) despike/tredit - Add parameters:  valmax, mintype, maxtype, devpct
+    5) segddin - Check for LISTPATH file to exist.
+    6) header - Use REAL*8 when reading LHDR or L*
+    7) prout - segy header decimal degrees was printed incorrectly
+             - trlist SX* & SY* were bad when segy header had decimal degrees
+             - trlist RX* & RY* were source instead of receiver
+ver 2012.4.3 (29 Nov. 2012)
+    1) diskin - Make FNO default to first in file.
+    2) ukooa - Mac didn't compile     DFLOAT(sec)/(60.D0*60.D0) - tailbuoy section
+    3) diskox - Warm that IBM output may/will not work (gcc47 on Mac fails)
+ver 2013.1.2 (30 Jan. 2013)
+    1) shifts.c - create rshift_sio and lshift_sio
+                - zero vacated bits on rshift and lrshift
+    2) doex - permits writing of IBM floating point.
+ver 2013.2.3 (9 Apr. 2013)
+    1) geom - setback didn't work correctly
+    2) stack - Average the source x & y (header 19 & 20)
+    3) velan - remove some old print statements
+?????????? - 2003 ????????
+        Automatically set the output segy rev to 1.
+?????????
+ver 2014.1.7 (6 Feb 2014)
+    1) header - READ statement had an extra ")" that new compiler choked on
+    2) diskio - change NULL to 0  on:  if (( *istat == chdir( dir ) ) == NULL) return;
+    3) geom - for compasses:   #include <stdlib.h>    /* Add declaration for Malloc ajh
+    4) filter - woodfilt routines needed dimension statement adjustments
+    5) disko - Don't automatically set the output segy rev to 1 if the input
+            segy rev was 0 and the delay scalar (trace header word 108) is non-zero
+    6) disko - Do the same trace header byte swaps as DISKIN
+    7) diskin - Byte swap rev 1 delay scalar properly.
+LSD - honor SEGY Rev 1 delay scalar
+ver 2014.2.6 (29 Apr. 2014)
+    1) diskin - Create error if TRINC is used and process SORT is used.
+    2) segddin - Change DESCALE preset to 1 - DESCALE ON
+    3) contro - put delay, segyrev, si in common/readt/
+    4) diskin - honor rev 1 delay scalar (ibuf(108))
+              - set ibuf(108) to 0 if rev 0
+    5) diskin - make sure the fixed file flag is set to 0 on rev 0 (diskox tries to write rev 1)
+    6) header - Add B (byte) and D (double) to equation
+ver 2014.3.2 (17 Jun. 2014)
+    1) tredit/despike - Change offline filter to be frequency filter.
+                      - Do offline filter before ALL pickers.
+    2) stack - don't try to average the source coordinates if all traces are dead.
+2014.4.2 (11 Jul. 2014)
+    1) diskin - Clean up shot/rp searches when fno/lno are given, especially when
+                the shot numbers are not increasing.
+              - Add a "suggestion" when nothing is found.
+              - Rev 1 random access didn't work on MCS (ntraces > 1)
+    2) wbt - Add parameter GUIDED and SEG
+2014.5.3 (7 Oct. 2014)
+    1) header - Apr update screwed up equation when R was on the right side.
+    2) disko - Use swp_trhdr for trace header byte swaps so that diskin and disko do the same thing
+    3) wbt - Get si from common rather than lbuf
+ver 2014.6.2 (20 Oct. 2014)
+    1) plot - The 11 May 06 change of nsecs preset from -1 to 0 ruined checks for big plots,
+            - Change big plot from an error to a warning.
+            - Use si and delay from common
+    2) wbt - Use delay from common so rev 1 scalar is honored (diskin sets it).
+           - Honor SEGY Rev 1 water bottom depth scalar - done when???????
+ver 2015.1.2 (13 Feb. 2015)
+    1) diskox - common /readt/ was wrong which affected a decision to use rev 1 or not
+    2) segddin - Very large external header caused buffer overflow.
+               - print warning if format HTI is given and data are segd rev 1
+               - Error if the file doesn't exist.
+lsd - 24 Mar 2015 - fix bad update for printing coordinates.
+ver 2015.2.6 (13 Apr. 2015)
+    1) fdmigr - TSTEPS warning was wrong when max tsteps were given.
+              - Bad print statement for ntau
+              - Didn't work when sample interval is less than 1 mil.
+    2) despike - Bad determination of fno/lno
+    3) ufiltr - fno/lno wasn't quite right
+    4) nmo - many issues with HIRES
+    5) diskin - random and realtime didn't work on files > 2GB
+    6) diskio.c - podiscb64 didn't call lseek - duh
+ver 2015.3.1 (6 Jun. 2015)
+    1) segddin - ION uses General Header #2 "Number of External Header Blocks" (bytes 8&9)
+ver 2015.4.2 (5 Nov. 2015)
+    1) diskin - Add FORMAT NIUST
+    2) diskox -
+ver 2016.1.1 (23 Feb 2016)
+    1) segddin - bad $GPGGA string, so just stop decoding after lat & long (gpgga.f)
+ver 2016.2.5 (20 Apr. 2016)
+    1) segddin - big mod to gpgga for bad nmea strings - use what you can and extrapolate
+                 lat and/or long if needed.
+    2) segddin - rewrote gpgga for bad NMEA strings
+    3) geom - Changed BAD DFLS recovery.
+    4) geom - Set lat/long to zero if dfls is bad
+    5) geom - basically redid the bad dfls recovery
+ver 2016.3.1 (30 Aug. 2016)
+    1) diskin - Added warning in edit about ODEC IEEE float nav
+ver 2018.1.2 (20 July 2018)
+    1) diskin - Convert ODEC nav to arcseconds
+              - SWAPPED and ODEC did not swap the binary header
+    2) nmo - OPATH didn't do any swaps
+ver 2018.2.2 (26 July 2018)
+    1) diskox - the start time of SET was off by 1 sample
+    2) prout - the print statement of the times printed was off by 1 sample
+ver 2019.1.5 (26 November 2019)
+    1) shift, swell - needed to use unsigned integer for nsamps
+    2) header - was doing a byte swap on nsamps if > 32764 - for old XSTAR format!
+    3) makefile - remove magtap.o magmaxosx.o and replace with mag_dummies.f
+    4) getdate.c - make into void function
+    5) segddex - create and use integer*2 routine itohex for dumping hex
+               - get rid of Hydrosciences nscets 165
