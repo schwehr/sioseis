@@ -19,7 +19,7 @@ c      IF(T-TX)100,200,10
       IF( t - tx .LT. 0 ) GOTO 100
       IF( t - tx .EQ. 0 ) GOTO 200
    10 IF(I.EQ.1) GO TO 200
-      IF(VTP(I-1).EQ.VTP(I+1)) GO TO 300                                 /* WATCH OUT FOR DIVIDE BY 0 (CONSTANT V)
+      IF(VTP(I-1).EQ.VTP(I+1)) GO TO 300                                ! /* WATCH OUT FOR DIVIDE BY 0 (CONSTANT V)
       VX=(T-VTP(I-1))/(VTP(I+1)-VTP(I-1))*(VTP(I)-VTP(I-2))+VTP(I-2)
       GO TO 200
   100 CONTINUE

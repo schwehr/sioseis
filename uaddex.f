@@ -23,8 +23,8 @@ C  PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, May 1996
 c
 c  mod 22 Dec 97 - Change MIN0 to MIN
 C
-      PARAMETER (MAXPTS=15000)                                          /*  THE MAXIMUM NUMBER OF POINTS
-      PARAMETER (NPARS=5)                                                /* THE NUMBER OF WORDS IN THE PARAMETER LIST
+      PARAMETER (MAXPTS=15000)                                          ! /*  THE MAXIMUM NUMBER OF POINTS
+      PARAMETER (NPARS=5)                                               ! /* THE NUMBER OF WORDS IN THE PARAMETER LIST
       DIMENSION BUF(111),LBUF(111),IBUF(111),SCR(111),LSCR(111)
       INTEGER*2 IBUF
       COMMON /UADD/ MUNIT,NLISTS
@@ -46,41 +46,41 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE                                                          /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
-      CALL PODISC(MUNIT,1,0)                                            /* REWIND THE PARAMETER FILE
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+      CALL PODISC(MUNIT,1,0)                                            ! /* REWIND THE PARAMETER FILE
       CALL RDDISC(MUNIT,scr,NPARS,ISTAT)
-      ISIG=1                                                            /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
+      ISIG=1                                                            ! /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
       FNO=LSCR(1)
       LNO=LSCR(2)
       NPTS=LSCR(3)
       stime = SCR(4)
       LPRINT=LSCR(5)
       NWRDS=NPTS
-      CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)                                /* READ THE POINTS IN
+      CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)                                ! /* READ THE POINTS IN
       DO 40 I=1,NPTS
    40 PTS(I)=SCR(I)
       MLISTS=1
    50 CONTINUE
-      LNUM=LBUF(3)                                                      /*  IS THE DATA ON TAPE SORTED BY SHOT
-   60 IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
-      IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      /* IS IT THE SAME AS THE LAST SHOT (RP)
-      LLNUM=LNUM                                                         /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
-      IF(MLISTS.EQ.1) RETURN                                            /* If BEFORE THE FIRST LIST, don't do it!
-      IF(LNUM.LE.LNO) GO TO 10                                          /* IS IT IN OR BEFORE THE LAST LIST
-      RETURN                                                            /* IT MUST BE BETWEEN THE 2 LISTS
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO)  GO TO 1000                                       /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.LT.NLISTS) GO TO 110                                    /* ANY MORE USER PARAM LISTS ON DISC
+      LNUM=LBUF(3)                                                      ! /*  IS THE DATA ON TAPE SORTED BY SHOT
+   60 IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     ! /*  OR BY RP
+      IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      ! /* IS IT THE SAME AS THE LAST SHOT (RP)
+      LLNUM=LNUM                                                        ! /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! /* IS THIS SHOT BEFORE THIS PARAMETER LIST
+      IF(MLISTS.EQ.1) RETURN                                            ! /* If BEFORE THE FIRST LIST, don't do it!
+      IF(LNUM.LE.LNO) GO TO 10                                          ! /* IS IT IN OR BEFORE THE LAST LIST
+      RETURN                                                            ! /* IT MUST BE BETWEEN THE 2 LISTS
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO)  GO TO 1000                                       ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.LT.NLISTS) GO TO 110                                    ! /* ANY MORE USER PARAM LISTS ON DISC
       RETURN
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
-  110 CONTINUE                                                          /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
+  110 CONTINUE                                                          ! /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
   130 CALL RDDISC(MUNIT,SCR,NPARS,ISTAT)
       ISIG=1
       FNO=LSCR(1)

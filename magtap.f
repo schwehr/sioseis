@@ -68,7 +68,7 @@ c           < 0, error
 c           = 0, EOF or EOT
 c           > 0, the number of bytes transferred
 c
-      PARAMETER (maxdrs = 100)                                           /* the maximum number of tape drives
+      PARAMETER (maxdrs = 100)                                          ! /* the maximum number of tape drives
       DIMENSION itapes(maxdrs), lstat(maxdrs)
       DIMENSION buffer(1)
       INTEGER*4 lun,nwrds,ifunc,istat
@@ -83,7 +83,7 @@ c	print *,' magtap, lun=',lun,' ifunc=',ifunc,' nwrds=',nwrds
           PRINT *,' ***  ERROR  ***  BAD tape unit no.',lun
           STOP
       ENDIF
-      IF( itapes(lun+1) .EQ. 0 ) THEN                                   /* make sure the tape has been assigned
+      IF( itapes(lun+1) .EQ. 0 ) THEN                                   ! /* make sure the tape has been assigned
           ntimes = 0
           IF( ntries .LE. 0 ) ntries = 1
           itapes(lun+1)=1
@@ -128,10 +128,10 @@ c****
   110 ntimes = ntimes + 1
       istat = skffmt(lun)
       lstat(lun+1) = istat
-      IF( istat .NE. 0 ) THEN                                           /* ready?
+      IF( istat .NE. 0 ) THEN                                           ! /* ready?
           IF( ntimes .LE. ntries) PRINT *,' ***  ERROR  ***  Tape ',
      *       ' unit ',lun,' error, status=',istat
-          CALL SLEEP(15)                                                /* GOTO sleep for 15 seconds
+          CALL SLEEP(15)                                                ! /* GOTO sleep for 15 seconds
           GOTO 110
       ENDIF
       istat = 0
@@ -146,11 +146,11 @@ c****
   210 ntimes = ntimes + 1
       istat = skrfmt(lun)
       lstat(lun+1) = istat
-      IF( istat .EQ. -1 ) istat = 0                                     /* EOF gives -1!
-      IF( istat .NE. 0 ) THEN                                           /* ready?
+      IF( istat .EQ. -1 ) istat = 0                                     ! /* EOF gives -1!
+      IF( istat .NE. 0 ) THEN                                           ! /* ready?
           IF( ntimes .LE. ntries) PRINT *,' ***  ERROR  ***  Tape ',
      *       ' unit ',lun,' error, status=',istat
-          CALL SLEEP(15)                                                /* GOTO sleep for 15 seconds
+          CALL SLEEP(15)                                                ! /* GOTO sleep for 15 seconds
           GOTO 210
       ENDIF
       RETURN
@@ -184,12 +184,12 @@ c****
       ntimes = 0
   410 ntimes = ntimes + 1
       istat = skrbmt(lun)
-      IF( istat .EQ. -1 ) istat = 0                                     /* eof?
+      IF( istat .EQ. -1 ) istat = 0                                     ! /* eof?
       lstat(lun+1) = istat
-      IF( istat .NE. 0 ) THEN                                           /* ready?
+      IF( istat .NE. 0 ) THEN                                           ! /* ready?
           IF( ntimes .LE. ntries) PRINT *,' ***  ERROR  ***  Tape ',
      *       ' unit ',lun,' error, status=',istat
-          CALL SLEEP(15)                                                /* GOTO sleep for 15 seconds
+          CALL SLEEP(15)                                                ! /* GOTO sleep for 15 seconds
           GOTO 410
       ENDIF
       IF( istat .NE. 0 )
@@ -208,10 +208,10 @@ c****
 c****  For some reason I'm gettin a -1 sometimes.  Evereything is ok though
       istat = 0
       lstat(lun+1) = istat
-      IF( istat .NE. 0 ) THEN                                           /* ready?
+      IF( istat .NE. 0 ) THEN                                           ! /* ready?
           IF( ntimes .LE. ntries) PRINT *,' ***  ERROR  ***  Tape ',
      *       ' unit ',lun,' is OFF-LINE.'
-          CALL SLEEP(15)                                                /* GOTO sleep for 15 seconds
+          CALL SLEEP(15)                                                ! /* GOTO sleep for 15 seconds
           GOTO 460
       ENDIF
       RETURN

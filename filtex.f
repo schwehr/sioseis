@@ -197,7 +197,7 @@ C****
           ndows = 1
       ENDIF
       IF( indxs(1) .NE. 1 ) indxs(1) = 1                                ! always start with the first data point
-      IF( indxs(ndows*2) .NE. nsamps ) indxs(ndows*2) = nsamps          /* end with the end
+      IF( indxs(ndows*2) .NE. nsamps ) indxs(ndows*2) = nsamps          ! /* end with the end
       DO 1110 I=1,MAX
       IF(OPASS(I).NE.PASS(I)) GO TO 1120
  1110 CONTINUE

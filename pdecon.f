@@ -46,7 +46,7 @@ C
       TRACE=I3
       NPTS=I4
       WHITEN=I5
-      ONE=WHITEN+1                                                      /* THE AP LOCATION OF THE NUMBER 1.
+      ONE=WHITEN+1                                                      ! /* THE AP LOCATION OF THE NUMBER 1.
       NFPTS=I6
       AUTO=I7
       PREDIC=I8
@@ -57,28 +57,28 @@ C
 C
       N=NFPTS+PREDIC
       NN=N+1
-      CALL CONV(DESIGN,1,DESIGN,1,AUTO,1,NN,NDPTS)                      /* COMPUTE THE AUTOCOR
+      CALL CONV(DESIGN,1,DESIGN,1,AUTO,1,NN,NDPTS)                      ! /* COMPUTE THE AUTOCOR
       CALL VDIV(AUTO,1,ONE,1,SCRATC,1,1)
       CALL VSMUL(AUTO,1,SCRATC,AUTO,1,NN)
-      CALL VSMA(AUTO,1,WHITEN,AUTO,1,AUTO,1,1)                           /* ADD THE PREWHITENER IN
-      CROSS=AUTO+PREDIC                                                  /* THE DESIRED OUTPUT
-      CALL WIENER(NFPTS,AUTO,CROSS,FILT,ERROPR,1)                       /* COMPUTE THE  FILTER
-      FILT1=FILT+NFPTS                                                  /* FIND THE BACK END OF THE FILTER
+      CALL VSMA(AUTO,1,WHITEN,AUTO,1,AUTO,1,1)                          ! /* ADD THE PREWHITENER IN
+      CROSS=AUTO+PREDIC                                                 ! /* THE DESIRED OUTPUT
+      CALL WIENER(NFPTS,AUTO,CROSS,FILT,ERROPR,1)                       ! /* COMPUTE THE  FILTER
+      FILT1=FILT+NFPTS                                                  ! /* FIND THE BACK END OF THE FILTER
       FILT1=FILT1-1
       FILT2=FILT1+PREDIC
       CALL VNEG(FILT1,-1,FILT2,-1,NFPTS)
-      CALL VMOV(ONE,1,FILT,1,1)                                         /* PUT A 1 IN THE FRONT OF THE FILTER
+      CALL VMOV(ONE,1,FILT,1,1)                                         ! /* PUT A 1 IN THE FRONT OF THE FILTER
       IF(PREDIC.LE.1) GO TO 100
       FILT=FILT+1
       PREDIC=PREDIC-1
-      CALL VCLR(FILT,1,PREDIC)                                          /* ZERO THE PREDICTION DISTANCE -1
+      CALL VCLR(FILT,1,PREDIC)                                          ! /* ZERO THE PREDICTION DISTANCE -1
   100 CONTINUE
       ITEMP=TRACE+NPTS
       ITEMP=ITEMP-1
       ITEMP2=N-1
       ITEMP1=SCRATC+NPTS+ITEMP2-1
-      CALL VMOV(ITEMP,-1,ITEMP1,-1,NPTS)                                /* MOVE THE TRACE DOWN A FILTER LENGTH
-      CALL VCLR(SCRATC,1,ITEMP2)                                        /* PAD THE FRONT OF THE TRACE WITH ZEROES
-      CALL CONV(SCRATC,1,FILT2,-1,RESULT,1,NPTS,N)                      /* DO THE CONVOLUTION
+      CALL VMOV(ITEMP,-1,ITEMP1,-1,NPTS)                                ! /* MOVE THE TRACE DOWN A FILTER LENGTH
+      CALL VCLR(SCRATC,1,ITEMP2)                                        ! /* PAD THE FRONT OF THE TRACE WITH ZEROES
+      CALL CONV(SCRATC,1,FILT2,-1,RESULT,1,NPTS,N)                      ! /* DO THE CONVOLUTION
       RETURN
       END

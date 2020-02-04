@@ -60,7 +60,7 @@ C  BUF    - A SCRATCH ARRAY AT LEAST 60 32 BIT WORDS LONG.
 C  LBUF   - THE SAME ARRAY BUT THE 32 BIT INTEGER EQUIVALENT.  NEEDED
 C           BECAUSE FORTRAN DOESN'T ALLOW EQUIVALENCING OF ARGUMENTS.
 C
-      PARAMETER (NPARS = 8)                                             /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (NPARS = 8)                                             ! /* THE NUMBER OF USER PARAMETERS
       CHARACTER*6 NAMES(NPARS)
       CHARACTER*1 TYPE(NPARS)
       DIMENSION LENGTH(NPARS)
@@ -92,11 +92,11 @@ C****
       LPRINT=0
       PREWHI=25.
       nfpts = 0
-      ninpts = 0                                                         /*  count the number of input points given
-      ndesir = 0                                                         /*  count the number of desired output points given
-      nauto = 0                                                          /*  count the number of autocorrelation lags given
-      ncross = 0                                                         /*  count the number of crosscorrelation lags given
-      oprint = 0                                                         /*  set the output print
+      ninpts = 0                                                        ! /*  count the number of input points given
+      ndesir = 0                                                        ! /*  count the number of desired output points given
+      nauto = 0                                                         ! /*  count the number of autocorrelation lags given
+      ncross = 0                                                        ! /*  count the number of crosscorrelation lags given
+      oprint = 0                                                        ! /*  set the output print
       ntypes = 0
 C****
 C*****    GET A PARAMETER FILE
@@ -111,22 +111,22 @@ C****
       NLISTS=0
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-      CALL UPCASE(TOKEN,NCHARS)                                          /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF(NCHARS.GT.0) GO TO 150
       IF(NOW.EQ.1) PRINT 140
   140 FORMAT(' <  ENTER PARAMETERS  >')
-      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER USER PARAMETER LINE
       NTOKES=0
       GO TO 100
   150 CONTINUE
       NTOKES=NTOKES+1
-      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-      IPARAM=I                                                          /* SAVE THE INDEX
+      DO 190 I=1,NPARS                                                  ! /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                     ! /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          ! /* SAVE THE INDEX
       IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LI
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LI
       IF(NS.NE.0) GO TO 230
       PRINT 191, TOKEN(1:NCHARS)
   191 FORMAT(' ***  ERROR  *** DECON DOES NOT HAVE A PARAMETER ',
@@ -139,19 +139,19 @@ C****
   200 CONTINUE
       NS = 0
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF( NCHARS .LE. 0 ) THEN                                           /* END OF LINE?
-          IF( NOW .EQ. 1 ) PRINT 140                                              /* THIS ALLOWS A PARAMETER TO BE ON A DIFFE
-          CALL RDLINE                                                              /* GET ANOTHER LINE
+      IF( NCHARS .LE. 0 ) THEN                                          ! /* END OF LINE?
+          IF( NOW .EQ. 1 ) PRINT 140                                    ! /* THIS ALLOWS A PARAMETER TO BE ON A DIFFE
+          CALL RDLINE                                                   ! /* GET ANOTHER LINE
           NTOKES=0
           GOTO 210
       ENDIF
- 230  CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF( ISTAT .NE. 2 ) THEN                                            /* =2 MEANS IT IS A NUMERIC
-          IERROR = IERROR + 1                                                      /* DCODE PRINTED AN ERROR
+ 230  CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF( ISTAT .NE. 2 ) THEN                                           ! /* =2 MEANS IT IS A NUMERIC
+          IERROR = IERROR + 1                                           ! /* DCODE PRINTED AN ERROR
           GOTO 100
       ENDIF
       IF( TYPE(NPARAM) .EQ. 'L') THEN
@@ -163,7 +163,7 @@ C****
           IF( NAMES(NPARAM) .EQ. 'INPUT' ) THEN
               IF( ninpts .EQ. 0 ) THEN
                   ipoint = ipoint + 1
-                  lscr(npars+ipoint) = 9991                              /* word 1 is the array type
+                  lscr(npars+ipoint) = 9991                             ! /* word 1 is the array type
                   ntypes = ntypes + 1
                   idumb = npars+ipoint
               ENDIF
@@ -214,8 +214,8 @@ C****
 C****
 C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
- 1000 CONTINUE                                                           /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
-      IF( ninpts .NE. 0 ) THEN                                           /* make sure desire is given when input is
+ 1000 CONTINUE                                                          ! /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
+      IF( ninpts .NE. 0 ) THEN                                          ! /* make sure desire is given when input is
           IF( ndesir .EQ. 0 ) THEN
               PRINT *,' ***  ERROR  ***  DESIRE must be given with ',
      *                'INPUT.'
@@ -227,26 +227,26 @@ C****
               iwarn = iwarn + 1
           ENDIF
       ENDIF
-      IF( ndesir .NE. 0 ) THEN                                           /* make sure input is given when desire is
+      IF( ndesir .NE. 0 ) THEN                                          ! /* make sure input is given when desire is
           IF( ninpts .EQ. 0 ) THEN
               PRINT *,' ***  ERROR  ***  INPUT must be given with ',
      *                ' DESIRE'
               ierror = ierror + 1
           ENDIF
       ENDIF
-      IF( nauto .NE. 0 ) THEN                                            /* make sure cross is given when auto is
+      IF( nauto .NE. 0 ) THEN                                           ! /* make sure cross is given when auto is
           IF( ncross .EQ. 0 ) THEN
               PRINT *,' ***  ERROR  ***  CROSS must be given with AUTO.'
               ierror = ierror + 1
           ENDIF
       ENDIF
-      IF( ncross .NE. 0 ) THEN                                           /* make sure auto is given when cross is
+      IF( ncross .NE. 0 ) THEN                                          ! /* make sure auto is given when cross is
           IF( nauto .EQ. 0 ) THEN
               PRINT *,' ***  ERROR  ***  AUTO must be given with CROSS.'
               ierror = ierror + 1
           ENDIF
       ENDIF
-      IF( ncross+nauto .NE. 0 ) THEN                                    /* is either given?
+      IF( ncross+nauto .NE. 0 ) THEN                                    ! /* is either given?
           IF( ncross .NE. nauto ) THEN
               PRINT *, ' ***  WARNING  ***  The autocorrelation and',
      *        ' crosscorrelation are not the same length.'
@@ -287,15 +287,15 @@ C****
       ndesir= 0
       nauto = 0
       ncross = 0
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF( NCHARS .LE. 0 ) THEN                                          /* WAS IT THE END OF A LINE?
+      IF( NCHARS .LE. 0 ) THEN                                          ! /* WAS IT THE END OF A LINE?
           IF( NOW .EQ. 1 ) PRINT 140
-          CALL RDLINE                                                              /* GET ANOTHER LINE
+          CALL RDLINE                                                   ! /* GET ANOTHER LINE
           NTOKES=0
           GOTO 2020
       ENDIF
       IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
-      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE PARAMETERS!!!
       END

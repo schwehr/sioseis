@@ -38,15 +38,15 @@ C
 1     FORMAT('1')
       PRINT 20
       PRINT 20
-C      PRINT 10, (ISCR(I),I=1,12)                                           /* FORM FEED FIRST
+C      PRINT 10, (ISCR(I),I=1,12)                                           ! /* FORM FEED FIRST
       PRINT 20
    10 FORMAT(' SIOSEIS VELOCITY SPECTRA LEVEL 1.0 PERFORMED ON ',8A2,
      *  ' AT ',4A2)
       PRINT 20
    20 FORMAT('  ')
-      ltemp = ibuf(79)                                                   /* convert to 32 bit integer!
+      ltemp = ibuf(79)                                                  ! /* convert to 32 bit integer!
       ltemp1 = ibuf(80)
-      CALL JULCAL(MONTH,IDAY,ltemp,ltemp1)                               /* CONVERT JULIAN  TO CALENDAR
+      CALL JULCAL(MONTH,IDAY,ltemp,ltemp1)                              ! /* CONVERT JULIAN  TO CALENDAR
       PRINT 40,LBUF(6),IDAY,LMONTH(MONTH),IBUF(79),(IBUF(I),I=81,83)
    40 FORMAT(' RP',I5,' WAS RECORDED ON',I3,1X,A4,1X,I4,' AT ',2I2,':',
      *  I2)
@@ -70,15 +70,15 @@ C      PRINT 10, (ISCR(I),I=1,12)                                           /* F
       V=V+VINC
       IF(V.LE.VTUPLE(2)) GO TO 60
       I=I-1
-      PRINT 70,(ISCR(J),J=1,I)                                          /* PRINT THE VELOCITY SCALE OF THE PLOT
+      PRINT 70,(ISCR(J),J=1,I)                                          ! /* PRINT THE VELOCITY SCALE OF THE PLOT
    70 FORMAT(8X,I4,10(5X,I5))
-      DO 90 I=1,132                                                      /* BUILD THE BACKGROUND AND THE GRID
-   90 MASTER(I:I)=ICHAR                                                  /* THIS IS THE BACKGROUND
+      DO 90 I=1,132                                                     ! /* BUILD THE BACKGROUND AND THE GRID
+   90 MASTER(I:I)=ICHAR                                                 ! /* THIS IS THE BACKGROUND
       DO 100 I=11,132,5
-  100 MASTER(I:I)='+'                                                   /* THIS IS THE GRID
+  100 MASTER(I:I)='+'                                                   ! /* THIS IS THE GRID
       PRINT 81,MASTER(1:NCOLS)
    81 FORMAT(A)
-      DO 110 I=1,LSIZE                                                   /* NOW FILL THE ENTIRE PLOT WITH THE MASTER
+      DO 110 I=1,LSIZE                                                  ! /* NOW FILL THE ENTIRE PLOT WITH THE MASTER
   110 IA(I)=MASTER
       RETURN
       END

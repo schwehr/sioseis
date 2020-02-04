@@ -112,10 +112,10 @@ C       11-60) VTP  - ALWAYS 50 LONG
 C
 C
 C
-      PARAMETER (NPARS=10)                                               /* THE NUMBER OF USER PARAMETERS
-      PARAMETER (MAXVTP=50)                                             /* THE MAXIMUM NUMBER OF VTPS THAT T2DEX CAN HANDLE
-      PARAMETER (NWRDS=MAXVTP+NPARS)                                      /* THE NUMBER OF WORDS IN EACH DISK OPARAMETER LIST
-      PARAMETER (MULTIV=10)                                              /* THE INDEX OF THE FIRST MULTIVALUED PARAMETER
+      PARAMETER (NPARS=10)                                              ! /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (MAXVTP=50)                                             ! /* THE MAXIMUM NUMBER OF VTPS THAT T2DEX CAN HANDLE
+      PARAMETER (NWRDS=MAXVTP+NPARS)                                    ! /* THE NUMBER OF WORDS IN EACH DISK OPARAMETER LIST
+      PARAMETER (MULTIV=10)                                             ! /* THE INDEX OF THE FIRST MULTIVALUED PARAMETER
       CHARACTER*6 NAMES(NPARS)
       CHARACTER*1 TYPES(NPARS)
       DIMENSION LENGTH(NPARS)
@@ -157,10 +157,10 @@ C****
       FNO=1
       LNO=9999999
       VTP=-1.
-      OSI=1.                                                             /* 5. METERS BETWEEN SAMPLES
+      OSI=1.                                                            ! /* 5. METERS BETWEEN SAMPLES
       SDEPTH=-1.
       EDEPTH=-1
-      VTYPE=2                                                           /* 1= INTERVAL, 2= AVERAGE
+      VTYPE=2                                                           ! /* 1= INTERVAL, 2= AVERAGE
       LPRINT=0
       IADDWB=0
       LLNO = 0
@@ -176,22 +176,22 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-      CALL UPCASE(TOKEN,NCHARS)                                         /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF(NCHARS.GT.0) GO TO 150
       IF(NOW.EQ.1) PRINT 140
   140 FORMAT(' <  ENTER PARAMETERS  >')
-      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER USER PARAMETER LINE
       NTOKES=0
       GO TO 100
   150 CONTINUE
       NTOKES=NTOKES+1
-      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-      IPARAM=I                                                          /* SAVE THE INDEX
+      DO 190 I=1,NPARS                                                  ! /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                     ! /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          ! /* SAVE THE INDEX
       IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LIST?
       IF(NS.NE.0) GO TO 230
       PRINT 191, TOKEN(1:NCHARS)
   191 FORMAT(' ***  ERROR  *** T2D DOES NOT HAVE A PARAMETER ',
@@ -204,13 +204,13 @@ C****
   200 CONTINUE
       NS=0
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 230                                         /* END OF LINE?
-      IF(NOW.EQ.1) PRINT 140                                            /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      IF(NCHARS.GT.0) GO TO 230                                         ! /* END OF LINE?
+      IF(NOW.EQ.1) PRINT 140                                            ! /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 210
   230 CONTINUE
@@ -220,32 +220,32 @@ C****
       IF(NAMES(NPARAM).EQ.'VTYPE'.AND.TOKEN(1:NCHARS).EQ.'AVE') VTYPE=2
       GOTO 100
   240 CONTINUE
-      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
-      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          ! /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                   ! /* DCODE PRINTED AN ERROR
       GO TO 100
   420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
-      IF(NPARAM.LT.MULTIV) GO TO 490                                     /*  IS IT A MULTIVALUED PARAMETER
-      NS=NS+1                                                           /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
+      IF(NPARAM.LT.MULTIV) GO TO 490                                    ! /*  IS IT A MULTIVALUED PARAMETER
+      NS=NS+1                                                           ! /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
       nvtps = ns
       ITEMP=MULTIV
       SCR(NS+ITEMP)=AREAL
       GO TO 100
-  490 VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+  490 VALS(NPARAM)=AREAL                                                ! /*  FLOATING POINT VALUES
       GO TO 100
-  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+  500 CONTINUE                                                          ! /*  32 BIT INTEGER VALUES
       LVALS(NPARAM)=AREAL
       GO TO 100
 C****
 C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
- 1000 CONTINUE                                                           /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
-      IF(LNO.EQ.9999999) LNO=FNO                                          /* DEFAULT LNO TO FNO
-      IF(FNO.GT.LLNO) GO TO 1020                                        /*  IS FNO LARGER THAN THE LAST LNO
+ 1000 CONTINUE                                                          ! /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
+      IF(LNO.EQ.9999999) LNO=FNO                                        ! /* DEFAULT LNO TO FNO
+      IF(FNO.GT.LLNO) GO TO 1020                                        ! /*  IS FNO LARGER THAN THE LAST LNO
       PRINT 1010
  1010 FORMAT(' ***  ERROR  ***  SHOT AND RP NUMBERS MUST INCREASE.')
       IERROR=IERROR+1
- 1020 IF(LNO.GE.FNO) GO TO 1030                                          /* DO THEY INCREASE IN THIS LIST
+ 1020 IF(LNO.GE.FNO) GO TO 1030                                         ! /* DO THEY INCREASE IN THIS LIST
       PRINT 1010
       IERROR=IERROR+1
  1030 IF( nvtps .EQ. 0 ) THEN
@@ -274,9 +274,9 @@ c      IWARN=IWARN+1
           PRINT *,' ***  ERROR  ***  OSI must be less than 32.'
           ierror = ierror + 1
       ENDIF
-      DO 1200 II=1,NVTPS,2                                              /*  CHECK THE VTP FOR ERRORS
+      DO 1200 II=1,NVTPS,2                                              ! /*  CHECK THE VTP FOR ERRORS
       I=II+NPARS
-      SCR(I)=SCR(I)/2.                                                  /* ****  CONVERT TWO WAY TRAVE TIMES TO ONE WAY!!!!!
+      SCR(I)=SCR(I)/2.                                                  ! /* ****  CONVERT TWO WAY TRAVE TIMES TO ONE WAY!!!!!
       IF(SCR(I).GT.0) GO TO 1160
       PRINT 1150,SCR(I)
  1150 FORMAT(' ***  ERROR  ***  ILLEGAL VTP VELOCITY OF ',F10.4)
@@ -319,17 +319,17 @@ C****
       CALL WRDISC(MUNIT,SCR,NWRDS)
       NLISTS=NLISTS+1
       LLNO=LNO
-      LNO=9999999                                                          /* DEFAULT THE DEFAULTS
-      NS=0                                                              /* SET THE NUMBER OF MULTI-VALUED PARAMETER ENTRIES BACK TO ZER0
+      LNO=9999999                                                       ! /* DEFAULT THE DEFAULTS
+      NS=0                                                              ! /* SET THE NUMBER OF MULTI-VALUED PARAMETER ENTRIES BACK TO ZER0
       VTP=-1.
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NCHARS.GT.0) GO TO 2030                                        ! /* WAS IT THE END OF A LINE?
       IF(NOW.EQ.1) PRINT 140
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 2020
  2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
-      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE PARAMETERS!!!
       END

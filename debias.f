@@ -11,8 +11,8 @@ C
       REALN=FLOAT(NSAMPS)
       AVE=0.
       DO 100 I=1,NSAMPS
-  100 AVE=AVE+BUF(I)                                                     /* WATCH OUT FOR OVERFLOW - THIS COULD BE BUF(I)/REALN
-      AVE=AVE/REALN                                                     /* BUT SAVING THE DIVIDES WILL REALLY HELP CUT CPU TIME.
+  100 AVE=AVE+BUF(I)                                                    ! /* WATCH OUT FOR OVERFLOW - THIS COULD BE BUF(I)/REALN
+      AVE=AVE/REALN                                                     ! /* BUT SAVING THE DIVIDES WILL REALLY HELP CUT CPU TIME.
       DO 200 I=1,NSAMPS
   200 OBUF(I)=BUF(I)-AVE
       RETURN

@@ -27,7 +27,7 @@ C
 c  mods:
 c  13 April 1991 by pch - add user parameters PCTAGC and CENTER
 C
-      PARAMETER (NPARS=6)                                                /* THE LENGTH OF EACH PARAMETER LIST
+      PARAMETER (NPARS=6)                                               ! /* THE LENGTH OF EACH PARAMETER LIST
       DIMENSION BUF(111),LBUF(111),IBUF(111),SCR(111),LSCR(111)
       INTEGER*2 IBUF
       COMMON /AGCC/ MUNIT,NLISTS
@@ -43,11 +43,11 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE                                                           /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
       OLEVEL=32767.
       CLIP=200000.
       dead=.1e-30
@@ -57,29 +57,29 @@ C****
    20 FORMAT(' ***  ERROR  ***  TOO MUCH AP REQUESTED. AGC')
       STOP
    30 CONTINUE
-      CALL PODISC(MUNIT,1,0)                                            /* REWIND THE PARAMETER FILE
+      CALL PODISC(MUNIT,1,0)                                            ! /* REWIND THE PARAMETER FILE
       CALL RDDISC(MUNIT,SCR,NPARS,ISTAT)
-      ISIG=1                                                            /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
+      ISIG=1                                                            ! /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
       FNO=LSCR(1)
       LNO=LSCR(2)
       MLISTS=1
-   50 LNUM=LBUF(3)                                                        /*  IS THE DATA ON TAPE SORTED BY SHOT
-      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     /*  OR BY RP
-      IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      /* IS IT THE SAME AS THE LAST SHOT (RP)
-      LLNUM=LNUM                                                         /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
-      IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
-      IF(LNUM.LE.LNO) GO TO 10                                          /* IS IT IN OR BEFORE THE LAST LIST
-      GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO) GO TO 500                                          /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.LT.NLISTS) GO TO 110                                    /* ANY MORE USER PARAM LISTS ON DISC
-      IF(ISIG.EQ.0) GO TO 1000                                          /* IS THERE A LIST IN MEMORY
-      GO TO 500                                                          /* YES THE LAST LIST IS IN SCR
+   50 LNUM=LBUF(3)                                                      ! /*  IS THE DATA ON TAPE SORTED BY SHOT
+      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     ! /*  OR BY RP
+      IF(LNUM.EQ.LLNUM.AND.MLISTS.NE.1) GO TO 1000                      ! /* IS IT THE SAME AS THE LAST SHOT (RP)
+      LLNUM=LNUM                                                        ! /* NO, IT'S NOT THE SAME - DO WE NEED NEW PARAMS
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! /* IS THIS SHOT BEFORE THIS PARAMETER LIST
+      IF(MLISTS.EQ.1) GO TO 500                                         ! /* IS IT BEFORE THE FIRST LIST
+      IF(LNUM.LE.LNO) GO TO 10                                          ! /* IS IT IN OR BEFORE THE LAST LIST
+      GO TO 500                                                         ! /* IT MUST BE BETWEEN THE 2 LISTS
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO) GO TO 500                                         ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.LT.NLISTS) GO TO 110                                    ! /* ANY MORE USER PARAM LISTS ON DISC
+      IF(ISIG.EQ.0) GO TO 1000                                          ! /* IS THERE A LIST IN MEMORY
+      GO TO 500                                                         ! /* YES THE LAST LIST IS IN SCR
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
-  110 CONTINUE                                                          /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
+  110 CONTINUE                                                          ! /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
       CALL RDDISC(MUNIT,SCR,NPARS,ISTAT)
       ISIG=1
       FNO=LSCR(1)
@@ -95,7 +95,7 @@ C****
       LPRINT=LSCR(4)
       agcpct = scr(5)
       center = scr(6)
-      IF(LNUM.LT.FNO) GO TO 600                                          /* DON'T BOTHER IF SPATIALLY VARYING
+      IF(LNUM.LT.FNO) GO TO 600                                         ! /* DON'T BOTHER IF SPATIALLY VARYING
       GO TO 1000
 C****
 C****     NO SPATIAL VARIATION ALLOWED
@@ -105,13 +105,13 @@ C****
 C****    SETUP THE INDEXES
 C****
  1000 CONTINUE
-      NSAMPS=IBUF(58)                                                    /* THE NUMBER OF DATA SAMPLES IN THE TRACE
-      DELAY=BUF(46)                                                      /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
-      SI=BUF(49)                                                         /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
+      NSAMPS=IBUF(58)                                                   ! /* THE NUMBER OF DATA SAMPLES IN THE TRACE
+      DELAY=BUF(46)                                                     ! /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
+      SI=BUF(49)                                                        ! /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
       IDELAY=DELAY/SI
-      LTRNO=LBUF(4)                                                      /* THE TRACE NUMBER WITHIN THE SHOT
-      IF(LBUF(7).NE.0) LTRNO=LBUF(7)                                    /* THE TRACE NUMBER WITHIN THE RP
-      INLEN=WINLEN/SI                                                    /* THE WINDOW LENGTH IN SAMPLES
+      LTRNO=LBUF(4)                                                     ! /* THE TRACE NUMBER WITHIN THE SHOT
+      IF(LBUF(7).NE.0) LTRNO=LBUF(7)                                    ! /* THE TRACE NUMBER WITHIN THE RP
+      INLEN=WINLEN/SI                                                   ! /* THE WINDOW LENGTH IN SAMPLES
       IF(IUSEAP.EQ.0.OR.IN.EQ.0) GO TO 2000
 C****
 C****   DO THE AGC IN THE AP
@@ -120,11 +120,11 @@ C****
       SCR(1)=1./FLOAT(INLEN)
       SCR(2)=.00001
       SCR(3)=OLEVEL
-      CALL APWR                                                          /* WAIT FOR ANY PREVIOUS AP OPERATIONS TO BE COMPLETED
-      CALL APPUT(SCR,NEXTAD,3,2)                                        /* PUT THE AGCAP PARAMETERS IN THE AP AT NEXTAD
+      CALL APWR                                                         ! /* WAIT FOR ANY PREVIOUS AP OPERATIONS TO BE COMPLETED
+      CALL APPUT(SCR,NEXTAD,3,2)                                        ! /* PUT THE AGCAP PARAMETERS IN THE AP AT NEXTAD
       ISCR1=NEXTAD+3
        ISCR2=ISCR1+NSAMPS
-      CALL FRSTNZ(IN,NSAMPS,N,ISCR1)                                    /*  FIND THE FIRST LIVE VALUE
+      CALL FRSTNZ(IN,NSAMPS,N,ISCR1)                                    ! /*  FIND THE FIRST LIVE VALUE
       IF( IAND(LPRINT,2) .NE. 0 )
      &    PRINT *,IN,INLEN,NSAMPS,NEXTAD,ISCR1,ISCR2,midpt,agcpct
       CALL APWD
@@ -135,7 +135,7 @@ C****  DO THE AGC IN HOST MEMORY
 C****
  2000 CONTINUE
       IF( buf(48) .NE. 0. ) THEN
-          istart = (buf(48) - delay) / si + 1                            /* don't agc the muted data
+          istart = (buf(48) - delay) / si + 1                           ! /* don't agc the muted data
           IF( istart .LT. 1 ) istart = 1
       ELSE
           istart = 1

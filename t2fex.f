@@ -41,9 +41,9 @@ c
       COMMON /READT/ILUN,NUMHDR,NUMDAT,IUNHDR,IREELM,INTRCS,IFMT,NSKIP,
      *   SECS,LRENUM,ISRCF,IDTYPE,
      *               nfskip, jform, itxsi, itxdel, nfktrc, origntr
-      COMMON /APMEM/A(500000)                                            /* THE AP SIMULATOR DATA ARRAY
-      PARAMETER (MAXDOW=1000)                                            /* THE MAXIMUM NUMBER OF POINTS THAT CAN BE SAVED IN WINDO
-      PARAMETER (NWRDS=12)                                              /* THE NUMBER OF WORDS IN EVERY PARAMETER LIST
+      COMMON /APMEM/A(500000)                                           ! /* THE AP SIMULATOR DATA ARRAY
+      PARAMETER (MAXDOW=1000)                                           ! /* THE MAXIMUM NUMBER OF POINTS THAT CAN BE SAVED IN WINDO
+      PARAMETER (NWRDS=12)                                              ! /* THE NUMBER OF WORDS IN EVERY PARAMETER LIST
       DIMENSION BUF(111),IBUF(111),LBUF(111),SCR(111),LSCR(111)
       DIMENSION WINDO(MAXDOW)
       INTEGER FNO,FTR
@@ -55,11 +55,11 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE                                                          /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
       CALL PODISC(MUNIT,1,0)
       CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)
       ISIG=1
@@ -67,15 +67,15 @@ C****
       LNO=LSCR(2)
       MLISTS=1
    50 CONTINUE
-      LNUM=LBUF(3)                                                      /*  IS THE DATA ON TAPE SORTED BY SHOT
-      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
-      IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
-      IF(LNUM.LE.LASTNO) GO TO 10                                        /* IS IT IN OR BEFORE THE LAST LIST
-      GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO) GO TO 500                                          /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.GE.NLISTS) GO TO 500                                    /* ANY MORE USER PARAM LISTS ON DISC
+      LNUM=LBUF(3)                                                      ! /*  IS THE DATA ON TAPE SORTED BY SHOT
+      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     ! /*  OR BY RP
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! /* IS THIS SHOT BEFORE THIS PARAMETER LIST
+      IF(MLISTS.EQ.1) GO TO 500                                         ! /* IS IT BEFORE THE FIRST LIST
+      IF(LNUM.LE.LASTNO) GO TO 10                                       ! /* IS IT IN OR BEFORE THE LAST LIST
+      GO TO 500                                                         ! /* IT MUST BE BETWEEN THE 2 LISTS
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO) GO TO 500                                         ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.GE.NLISTS) GO TO 500                                    ! /* ANY MORE USER PARAM LISTS ON DISC
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
@@ -89,13 +89,13 @@ C****
 C****
 C****    NOW FIND THE PARAMETERS FOR THE  TRACE NUMBER
 C****
-  500 IF(ISIG.EQ.0) GO TO 1000                                          /* IS A LIST IN SCR
+  500 IF(ISIG.EQ.0) GO TO 1000                                          ! /* IS A LIST IN SCR
       FTR=LSCR(3)
       LTR=LSCR(4)
       IWINDO=LSCR(5)
       WINLEN=SCR(6)
       LFFT=LSCR(7)
-      LCOORD=LSCR(8)                                                    /* 1=RECTANGULAR, 2=POLAR
+      LCOORD=LSCR(8)                                                    ! /* 1=RECTANGULAR, 2=POLAR
       LPRINT=LSCR(9)
       IADDWB=LSCR(10)
       stime = scr(11)
@@ -104,25 +104,25 @@ C****
       etime1 = etime
 C
  1000 CONTINUE
-      IF( stime1 .LT. 0. ) stime = buf(46)                                /* use the delay if no stime
-      IF( etime1 .LT. 0. ) etime = buf(46) + numdat * buf(49)           /* delay*nsamps*si
+      IF( stime1 .LT. 0. ) stime = buf(46)                              ! /* use the delay if no stime
+      IF( etime1 .LT. 0. ) etime = buf(46) + numdat * buf(49)           ! /* delay*nsamps*si
       delay = buf(46)
       IF( stime1 .GE. 0. ) THEN
-          buf(46) = 0.                                                   /* set delay to 0 if stime is given
+          buf(46) = 0.                                                  ! /* set delay to 0 if stime is given
           ibuf(55) = 0
       ENDIF
       itxsi = ibuf(ISIPTR)                                              ! save the sample interval (in microsecs)
       SI=BUF(49)
       nsamps = (etime - stime) / si
       NWINDO=WINLEN/SI
-      IF(IWINDO.EQ.5 .OR. NWINDO .EQ. 0) GO TO 1005                     /* DON'T WINDOW IF IT IS A RECTANGULAR WINDOW!
-      IF(NWINDO.GT.MAXDOW) GO TO 1005                                    /* IS THE WINDOW LARGER THAN THE WINDO ARRAY?
+      IF(IWINDO.EQ.5 .OR. NWINDO .EQ. 0) GO TO 1005                     ! /* DON'T WINDOW IF IT IS A RECTANGULAR WINDOW!
+      IF(NWINDO.GT.MAXDOW) GO TO 1005                                   ! /* IS THE WINDOW LARGER THAN THE WINDO ARRAY?
       IF(NW.NE.NWINDO) CALL WINDOW(-IWINDO,WINDO,nwindo,DUMMY)
-      NW=NWINDO                                                          /* NW IS THE NUMBER OF POINTS SAVED IN THE WINDO ARRAY
+      NW=NWINDO                                                         ! /* NW IS THE NUMBER OF POINTS SAVED IN THE WINDO ARRAY
 C
  1005 CONTINUE
-      nfft=LFFT                                                          /* THE NUMBER OF POINTS IN THE FFT
-      IF(LFFT.LE.0) THEN                                                /* DID THE USER GIVE FFTLEN?
+      nfft=LFFT                                                         ! /* THE NUMBER OF POINTS IN THE FFT
+      IF(LFFT.LE.0) THEN                                                ! /* DID THE USER GIVE FFTLEN?
          nfft = 4
  1010    CONTINUE
          IF( nfft .LT. nsamps ) THEN
@@ -130,7 +130,7 @@ C
              GOTO 1010
          ENDIF
       ENDIF
-      mfft = 4                                                          /* make sure the fft is a power of 2 long
+      mfft = 4                                                          ! /* make sure the fft is a power of 2 long
       DO 1030 i = 1, 15
          IF( nfft .EQ. mfft ) GOTO 1040
          mfft = mfft + mfft
@@ -138,30 +138,30 @@ C
       PRINT *,' ***  ERROR  ***  The fft length of ',nfft,' is not ',
      *    'a power of 2.'
       STOP
- 1040 NZEROS=nfft-NSAMPS                                                /* NOW SEE IF WE NEED TO PAD WITH ZEROES
+ 1040 NZEROS=nfft-NSAMPS                                                ! /* NOW SEE IF WE NEED TO PAD WITH ZEROES
       IPOWR2 = 2
       ITEMP = 4
  1050 CONTINUE
-      IF( nfft .GT. itemp ) THEN                                        /* find the power of 2
+      IF( nfft .GT. itemp ) THEN                                        ! /* find the power of 2
           ipowr2 = ipowr2 + 1
           itemp = itemp + itemp
           GOTO 1050
       ENDIF
       n = MAX(numdat,nfft*2)
-      CALL INAP(BUF(NUMHDR+1),n)                                        /* PUT THE DATA IN THE AP OR ARRAY A
+      CALL INAP(BUF(NUMHDR+1),n)                                        ! /* PUT THE DATA IN THE AP OR ARRAY A
       in = (stime - delay) / si + 1
 C****  AND MAKE SURE THE AP ADDRESSING ALLOWS FOR LARGER DATA ARRAYS
-      IF(IUSEAP.EQ.1) GO TO 1500                                        /* IS THERE AN AP?
+      IF(IUSEAP.EQ.1) GO TO 1500                                        ! /* IS THERE AN AP?
 C****
 C****    DO THE TRANSFORMATION IN THE HOST
 C****
-      IF(IWINDO.EQ.5.OR.NWINDO.LE.0) GO TO 1200                          /* DON'T DO THE WINDOW IF IT IS A RECTANGULAR WINDOW
+      IF(IWINDO.EQ.5.OR.NWINDO.LE.0) GO TO 1200                         ! /* DON'T DO THE WINDOW IF IT IS A RECTANGULAR WINDOW
       IF(NW.NE.NWINDO) CALL WINDOW(-IWINDO,WINDO,nwindo,DUMMY)
-      DO 1110 I=1,NW                                                    /* WINDOW RETURNED EITHER THE LEFT HALF OF THE WINDOW OR ALL OF IT
- 1110 A(IN+I-1)=A(IN+I-1)*WINDO(I)                                      /* APPLY THE WINDOW!
-c      IF(IWINDO.GT.0) GO TO 1200                                        /* WAS THAT THE WHOLE WINDOW WE JUST DID?
-      ISTART=IN+NSAMPS-NW-1                                              /* FIND THE BACK END OF THE TRACE TO BE WINDOWED
-      DO I = 1, nw                                                       /* APPLY THE RIGHT HALF OF THE WINDOW TO THE END OF THE TRACE
+      DO 1110 I=1,NW                                                    ! /* WINDOW RETURNED EITHER THE LEFT HALF OF THE WINDOW OR ALL OF IT
+ 1110 A(IN+I-1)=A(IN+I-1)*WINDO(I)                                      ! /* APPLY THE WINDOW!
+c      IF(IWINDO.GT.0) GO TO 1200                                        ! /* WAS THAT THE WHOLE WINDOW WE JUST DID?
+      ISTART=IN+NSAMPS-NW-1                                             ! /* FIND THE BACK END OF THE TRACE TO BE WINDOWED
+      DO I = 1, nw                                                      ! /* APPLY THE RIGHT HALF OF THE WINDOW TO THE END OF THE TRACE
          A(ISTART+I)=A(ISTART+I)*WINDO(NW-I+1)
       ENDDO
 c      GO TO 1200
@@ -170,24 +170,24 @@ c      IF( nw .LT. 10 .OR. nw .GT. maxdow ) THEN
 c          PRINT *,' ***  ERROR  ***  Bad window length of ',nw
 c          STOP
 c      ENDIF
-c      CALL WINDOW(-IWINDO,SCR,NW,DUMMY)                                  /* THE WINDOW COULDN'T FIT IN THE WINDO ARRAY
+c      CALL WINDOW(-IWINDO,SCR,NW,DUMMY)                                  ! /* THE WINDOW COULDN'T FIT IN THE WINDO ARRAY
 c      IF( IAND(lprint,2) .NE. 0) PRINT *,' CALL window(',iwindo,nw
-c      DO 1160 I=1,NW                                                    /* NOW APPLY THE NEWLY CREATED WINDOW
+c      DO 1160 I=1,NW                                                    ! /* NOW APPLY THE NEWLY CREATED WINDOW
 c 1160 A(IN+I-1)=A(IN+I-1)*SCR(I)
-c      IF(IWINDO.GT.0) GO TO 1200                                        /* DID WE DO THE WHOLE WINDOW?
-c      ISTART=NSAMPS+IN-NW-1                                              /* FIND THE BACK OF THE TRACE TO WINDOW
+c      IF(IWINDO.GT.0) GO TO 1200                                        ! /* DID WE DO THE WHOLE WINDOW?
+c      ISTART=NSAMPS+IN-NW-1                                              ! /* FIND THE BACK OF THE TRACE TO WINDOW
 c      DO 1170 I=1,NW
 c 1170 A(ISTART+I)=A(ISTART+I)*SCR(NW-I+1)
-c 1200 IF(NWINDO.GT.0) NSAMPS=NWINDO                                      /* IF THE WHOLE WINDOW, CHANGE THE NUMBER OF SAMPLES
- 1200 IF( NZEROS .GT. 0 ) THEN                                          /* IS THERE ANYTHING TO PAD?
+c 1200 IF(NWINDO.GT.0) NSAMPS=NWINDO                                      ! /* IF THE WHOLE WINDOW, CHANGE THE NUMBER OF SAMPLES
+ 1200 IF( NZEROS .GT. 0 ) THEN                                          ! /* IS THERE ANYTHING TO PAD?
           DO I=1,NZEROS
-             A(IN+NSAMPS+I-1) = 0.                                      /* PAD THE END OF THE WINDOWED DATA WITH ZEROES
+             A(IN+NSAMPS+I-1) = 0.                                      ! /* PAD THE END OF THE WINDOWED DATA WITH ZEROES
           ENDDO
       ENDIF
-      J=NEXTAD                                                          /* NOW MAKE THE DATA COMPLEX - FFT CAN'T DO REAL DATA
-      DO 1270 I=1,nfft                                                   /* GET A BETTER AND FASTER FFT ROUTINE THAT HANDLES REAL DATA
+      J=NEXTAD                                                          ! /* NOW MAKE THE DATA COMPLEX - FFT CAN'T DO REAL DATA
+      DO 1270 I=1,nfft                                                  ! /* GET A BETTER AND FASTER FFT ROUTINE THAT HANDLES REAL DATA
       A(J)=A(IN+I-1)
-      A(J+1)=0.                                                         /* ZERO OUT THE IMAGINARY
+      A(J+1)=0.                                                         ! /* ZERO OUT THE IMAGINARY
       J=J+2
  1270 CONTINUE
       nyqust = 1./si/2. + .5
@@ -209,38 +209,38 @@ c 1200 IF(NWINDO.GT.0) NSAMPS=NWINDO                                      /* IF 
       iprint = iprint + 1
       SCALE=1./FLOAT(nfft)
       DO 1310 I=1,NSAMPS
- 1310 A(IN+I-1)=A(NEXTAD+I-1)*SCALE                                      /* SCALE THE DATA WHILE MOVING IT BACK TO IN
+ 1310 A(IN+I-1)=A(NEXTAD+I-1)*SCALE                                     ! /* SCALE THE DATA WHILE MOVING IT BACK TO IN
       IF( lcoord .EQ. 2 .OR. lcoord .EQ. 3 ) THEN
-          DO 1400 i = 1, nsamps                                         /* move the data to nextad
+          DO 1400 i = 1, nsamps                                         ! /* move the data to nextad
  1400     a(nextad+i-1) = a(in+i-1)
 C****  NOTE THAT THE AMPLITUDE SPECTRUM PRECEDES THE PHASE SPECTRUM
           IF(IAND(lprint,2).NE.0) PRINT *,' call polarc(',nfft,nextad,in
-          CALL POLARC(nfft,A(NEXTAD),A(IN),A(IN+nfft))                  /* CONVERT TO POLAR AND MOVE
+          CALL POLARC(nfft,A(NEXTAD),A(IN),A(IN+nfft))                  ! /* CONVERT TO POLAR AND MOVE
       ENDIF
       GO TO 5000
 C****
 C****    WE HAVE AN AP!!
 C****
  1500 CONTINUE
-      IF(IWINDO.EQ.5.OR.NWINDO.LE.0) GO TO 1600                          /* SKIP THE WINDOWING IF IT IS A BOX CAR
-      IF(NW.NE.NWINDO) GO TO 1550                                        /* IS THE WINDOW IN THE WINDO ARRAY?
-      CALL APWR                                                          /* WAIT FOR THE AP TO FINISH, SO WE DON'T CLOBBER ANYTHING IN PROGRESS
-      CALL APPUT(WINDO,NEXTAD,NW,2)                                        /* PUT THE WINDOW IN THE AP
- 1520 CALL APWD                                                          /* WAIT FOR THE WINDOW TO GET TO THE Ap
-      CALL VMUL(IN,1,NEXTAD,1,IN,1,NW)                                      /* MULTIPLY THE DATA BY THE WINDOW
-      IF(IWINDO.GT.0) GO TO 1600                                        /* IS THE WINDOW THE WHOLE TRACE?
-      CALL VMUL(IN+NSAMPS-1,-1,NEXTAD,1,IN+NSAMPS-1,-1,NW)                 /* DO THE BACK END WINDOW
+      IF(IWINDO.EQ.5.OR.NWINDO.LE.0) GO TO 1600                         ! /* SKIP THE WINDOWING IF IT IS A BOX CAR
+      IF(NW.NE.NWINDO) GO TO 1550                                       ! /* IS THE WINDOW IN THE WINDO ARRAY?
+      CALL APWR                                                         ! /* WAIT FOR THE AP TO FINISH, SO WE DON'T CLOBBER ANYTHING IN PROGRESS
+      CALL APPUT(WINDO,NEXTAD,NW,2)                                     ! /* PUT THE WINDOW IN THE AP
+ 1520 CALL APWD                                                         ! /* WAIT FOR THE WINDOW TO GET TO THE Ap
+      CALL VMUL(IN,1,NEXTAD,1,IN,1,NW)                                  ! /* MULTIPLY THE DATA BY THE WINDOW
+      IF(IWINDO.GT.0) GO TO 1600                                        ! /* IS THE WINDOW THE WHOLE TRACE?
+      CALL VMUL(IN+NSAMPS-1,-1,NEXTAD,1,IN+NSAMPS-1,-1,NW)              ! /* DO THE BACK END WINDOW
       GO TO 1600
- 1550 CALL WINDOW(-IWINDO,SCR,NWINDO,DUMMY)                              /* GENERATE THE WINDOW IN THE SCR ARRAY
+ 1550 CALL WINDOW(-IWINDO,SCR,NWINDO,DUMMY)                             ! /* GENERATE THE WINDOW IN THE SCR ARRAY
       IF( IAND(lprint,2) .NE. 0) PRINT *,' CALL window(',iwindo,nw
       CALL APWR
       CALL APPUT(SCR,NEXTAD,NWINDO,2)
       CALL APPUT(SCR,NEXTAD,NWINDO,2)
       GO TO 1520
  1600 IF(NWINDO.GT.0) NSAMPS=NWINDO
-      IF(NZEROS.GT.0) CALL VCLR(IN+NSAMPS,1,NZEROS)                      /* PAD THE DATA WITH ZEROES
-      CALL vmov(in,1,nextad,2,nfft)                                      /* make it into complex data
-      CALL vclr(nextad+1,2,nfft)                                         /* there are now nfft complexes
+      IF(NZEROS.GT.0) CALL VCLR(IN+NSAMPS,1,NZEROS)                     ! /* PAD THE DATA WITH ZEROES
+      CALL vmov(in,1,nextad,2,nfft)                                     ! /* make it into complex data
+      CALL vclr(nextad+1,2,nfft)                                        ! /* there are now nfft complexes
       IF(in+nfft+nfft-1 .GT. nextad) THEN
           IF( iprint .EQ. 1 ) THEN
               iprint = 2
@@ -250,15 +250,15 @@ C****
               PRINT *,' NEXTAD=',NEXTAD
           ENDIF
       ENDIF
-      nsamps = nfft + nfft                                              /* there are nfft complexes which is nfft+nfft reals
+      nsamps = nfft + nfft                                              ! /* there are nfft complexes which is nfft+nfft reals
       CALL cfft(nextad,nfft,+1)
-      CALL cfftsc(nextad,nfft)                                          /* scale by 1./nfft
-      IF( lcoord .EQ. 1 ) THEN                                          /* is the data to be left in rectangular coordinates?
-          CALL vmov(nextad,1,in,1,nsamps)                               /* move nfft complexes
+      CALL cfftsc(nextad,nfft)                                          ! /* scale by 1./nfft
+      IF( lcoord .EQ. 1 ) THEN                                          ! /* is the data to be left in rectangular coordinates?
+          CALL vmov(nextad,1,in,1,nsamps)                               ! /* move nfft complexes
       ELSE
-          CALL POLAR(NEXTAD,2,NEXTAD,2,nfft)                            /* CONVERT TO POLAR COORDINATES
-          CALL VMOV(NEXTAD,2,IN,1,nfft)                                 /* MOVE THE AMPLITUDE SPECTRUM TO THE FIRST HALF OF THE TRACE
-          CALL VMOV(NEXTAD+1,2,IN+nfft,1,nfft)                          /* MOVE THE PHASES TO THE SECOND HALF
+          CALL POLAR(NEXTAD,2,NEXTAD,2,nfft)                            ! /* CONVERT TO POLAR COORDINATES
+          CALL VMOV(NEXTAD,2,IN,1,nfft)                                 ! /* MOVE THE AMPLITUDE SPECTRUM TO THE FIRST HALF OF THE TRACE
+          CALL VMOV(NEXTAD+1,2,IN+nfft,1,nfft)                          ! /* MOVE THE PHASES TO THE SECOND HALF
       ENDIF
 C*****
 C*****
@@ -267,7 +267,7 @@ C*****
       NUMDAT=NSAMPS
 c      IBUF(58)=NSAMPS
 c      IF( ibuf(57) .EQ. 0 ) lbuf(29) = nsamps
-      IDTYPE = LCOORD + 3                                                /* 1=TIME, 2=FK RECT, 3=FK POLAR, 4=F RECT, 5=F POLAR
+      IDTYPE = LCOORD + 3                                               ! /* 1=TIME, 2=FK RECT, 3=FK POLAR, 4=F RECT, 5=F POLAR
       IF( lcoord .EQ. 3 ) THEN
           buf(numhdr+nsamps+1) = buf(numhdr+1)
           numdat = numdat / 4 + 1

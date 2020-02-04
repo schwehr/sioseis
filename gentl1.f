@@ -86,7 +86,7 @@ C
       IOFF=OFF
   100 NDONE=NDONE+1
       BITi=OFF
-c      MBIT=IFIX(TLINES(NDONE)*VSCALE*RNIBS+.5)                          /* THE INC BETWEEN TLINES
+c      MBIT=IFIX(TLINES(NDONE)*VSCALE*RNIBS+.5)                          ! /* THE INC BETWEEN TLINES
       BIT=TLINES(NDONE)*VSCALE*RNIBS
       IF(TLINES(NDONE).EQ.0.OR.NDONE.GT.4) RETURN
   200 CONTINUE
@@ -97,20 +97,20 @@ c      print *,' ibit=',ibit,' bit=',bit,' ioff=',ioff,' joff=',joff
       IF( idir .LT. 0 .AND. IBIT.LT.JOFF ) GO TO 300
       IF( idir .GT. 0 .AND. ibit .GT. nbits+ioff ) GOTO 300
       IWORD=IBIT/16
-      JBIT=IBIT-IWORD*16                                                  /* THE BIT WITHIN IWORD
+      JBIT=IBIT-IWORD*16                                                ! /* THE BIT WITHIN IWORD
       IF(JBIT.NE.0) GO TO 220
       IWORD=IWORD-1
       JBIT=16
   220 CONTINUE
       IF( ICOMPT .EQ. 2 .OR. icompt .EQ. 4 ) THEN
           IF( ncolors .EQ. 0 .OR. rgb .EQ. 0 ) THEN
-              IBUF(IWORD)=IOR(IBUF(IWORD),DTABLE(JBIT))                          /* IT'S A DEC
+              IBUF(IWORD)=IOR(IBUF(IWORD),DTABLE(JBIT))                 ! /* IT'S A DEC
           ELSE
               IBUF(IWORD)=IAND(IBUF(IWORD),NOT(DTABLE(JBIT)))
           ENDIF
       ELSE
           IF( ncolors .EQ. 0 .OR. rgb .EQ. 0 ) THEN
-              IBUF(IWORD)=IOR(IBUF(IWORD),ITABLE(JBIT))                           /* IT'S not DEC
+              IBUF(IWORD)=IOR(IBUF(IWORD),ITABLE(JBIT))                 ! /* IT'S not DEC
           ELSE
              IBUF(IWORD)=IAND(IBUF(IWORD),NOT(ITABLE(JBIT)))
           ENDIF
@@ -122,12 +122,12 @@ C
 C    MAKE SURE THE NEXT SET OF TIME LINES IS DARKER
   300 CONTINUE
       IF(NDONE.NE.1) GO TO 310
-      OFF=OFF+1.                                                        /* CHANGE THE OFFSET BY 1 DOT
+      OFF=OFF+1.                                                        ! /* CHANGE THE OFFSET BY 1 DOT
       GO TO 100
   310 IF(NDONE.NE.2) GO TO 320
-      OFF=OFF-2.                                                        /* 1 DOT BEFORE THE ORIGINAL OFFSET
+      OFF=OFF-2.                                                        ! /* 1 DOT BEFORE THE ORIGINAL OFFSET
       GO TO 100
   320 IF(NDONE.NE.3) GO TO 100
-      OFF=OFF+3.                                                        /* 2 DOTS AFTER THE ORIGINAL OFFSET
+      OFF=OFF+3.                                                        ! /* 2 DOTS AFTER THE ORIGINAL OFFSET
       GO TO 100
       END

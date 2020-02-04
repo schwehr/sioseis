@@ -18,7 +18,7 @@ C
       K=ISTKWN-1
       ENERGY=0.
       DO 100 I=1,NSAMPS
-      A(K+I)=A(K+I)+A(J+I)                                              /* STACK THE WINDOW
+      A(K+I)=A(K+I)+A(J+I)                                              ! /* STACK THE WINDOW
 100   ENERGY=ENERGY+A(J+I)*A(J+I)
       A(IENERG)=A(IENERG)+ENERGY
       A(IDIV)=A(IDIV)+1.

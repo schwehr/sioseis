@@ -46,7 +46,7 @@ C
       TRACE=I3
       NPTS=I4
       WHITEN=I5
-      ONE=WHITEN+1                                                      /* THE AP LOCATION OF THE NUMBER 1.
+      ONE=WHITEN+1                                                      ! /* THE AP LOCATION OF THE NUMBER 1.
       NFPTS=I6
       AUTO=I7
       PREDIC=I8
@@ -57,24 +57,24 @@ C
 C
       N=NFPTS+PREDIC
       CROSS=AUTO+N
-      CALL CONV(DESIGN,1,DESIGN,1,AUTO,1,NFPTS,NDPTS)                    /* COMPUTE THE AUTOCOR
-      CALL VDIV(AUTO,1,ONE,1,SCRATC,1,1)                                 /* MAKE THE ZERO LAG = 1.0
+      CALL CONV(DESIGN,1,DESIGN,1,AUTO,1,NFPTS,NDPTS)                   ! /* COMPUTE THE AUTOCOR
+      CALL VDIV(AUTO,1,ONE,1,SCRATC,1,1)                                ! /* MAKE THE ZERO LAG = 1.0
       CALL VSMUL(AUTO,1,SCRATC,AUTO,1,NFPTS)
-      CALL VSMA(AUTO,1,WHITEN,AUTO,1,AUTO,1,1)                           /* ADD THE PREWHITENER IN
-      CALL VMOV(ONE,1,CROSS,1,1)                                        /* MAKE THE CROSSCORRELATION = 1,0,0,0,0
+      CALL VSMA(AUTO,1,WHITEN,AUTO,1,AUTO,1,1)                          ! /* ADD THE PREWHITENER IN
+      CALL VMOV(ONE,1,CROSS,1,1)                                        ! /* MAKE THE CROSSCORRELATION = 1,0,0,0,0
       ITEMP=CROSS+1
-      CALL VCLR(ITEMP,1,NFPTS)                                          /* DOES WIENER NEED THIS WHEN SPIKING?
-      CALL WIENER(NFPTS,AUTO,CROSS,FILT,ERROPR,1)                       /* COMPUTE THE  FILTER
+      CALL VCLR(ITEMP,1,NFPTS)                                          ! /* DOES WIENER NEED THIS WHEN SPIKING?
+      CALL WIENER(NFPTS,AUTO,CROSS,FILT,ERROPR,1)                       ! /* COMPUTE THE  FILTER
       ITEMP=TRACE+NPTS
       ITEMP=ITEMP-1
       ITEMP2=N-1
       ITEMP1=SCRATC+NPTS
       ITEMP1=ITEMP1+ITEMP2
       ITEMP1=ITEMP1-1
-      CALL VMOV(ITEMP,-1,ITEMP1,-1,NPTS)                                /* MOVE THE TRACE DOWN A FILTER LENGTH
-      CALL VCLR(SCRATC,1,ITEMP2)                                        /* PAD THE FRONT OF THE TRACE WITH ZEROES
+      CALL VMOV(ITEMP,-1,ITEMP1,-1,NPTS)                                ! /* MOVE THE TRACE DOWN A FILTER LENGTH
+      CALL VCLR(SCRATC,1,ITEMP2)                                        ! /* PAD THE FRONT OF THE TRACE WITH ZEROES
       ITEMP=FILT+NFPTS
       ITEMP=ITEMP-1
-      CALL CONV(SCRATC,1,ITEMP,-1,RESULT,1,NPTS,N)                      /* DO THE CONVOLUTION
+      CALL CONV(SCRATC,1,ITEMP,-1,RESULT,1,NPTS,N)                      ! /* DO THE CONVOLUTION
       RETURN
       END

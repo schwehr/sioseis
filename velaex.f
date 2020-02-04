@@ -48,10 +48,10 @@ c  mod 20 Oct 10 - finish the above
 c  mod 13 Jul 11 - Increase semscr from 4000 to 10000
 c  mod 9 Apr 13 - remove some print statements.
 C
-      PARAMETER (MAXVEL=21)                                              /* THE MAXIMUM NUMBER OF TRACES IN A VELAED OUTPUT
-      PARAMETER (NPARS=14)                                               /* THE LENGTH OF EACH PARAMETER LIST
-      PARAMETER (MAXBOU=30)                                              /* THE LENGTH OF THE BOUNDS
-      PARAMETER (MWRDS=(NPARS+MAXVEL+MAXBOU+3))                          /* THE NUMBER OF 16 BIT WORDS IN EACH DISC PAR LIST
+      PARAMETER (MAXVEL=21)                                             ! /* THE MAXIMUM NUMBER OF TRACES IN A VELAED OUTPUT
+      PARAMETER (NPARS=14)                                              ! /* THE LENGTH OF EACH PARAMETER LIST
+      PARAMETER (MAXBOU=30)                                             ! /* THE LENGTH OF THE BOUNDS
+      PARAMETER (MWRDS=(NPARS+MAXVEL+MAXBOU+3))                         ! /* THE NUMBER OF 16 BIT WORDS IN EACH DISC PAR LIST
       PARAMETER (MAXSPLINE=1000)
       DIMENSION BUF(111),LBUF(111),IBUF(111),
      &          SCR(111),LSCR(111),ISCR(111)
@@ -63,7 +63,7 @@ C
       COMMON /SIOAP/ IASGND,IRELSE,IN,IOUT,NEXTAD,LAPSIZ,IFREE,IUSEAP
       COMMON /APMEM/A(32766)
       COMMON /readt/ itunit, numhdr, numdat
-      COMMON /VELDAT/ IA(900)                                            /* THIS HOLDS THE TIME VS VELOCITY PLOT
+      COMMON /VELDAT/ IA(900)                                           ! /* THIS HOLDS THE TIME VS VELOCITY PLOT
       CHARACTER*132 IA
       INTEGER NRP
       CHARACTER*1 BLANK
@@ -84,27 +84,27 @@ C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
       ISIG=0
-      NREADY=0                                                          /* SIGNAL CONTRO THAT THERE IS NO OUTPUT
-      IF(IFIN.EQ.1) GO TO 190                                           /* IFIN=1 MEANS VELAN HAS MORE VELS TO DO IN THIS ANALYSIS
-      IF(IFIN.EQ.2) RETURN                                              /* IFIN=2 MEANS THERE ARE NO MORE VELS
+      NREADY=0                                                          ! /* SIGNAL CONTRO THAT THERE IS NO OUTPUT
+      IF(IFIN.EQ.1) GO TO 190                                           ! /* IFIN=1 MEANS VELAN HAS MORE VELS TO DO IN THIS ANALYSIS
+      IF(IFIN.EQ.2) RETURN                                              ! /* IFIN=2 MEANS THERE ARE NO MORE VELS
       numrp = lbuf(6)
       si = buf(49)
       delay = buf(46)
       nsamps = numdat
       IF(.NOT.FIRST) GO TO 41
       FIRST=.FALSE.
-   10 CONTINUE                                                          /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
-      CALL PODISC(MUNIT,1,0)                                            /* REWIND THE PARAMETER FILE
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+      CALL PODISC(MUNIT,1,0)                                            ! /* REWIND THE PARAMETER FILE
       CALL RDDISC(MUNIT,SCR,MWRDS,ISTAT)
       ISIG=1
-      LFOR=1                                                            /* SET THE OUTPUT RP NUMBER
+      LFOR=1                                                            ! /* SET THE OUTPUT RP NUMBER
       NRP=LSCR(1)
       IF(LSCR(2).EQ.1) TYPE='CVEL'
       IF(LSCR(2).EQ.2) TYPE='SPEC'
       STRETC=SCR(3)
       NVELS=LSCR(4)
       LPRINT=LSCR(5)
-      WINLEN=SCR(6)+.00001                                              /* WATCH OUT FOR FLOATING POINT TRUNCATION
+      WINLEN=SCR(6)+.00001                                              ! /* WATCH OUT FOR FLOATING POINT TRUNCATION
       WINLENNOTRC=SCR(6)
       CHAR1 = SCR(7)
       REFRAC=SCR(8)
@@ -123,35 +123,35 @@ C****
           PRINT *, (vtuple(i),i=1,3)
           PRINT *,ivelu1,ivelu2,ivelu3
       ENDIF
-      MINDEL=16000                                                       /* THE MINIMUM OR SMALLEST DEEP WATER DELAY
-      MAXDEL=0                                                          /* THE LARGEST DEEP WATER DELAY ON ANY TRACE
-      MAXSAM=0                                                          /* THE MAXIMUM NUMBER OF SAMPLES IN ANY TRACE
-      ITRCS=0                                                           /* THE COUNT OF THE NUMBER OF TRACES IN THE ANALYSIS
-      IRPS=0                                                              /* THE COUNT OF THE NUMBER OF RPS IN THE ANALYSIS
+      MINDEL=16000                                                      ! /* THE MINIMUM OR SMALLEST DEEP WATER DELAY
+      MAXDEL=0                                                          ! /* THE LARGEST DEEP WATER DELAY ON ANY TRACE
+      MAXSAM=0                                                          ! /* THE MAXIMUM NUMBER OF SAMPLES IN ANY TRACE
+      ITRCS=0                                                           ! /* THE COUNT OF THE NUMBER OF TRACES IN THE ANALYSIS
+      IRPS=0                                                            ! /* THE COUNT OF THE NUMBER OF RPS IN THE ANALYSIS
 C****
 C****  TAKE CARE OF THE TIME TAPERS
 C****
    41 IF(TTAPER.LE.0) GO TO 50
-      ITAPER=TTAPER/BUF(49)                                             /* THE INTEGER NUMBER OF SAMPLES IN THE TAPER
-      TAPER=1./FLOAT(ITAPER)                                            /* THE INCREMENT BETWEEN TAPER VALUES
-      INDX=0                                                             /* START THE TAPER FROM THE BEGINNING UNLESS MUTE WAS GIVEN
-c      IF(BUF(48).NE.0.) INDX=(BUF(48)-BUF(46))/BUF(49)-1                /* (MUTE-DELAY)/SI
+      ITAPER=TTAPER/BUF(49)                                             ! /* THE INTEGER NUMBER OF SAMPLES IN THE TAPER
+      TAPER=1./FLOAT(ITAPER)                                            ! /* THE INCREMENT BETWEEN TAPER VALUES
+      INDX=0                                                            ! /* START THE TAPER FROM THE BEGINNING UNLESS MUTE WAS GIVEN
+c      IF(BUF(48).NE.0.) INDX=(BUF(48)-BUF(46))/BUF(49)-1                ! /* (MUTE-DELAY)/SI
       IF( ibuf(57) .NE.  0 )
      &    indx = (FLOAT(ibuf(57))/1000. - buf(46)) / buf(49) -1
-      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 45                            /* IS THE AP ASSIGNED
+      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 45                           ! /* IS THE AP ASSIGNED
       INDX=INDX+1
-      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                    /* MAKE SURE THE AP IS ALLOCATED
-      CALL APWAIT                                                        /* WAIT FOR THE AP
-      CALL APPUT(TAPER,NEXTAD,1,2)                                      /* PUT THE TAPER INCREMENT IN AP LOCATION NEXTADD
-      CALL APWD                                                          /* WAIT FOR I/O COMPLETION
-      CALL VRAMP(NEXTAD,NEXTAD,NEXTAD,1,ITAPER)                         /* BUILD THE TAPER IN NEXTAD
+      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   ! /* MAKE SURE THE AP IS ALLOCATED
+      CALL APWAIT                                                       ! /* WAIT FOR THE AP
+      CALL APPUT(TAPER,NEXTAD,1,2)                                      ! /* PUT THE TAPER INCREMENT IN AP LOCATION NEXTADD
+      CALL APWD                                                         ! /* WAIT FOR I/O COMPLETION
+      CALL VRAMP(NEXTAD,NEXTAD,NEXTAD,1,ITAPER)                         ! /* BUILD THE TAPER IN NEXTAD
       CALL VMUL(INDX,1,NEXTAD,1,INDX,1,ITAPER)
-      CALL VMUL(NSAMPS,-1,NEXTAD,1,NSAMPS,-1,ITAPER)                    /* DO THE BACK END
+      CALL VMUL(NSAMPS,-1,NEXTAD,1,NSAMPS,-1,ITAPER)                    ! /* DO THE BACK END
       GO TO 50
-   45 DO 46 I=1,ITAPER                                                  /* BUILD THE TAPER IN MEMORY SCR
+   45 DO 46 I=1,ITAPER                                                  ! /* BUILD THE TAPER IN MEMORY SCR
    46 SCR(I)=FLOAT(I)*TAPER
       DO 47 I=1,ITAPER
-      BUF(NUMHDR+INDX+I)=BUF(NUMHDR+INDX+I)*SCR(I)                      /* DO THE FRONT
+      BUF(NUMHDR+INDX+I)=BUF(NUMHDR+INDX+I)*SCR(I)                      ! /* DO THE FRONT
    47 BUF(NUMHDR+NSAMPS-I+1)=BUF(NUMHDR+NSAMPS-I+1)*SCR(I)
 C****
 C****    COLLECT ALL THE INPUT TRACES FOR THE ANALYSIS INTO DISC FILE IVELU1.
@@ -167,29 +167,29 @@ C****   DELAY BY INSERTING ZEROES IN THE FRONT
 C****
       IF(REFRAC.EQ.0.) GO TO 59
       IDELAY=BUF(46)/BUF(49)+.5
-      IBUF(55)=0                                                         /*  THE DELAY IN MILS
-      BUF(46)=0.                                                        /* THE DELAY IN SECONDS
-      IBUF(58)=NSAMPS+IDELAY                                            /* THE LENGTH OF THE DATA AFTER INSERTING THE ZEROES.
-      DO 58 I=1,1000                                                     /* MAKE A BUFFER OF ZEROES
+      IBUF(55)=0                                                        ! /*  THE DELAY IN MILS
+      BUF(46)=0.                                                        ! /* THE DELAY IN SECONDS
+      IBUF(58)=NSAMPS+IDELAY                                            ! /* THE LENGTH OF THE DATA AFTER INSERTING THE ZEROES.
+      DO 58 I=1,1000                                                    ! /* MAKE A BUFFER OF ZEROES
    58 SCR(I)=0.
    59 CONTINUE
 C****
 C****
-      NWRDS=NUMHDR+IBUF(58)                                              /* THE NUMBER OF 32 BIT WORDS
+      NWRDS=NUMHDR+IBUF(58)                                             ! /* THE NUMBER OF 32 BIT WORDS
 C**** NSAMPS IS THE LENGTH OF THE ORIGINAL TRACE, IBUF(58) HAS THE NEW NUMBER
       IOUT=0
       IF(IBUF(15).EQ.2.AND.TYPE.NE.'CVEL') GO TO 70
 C**** WRITE THE HEADER LENGTH + DATA LENGTH IN FRONT OF EVERY TRACE
       CALL WRDISC(IVELU1,NWRDS,1)
       CALL WRDISC(IVELU1,BUF,NUMHDR)
-   64 IF(IDELAY.LE.0.OR.REFRAC.EQ.0.) GO TO 65                           /* SHOULD WE PAD TH FRONT WITH ZEROES?
+   64 IF(IDELAY.LE.0.OR.REFRAC.EQ.0.) GO TO 65                          ! /* SHOULD WE PAD TH FRONT WITH ZEROES?
 c      ITEMP=MIN0(IDELAY,1000)
       ITEMP=MIN(IDELAY,1000)
       IDELAY=IDELAY-ITEMP
-      CALL WRDISC(IVELU1,SCR,ITEMP)                                      /* WRITE THE ZEROES
+      CALL WRDISC(IVELU1,SCR,ITEMP)                                     ! /* WRITE THE ZEROES
       GO TO 64
    65 CONTINUE
-      CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)                                  /* GET THE TRACE OUT OF THE AP
+      CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)                                 ! /* GET THE TRACE OUT OF THE AP
       CALL WRDISC(IVELU1,BUF(NUMHDR+1),NSAMPS)
       NSAMPS=IBUF(58)
       IDELAY=BUF(46)/BUF(49)
@@ -197,12 +197,12 @@ c      ITEMP=MIN0(IDELAY,1000)
       IF(IDELAY.GT.MAXDEL) MAXDEL=IDELAY
       IF(NSAMPS.GT.MAXSAM) MAXSAM=NSAMPS
       ITRCS=ITRCS+1
-   70 IF(LBUF(51).GE.0) RETURN                                            /* IS IT THE END OF GATHER SIGNAL
-      IRPS=IRPS+1                                                       /* INCREMENT THE NUMBER OF RPS
-      IF(IRPS.LT.NRP) RETURN                                            /* ANY MORE RPS TO GET
-      IF(ISTOP.EQ.0) GO TO 80                                            /* ANY MORE INPUT FROM TAPE
-      IF(IINRW.NE.0) CALL FREETP(ILUN,0)                                /* UNASSIGN THE TAPE DRIVE
-      IINRW=0                                                           /*  TELL SUBROUTINE CONTRO THAT THE TAPE IS NOT ASSIGNED
+   70 IF(LBUF(51).GE.0) RETURN                                          ! /* IS IT THE END OF GATHER SIGNAL
+      IRPS=IRPS+1                                                       ! /* INCREMENT THE NUMBER OF RPS
+      IF(IRPS.LT.NRP) RETURN                                            ! /* ANY MORE RPS TO GET
+      IF(ISTOP.EQ.0) GO TO 80                                           ! /* ANY MORE INPUT FROM TAPE
+      IF(IINRW.NE.0) CALL FREETP(ILUN,0)                                ! /* UNASSIGN THE TAPE DRIVE
+      IINRW=0                                                           ! /*  TELL SUBROUTINE CONTRO THAT THE TAPE IS NOT ASSIGNED
       IF(MINDEL.NE.MAXDEL) MAXSAM=MAXSAM+MAXDEL-MINDEL
    80 CONTINUE
 C****
@@ -211,20 +211,20 @@ C****
       IF(NTAPER.EQ.0) GO TO 99
       WEIGHT=1./(NTAPER+1.)
       CALL PODISC(IVELU1,1,0)
-      IOUT=0                                                             /* SET SIGNAL TO GET TRACE OUT OF AP ON CALLS TO APRLSE
+      IOUT=0                                                            ! /* SET SIGNAL TO GET TRACE OUT OF AP ON CALLS TO APRLSE
       DO 85 I=1,NTAPER
       CALL RDDISC(IVELU1,NWRDS,1,ISTAT)
       CALL RDDISC(IVELU1,BUF,NWRDS,ISTAT)
       NSAMPS=IBUF(58)
-      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 82                           /* IS THE AP ASSIGNED TO US?
-      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                    /* PUT THE TRACE IN THE AP
+      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 82                           ! /* IS THE AP ASSIGNED TO US?
+      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   ! /* PUT THE TRACE IN THE AP
       SCR(1)=FLOAT(I)*WEIGHT
-      CALL APPUT(SCR,NEXTAD,1,2)                                        /* PUT THE WEIGHT IN THE AP
-      CALL APWD                                                         /* WAIT FOR THE DATA TRANSFER
+      CALL APPUT(SCR,NEXTAD,1,2)                                        ! /* PUT THE WEIGHT IN THE AP
+      CALL APWD                                                         ! /* WAIT FOR THE DATA TRANSFER
       CALL VSMUL(IN,1,NEXTAD,IN,1,NSAMPS)
       IF(IAND(LPRINT,2).NE.0) PRINT 81,LBUF(6),LBUF(7),SCR(1)
    81 FORMAT(' RP ',I6,' TRACE ',I6,' IS WEIGHTED BY ',F7.5)
-      CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)                                  /* GET THE TRACE OUT OF THE AP
+      CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)                                 ! /* GET THE TRACE OUT OF THE AP
       GO TO 84
    82 TEMP=FLOAT(I)*WEIGHT
       IEND=NUMHDR+NSAMPS
@@ -232,7 +232,7 @@ C****
       DO 83 J=ITEMP,IEND
    83 BUF(J)=BUF(J)*TEMP
       IF(IAND(LPRINT,2).NE.0) PRINT 81,LBUF(6),LBUF(7),TEMP
-   84 CALL PODISC(IVELU1,2,-NWRDS)                                        /* BACK UP NWRDS!
+   84 CALL PODISC(IVELU1,2,-NWRDS)                                      ! /* BACK UP NWRDS!
    85 CONTINUE
 C****  NOW SKIP THE NON WEIGHTED TRACES
       N=ITRCS-NTAPER-NTAPER
@@ -246,11 +246,11 @@ C****  NOW SKIP THE NON WEIGHTED TRACES
       CALL RDDISC(IVELU1,NWRDS,1,ISTAT)
       CALL RDDISC(IVELU1,BUF,NWRDS,ISTAT)
       NSAMPS=IBUF(58)
-      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 87                           /* IS THE AP ASSIGNED TO US?
-      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                    /* PUT THE TRACE IN THE AP
+      IF(IASGND.EQ.0.OR.IUSEAP.EQ.0) GO TO 87                           ! /* IS THE AP ASSIGNED TO US?
+      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   ! /* PUT THE TRACE IN THE AP
       SCR(1)=FLOAT(NTAPER-I+1)*WEIGHT
-      CALL APPUT(SCR,NEXTAD,1,2)                                        /* PUT THE WEIGHT IN THE AP
-      CALL APWD                                                         /* WAIT FOR THE DATA TRANSFER
+      CALL APPUT(SCR,NEXTAD,1,2)                                        ! /* PUT THE WEIGHT IN THE AP
+      CALL APWD                                                         ! /* WAIT FOR THE DATA TRANSFER
       CALL VSMUL(IN,1,NEXTAD,IN,1,NSAMPS)
       IF(IAND(LPRINT,2).NE.0) PRINT 81,LBUF(6),LBUF(7),SCR(1)
       CALL RLSEAP(BUF(NUMHDR+1),NSAMPS)
@@ -268,19 +268,19 @@ C****
 C****    CONSTANT VELOCITY NMO
 C****
       IF(REFRAC.EQ.0.) GO TO 110
-      IRELSE=0                                                          /* ALLOW THE AP TO BE RELEASED BETWEEN VELOCITIES
+      IRELSE=0                                                          ! /* ALLOW THE AP TO BE RELEASED BETWEEN VELOCITIES
       GO TO 170
-  110 CALL INAP(BUF(NUMHDR+1),NSAMPS)                                    /* MAKE SURE THE AP IS ASSIGNED ETC.
-      IF(  iuseap .NE. 0 ) CALL VCLR(NEXTAD,1,LAPSIZ-NEXTAD)            /* ZERO OUT THE AP, EXCEPT THE TRACE
-      IX2V2=NEXTAD                                                      /* THE AP ADDRESS OF THE RATIO X**2/V**2
-      ISI=NEXTAD+1                                                      /* THE AP ADDRESS OF THE SAMPLE INTERVAL
-      ISI2=NEXTAD+2                                                      /* THE AP ADDRESS OF THE SQUARE OF THE SAMPLE INTERVAL
-      ISI3=NEXTAD+3                                                      /* THE AP ADDRESS OF HALF THE SAMPLE INTERVAL
-      IT0=NEXTAD+4                                                      /* THE AP ADDRESS OF THE INITIAL T0 VALUE (THE DELAY)
-  170 IVEL=1                                                            /* THE INDEX TO THE VEL ARRAY
+  110 CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   ! /* MAKE SURE THE AP IS ASSIGNED ETC.
+      IF(  iuseap .NE. 0 ) CALL VCLR(NEXTAD,1,LAPSIZ-NEXTAD)            ! /* ZERO OUT THE AP, EXCEPT THE TRACE
+      IX2V2=NEXTAD                                                      ! /* THE AP ADDRESS OF THE RATIO X**2/V**2
+      ISI=NEXTAD+1                                                      ! /* THE AP ADDRESS OF THE SAMPLE INTERVAL
+      ISI2=NEXTAD+2                                                     ! /* THE AP ADDRESS OF THE SQUARE OF THE SAMPLE INTERVAL
+      ISI3=NEXTAD+3                                                     ! /* THE AP ADDRESS OF HALF THE SAMPLE INTERVAL
+      IT0=NEXTAD+4                                                      ! /* THE AP ADDRESS OF THE INITIAL T0 VALUE (THE DELAY)
+  170 IVEL=1                                                            ! /* THE INDEX TO THE VEL ARRAY
       VEL=VELS(IVEL)
   190 CALL PODISC(IVELU1,1,0)
-      CALL PODISC(IVELU2,1,0)                                            /* REWIND THE OUTPUT FILE
+      CALL PODISC(IVELU2,1,0)                                           ! /* REWIND THE OUTPUT FILE
       NTRCS=0
   200 CONTINUE
       CALL RDDISC(IVELU1,NWRDS,1,ISTAT)
@@ -288,8 +288,8 @@ C****
       NREADY=NREADY+1
       NTRCS=NTRCS+1
       IF(IBUF(15).EQ.2) GO TO 220
-      IF(VEL.EQ.VELS(1)) JLIVE=JLIVE+1                                  /* COUNT THE LIVE TRACES
-      X=LBUF(10)                                                        /* GET THE SHOT-RECEIVER DISTANCE
+      IF(VEL.EQ.VELS(1)) JLIVE=JLIVE+1                                  ! /* COUNT THE LIVE TRACES
+      X=LBUF(10)                                                        ! /* GET THE SHOT-RECEIVER DISTANCE
       IF(REFRAC.EQ.0.) GO TO 208
 C****
 C****  THIS IS A REFRACTION VELOCITY ANALYSIS
@@ -298,31 +298,31 @@ C****  THIS ALSO TRANSFORMS THE DATA TO THE TAU-P DOMAIN!!!
 C****  RATHER THAN ACTUALLY SHIFTING THE DATA, CHANGE THE START TIME OF THE
 C****  DATA (THE DELAY) SO THAT THE DATA IS NEVER CUT OFF!
 C****
-      SHIFT=ABS(X)/VEL                                                   /* -X/V IS MEARLY A TIME SHIFT - CONSTANT FOR THE WHOLE TRACE!
-      NSHIFT=SHIFT/BUF(49)                                              /* THE NUMBER OF SAMPLES TO SHIFT THE DATA
+      SHIFT=ABS(X)/VEL                                                  ! /* -X/V IS MEARLY A TIME SHIFT - CONSTANT FOR THE WHOLE TRACE!
+      NSHIFT=SHIFT/BUF(49)                                              ! /* THE NUMBER OF SAMPLES TO SHIFT THE DATA
       NSAMPS=IBUF(58)
-      IF(SHIFT.EQ.0.) GO TO 207                                          /* WAS IT TAKEN CARE OF BY THE DELAY CHANGE?
+      IF(SHIFT.EQ.0.) GO TO 207                                         ! /* WAS IT TAKEN CARE OF BY THE DELAY CHANGE?
       ISTART=NUMHDR+1
       IEND=NUMHDR+NSAMPS-NSHIFT+1
       IF(NSHIFT.LE.NSAMPS) GO TO 203
-      IBUF(15)=2                                                        /* MAKE IT A DEAD TRACE
+      IBUF(15)=2                                                        ! /* MAKE IT A DEAD TRACE
       IEND=NUMHDR
       GO TO 205
   203 DO 204 I=ISTART,IEND
   204 BUF(I)=BUF(I+NSHIFT)
   205 CONTINUE
-c  205 BUF(47)=BUF(47)-SHIFT                                             /* THE MUTE START TIME
+c  205 BUF(47)=BUF(47)-SHIFT                                             ! /* THE MUTE START TIME
 c      IF(BUF(47).LT.0.) BUF(47)=0.
-c      IBUF(56)=BUF(47)*1000.+.5                                          /* CONVERT TO MILS
-c      BUF(48)=BUF(48)-SHIFT                                              /* CHANGE THE MUTE TIME IN THE HEADER
+c      IBUF(56)=BUF(47)*1000.+.5                                          ! /* CONVERT TO MILS
+c      BUF(48)=BUF(48)-SHIFT                                              ! /* CHANGE THE MUTE TIME IN THE HEADER
 c      IF(BUF(48).LT.0.) BUF(48)=0.
 c      IBUF(57)=BUF(48)*1000.+.5
   207 NSAMPS=NSAMPS-NSHIFT
-      IBUF(58)=NSAMPS                                                    /* MAKE THE DATA SHORTER BY THE SHIFT
+      IBUF(58)=NSAMPS                                                   ! /* MAKE THE DATA SHORTER BY THE SHIFT
       NWRDS=NUMHDR+NSAMPS
       GO TO 218
 C****
-  208 CONTINUE                                                           /* THIS IS HYPERBOLIC NMO
+  208 CONTINUE                                                          ! /* THIS IS HYPERBOLIC NMO
       X2V2=X*X/(VEL*VEL)
       ISTRET=STRETC/SI
       SI2=SI/2.
@@ -335,17 +335,17 @@ C****  DO IT IN THE AP
       SCR(3)=SI
       SCR(4)=SI/2.
       SCR(5)=DELAY
-      SCR(6)=CONST                                                       /* SUBTRACT OUT DELAY BEFORE CONVERTING TO INDEXES
-      IF(IN.EQ.0) CALL INAP(BUF(NUMHDR+1),NSAMPS)                        /*  THE AP SOMETIMES GET RELEASED, SO GET IT IF IT HAS
-      CALL APPUT(SCR,NEXTAD,6,2)                                        /* PUT THE VARIABLES IN THE AP
+      SCR(6)=CONST                                                      ! /* SUBTRACT OUT DELAY BEFORE CONVERTING TO INDEXES
+      IF(IN.EQ.0) CALL INAP(BUF(NUMHDR+1),NSAMPS)                       ! /*  THE AP SOMETIMES GET RELEASED, SO GET IT IF IT HAS
+      CALL APPUT(SCR,NEXTAD,6,2)                                        ! /* PUT THE VARIABLES IN THE AP
       IAPSCR=NEXTAD+6
       CALL APWD
       CALL CVNMO(IT0,ISI,IX2V2,NSAMPS,IAPSCR,ISI2,ISI3,NEXTAD+5)
       CALL APWR
-      CALL APGET(SCR,IAPSCR,NSAMPS,2)                                      /* GET THE NMO FROM THE AP
+      CALL APGET(SCR,IAPSCR,NSAMPS,2)                                   ! /* GET THE NMO FROM THE AP
       CALL APWD
       DO 99209 I=1,NSAMPS
-      LTEMP = SCR(I)                                                    /* FIX THE FLOATING INDEX
+      LTEMP = SCR(I)                                                    ! /* FIX THE FLOATING INDEX
           IF( LTEMP .GT. 0 .AND. LTEMP .LE. NSAMPS) THEN
                LSCR(I) = LTEMP
           ELSE
@@ -358,11 +358,11 @@ C****   DO IT IN HOST MEMORY
   209 T=DELAY
       B=0.
       DO 210 I=1,NSAMPS
-      T=DELAY+SI*B                                                       /* WATCH OUT FOR TRUNCATION IF YOU ADD!
+      T=DELAY+SI*B                                                      ! /* WATCH OUT FOR TRUNCATION IF YOU ADD!
       B=B+1.
-      T=T*T                                                              /* SQUARE THE TX TIME
+      T=T*T                                                             ! /* SQUARE THE TX TIME
       TNEW=SQRT(T+X2V2)+CONST
-  210 LSCR(I)=TNEW/SI+SI2+1.                                             /* CONVERT TO AN INDEX
+  210 LSCR(I)=TNEW/SI+SI2+1.                                            ! /* CONVERT TO AN INDEX
 C****
 C****    NOW APPLY THE NMO
   215 CALL NMOAPP(BUF(NUMHDR+1),BUF(NUMHDR+1),LSCR,1,NSAMPS,
@@ -371,9 +371,9 @@ C****    NOW APPLY THE NMO
      *    LBUF(7),NSAMPS
   219 FORMAT(' CONSTANT VELOCITY ',F10.3,' BEING APPLIED.',5I10)
   220 CALL WRDISC(IVELU2,NWRDS,1)
-      LBUF(6)=LFOR                                                      /* MAKE THE OUTPUT RP NUMBER DIFFERENT!
-      ibuf(46) = vel                                                    /* put the constant velocity in the SEGY "weathering velocity"
-      IF(NEWMUT.LE.1) GO TO 230                                          /* UPDATE THE NEW MUTE TIMES INTO THE TRACE HEADER
+      LBUF(6)=LFOR                                                      ! /* MAKE THE OUTPUT RP NUMBER DIFFERENT!
+      ibuf(46) = vel                                                    ! /* put the constant velocity in the SEGY "weathering velocity"
+      IF(NEWMUT.LE.1) GO TO 230                                         ! /* UPDATE THE NEW MUTE TIMES INTO THE TRACE HEADER
 c      BUF(48)=BUF(46)+(NEWMUT-1)*BUF(49)
       temp = BUF(46)+(NEWMUT-1)*BUF(49)
       IBUF(57)=temp*1000.
@@ -385,26 +385,26 @@ C****
       VEL=VEL+VELS(IVEL+1)
       LFOR=LFOR+1
       IFIN=1
-      CALL PODISC(IVELU2,1,0)                                            /* REWIND THE OUTPUT FILE
+      CALL PODISC(IVELU2,1,0)                                           ! /* REWIND THE OUTPUT FILE
       IF(VEL.LT.VELS(IVEL+2).AND.IVEL.LE.NVELS) RETURN
       IVEL=IVEL+2
       VEL=VELS(IVEL)
-      IF(IVEL.LE.NVELS) RETURN                                           /* ANY MORE VELOCITIES?
+      IF(IVEL.LE.NVELS) RETURN                                          ! /* ANY MORE VELOCITIES?
       IFIN=2
       GO TO 1200
 C****
 C****   SEMBLANCE VELOCITY SPECTRA
 C****
  1000 CONTINUE
-      MAXSAM=MAXSAM+MAXDEL-MINDEL                                        /* THE LARGEST TRACE
-      CALL INAP(BUF(NUMHDR+1),MAXSAM)                                    /* ASSIGN THE AP
-      IAPNMO=NEXTAD                                                      /* THE AP ADDRESS OF THE NMO INDEXES
-      IAPSEM=NEXTAD+MAXSAM                                              /* THE AP ADDRESS OF THE MEAN ENERGY
-      IAPSTK=IAPSEM+MAXSAM                                              /* THE AP ADDRESS OF THE STACKED TRACE
+      MAXSAM=MAXSAM+MAXDEL-MINDEL                                       ! /* THE LARGEST TRACE
+      CALL INAP(BUF(NUMHDR+1),MAXSAM)                                   ! /* ASSIGN THE AP
+      IAPNMO=NEXTAD                                                     ! /* THE AP ADDRESS OF THE NMO INDEXES
+      IAPSEM=NEXTAD+MAXSAM                                              ! /* THE AP ADDRESS OF THE MEAN ENERGY
+      IAPSTK=IAPSEM+MAXSAM                                              ! /* THE AP ADDRESS OF THE STACKED TRACE
       IF(IAPSTK.GT.LAPSIZ-4*MAXSAM) GO TO 1003
-      IAPSCR=IAPSTK+MAXSAM*2                                            /* THE ADDRESS OF AN AP SCRATCH ARRAY
-      IAPDIV=IAPSCR+8                                                   /* THE AP ADDRESS OF THE STACK DIVISOR
-      ISCRAP=IAPDIV+MAXSAM                                              /* THE AP ADDRESS OF ANOTHER AP SCRATCH ARRAY
+      IAPSCR=IAPSTK+MAXSAM*2                                            ! /* THE ADDRESS OF AN AP SCRATCH ARRAY
+      IAPDIV=IAPSCR+8                                                   ! /* THE AP ADDRESS OF THE STACK DIVISOR
+      ISCRAP=IAPDIV+MAXSAM                                              ! /* THE AP ADDRESS OF ANOTHER AP SCRATCH ARRAY
       IF(ISCRAP+MAXSAM.LE.LAPSIZ) GO TO 1005
  1003 PRINT 1004
  1004 FORMAT(' ***  ERROR  ***  TOO MUCH DATA IN VELAN FOR THE AP.')
@@ -412,15 +412,15 @@ C****
  1005 CONTINUE
       IVEL=1
       ILIVE=0
-      ILEN=WINLEN/BUF(49)                                                /* THE WINDOW LENGTH IN SAMPLES
-      ICENTR=ILEN/2                                                      /* THE DISTANCE TO MOVE THE WINDOW
+      ILEN=WINLEN/BUF(49)                                               ! /* THE WINDOW LENGTH IN SAMPLES
+      ICENTR=ILEN/2                                                     ! /* THE DISTANCE TO MOVE THE WINDOW
  1010 VEL=VELS(IVEL)
 C****  START AT THE BEGINNING OF THE INPUT FILE
  1020 CALL PODISC(IVELU1,1,0)
       IF(IAND(LPRINT,2).NE.0) PRINT 1021,VEL
  1021 FORMAT(' DOING VELOCITY ',F10.3)
       IF(IUSEAP.EQ.0) GO TO 1030
-      CALL VCLR(IAPSEM,1,MAXSAM*6+8)                                        /* ZERO OUT THE STACKED TRACE AND THE SEMBLANCE
+      CALL VCLR(IAPSEM,1,MAXSAM*6+8)                                    ! /* ZERO OUT THE STACKED TRACE AND THE SEMBLANCE
       GO TO 1039
  1030 IEND=IAPSEM+MAXSAM*6+8
       DO 1035 II=IAPSEM,IEND
@@ -431,27 +431,27 @@ C****  START AT THE BEGINNING OF THE INPUT FILE
       CALL RDDISC(IVELU1,BUF,NWRDS,ISTAT)
 C****  INITIALIZE THE PLOT HERE BECAUSE IT NEEDS THE TRACE HEADER OF THE
 C****  TRACE CLOSEST TO THE CENTER OF THE RP.
-      IF(IBUF(15).EQ.2) GO TO 1110                                      /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) GO TO 1110                                      ! /* IS IT A DEAD TRACE
       IF( vtuple(1) .NE. 0 .AND. VEL .EQ. VELS(1) .AND. JLIVE .EQ. 0 )
      *    CALL INVPLT(VTUPLE,ISCR,IBUF,LBUF,BLANK)
-      IF(VEL.EQ.VELS(1)) JLIVE=JLIVE+1                                  /* COUNT THE LIVE TRACES
-      X=LBUF(10)                                                        /* THE SHOT-RECEIVER DISTANCE
-      SI=BUF(49)                                                        /* THE SAMPLE INTERVAL
-      IDELAY=BUF(46)/SI                                                  /* THE DELAY IN SAMPLES
-      NSAMPS=IBUF(58)                                                    /* THE NUMBER OF DATA SAMPLES IN THIS TRACE
+      IF(VEL.EQ.VELS(1)) JLIVE=JLIVE+1                                  ! /* COUNT THE LIVE TRACES
+      X=LBUF(10)                                                        ! /* THE SHOT-RECEIVER DISTANCE
+      SI=BUF(49)                                                        ! /* THE SAMPLE INTERVAL
+      IDELAY=BUF(46)/SI                                                 ! /* THE DELAY IN SAMPLES
+      NSAMPS=IBUF(58)                                                   ! /* THE NUMBER OF DATA SAMPLES IN THIS TRACE
       NSAMPS=NSAMPS+IDELAY-MINDEL
-      ILEN=WINLEN/SI                                                    /* THE WINDOW LENGTH IN SAMPLES
-      ICENTR=ILEN/2                                                     /* THE DISTANCE TO MOVE THE WINDOW
-      T0=(MINDEL+ICENTR)*SI                                              /* THE CENTER OF THE FIRST WINDOW
-      N=NSAMPS*2*SI/WINLEN                                              /* THE NUMBER OF WINDOWS IN THIS TRACE
-      NZEROS=IDELAY-MINDEL                                              /* THE NUMBER OF SAMPLES BEFORE THE DATA STARTS
+      ILEN=WINLEN/SI                                                    ! /* THE WINDOW LENGTH IN SAMPLES
+      ICENTR=ILEN/2                                                     ! /* THE DISTANCE TO MOVE THE WINDOW
+      T0=(MINDEL+ICENTR)*SI                                             ! /* THE CENTER OF THE FIRST WINDOW
+      N=NSAMPS*2*SI/WINLEN                                              ! /* THE NUMBER OF WINDOWS IN THIS TRACE
+      NZEROS=IDELAY-MINDEL                                              ! /* THE NUMBER OF SAMPLES BEFORE THE DATA STARTS
       IF(REFRAC.NE.0.) GO TO 1050
-      SCR(1)=T0                                                          /* THE INITIAL T0 TIME
-      SCR(2)=WINLEN/2.                                                  /* HALF THE WINDOW LENGTH IN SECONDS
+      SCR(1)=T0                                                         ! /* THE INITIAL T0 TIME
+      SCR(2)=WINLEN/2.                                                  ! /* HALF THE WINDOW LENGTH IN SECONDS
       SCR(3)=(X*X)/(VEL*VEL)
-      SCR(4)=SI                                                         /*  THE SAMPLE INTERVAL
-      SCR(5)=SI/2.                                                       /* HALF THE SAMPLE INTERVAL
-      SCR(6)=-MINDEL*SI+SI                                              /* THE SCALAR TO ADD AFTER NMO CALCULATION
+      SCR(4)=SI                                                         ! /*  THE SAMPLE INTERVAL
+      SCR(5)=SI/2.                                                      ! /* HALF THE SAMPLE INTERVAL
+      SCR(6)=-MINDEL*SI+SI                                              ! /* THE SCALAR TO ADD AFTER NMO CALCULATION
       IF(IUSEAP.EQ.0) GO TO 1041
       SCR(7)=1.
       scr(8) = char1 - 1.
@@ -463,10 +463,10 @@ C**** COMPUTE THE CONSTANT VELOCITY NMO ON THE REAL WINDOW CENTER TIMES
       CALL CVNMO(IAPSCR,IAPSCR+1,IAPSCR+2,N,IAPNMO,IAPSCR+3,IAPSCR+4,
      *   IAPSCR+5)
       CALL APWR
-      CALL APGET(SCR,IAPNMO,N,2)                                            /* GET THE FLOATING INDEXES OUT OF THE AP
+      CALL APGET(SCR,IAPNMO,N,2)                                        ! /* GET THE FLOATING INDEXES OUT OF THE AP
       CALL APWD
       DO 91040 I=1,N
-      LTEMP = SCR(I)                                                    /* FIX THE FLOATING INDEX
+      LTEMP = SCR(I)                                                    ! /* FIX THE FLOATING INDEX
           IF( LTEMP .GT. 0 .AND. LTEMP .LE. NSAMPS) THEN
                LSCR(I) = LTEMP - ICENTR
           ELSE
@@ -476,16 +476,16 @@ C**** COMPUTE THE CONSTANT VELOCITY NMO ON THE REAL WINDOW CENTER TIMES
       GO TO 1060
 C****
 C****    DO IT IN THE HOST
- 1041 TINC=SCR(2)                                                        /* TIME INCREMENT
-      X2V2=SCR(3)                                                        /* X**2/V**2
-      CONST=SCR(6)                                                      /* -DELAY
+ 1041 TINC=SCR(2)                                                       ! /* TIME INCREMENT
+      X2V2=SCR(3)                                                       ! /* X**2/V**2
+      CONST=SCR(6)                                                      ! /* -DELAY
       B=0.
-      DO 1045 II=1,N                                                    /* MOVE OUT THE TIMES OF THE CENTERS OF THE WINDOWS
+      DO 1045 II=1,N                                                    ! /* MOVE OUT THE TIMES OF THE CENTERS OF THE WINDOWS
       T=T0+TINC*B
       B=B+1.
       T=T*T
       TNEW=SQRT(T+X2V2)+CONST
-      LSCR(II)=TNEW/SI-ICENTR+1                                          /* CONVERT TIMES TO INDEXES
+      LSCR(II)=TNEW/SI-ICENTR+1                                         ! /* CONVERT TIMES TO INDEXES
  1045 CONTINUE
       GO TO 1060
 C****
@@ -493,11 +493,11 @@ C****   REFRACTION ANALYSIS
 C****
  1050 TINC=WINLEN/2.
       ISHIFT=(X/VEL)/SI+SI2
-      DO 1055 I=1,N                                                      /* BUILD AN ARRAY OF INDICES
+      DO 1055 I=1,N                                                     ! /* BUILD AN ARRAY OF INDICES
  1055 LSCR(I)=ISHIFT*(I-1)
 C****
 C****
- 1060 TEMP=BUF(46)                                                      /* FIND THE FIRST LIVE SAMPLE AFTER THE DELAY
+ 1060 TEMP=BUF(46)                                                      ! /* FIND THE FIRST LIVE SAMPLE AFTER THE DELAY
 c      IF(BUF(47).GT.BUF(46)) TEMP=BUF(47)
       IF( FLOAT(ibuf(57))/1000. .GT. temp ) temp = FLOAT(ibuf(57))/1000.
       ILIVE=TEMP/SI-IDELAY+NZEROS
@@ -508,19 +508,19 @@ c      IF(BUF(47).GT.BUF(46)) TEMP=BUF(47)
       IF(IUSEAP.EQ.0) GO TO 1070
       CALL APWD
       NSAMPS=IBUF(58)
-      CALL APPUT(BUF(NUMHDR+1),NZEROS+1,NSAMPS,2)                          /* START THE DATA TRACE TO THE AP
-      IF(NZEROS.GT.0) CALL VCLR(1,1,NZEROS)                              /* ZERO OUT THE FRONT OF THE NEW TRACE
+      CALL APPUT(BUF(NUMHDR+1),NZEROS+1,NSAMPS,2)                       ! /* START THE DATA TRACE TO THE AP
+      IF(NZEROS.GT.0) CALL VCLR(1,1,NZEROS)                             ! /* ZERO OUT THE FRONT OF THE NEW TRACE
       GO TO 1079
  1070 ITEMP=IBUF(58)
       DO 1071 I=1,ITEMP
- 1071 A(NZEROS+I)=BUF(NUMHDR+I)                                         /* PUT THE DATA IN APMEM
+ 1071 A(NZEROS+I)=BUF(NUMHDR+I)                                         ! /* PUT THE DATA IN APMEM
       IF(NZEROS.EQ.0) GO TO 1079
       DO 1072 I=1,NZEROS
- 1072 A(I)=0.                                                           /* ZERO OUT THE FRONT OF THE TRACE
+ 1072 A(I)=0.                                                           ! /* ZERO OUT THE FRONT OF THE TRACE
  1079 DO 1100 I=1,N
       NEW=LSCR(I)
-      IF(NEW.LT.ILIVE) GO TO 1090                                        /* DON'T DO A DEAD WINDOW!
-      IF(NEW+ILEN.GT.NSAMPS) GO TO 1090                                  /* IS THE WINDOW OFF THE END OF THE TRACE
+      IF(NEW.LT.ILIVE) GO TO 1090                                       ! /* DON'T DO A DEAD WINDOW!
+      IF(NEW+ILEN.GT.NSAMPS) GO TO 1090                                 ! /* IS THE WINDOW OFF THE END OF THE TRACE
 C****   COMPUTE THE STACK TRACE AND THE MEAN ENERGY
       IF(IUSEAP.EQ.0) GO TO 1080
       CALL STKSEM(NEW,ISTKAD+IADD,ISCRAP,ISEMAD+I,ILEN,IONE,IDIVAD+I)
@@ -529,7 +529,7 @@ C****   COMPUTE THE STACK TRACE AND THE MEAN ENERGY
  1090 IADD=IADD+ILEN
  1100 CONTINUE
  1110 NTRCS=NTRCS+1
-      IF(NTRCS.LT.ITRCS) GO TO 1040                                      /* ANY MORE TRACES IN THE ANALYSIS FOR THIS VELOCITY
+      IF(NTRCS.LT.ITRCS) GO TO 1040                                     ! /* ANY MORE TRACES IN THE ANALYSIS FOR THIS VELOCITY
       IF(JLIVE.GT.1) GO TO 1130
       PRINT 1120
  1120 FORMAT(' NOT ENOUGH LIVE TRACES.')
@@ -676,10 +676,10 @@ c            IF( nsegyfile .EQ. 2 ) CALL wrdisc( ivelu3, scr, n )
           ITRACE = ITRACE + 1
       ENDIF
       DO 1170 II=1,N
-          IF( scr(ii) .LT. 0. .OR. scr(ii) .GT. char1-1. ) THEN           /* there might be 0 windows adding
-               lscr(ii) = 0                                              /* because the nmo took it off the end of the trace
+          IF( scr(ii) .LT. 0. .OR. scr(ii) .GT. char1-1. ) THEN         ! /* there might be 0 windows adding
+               lscr(ii) = 0                                             ! /* because the nmo took it off the end of the trace
           ELSE
-               lscr(ii) = scr(ii)                                        /* just fix the value
+               lscr(ii) = scr(ii)                                       ! /* just fix the value
           ENDIF
  1170 CONTINUE
       IF( vtuple(1) .NE. 0 ) CALL VELPLT(LSCR,N,VEL,VTUPLE)
@@ -688,7 +688,7 @@ C****  GET THE NEXT VELOCITY
       VEL=VEL+VELS(IVEL+1)
       IF(VEL.LE.VELS(IVEL+2).AND.IVEL.LE.NVELS) GO TO 1020
       IVEL=IVEL+2
-      IF( IVEL .LT. NVELS ) THEN                                        /* ANY MORE VELOCITIES
+      IF( IVEL .LT. NVELS ) THEN                                        ! /* ANY MORE VELOCITIES
           VEL = VELS(ivel) + VELS(IVEL+1)
           GOTO 1020
       ENDIF
@@ -697,14 +697,14 @@ C****  GET THE NEXT VELOCITY
           CALL CLVPLT(LSCR,VTUPLE)
       ENDIF
  1200 CONTINUE
-      IF(IUSEAP.NE.0) CALL APRLSE                                       /* RELEASE THE AP SINCE WE ARE PROBABLY FINISHED WITH IT
-      IN=0                                                              /*  TELL SUBROUTINE INAP THAT THE AP IS NOT ASSIGNED
+      IF(IUSEAP.NE.0) CALL APRLSE                                       ! /* RELEASE THE AP SINCE WE ARE PROBABLY FINISHED WITH IT
+      IN=0                                                              ! /*  TELL SUBROUTINE INAP THAT THE AP IS NOT ASSIGNED
       IRELSE=0
       IASGND=0
       PRINT 1210,JLIVE
  1210 FORMAT(' THERE WERE ',I4,' LIVE TRACES IN THE ANALYSIS.')
       JLIVE=0
-      CALL PODISC(IVELU1,1,0)                                            /* REWIND THE INPUT FILE
+      CALL PODISC(IVELU1,1,0)                                           ! /* REWIND THE INPUT FILE
       ITRCS=0
       IRPS=0
       RETURN

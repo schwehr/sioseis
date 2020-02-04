@@ -35,7 +35,7 @@ c        = 6, depth domain
 c        = 7, tau-p or slant stack domain
 c        = 8, F-K "user friendly" polar
 c        = 9, complex time domain or real Analytic trace
-      COMMON /APMEM/AP(500000)                                            /* THE AP SIMULATOR DATA ARRAY
+      COMMON /APMEM/AP(500000)                                          ! /* THE AP SIMULATOR DATA ARRAY
       COMMON /f2t/ osi, lprint, iofmt
 c iofmt = 1 means real time domain,
 c       = 2 means complex time domain,
@@ -56,16 +56,16 @@ c     1 rad = 57.29578deg,    1 deg = .0174532rad
       DATA rad/57.29578/, deg/.0174532/
       SAVE
 C
-      IF(IBUF(15).EQ.2) RETURN                                          /* DON'T PROCESS DEAD TRACES
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* DON'T PROCESS DEAD TRACES
       IF( idtype .NE. 4 .AND. idtype .NE. 5 ) THEN
           PRINT *,' ***  ERROR  ***  Frequency domain input required.'
           STOP
       ENDIF
-      N2 = numdat                                                        /* THE NUMBER OF SAMPLES IN THE DATA TRACE
+      N2 = numdat                                                       ! /* THE NUMBER OF SAMPLES IN THE DATA TRACE
       N=N2/2
       no2 = n / 2
 C
-      CALL INAP(BUF(NUMHDR+1),N2)                                        /* PUT THE DATA IN THE AP OR ARRAY A
+      CALL INAP(BUF(NUMHDR+1),N2)                                       ! /* PUT THE DATA IN THE AP OR ARRAY A
       IF(IUSEAP.EQ.1) THEN
          PRINT *,' F2T does not support the AP'
          STOP

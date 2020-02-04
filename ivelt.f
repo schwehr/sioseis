@@ -29,7 +29,7 @@ C
       DIMENSION VTP(111),AVEVEL(111)
       TIME=ST
       INDX=1
-      N2=1                                                               /* THE POINTER TO A VTP PAIR
+      N2=1                                                              ! /* THE POINTER TO A VTP PAIR
 C
 C    EXTRAPOLATE ANY TIMES LESS THAN VTP(2)
 C
@@ -41,7 +41,7 @@ C
       IF(INDX.GT.NSAMPS) RETURN
       GO TO 10
   100 IF(ST.LE.VTP(N2+3)) GO TO 200
-      N2=N2+2                                                            /* STILL TRYING TO FIND A VTP
+      N2=N2+2                                                           ! /* STILL TRYING TO FIND A VTP
       IF(VTP(N2+1).GE.0) GO TO 100
       PRINT 120,ST
   120 FORMAT(' ***  ERROR  ***  NO TIME IN THE VTP EXCEEDS THE START ',
@@ -51,15 +51,15 @@ C
 C    INTERPOLATE VALUES BETWEEN VTP TIMES
 C
   200 CONTINUE
-      IF(VTP(N2+3).NE.VTP(N2+1)) GO TO 205                              /* CONSTANT VELOCITY
-      VT=0.                                                             /* WATCH OUT FOR DIVIDE BY 0.!
+      IF(VTP(N2+3).NE.VTP(N2+1)) GO TO 205                              ! /* CONSTANT VELOCITY
+      VT=0.                                                             ! /* WATCH OUT FOR DIVIDE BY 0.!
       GO TO 210
   205 VT=(VTP(N2+2)-VTP(N2))/(VTP(N2+3)-VTP(N2+1))
   210 CONTINUE
       IF(TIME.LE.VTP(N2+3)) GO TO 300
-      N2=N2+2                                                           /*  SET UP THE NEXT VTP PAIR
+      N2=N2+2                                                           ! /*  SET UP THE NEXT VTP PAIR
       IF(VTP(N2+3).GT.0) GO TO 200
-      V=AVEVEL(INDX-1)                                                   /*  EXTRAPOLATE TO TO END
+      V=AVEVEL(INDX-1)                                                  ! /*  EXTRAPOLATE TO TO END
       DO 220 I=INDX,NSAMPS
   220 AVEVEL(I)=V
       RETURN

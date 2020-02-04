@@ -110,16 +110,16 @@ C****
 C****
       LRANGE=LTRACE(10)
       LRPNO=LTRACE(6)
-      NREADY=0                                                          /* THE NUMBER OF TRACES READY IN THE OUTPUT FILE
+      NREADY=0                                                          ! /* THE NUMBER OF TRACES READY IN THE OUTPUT FILE
       IF( ISIG .EQ. 1 ) THEN
           loaddr = 0
-          GOTO 440                                                      /* FLUSH ALL THE RP'S?
+          GOTO 440                                                      ! /* FLUSH ALL THE RP'S?
       ENDIF
-      IF( LRPNO .EQ. 524272 .OR. itrace(15) .NE. 1) RETURN              /* IS IT A TRACE TO BE GATHERED
+      IF( LRPNO .EQ. 524272 .OR. itrace(15) .NE. 1) RETURN              ! /* IS IT A TRACE TO BE GATHERED
       IF(.NOT.FIRST) GO TO 100
       FIRST=.FALSE.
-      CALL GETFIL(1,IUNIT,token,ISTAT)                                  /* GET A TEMPORARY DISC FILE
-      CALL GETFIL(1,IOUNIT,token,ISTAT)                                 /* GET A TEMPORARY DISC FILE
+      CALL GETFIL(1,IUNIT,token,ISTAT)                                  ! /* GET A TEMPORARY DISC FILE
+      CALL GETFIL(1,IOUNIT,token,ISTAT)                                 ! /* GET A TEMPORARY DISC FILE
       LADDR=1
       IF( nwrds .LE. 60 ) nwrds = numhdr + numdat
 C     A DISC FILE MUST BE FILLED (WRITTEN TO) BEFORE YOU CAN POSITION IN IT!
@@ -139,8 +139,8 @@ C     WHEREAS A POSITIVE ADDRESS MEANS A TRACE IS ALREADY THERE!.
              PRINT *,' Process GEOM parameter   lprint 2  may help you.'
          ENDIF
       ENDIF
-      LFRP=LSTRP                                                         /* SET THE FIRST BIN NO. IN THE TEMP FILE TO THE FIRST OF THE JOB
-      LNXRP=LSTRP                                                       /* SET THE NEXT BIN NO. TO THE FIRST.
+      LFRP=LSTRP                                                        ! /* SET THE FIRST BIN NO. IN THE TEMP FILE TO THE FIRST OF THE JOB
+      LNXRP=LSTRP                                                       ! /* SET THE NEXT BIN NO. TO THE FIRST.
       K=1
       NOTRCS=MAXRPS*MAXTRS
       IF( notrcs*3 .GT. itsize ) THEN
@@ -165,10 +165,10 @@ c****   ltable(1) = rpno,  (2) = counter/disk address,  (3) = range
 c****  Gather assumes every trace is the same length, so we can use an index
 c****  or counter to compute the disk address, and thus get 64 bit addresses.
       DO 20 I=1,MAXRPS
-      DO 10 J=1,MAXTRS                                                   /*  TABLE IS SET UP IN TRIPLETS
-          LTABLE(K)=LNXRP                                               /* WORD 1 IS THE RP NUMBER
-          LTABLE(K+1)=-LADDR                                            /* WORD 2 IS THE DISC ADDRESS OF THE TRACE
-C                                                                       /* WORD 3 IS THE MAGNITUDE OF THE RANGE OR OFFSET OF THE TRACE
+      DO 10 J=1,MAXTRS                                                  ! /*  TABLE IS SET UP IN TRIPLETS
+          LTABLE(K)=LNXRP                                               ! /* WORD 1 IS THE RP NUMBER
+          LTABLE(K+1)=-LADDR                                            ! /* WORD 2 IS THE DISC ADDRESS OF THE TRACE
+C                                                                       ! /* WORD 3 IS THE MAGNITUDE OF THE RANGE OR OFFSET OF THE TRACE
 c          CALL PODISC(IUNIT,1,LADDR)
           CALL unsigned( '*', laddr, nwrds, ltemp )
           CALL podiscun( iunit, 1, ltemp )
@@ -182,24 +182,24 @@ c          LADDR=LADDR+NWRDS
       NUM1=NOTRCS*3
       NUM2=MAXTRS*3
   100 CONTINUE
-      loaddr=0                                                          /* THE CURRENT ADDRESS WITHIN THE OUTPUT DISC FILE
+      loaddr=0                                                          ! /* THE CURRENT ADDRESS WITHIN THE OUTPUT DISC FILE
   120 CONTINUE
-      DO 400 I = 1, NUM1, NUM2                                          /* FIND THE RIGHT BIN NO. IN THE TABLE
+      DO 400 I = 1, NUM1, NUM2                                          ! /* FIND THE RIGHT BIN NO. IN THE TABLE
          IF(LTABLE(I).NE.LRPNO) GO TO 400
          K = I + 1
-         DO 300 J = 1, MAXTRS                                           /* FIND A FREE DISC ADDRESS
+         DO 300 J = 1, MAXTRS                                           ! /* FIND A FREE DISC ADDRESS
             IF( LTABLE(K) .LE. 0 ) THEN
-                LTABLE(K) = -LTABLE(K)                                  /* A POSITIVE ADDRESS MEANS THAT IT IS OCCUPIED
-                ITEMP = IOUT                                            /*  SAVE THE VALUE OF IOUT
-                IOUT = 0                                                /* GET THE DATA OUT OF THE AP IF IT IS IN IT!!
+                LTABLE(K) = -LTABLE(K)                                  ! /* A POSITIVE ADDRESS MEANS THAT IT IS OCCUPIED
+                ITEMP = IOUT                                            ! /*  SAVE THE VALUE OF IOUT
+                IOUT = 0                                                ! /* GET THE DATA OUT OF THE AP IF IT IS IN IT!!
                 CALL RLSEAP(LTRACE(NUMHDR+1),NUMDAT)
-                IOUT = ITEMP                                            /*  RESTORE THE ORIGINAL VALUE OF IOUT
+                IOUT = ITEMP                                            ! /*  RESTORE THE ORIGINAL VALUE OF IOUT
                 ITEMP = 1
 c                CALL PODISC(IUNIT,1,LTABLE(K))
                 CALL unsigned( '*', ltable(k), nwrds, ltemp )
                 CALL podiscun( iunit, 1, ltemp )
                 CALL WRDISC(IUNIT,LTRACE,NWRDS)
-                LTABLE(K+1) = IABS(LRANGE)                              /* SAVE THE MAGNITUDE OF THE RANGE FOR FURTHER SORTING
+                LTABLE(K+1) = IABS(LRANGE)                              ! /* SAVE THE MAGNITUDE OF THE RANGE FOR FURTHER SORTING
                 RETURN
             ENDIF
          k = k + 3
@@ -208,25 +208,25 @@ c                CALL PODISC(IUNIT,1,LTABLE(K))
   320   FORMAT(' ***  WARNING  ***  LRANGE ',I10,' OMITTED FROM GATHER',
      *    I10,' DUE TO EXCEEDING THE MAXIMUM TRACES PER BIN.')
          RETURN
-  400 CONTINUE                                                          /*  LRPNO IS NOT IN THE TABLE!
+  400 CONTINUE                                                          ! /*  LRPNO IS NOT IN THE TABLE!
       IF( LRPINC .GE. 0 ) THEN
-          IF(LRPNO.LT.LSTRP) RETURN                                         /* IS THIS BEFORE THE FIRST BIN NO.?
-          IF(LRPNO.GE.LNXRP) GO TO 440                                      /*  HAVE WE SEEN THIS RP BEFORE?
+          IF(LRPNO.LT.LSTRP) RETURN                                     ! /* IS THIS BEFORE THE FIRST BIN NO.?
+          IF(LRPNO.GE.LNXRP) GO TO 440                                  ! /*  HAVE WE SEEN THIS RP BEFORE?
   410     PRINT 420, LRANGE, LRPNO, MAXRPS
   420   FORMAT(' ***  WARNING  ***  LRANGE',I10,' OMITTED FROM GATHER',
      * I10,' DUE TO BEING MORE THAN',I6,' BINS AWAY FROM THE PREVIOUS.')
           RETURN
       ENDIF
-      IF(LRPNO.GT.LSTRP) RETURN                                          /* IS IT BEFORE THE BEGINNING?
-      IF(LRPNO.GT.LFRP) THEN                                            /* HAS THIS RP ALREADY GONE BY?
+      IF(LRPNO.GT.LSTRP) RETURN                                         ! /* IS IT BEFORE THE BEGINNING?
+      IF(LRPNO.GT.LFRP) THEN                                            ! /* HAS THIS RP ALREADY GONE BY?
          PRINT 420, LRANGE, LRPNO, MAXRPS
          RETURN
       ENDIF
 C****
 C****   MOVE A WHOLE GATHER TO THE OUTPUT FILE
 C****
-  440 CONTINUE                                                           /* NEED TO GET RID OF A GATHER TO MAKE ROOM FOR A NEW ONE
-      DO 500 I=1,NUM1,NUM2                                               /* FIND LFRP WITHIN THE TABLE
+  440 CONTINUE                                                          ! /* NEED TO GET RID OF A GATHER TO MAKE ROOM FOR A NEW ONE
+      DO 500 I=1,NUM1,NUM2                                              ! /* FIND LFRP WITHIN THE TABLE
       I1=I
       IF(LFRP.EQ.LTABLE(I)) GO TO 550
   500 CONTINUE
@@ -235,11 +235,11 @@ c  510 FORMAT(' ***  ERROR  ***  GATHER IMPOSSIBILITY 1.  LFRP=',I10)
 c     UTIG mod  - release the disk unit and return empty handed
       CALL frefil( 3, iunit, istat )
       RETURN
-  550 NCDP=0                                                            /* GET RID OF A WHOLE GATHER
+  550 NCDP=0                                                            ! /* GET RID OF A WHOLE GATHER
   560 LX=999999
       K=I1+1
-      DO 590 J=1,MAXTRS                                                 /* FIND THE SHORTEST RANGE
-      IF(LTABLE(K).LT.0) GO TO 590                                      /* ANY MORE TRACES IN THE TEMP FILE
+      DO 590 J=1,MAXTRS                                                 ! /* FIND THE SHORTEST RANGE
+      IF(LTABLE(K).LT.0) GO TO 590                                      ! /* ANY MORE TRACES IN THE TEMP FILE
       IF(LTABLE(K+1).GT.LX) GO TO 590
       KK=K
       LX=LTABLE(K+1)
@@ -250,10 +250,10 @@ c     UTIG mod  - release the disk unit and return empty handed
 C****
 C****   WHEN THE GATHER DOESN'T HAVE MINTRS TRACES IN IT, CREATE SOME TRACES!
 C****
-      DO 591 II=1,NUMHDR                                                /* USE THE TRACE HEADER OF THE TRACE IN LTRACE
+      DO 591 II=1,NUMHDR                                                ! /* USE THE TRACE HEADER OF THE TRACE IN LTRACE
   591 LSCR(II)=LTRACE(II)
       LSCR(6)=LFRP
-      iscr(15) = 2                                                      /* signal that the trace is dead
+      iscr(15) = 2                                                      ! /* signal that the trace is dead
       nsamps = nwrds - numhdr
       numdat = nsamps
       iscr(58) = nsamps
@@ -263,7 +263,7 @@ C****
       DO I=1,ITEMP
          NCDP=NCDP+1
          LSCR(7)=NCDP
-         LSCR(51)=0                                                        /* CLEAR THE END OF GATHER FLAG
+         LSCR(51)=0                                                     ! /* CLEAR THE END OF GATHER FLAG
 c         CALL PODISC(IOUNIT,1,loaddr)
          CALL podiscun( iounit, 1, loaddr )
          CALL WRDISC(IOUNIT,LSCR,NWRDS)
@@ -275,17 +275,17 @@ c         loaddr = loaddr + nwrds
 C****
 C****  MOVE THE TRACE FROM THE TEMP DISC FILE TO THE OUTPUT DISC FILE
 C****
-  600 CONTINUE                                                           /* MOVE THE TRACE FROM THE TEMP FILE TO THE OUTPUT FILE
+  600 CONTINUE                                                          ! /* MOVE THE TRACE FROM THE TEMP FILE TO THE OUTPUT FILE
 c      CALL PODISC(IUNIT,1,LTABLE(K))
       CALL unsigned( '*', ltable(k), nwrds, ltemp )
       CALL podiscun( iunit, 1, ltemp )
       CALL RDDISC(IUNIT,LSCR,NWRDS,ISTAT)
       ITEMP=2
       NCDP=NCDP+1
-      LSCR(7)=NCDP                                                       /* THE TRACE NUMBER WITHIN THE GATHER
+      LSCR(7)=NCDP                                                      ! /* THE TRACE NUMBER WITHIN THE GATHER
       numdat = nwrds - numhdr
       iscr(58) = numdat
-      LSCR(51)=0                                                         /* CLEAR THE END OF GATHER FLAG
+      LSCR(51)=0                                                        ! /* CLEAR THE END OF GATHER FLAG
 c      CALL PODISC(IOUNIT,1,loaddr)
       CALL podiscun( iounit, 1, loaddr )
       CALL WRDISC(IOUNIT,LSCR,NWRDS)
@@ -294,8 +294,8 @@ c      loaddr = loaddr + nwrds
       NREADY=NREADY+1
       LTABLE(K)=-LTABLE(K)
       GO TO 560
-  700 CONTINUE                                                          /*  FINISHED A R.P.
-c      LADDR=loaddr-NWRDS+50                                             /*  SET THE END OF GATHER SIGNAL IN THE HEADER
+  700 CONTINUE                                                          ! /*  FINISHED A R.P.
+c      LADDR=loaddr-NWRDS+50                                             ! /*  SET THE END OF GATHER SIGNAL IN THE HEADER
 c  -nwrds+50 = -(nwrds-50)
       CALL unsigned( '-', loaddr, nwrds-50, laddr )
       LTEMP=-1
@@ -303,9 +303,9 @@ c      CALL PODISC(IOUNIT,1,LADDR)
       CALL podiscun( iounit, 1, laddr )
       CALL WRDISC(IOUNIT,LTEMP,1)
       LFRP = LFRP + LRPINC
-      IF( ISIG .EQ. 1 ) THEN                                            /* ARE WE ONLY FLUSHING RP'S?
+      IF( ISIG .EQ. 1 ) THEN                                            ! /* ARE WE ONLY FLUSHING RP'S?
           IF( LFRP .LT. LNXRP ) GO TO 440
-          CALL FREFIL(3,IUNIT,ISTAT)                                    /* RELEASE THE TEMP FILE
+          CALL FREFIL(3,IUNIT,ISTAT)                                    ! /* RELEASE THE TEMP FILE
           RETURN
       ENDIF
 C****
@@ -317,5 +317,5 @@ C****
       LTABLE(KK)=LNXRP
   710 KK=KK+3
       LNXRP=LNXRP+LRPINC
-      GO TO 120                                                         /*  WE NOW HAVE ROOM FOR ANOTHER GATHER IN TEMP FILE
+      GO TO 120                                                         ! /*  WE NOW HAVE ROOM FOR ANOTHER GATHER IN TEMP FILE
       END

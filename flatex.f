@@ -22,7 +22,7 @@ C  ALL RIGHTS ARE RESERVED BY THE AUTHOR.  PERMISSION TO COPY OR REPRODUCE THIS
 C  SUBROUTINE, BY COMPUTER OR OTHER MEANS, MAY BE OBTAINED ONLY FROM THE AUTHOR.
 C
 C
-      PARAMETER (NPARS=9)                                                /* THE LENGTH OF EACH PARAMETER LIST
+      PARAMETER (NPARS=9)                                               ! /* THE LENGTH OF EACH PARAMETER LIST
       PARAMETER (ndeps = 100)
       DIMENSION BUF(111),LBUF(111),IBUF(111),SCR(111),LSCR(111)
       INTEGER*2 IBUF
@@ -38,15 +38,15 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
    10 CONTINUE
       IF( FIRST ) THEN
           FIRST=.FALSE.
           odelay = buf(46)
-          CALL PODISC(MUNIT,1,0)                                            /* REWIND THE PARAMETER FILE
+          CALL PODISC(MUNIT,1,0)                                        ! /* REWIND THE PARAMETER FILE
           CALL RDDISC(MUNIT,SCR,NPARS,ISTAT)
-          ISIG=1                                                            /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
+          ISIG=1                                                        ! /* SET SIGNAL INDICATING THAT PARAM LIST IS IN SCR
           MLISTS=1
           otime = scr(1)
           vel = scr(2) / 2.
@@ -57,8 +57,8 @@ C****
           lno = lscr(7)
           nave = lscr(8)
           jhdr = lscr(9)
-          IF( odelay .GT. otime ) THEN                                  /* make sure the output time is after the delay
-              itemp = otime                                             /* truncate to an integer number of seconds
+          IF( odelay .GT. otime ) THEN                                  ! /* make sure the output time is after the delay
+              itemp = otime                                             ! /* truncate to an integer number of seconds
               odelay = itemp
           ENDIF
           DO 20 i = 1, ndeps
@@ -75,15 +75,15 @@ C****
           GOTO 10
       ENDIF
       GOTO 500
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO) GO TO 500                                          /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.LT.NLISTS) GO TO 110                                    /* ANY MORE USER PARAM LISTS ON DISC
-      IF(ISIG.EQ.0) GO TO 1000                                          /* IS THERE A LIST IN MEMORY
-      GO TO 500                                                          /* YES THE LAST LIST IS IN SCR
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO) GO TO 500                                         ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.LT.NLISTS) GO TO 110                                    ! /* ANY MORE USER PARAM LISTS ON DISC
+      IF(ISIG.EQ.0) GO TO 1000                                          ! /* IS THERE A LIST IN MEMORY
+      GO TO 500                                                         ! /* YES THE LAST LIST IS IN SCR
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
-  110 CONTINUE                                                          /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
+  110 CONTINUE                                                          ! /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
       CALL RDDISC(MUNIT,SCR,NPARS,ISTAT)
       ISIG=1
       fno = lscr(5)
@@ -108,9 +108,9 @@ c****
 C****     NO SPATIAL VARIATION ALLOWED
 C****
  1000 CONTINUE
-      NSAMPS=IBUF(58)                                                    /* THE NUMBER OF DATA SAMPLES IN THE TRACE
-      DELAY=BUF(46)                                                      /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
-      SI=BUF(49)                                                         /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
+      NSAMPS=IBUF(58)                                                   ! /* THE NUMBER OF DATA SAMPLES IN THE TRACE
+      DELAY=BUF(46)                                                     ! /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
+      SI=BUF(49)                                                        ! /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
 c****  the Sea Beam puts depth (in meters) into the header  It doesn't do
 c****  this occasionally (at the beginning of a SeaBeam file)
       IF( ihdr .NE. 0 ) hdr = ibuf(ihdr)
@@ -142,16 +142,16 @@ c****  this occasionally (at the beginning of a SeaBeam file)
               PRINT *,' ***  ERROR  ***  Bad FLATEN VEL of ',vel
               STOP
           ENDIF
-          nshift = ( hdr/vel - otime - ( delay - odelay )) / si           /* must be in units of depth
+          nshift = ( hdr/vel - otime - ( delay - odelay )) / si         ! /* must be in units of depth
       ELSE
-          nshift = ( hdr - otime - ( delay - odelay )) / si               /* must be in unit of time
+          nshift = ( hdr - otime - ( delay - odelay )) / si             ! /* must be in unit of time
       ENDIF
       IF( IAND(lprint,2) .NE. 0 ) THEN
           PRINT *,' nshift=',nshift,' otime=',otime,' hdr=',hdr,' vel=',
      *    vel,' si=',si
           PRINT *,' dlast=',dlast,' odelay=',odelay,' delay=',delay
       ENDIF
-      IF( iuseap .EQ. 0 ) THEN                                           /* no ap and not in ap simulator?
+      IF( iuseap .EQ. 0 ) THEN                                          ! /* no ap and not in ap simulator?
           IF( nshift .GT. 0 ) THEN
               n = nsamps - nshift
               IF( in .EQ. 0 ) THEN

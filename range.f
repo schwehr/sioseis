@@ -25,7 +25,7 @@ C  PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, DECEMBER 1979
 C
       DIMENSION GXP(1)
 C
-      INDEX=1                                                            /* THE FIRST GXP PAIR
+      INDEX=1                                                           ! /* THE FIRST GXP PAIR
    10 TEMP=GXP(INDEX)-GNEED
 c      IF(TEMP)300,200,100
       IF( temp .LT. 0 ) GOTO 300
@@ -36,14 +36,14 @@ C****  GIVEN, THEREFORE, EXTRAPOLATE USING GGX.
   110 CONTINUE
       RANGE=TEMP*GGX+GXP(INDEX+1)
       RETURN
-  150 CONTINUE                                                           /*  INTERPOLATE TO GET THE RANGE
+  150 CONTINUE                                                          ! /*  INTERPOLATE TO GET THE RANGE
       RANGE=(TEMP/(GXP(INDEX)-GXP(INDEX-2)))*(GXP(INDEX-1)-
      *     GXP(INDEX+1))+GXP(INDEX+1)
       RETURN
-  200 CONTINUE                                                           /*  GNEED IS GXP(INDEX) EXACTLY!!
+  200 CONTINUE                                                          ! /*  GNEED IS GXP(INDEX) EXACTLY!!
       RANGE=GXP(INDEX+1)
       RETURN
-  300 CONTINUE                                                          /*  GROUP WANTED (GNEED) IS BIGGER THAN GXP(INDEX)
+  300 CONTINUE                                                          ! /*  GROUP WANTED (GNEED) IS BIGGER THAN GXP(INDEX)
       IF(GXP(INDEX+2).LT.0.) GO TO 110
       INDEX=INDEX+2
       GO TO 10

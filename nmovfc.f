@@ -40,19 +40,19 @@ C  COPYRIGHTED BY:
 C   PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, APRIL 1980
 C  ALL RIGHTS RESERVED BY THE AUTHOR.
 C
-      ITEMP=ISCR+2                                                      /* POINT TO THE SAMPLE INTERVAL
-      CALL VRAMP(ISCR,ITEMP,IT2,1,NSAMPS)                                /*  BUILD THE T VECTOR
-      CALL VMUL(IT2,1,IT2,1,IT2,1,NSAMPS)                                /* SQUARE THE T ARRAY
-      CALL VMUL(IV,1,IV,1,IV2,1,NSAMPS)                                  /* SQUARE THE VELOCITY FUNCTION
-      JTEMP=ISCR+1                                                       /*  POINT TO THE RANGE
-      CALL VDIV(IV2,1,JTEMP,0,IV2,1,NSAMPS)                              /* DIVIDE X**2 BY V**2
-      CALL VADD(IV2,1,IT2,1,IV2,1,NSAMPS)                                /* ADD IT TO T**2
-      CALL VSQRT(IV2,1,IANSW,1,NSAMPS)                                  /* TAKE THE SQUARE ROOT OF THE WHOLE MESS
-      CALL VNEG(ISCR,1,IV2,1,1)                                          /* TAKE THE NEGATIVE OF THE FIRST T0
-      CALL VSADD(IANSW,1,IV2,IANSW,1,NSAMPS)                            /* SUBTRACT THE FIRST T0 FROM ALL
-      KTEMP=ISCR+3                                                       /* POINT TO HALF THE SAMPLE INTERVAL
-      CALL VSADD(IANSW,1,KTEMP,IANSW,1,NSAMPS)                           /* ADD HALF THE SAMPLE INTERVAL
-      CALL VDIV(ITEMP,0,IANSW,1,IANSW,1,NSAMPS)                          /* DIVIDE BY THE SAMPLE INTERVAL
-      CALL VFIX(IANSW,1,IANSW,1,NSAMPS)                                  /* CONVERT TO 32 BIT INTEGERS
+      ITEMP=ISCR+2                                                      ! /* POINT TO THE SAMPLE INTERVAL
+      CALL VRAMP(ISCR,ITEMP,IT2,1,NSAMPS)                               ! /*  BUILD THE T VECTOR
+      CALL VMUL(IT2,1,IT2,1,IT2,1,NSAMPS)                               ! /* SQUARE THE T ARRAY
+      CALL VMUL(IV,1,IV,1,IV2,1,NSAMPS)                                 ! /* SQUARE THE VELOCITY FUNCTION
+      JTEMP=ISCR+1                                                      ! /*  POINT TO THE RANGE
+      CALL VDIV(IV2,1,JTEMP,0,IV2,1,NSAMPS)                             ! /* DIVIDE X**2 BY V**2
+      CALL VADD(IV2,1,IT2,1,IV2,1,NSAMPS)                               ! /* ADD IT TO T**2
+      CALL VSQRT(IV2,1,IANSW,1,NSAMPS)                                  ! /* TAKE THE SQUARE ROOT OF THE WHOLE MESS
+      CALL VNEG(ISCR,1,IV2,1,1)                                         ! /* TAKE THE NEGATIVE OF THE FIRST T0
+      CALL VSADD(IANSW,1,IV2,IANSW,1,NSAMPS)                            ! /* SUBTRACT THE FIRST T0 FROM ALL
+      KTEMP=ISCR+3                                                      ! /* POINT TO HALF THE SAMPLE INTERVAL
+      CALL VSADD(IANSW,1,KTEMP,IANSW,1,NSAMPS)                          ! /* ADD HALF THE SAMPLE INTERVAL
+      CALL VDIV(ITEMP,0,IANSW,1,IANSW,1,NSAMPS)                         ! /* DIVIDE BY THE SAMPLE INTERVAL
+      CALL VFIX(IANSW,1,IANSW,1,NSAMPS)                                 ! /* CONVERT TO 32 BIT INTEGERS
       RETURN
       END

@@ -37,7 +37,7 @@ C
 c  mod 16 July 2007 - Print warning if DELTAX is not given.
 c                   - ERROR if velocity is no given.
 c
-      PARAMETER (NPARS=5)                                               /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (NPARS=5)                                               ! /* THE NUMBER OF USER PARAMETERS
       CHARACTER*6 NAMES(NPARS)
       CHARACTER*1 TYPES(NPARS)
       DIMENSION LENGTH(NPARS)

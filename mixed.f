@@ -105,9 +105,9 @@ C           BECAUSE PRIME FORTRAN DOESN'T ALLOW EQUIVALENCING OF ARGUMENTS.
 C
 C
 C
-      PARAMETER (NPARS=10)                                               /* THE NUMBER OF USER PARAMETERS
-      PARAMETER (MULTIV=10)                                              /* THE FIRST MULTI-VALUED PARAMETER
-      PARAMETER (MAXMIX=10)                                             /* THE MAXIMUM NUMBER OF TRACES THAT MAY BE MIXED
+      PARAMETER (NPARS=10)                                              ! /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (MULTIV=10)                                             ! /* THE FIRST MULTI-VALUED PARAMETER
+      PARAMETER (MAXMIX=10)                                             ! /* THE MAXIMUM NUMBER OF TRACES THAT MAY BE MIXED
       CHARACTER*6 NAMES(NPARS)
       CHARACTER*1 TYPES(NPARS)
       DIMENSION LENGTH(NPARS)
@@ -158,22 +158,22 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-      CALL UPCASE(TOKEN,NCHARS)                                         /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF( NCHARS .LE. 0 ) THEN
           IF(NOW.EQ.1) PRINT *,' <  ENTER PARAMETERS  >'
-          CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+          CALL RDLINE                                                   ! /* GET ANOTHER USER PARAMETER LINE
           NTOKES=0
           GOTO 100
       ENDIF
   150 NTOKES=NTOKES+1
-      DO 190 I = 1, NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-         LEN = LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-         IPARAM = I                                                          /* SAVE THE INDEX
+      DO 190 I = 1, NPARS                                               ! /* SEE IF IT IS A PARAMETER NAME
+         LEN = LENGTH(I)                                                ! /* GET THE LEGAL PARAMETER NAME LENGTH
+         IPARAM = I                                                     ! /* SAVE THE INDEX
          IF( TOKEN(1:NCHARS) .EQ. NAMES(I)(1:LEN) .AND.
      &      NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LIST?
       IF(NS.NE.0) GO TO 230
       PRINT *,' ***  ERROR  *** MIX DOES NOT HAVE A PARAMETER NAMED ',
      &      TOKEN(1:NCHARS)
@@ -184,13 +184,13 @@ C****    FOUND THE PARAMETER NAME, NOW FIND THE VALUE
 C****
   200 CONTINUE
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF( NCHARS .LE. 0 ) THEN                                          /* END OF LINE?
+      IF( NCHARS .LE. 0 ) THEN                                          ! /* END OF LINE?
           IF(NOW.EQ.1) PRINT *,' <  ENTER PARAMETERS  >'
-          CALL RDLINE                                                        /* GET ANOTHER LINE
+          CALL RDLINE                                                   ! /* GET ANOTHER LINE
           NTOKES=0
           GOTO 210
       ENDIF
@@ -198,25 +198,25 @@ C****
       IF(TYPES(NPARAM).NE.'A') GO TO 240
       GO TO 100
   240 CONTINUE
-      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
-      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          ! /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                   ! /* DCODE PRINTED AN ERROR
       GO TO 100
   420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
-      IF(NPARAM.LT.MULTIV) GO TO 490                                     /*  IS IT A MULTIVALUED PARAMETER
-      NS=NS+1                                                           /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
+      IF(NPARAM.LT.MULTIV) GO TO 490                                    ! /*  IS IT A MULTIVALUED PARAMETER
+      NS=NS+1                                                           ! /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
       BUF(NS+NPARS)=AREAL
       GO TO 100
-  490 VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+  490 VALS(NPARAM)=AREAL                                                ! /*  FLOATING POINT VALUES
       GO TO 100
-  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+  500 CONTINUE                                                          ! /*  32 BIT INTEGER VALUES
       LVALS(NPARAM)=AREAL
       GO TO 100
 C****
 C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
- 1000 CONTINUE                                                           /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
-      IF(LNO.EQ.32768) LNO=FNO                                          /* DEFAULT LNO TO FNO
+ 1000 CONTINUE                                                          ! /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
+      IF(LNO.EQ.32768) LNO=FNO                                          ! /* DEFAULT LNO TO FNO
       IF( FNO .LE. LLNO .OR. lno .LT. fno ) THEN
           PRINT *,' ***  ERROR  ***  SHOT AND RP NUMBERS MUST INCREASE.'
           IERROR=IERROR+1
@@ -267,15 +267,15 @@ C****
       NLISTS=NLISTS+1
       NS=0
       LLNO=LNO
-      LNO=32768                                                          /* DEFAULT THE DEFAULTS
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+      LNO=32768                                                         ! /* DEFAULT THE DEFAULTS
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NCHARS.GT.0) GO TO 2030                                        ! /* WAS IT THE END OF A LINE?
       IF(NOW.EQ.1) PRINT *,' <  ENTER PARAMETERS  >'
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 2020
  2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
-      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE PARAMETERS!!!
       END

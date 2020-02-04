@@ -31,28 +31,28 @@ C  COPYRIGHTED BY:
 C  PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, LA JOLLA, CA., MAY 1980
 C
       IMPLICIT INTEGER*2 (A-Z)
-      INPUT=A1                                                          /* THE AP ADDRESS OF THE INPUT DATA
-      NSAMPS=A2                                                          /* THE NUMBER OF INPUT SAMPLES
-      OUTPUT=A3                                                         /* THE AP ADDRESS OF THE OUTPUT
-      SCR=A4                                                            /*  THE AP ADDRESS OF A SCRATCH ARRAY
-      FILT=A5                                                           /* THE AP ADDRESS OF THE FILTER
-      NFPTS=A6                                                          /* THE NUMBER OF POINTS OF THE FILTER
-      WEIGHT=A7                                                         /* THE AP ADDRESS OF THE WINDOW WEIGHT, FRONT RAMP IN, END RAMP INC
-      NRAMP1=A8                                                         /* THE NUMBER OF SAMPLES IN THE FRONT RAMP
-      INDXR2=A9                                                         /* THE AP ADDRESS OF THE START OF THE END RAMP
-      NRAMP2=A10                                                         /* THE NUMBER OF SAMPLES IN THE END RAMP
+      INPUT=A1                                                          ! /* THE AP ADDRESS OF THE INPUT DATA
+      NSAMPS=A2                                                         ! /* THE NUMBER OF INPUT SAMPLES
+      OUTPUT=A3                                                         ! /* THE AP ADDRESS OF THE OUTPUT
+      SCR=A4                                                            ! /*  THE AP ADDRESS OF A SCRATCH ARRAY
+      FILT=A5                                                           ! /* THE AP ADDRESS OF THE FILTER
+      NFPTS=A6                                                          ! /* THE NUMBER OF POINTS OF THE FILTER
+      WEIGHT=A7                                                         ! /* THE AP ADDRESS OF THE WINDOW WEIGHT, FRONT RAMP IN, END RAMP INC
+      NRAMP1=A8                                                         ! /* THE NUMBER OF SAMPLES IN THE FRONT RAMP
+      INDXR2=A9                                                         ! /* THE AP ADDRESS OF THE START OF THE END RAMP
+      NRAMP2=A10                                                        ! /* THE NUMBER OF SAMPLES IN THE END RAMP
       ITEMP=NFPTS-1
-      NZEROS=ITEMP/2                                                    /* THE NUMBER OF ZEROS IN THE PAD
-      CALL VCLR(SCR,1,NZEROS)                                            /* PAD THE FRONT OF THE DATA FOR ZERO PHASE FILTERS!
-      ISTART=SCR+NZEROS                                                  /* THE BEGINNING OF THE DATA IN THE SCRATCH ARRAY
-      CALL VMOV(INPUT,1,ISTART,1,NSAMPS)                                /* MOVE DATA TO SCRATCH AFTER THE PAD
+      NZEROS=ITEMP/2                                                    ! /* THE NUMBER OF ZEROS IN THE PAD
+      CALL VCLR(SCR,1,NZEROS)                                           ! /* PAD THE FRONT OF THE DATA FOR ZERO PHASE FILTERS!
+      ISTART=SCR+NZEROS                                                 ! /* THE BEGINNING OF THE DATA IN THE SCRATCH ARRAY
+      CALL VMOV(INPUT,1,ISTART,1,NSAMPS)                                ! /* MOVE DATA TO SCRATCH AFTER THE PAD
       ISTART=ISTART+NSAMPS
       CALL VCLR(ISTART,1,NZEROS)
       IFILT=FILT+NFPTS
       IFILT=IFILT-1
-      N=NZEROS+NSAMPS                                                    /* THE AMOUNT TO CONVOLVE
+      N=NZEROS+NSAMPS                                                   ! /* THE AMOUNT TO CONVOLVE
       CALL CONV(SCR,1,IFILT,-1,SCR,1,N,NFPTS)
-      INDX=SCR+NSAMPS                                                    /* THE AP ADDRESS OF A SCRATCH AREA AFTER THE FILTERED DATA
+      INDX=SCR+NSAMPS                                                   ! /* THE AP ADDRESS OF A SCRATCH AREA AFTER THE FILTERED DATA
       INDX=INDX+NZEROS
 C****
 C****  FORM A RAMP FOR THE FRONT OF THE WINDOW AND MULTIPLY AGAINST THE DATA

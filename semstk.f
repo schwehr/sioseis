@@ -36,28 +36,28 @@ C
       ANS=IANS
       SCR=ISCR
       I=0
-   10 CALL VDIV(IDIV,0,STK,1,STK,1,N)                                     /* DIVIDE THE STACKED TRACE
-      CALL SVESQ(STK,1,ANS,N)                                            /* FIND THE ENERGY OF A WINDOW
-      I=I+1                                                              /* INCREMENT THE WINDOW COUNTER
-      IF(I.GE.NDOWS) GO TO 20                                            /* ANY MORE WINDOWS
-      STK=STK+N                                                          /* FIND THE BEGINNING OF THE NEXT WINDOW
-      ANS=ANS+1                                                          /* INCREMENT THE RESULTS ADDRESS
+   10 CALL VDIV(IDIV,0,STK,1,STK,1,N)                                   ! /* DIVIDE THE STACKED TRACE
+      CALL SVESQ(STK,1,ANS,N)                                           ! /* FIND THE ENERGY OF A WINDOW
+      I=I+1                                                             ! /* INCREMENT THE WINDOW COUNTER
+      IF(I.GE.NDOWS) GO TO 20                                           ! /* ANY MORE WINDOWS
+      STK=STK+N                                                         ! /* FIND THE BEGINNING OF THE NEXT WINDOW
+      ANS=ANS+1                                                         ! /* INCREMENT THE RESULTS ADDRESS
       GO TO 10
-   20 ANS=IANS                                                            /* RESET THE ANSWERS ADDRESS TO THE BEGINNING
+   20 ANS=IANS                                                          ! /* RESET THE ANSWERS ADDRESS TO THE BEGINNING
       CALL VDIV(IDIV,1,SEM,1,SEM,1,NDOWS)
-      IF(IFMT.EQ.3) SCR=ANS                                              /* PUT THE QUOTIENT INTO IANS
-      CALL VDIV(SEM,1,ANS,1,SCR,1,NDOWS)                                /* ENERGY OF THE STACKED BY THE MEAN
+      IF(IFMT.EQ.3) SCR=ANS                                             ! /* PUT THE QUOTIENT INTO IANS
+      CALL VDIV(SEM,1,ANS,1,SCR,1,NDOWS)                                ! /* ENERGY OF THE STACKED BY THE MEAN
       IF(IFMT.GE.4) GO TO 100
       IF(IFMT.EQ.3) RETURN
-      CALL VSMUL(SCR,1,NINE,ANS,1,NDOWS)                                 /* MULTIPLY BY THE SCALAR AT NINE
+      CALL VSMUL(SCR,1,NINE,ANS,1,NDOWS)                                ! /* MULTIPLY BY THE SCALAR AT NINE
       IF(IFMT.EQ.2) RETURN
-C   50 CALL VFIX32(ANS,1,ANS,1,ND)                                        /*  FIX AND CONVERT TO 32 BIT INTEGER
+C   50 CALL VFIX32(ANS,1,ANS,1,ND)                                        ! /*  FIX AND CONVERT TO 32 BIT INTEGER
       RETURN
   100 CONTINUE
-      CALL MAXMGV(SCR,1,ISTK,NDOWS)                                      /* FIND THE MAXIMUM VALUE
-      CALL VDIV(ISTK,1,NINE,1,ISTK,1,1)                                  /* DIVIDE THE SCALAR BY THE MAXIMUM
+      CALL MAXMGV(SCR,1,ISTK,NDOWS)                                     ! /* FIND THE MAXIMUM VALUE
+      CALL VDIV(ISTK,1,NINE,1,ISTK,1,1)                                 ! /* DIVIDE THE SCALAR BY THE MAXIMUM
       PRINT *,' **** WRONG PLACE IN SEMSTK!!!!',IFMT
-      CALL VSMUL(SCR,1,ISTK,ANS,1,NDOWS)                                /* MULTIPLY BY THIS MULTIPLIER
+      CALL VSMUL(SCR,1,ISTK,ANS,1,NDOWS)                                ! /* MULTIPLY BY THIS MULTIPLIER
 C      GO TO 50
       RETURN
       END
