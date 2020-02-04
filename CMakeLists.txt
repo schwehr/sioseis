@@ -74,7 +74,7 @@ set(GPROF_FLAGS "-pg")
 #OK if (Fortran_COMPILER_NAME MATCHES "gfortran.*")
   # gfortran
 # Loose
-  set(CMAKE_Fortran_FLAGS         "-Wno-argument-mismatch -ffpe-trap=invalid,zero,overflow -fbacktrace -fno-automatic -finit-local-zero")
+  set(CMAKE_Fortran_FLAGS         "-std=legacy -Wno-argument-mismatch -ffpe-trap=invalid,zero,overflow -fbacktrace -fno-automatic -finit-local-zero")
 # Normal
 #  set(CMAKE_Fortran_FLAGS         "-ffpe-trap=invalid,zero,overflow -fbacktrace -fno-automatic -finit-local-zero -Wall -pedantic")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
@@ -915,9 +915,12 @@ set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}")
       DESTINATION ${CMAKE_INSTALL_LIBDIR}
   )
 
-  # License and README
+  # License, README, and general project documentation
   install(FILES "${CPACK_PACKAGE_DESCRIPTION_FILE}"
                 "${CPACK_RESOURCE_FILE_LICENSE}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/CHANGES"
+                "${CMAKE_CURRENT_SOURCE_DIR}/AUTHOR"
+                "${CMAKE_CURRENT_SOURCE_DIR}/VERSION"
     TYPE DOC
   )
 
