@@ -43,7 +43,7 @@ C
       MULTS=INCRE+1
       NPTS=LEVELS+3
       ICOUNT=0
-100   ICOUNT=ICOUNT+1                                                      /* THE WINDOW COUNTER
+100   ICOUNT=ICOUNT+1                                                   ! /* THE WINDOW COUNTER
       IF(ICOUNT.EQ.1) GO TO 1
       IF(ICOUNT.EQ.2) GO TO 2
       IF(ICOUNT.EQ.3) GO TO 3
@@ -63,26 +63,26 @@ C
       GO TO 200
 C
 C
-200   IF(N.EQ.0) GO TO 500                                                /* ANY MORE WINDOWS
-      CALL MEAMGV(I,1,NEXT1,N)                                            /* FIND THE MEAN ABSOLUTE VALE OF THE WINDOW
-      N=N/2                                                             /* FIND THE CENTER OF THE WINDOW
-      CALL VDIV(NEXT1,0,LEVELS,0,NEXT1,0,1)                             /* CONVERT TO A MULTIPLIER
-      I=I+N                                                             /* THE AP ADDRESS OF THE CENTER OF THE WINDOW
-      IF(ICOUNT.EQ.1) GO TO 400                                          /*  IS IT THE FIRST WINDOW
-      CALL VSUB(NEXT,0,NEXT1,0,INCRE,0,1)                                /* SUBTRACT THE LAST MULTIPLIER
-      CALL VDIV(NPTS,0,INCRE,0,INCRE,0,1)                                /* THE MULTIPLIER INCREMENT BETWEEN WINDOWS
+200   IF(N.EQ.0) GO TO 500                                              ! /* ANY MORE WINDOWS
+      CALL MEAMGV(I,1,NEXT1,N)                                          ! /* FIND THE MEAN ABSOLUTE VALE OF THE WINDOW
+      N=N/2                                                             ! /* FIND THE CENTER OF THE WINDOW
+      CALL VDIV(NEXT1,0,LEVELS,0,NEXT1,0,1)                             ! /* CONVERT TO A MULTIPLIER
+      I=I+N                                                             ! /* THE AP ADDRESS OF THE CENTER OF THE WINDOW
+      IF(ICOUNT.EQ.1) GO TO 400                                         ! /*  IS IT THE FIRST WINDOW
+      CALL VSUB(NEXT,0,NEXT1,0,INCRE,0,1)                               ! /* SUBTRACT THE LAST MULTIPLIER
+      CALL VDIV(NPTS,0,INCRE,0,INCRE,0,1)                               ! /* THE MULTIPLIER INCREMENT BETWEEN WINDOWS
       N=I-LASTI
       NULTS=MULTS-1
       M=N+1
       CALL VRAMP(NULTS,INCRE,NULTS,1,M)
       MULTS=MULTS+N
       LASTI=I
-300   ITEMP=NEXT                                                        /* CHANGE NEXT AND NEXT1
+300   ITEMP=NEXT                                                        ! /* CHANGE NEXT AND NEXT1
       NEXT=NEXT1
       NEXT1=ITEMP
-      LEVELS=LEVELS+1                                                   /*  POINT TO THE NEXT WINDOW LEVEL
+      LEVELS=LEVELS+1                                                   ! /*  POINT TO THE NEXT WINDOW LEVEL
       NPTS=NPTS+1
-      GO TO 100                                                         /* GO DO THE NEXT WINDOW
+      GO TO 100                                                         ! /* GO DO THE NEXT WINDOW
 C
 C    DO THE FIRST WINDOW - THE BEGINNING TOF THE CENTER OF THE FIRST WINDOW
 C     GET THE SAME MULTIPLIER
@@ -90,15 +90,15 @@ C
 400   N=I-ITRACE
       LASTI=ITRACE+N
       N=N+1
-      CALL VFILL(NEXT1,MULTS,1,N)                                       /* FILL FROM THE BEGINNING OF THE TRACE
+      CALL VFILL(NEXT1,MULTS,1,N)                                       ! /* FILL FROM THE BEGINNING OF THE TRACE
       MULTS=MULTS+N
       GO TO 300
 C
 C     DO THE LAST WINDOW - FROM THE CENTER OF THE LAST WINDOW TO THE END
 C      OF THE TRACE GET THE SAME MULTIPLIER
 C
-500   N=NSAMPS-LASTI                                                    /* DO THE LAST WINDOW
-      N=N-ITRACE                                                        /* USE THE LAST MULTIPLIER UNTIL THE END OF THE TRACE
+500   N=NSAMPS-LASTI                                                    ! /* DO THE LAST WINDOW
+      N=N-ITRACE                                                        ! /* USE THE LAST MULTIPLIER UNTIL THE END OF THE TRACE
       N=N+1
       NULTS=MULTS-1
       CALL VFILL(NULTS,MULTS,1,N)

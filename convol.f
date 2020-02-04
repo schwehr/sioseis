@@ -56,32 +56,32 @@ C                 =1,  THE DATA CAN BE LEFT IN THE AP WITHOUT AN APGET
 C****
 C****
 C****
-      IPAD1=IN                                                          /* SET UP THE ADDRESS OF THE INPUT DATA IN THE AP
+      IPAD1=IN                                                          ! /* SET UP THE ADDRESS OF THE INPUT DATA IN THE AP
       IF(IN.EQ.0) IPAD1=1
       ITEMP=ITYPE+3
       GO TO (110,120,120,120,130), ITEMP
-  110 NZEROS=NFPTS/2                                                     /*  PARTIAL CONVOLUTION
-  111 IDATA=NZEROS+IPAD1                                                  /*  THE ADDRESS OF THE DATA IN THE AP
-      IPAD2=IDATA+NSAMPS                                                /*  THE ADDRESS OF THE BACK END PAD
-      IAPFLT=IPAD2+NZEROS                                                /*  THE ADDRESS OF THE FILTER IN THE AP
-      CALL VMOV(IN+NSAMPS-1,-1,IDATA+NSAMPS-1,-1,nsamps)                 /* MOVE THE DATA FOR  PAD
-      CALL VCLR(IPAD1,1,NZEROS)                                          /* CREATE THE PAD
+  110 NZEROS=NFPTS/2                                                    ! /*  PARTIAL CONVOLUTION
+  111 IDATA=NZEROS+IPAD1                                                ! /*  THE ADDRESS OF THE DATA IN THE AP
+      IPAD2=IDATA+NSAMPS                                                ! /*  THE ADDRESS OF THE BACK END PAD
+      IAPFLT=IPAD2+NZEROS                                               ! /*  THE ADDRESS OF THE FILTER IN THE AP
+      CALL VMOV(IN+NSAMPS-1,-1,IDATA+NSAMPS-1,-1,nsamps)                ! /* MOVE THE DATA FOR  PAD
+      CALL VCLR(IPAD1,1,NZEROS)                                         ! /* CREATE THE PAD
       GO TO 180
-  120 NZEROS=NFPTS-1                                                     /*  FULL CONVOLUTION AND CORRELATION
+  120 NZEROS=NFPTS-1                                                    ! /*  FULL CONVOLUTION AND CORRELATION
       GO TO 111
-  130 NZEROS=NFPTS-1                                                     /*  HALF CORRELATION
-      IDATA=IPAD1                                                       /*  DON'T NEED A FRONT END PAD
-      IPAD2=IDATA+NSAMPS                                                /*  ADDRESS OF THE BACKEND PAD
-      IAPFLT=IPAD2+NZEROS                                               /*  ADDRESS OF THE FILTER IN THE AP
-  180 CALL VCLR(IPAD2,1,NZEROS)                                         /* START THE BACK END PAD
-      CALL APPUT(FILTER,IAPFLT,NFPTS,2)                                 /*  START THE FILTER INTO THE AP
-      INC=1                                                              /* THE DATA INCREMENT FOR CORRELATION
-      IADDR=IAPFLT                                                      /* THE DATA ADDRESS FOR CORRELATION
+  130 NZEROS=NFPTS-1                                                    ! /*  HALF CORRELATION
+      IDATA=IPAD1                                                       ! /*  DON'T NEED A FRONT END PAD
+      IPAD2=IDATA+NSAMPS                                                ! /*  ADDRESS OF THE BACKEND PAD
+      IAPFLT=IPAD2+NZEROS                                               ! /*  ADDRESS OF THE FILTER IN THE AP
+  180 CALL VCLR(IPAD2,1,NZEROS)                                         ! /* START THE BACK END PAD
+      CALL APPUT(FILTER,IAPFLT,NFPTS,2)                                 ! /*  START THE FILTER INTO THE AP
+      INC=1                                                             ! /* THE DATA INCREMENT FOR CORRELATION
+      IADDR=IAPFLT                                                      ! /* THE DATA ADDRESS FOR CORRELATION
       IF(ITYPE.GE.0) GO TO 200
-      INC=-1                                                            /* THE INC FOR CONVOLUTION
+      INC=-1                                                            ! /* THE INC FOR CONVOLUTION
       IADDR=IAPFLT+NFPTS-1
   200 CONTINUE
-      CALL APWAIT                                                        /* WAIT FOR THE DATA TRANSFERS AND CLEARING TO FINISH
+      CALL APWAIT                                                       ! /* WAIT FOR THE DATA TRANSFERS AND CLEARING TO FINISH
       CALL CONV(IPAD1,1,IADDR,INC,IPAD1,1,NOUT,NFPTS)
       IN=IPAD1
       RETURN

@@ -2,7 +2,7 @@
 C     PLOTVS PLOTS THE VELOCITY SPECTRA COMMON ARRAY VELDAT ON THE LINE PRINTER.
 c  mod 17 Oct 95 - The grid was off by 1
 c
-      PARAMETER (NLINES=56)                                              /* NUMBER OF USABLE LINES OF PRINT PER PAGE
+      PARAMETER (NLINES=56)                                             ! /* NUMBER OF USABLE LINES OF PRINT PER PAGE
       COMMON /VELDAT/IA(900)
       CHARACTER*132 IA
       SAVE
@@ -27,7 +27,7 @@ C
       N2=I-1
    70 CONTINUE
    80 FORMAT(8X,I4,10(6X,I4))
-      NPRTED=13                                                          /* INVPLT PRINTS 13 LINES
+      NPRTED=13                                                         ! /* INVPLT PRINTS 13 LINES
       T=TIME
       DO 100 I=1,NTIMES
       PRINT 90,T, IA(I)(1:NCOLS)
@@ -40,8 +40,8 @@ c      PRINT 95
    95 FORMAT(21('+    '))
       PRINT 96, ia(1)(1:ncols)
    96 FORMAT(10X,A)
-      PRINT 80,(JBUF(J),J=1,N2)                                          /*  PRINT THE VELOCITIES
-      PRINT 80,(JBUF(J),J=1,N2)                                          /* PRINT THE VELOCITIES
+      PRINT 80,(JBUF(J),J=1,N2)                                         ! /*  PRINT THE VELOCITIES
+      PRINT 80,(JBUF(J),J=1,N2)                                         ! /* PRINT THE VELOCITIES
       PRINT 96, ia(1)(1:ncols)
       NPRTED=2
   100 CONTINUE

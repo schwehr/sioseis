@@ -25,7 +25,7 @@ C****
       DATA N/0/, rmult1/0./
       PEAK=0.
       TROUGH=0.
-      IF(RMULT1.NE.0.) RMULT=RMULT1                                      /* TRPLOT4 SAVES THE ORIGINAL VALUE OF RMULT
+      IF(RMULT1.NE.0.) RMULT=RMULT1                                     ! /* TRPLOT4 SAVES THE ORIGINAL VALUE OF RMULT
       IF(RMULT.LE.0.) GO TO 5
       X=RMULT
       GO TO 205
@@ -46,7 +46,7 @@ c  100 CONTINUE
          ENDIF
       ENDDO
       GO TO (200,300), ITYPE
-  200 IF(PEAK.EQ.0.) RETURN                                              /* WHY MULTIPLY EVERYTHING BY 0
+  200 IF(PEAK.EQ.0.) RETURN                                             ! /* WHY MULTIPLY EVERYTHING BY 0
       X=DEF/PEAK
   205 CONTINUE
       IF(RMULT.LT.0.) GO TO 206
@@ -60,7 +60,7 @@ c  100 CONTINUE
   210 TRACE(I)=TRACE(I)*X
       RETURN
   300 CONTINUE
-      IF(PEAK-TROUGH.EQ.0.) RETURN                                       /* WHY MULTIPLY BY ZEROES
+      IF(PEAK-TROUGH.EQ.0.) RETURN                                      ! /* WHY MULTIPLY BY ZEROES
       X=DEF/AMAX1(ABS(PEAK),ABS(TROUGH))
       GO TO 205
       END

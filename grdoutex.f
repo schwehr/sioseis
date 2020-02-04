@@ -31,18 +31,18 @@ c  bytes 321 - 640(417 - 736) = ASCII  GMT commands, 1 per 80 characters
 c  bytes 641 - 800(737 - 896) = ASCII  comments
 c
 c*****   grd version 2
-c/* This section is flexible. It is not copied to any grid header */
+c! /* This section is flexible. It is not copied to any grid header */
 c  bytes 1 - 4    = integer*4  nx
 c  bytes 5 - 8    = integer*4  ny
 c  bytes 9 - 12   = integer*4  node offset
-c  bytes 13 - 16 = integer*4  type      /* Grid format  *
-c  bytes 17 - 272 = character*256  name    /* Actual name of the file after any =<stuff> has been removed */
-c  bytes 273 - 276 int y_order;                    /* NetCDF: 1 if S->N, -1 if N->S */
-c  bytes 277 - 280 int z_id;                       /* NetCDF: id of z field */
-c  bytes 281 - 284 int ncid;                       /* NetCDF: file ID */
-c  bytes 285 - 288 int t_index[3];                 /* NetCDF: index of higher coordinates */
-c  bytes 289 - 296 double nan_value;               /* Missing value as stored in grid file */
-c  bytes 297 - 312 double xy_off;                  /* 0.0 (node_offset == 0) or 0.5 ( == 1) */
+c  bytes 13 - 16 = integer*4  type      ! /* Grid format  *
+c  bytes 17 - 272 = character*256  name    ! /* Actual name of the file after any =<stuff> has been removed */
+c  bytes 273 - 276 int y_order;                    ! /* NetCDF: 1 if S->N, -1 if N->S */
+c  bytes 277 - 280 int z_id;                       ! /* NetCDF: id of z field */
+c  bytes 281 - 284 int ncid;                       ! /* NetCDF: file ID */
+c  bytes 285 - 288 int t_index[3];                 ! /* NetCDF: index of higher coordinates */
+c  bytes 289 - 296 double nan_value;               ! /* Missing value as stored in grid file */
+c  bytes 297 - 312 double xy_off;                  ! /* 0.0 (node_offset == 0) or 0.5 ( == 1) */
 c  bytes 305 - 320 = real*8 xmin
 c  bytes 313 - 328 = real*8 xmax
 c  bytes 321 - 336 = real*8 ymin

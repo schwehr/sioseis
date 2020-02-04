@@ -203,13 +203,13 @@ C*** ADDED SEGY OUTPUT FOR SEMBLANCE TO FACILITATE PLOTTING & PICKING
 c   mod Oct 95 - change vtuple preset
 c   mod 15 Jan 02 - Linux needed the null terminator on OPATH
 c
-      PARAMETER (NPARS=14)                                               /* THE NUMBER OF USER PARAMETERS
-      PARAMETER (MULTIV=10)                                              /* THE FIRST MULTI-VALUED PARAMETER IN THE NAMES ARRAY
-      PARAMETER (MAXBOU=30)                                              /* MOST BOUNDS THAT MAY BE GIVEN
-      PARAMETER (MAXVEL=21)                                              /* THE MAXIMUM NUMBER OF ENTRIES IN THE VELS LIST
+      PARAMETER (NPARS=14)                                              ! /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (MULTIV=10)                                             ! /* THE FIRST MULTI-VALUED PARAMETER IN THE NAMES ARRAY
+      PARAMETER (MAXBOU=30)                                             ! /* MOST BOUNDS THAT MAY BE GIVEN
+      PARAMETER (MAXVEL=21)                                             ! /* THE MAXIMUM NUMBER OF ENTRIES IN THE VELS LIST
       PARAMETER (IVEL=NPARS+1)
       PARAMETER (IVTUPL=NPARS+MAXVEL+MAXBOU+1)
-      PARAMETER (NWRDS=MAXVEL+NPARS+MAXBOU+3)                           /* THE NUMBER OF PARAMETERS IN EACH PARAMETER DISC FILE
+      PARAMETER (NWRDS=MAXVEL+NPARS+MAXBOU+3)                           ! /* THE NUMBER OF PARAMETERS IN EACH PARAMETER DISC FILE
       EQUIVALENCE (VALS(1),LVALS(1))
       COMMON /VELAN/ MUNIT,NLISTS,IVELU1,IVELU2,ivelu3
       COMMON /VPLT/ IALPHA(50)
@@ -264,7 +264,7 @@ c     2            (TYPE,LVALS(2)),
 C****
 C****      SET THE PRESETS
 C****
-      DO 10 I=1,10                                                      /* PRESET THE CHAR ARRAY (IARRAY) TO '0','1','2',....'9'
+      DO 10 I=1,10                                                      ! /* PRESET THE CHAR ARRAY (IARRAY) TO '0','1','2',....'9'
    10 WRITE(IALPHA(I),11) I-1
    11 FORMAT(I1)
       DO 12 i = 11, 50
@@ -299,22 +299,22 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-  110 CALL UPCASE(TOKEN,NCHARS)                                          /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+  110 CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF(NCHARS.GT.0) GO TO 150
       IF(NOW.EQ.1) PRINT 140
   140 FORMAT(' <  ENTER PARAMETERS  >')
-      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER USER PARAMETER LINE
       NTOKES=0
       GO TO 100
   150 CONTINUE
       NTOKES=NTOKES+1
-      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-      IPARAM=I                                                          /* SAVE THE INDEX
+      DO 190 I=1,NPARS                                                  ! /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                     ! /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          ! /* SAVE THE INDEX
       IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LIST?
       IF(NS+nc.NE.0) GO TO 230
       PRINT 191, TOKEN(1:NCHARS)
   191 FORMAT(' ***  ERROR  *** VELAN DOES NOT HAVE A PARAMETER ',
@@ -327,12 +327,12 @@ C****
   200 CONTINUE
       NS=0
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 230                                         /* END OF LINE?
-      IF(NOW.EQ.1) PRINT 140                                            /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      IF(NCHARS.GT.0) GO TO 230                                         ! /* END OF LINE?
+      IF(NOW.EQ.1) PRINT 140                                            ! /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 210
   230 CONTINUE
@@ -382,7 +382,7 @@ C*** SINCE SOME VALUES LIKE NSAMPS & DELTAT CHANGE FOR SEMBLANCE
               GOTO 100
           ENDIF
           IALPHA(nc) = TOKEN(1:1)
-          IF( NCHARS .GT. 1 ) IALPHA(nc)=' '                             /* WAS IT A "BLANK"?
+          IF( NCHARS .GT. 1 ) IALPHA(nc)=' '                            ! /* WAS IT A "BLANK"?
   235     CALL getoke( token, nchars )
           IF( nchars .EQ. 0 ) THEN
               CALL rdline
@@ -394,13 +394,13 @@ C*** SINCE SOME VALUES LIKE NSAMPS & DELTAT CHANGE FOR SEMBLANCE
       ENDIF
   240 CONTINUE
       CALL UPCASE(TOKEN,NCHARS)
-      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
-      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          ! /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                   ! /* DCODE PRINTED AN ERROR
       GO TO 100
   420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
-      IF(NPARAM.LT.MULTIV) GO TO 490                                     /*  IS IT A MULTIVALUED PARAMETER
-      NS=NS+1                                                            /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
+      IF(NPARAM.LT.MULTIV) GO TO 490                                    ! /*  IS IT A MULTIVALUED PARAMETER
+      NS=NS+1                                                           ! /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
       VALS(NPARAM)=1.
       IF(NAMES(NPARAM).EQ.'VELS') THEN
            ITEMP=0
@@ -413,15 +413,15 @@ C*** SINCE SOME VALUES LIKE NSAMPS & DELTAT CHANGE FOR SEMBLANCE
       IF(NAMES(NPARAM).EQ.'VTUPLE') ITEMP=maxvel+MAXBOU
       BUF(NPARS+NS+ITEMP)=AREAL
       GO TO 100
-  490 VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+  490 VALS(NPARAM)=AREAL                                                ! /*  FLOATING POINT VALUES
       GO TO 100
-  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+  500 CONTINUE                                                          ! /*  32 BIT INTEGER VALUES
       LVALS(NPARAM)=AREAL
       GO TO 100
 C****
 C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
- 1000 CONTINUE                                                           /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
+ 1000 CONTINUE                                                          ! /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
       IF(TYPE.EQ.'CVEL'.OR.TYPE.EQ.'SPEC') GO TO 1020
       PRINT 1010,TYPE
  1010 FORMAT('  ***  ERROR  ***  ILLEGAL TYPE ',A4)
@@ -443,7 +443,7 @@ C****
  1135 FORMAT(' ***  ERROR   ***   ALL VELS MUST LIE IN VTUPLE RANGE.')
       IERROR=IERROR+1
  1140 CONTINUE
-c      IF(BUF(IVTUPL).LE.0.) BUF(IVTUPL)=BUF(IVEL)                        /* PRESET THE VTUPLE ARRAY
+c      IF(BUF(IVTUPL).LE.0.) BUF(IVTUPL)=BUF(IVEL)                        ! /* PRESET THE VTUPLE ARRAY
 c      IF(BUF(IVTUPL+1).LE.0.) BUF(IVTUPL+1)=BUF(IVEL+NVELS-1)
 c      IF(BUF(IVTUPL+2).LE.0.) BUF(IVTUPL+2)=101.
       IF( BUF(IVTUPL) .NE. 0. .AND. BUF(IVTUPL) .GE. BUF(IVTUPL+1)) THEN
@@ -497,8 +497,8 @@ C****
       IF(STAPER.LT.0.AND.REFRAC.EQ.0.) STAPER=0
       IF(STAPER.LT.0.AND.REFRAC.NE.0.) STAPER=3
       LBUF(9)=STAPER
-      IF(TTAPER.LT.0..AND.REFRAC.EQ.0.) TTAPER=0.                        /* PRESET FOR NORMAL INCIDENCE
-      IF(TTAPER.LT.0..AND.REFRAC.NE.0.) TTAPER=.2                        /* PRESET FOR REFRACTION
+      IF(TTAPER.LT.0..AND.REFRAC.EQ.0.) TTAPER=0.                       ! /* PRESET FOR NORMAL INCIDENCE
+      IF(TTAPER.LT.0..AND.REFRAC.NE.0.) TTAPER=.2                       ! /* PRESET FOR REFRACTION
       BUF(10)=TTAPER
 C***GMK PASS BINARY FLAG TO TELL EX WHETHER SEGY OR ASCII FILE IS DESIRED
 C***PARAMETER IS PASSED AS 11th VARIABLE, 14 IS THE LIMIT, BEWARE
@@ -516,15 +516,15 @@ C***PARAMETER IS PASSED AS 11th VARIABLE, 14 IS THE LIMIT, BEWARE
       CALL WRDISC(MUNIT,BUF,NWRDS)
       NLISTS=NLISTS+1
       LLNO=LNO
-      LNO=32768                                                          /* DEFAULT THE DEFAULTS
+      LNO=32768                                                         ! /* DEFAULT THE DEFAULTS
       NS=0
       NVELS=0
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NCHARS.GT.0) GO TO 2030                                        ! /* WAS IT THE END OF A LINE?
       IF(NOW.EQ.1) PRINT 140
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 2020
  2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
@@ -535,5 +535,5 @@ C****
       CALL GETFIL(1,IVELU2,token,ISTAT)
 C****
 C****
-      RETURN                                                             /*  FINISHED ALL OF THE VELAN PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE VELAN PARAMETERS!!!
       END

@@ -33,29 +33,29 @@ C
       SCR2=I8
       WINL2=WINLEN/2
       N=NOUT-NADD
-      N=N-WINLEN                                                          /* THE NUMBER OF WINDOWS IN THE TRACE
-      ISTART=IN+NADD                                                    /* THE FIRST LIVE VALUE IN THE TRACE
+      N=N-WINLEN                                                        ! /* THE NUMBER OF WINDOWS IN THE TRACE
+      ISTART=IN+NADD                                                    ! /* THE FIRST LIVE VALUE IN THE TRACE
       I=0
-10    CALL SVEMG(ISTART,1,SCR1,WINLEN)                                    /* CALCULATE THE SUM OF THE MAGNITUDES
+10    CALL SVEMG(ISTART,1,SCR1,WINLEN)                                  ! /* CALCULATE THE SUM OF THE MAGNITUDES
       I=I+1
       ISTART=ISTART+1
-      SCR1=SCR1+1                                                        /* PUT THE NEXT RESULT IN THE NEXT AP LOCATION
+      SCR1=SCR1+1                                                       ! /* PUT THE NEXT RESULT IN THE NEXT AP LOCATION
       IF(I.LT.N) GO TO 10
-      SCR1=I7                                                           /* THE BEGINNING OF THE SCRATCH ARRAY
-      CALL VSMUL(SCR1,1,PARAMS,SCR1,1,N)                                /* DIVIDE THE BY N TO MAKE IT THE AVE
+      SCR1=I7                                                           ! /* THE BEGINNING OF THE SCRATCH ARRAY
+      CALL VSMUL(SCR1,1,PARAMS,SCR1,1,N)                                ! /* DIVIDE THE BY N TO MAKE IT THE AVE
       IADD=PARAMS+1
       OLEVEL=PARAMS+2
-      CALL VFILL(OLEVEL,SCR2,1,N)                                        /* MAKE A VECTOR OF THE OUTPUT LEVELS
-      CALL VSADD(SCR1,1,IADD,SCR1,1,N)                                  /* MAKE SURE WE DON'T DIVIDE BY ZERO
-      CALL VDIV(SCR1,1,SCR2,1,SCR1,1,N)                                 /* DIVIDE THE OLEVEL BY THE AVERAGE
+      CALL VFILL(OLEVEL,SCR2,1,N)                                       ! /* MAKE A VECTOR OF THE OUTPUT LEVELS
+      CALL VSADD(SCR1,1,IADD,SCR1,1,N)                                  ! /* MAKE SURE WE DON'T DIVIDE BY ZERO
+      CALL VDIV(SCR1,1,SCR2,1,SCR1,1,N)                                 ! /* DIVIDE THE OLEVEL BY THE AVERAGE
       M=NADD+WINL2
       CALL VFILL(SCR1,SCR2,1,M)
       NEXT=SCR2+M
-      CALL VMOV(SCR1,1,NEXT,1,N)                                        /* MOVE THE MULTIPLIERS
+      CALL VMOV(SCR1,1,NEXT,1,N)                                        ! /* MOVE THE MULTIPLIERS
       LAST=SCR1+N
       LAST=LAST-1
       NEXT=NEXT+N
-      CALL VFILL(LAST,NEXT,1,WINL2)                                      /* FILL THE LAST HALF OF THE LAST WINDOW
+      CALL VFILL(LAST,NEXT,1,WINL2)                                     ! /* FILL THE LAST HALF OF THE LAST WINDOW
       CALL VMUL(SCR2,1,IN,1,OUT,1,NOUT)
       RETURN
       END

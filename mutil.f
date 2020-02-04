@@ -9,10 +9,10 @@ C
 C    PAUL HENKART S.I.O. JUNE 20,1978
 C
 C
-      PARAMETER (NTYPES=20)                                              /* THE NUMBER OF COMMANDS
+      PARAMETER (NTYPES=20)                                             ! /* THE NUMBER OF COMMANDS
       COMMON /IBUF5/IBUF5(15000),IBUF4(15000)
       DIMENSION OBUF(1),LOBUF(1),IOBUF(1)
-      DIMENSION IASGND(10)                                               /* KEEP TRACK OF THE TAPE DRIVES WE'VE ASSIGNED
+      DIMENSION IASGND(10)                                              ! /* KEEP TRACK OF THE TAPE DRIVES WE'VE ASSIGNED
       INTEGER*2 IOBUF
       EQUIVALENCE (OBUF(1),IBUF5(1)),(LOBUF(1),IBUF5(1)),
      *    (IOBUF(1),IBUF5(1))
@@ -27,26 +27,26 @@ C
       DATA hex/'0','1','2','3','4','5','6','7',
      *         '8','9','A','B','C','D','E','F'/
       DATA IUNIT/0/, NRECS/0/, NWRDS/20000/, icount/1/
-      DATA JTYPE/ 'HE',                                                 /* HELP - LIST THE COMMANDS
-     2        'SF',                                                     /*  SKIP FILE     - MEANS BACKWARD
-     3        'SR',                                                     /*  SKIP RECORD
-     4        'RW',                                                     /*  REWIND
-     5        'WE',                                                     /*   WRITE EOF
-     6        'RD',                                                     /*    READ N RECORDS
-     7        'WR',                                                     /*   WRITE N RECORDS
-     8        'TT',                                                     /*  TEST TAPE OPTION
-     9        'DI',                                                     /*  DUMP N WORDS IN I FORMAT
-     *        'DF',                                                     /*  DUMP N WORDS IN F FORMAT
-     1        'DA',                                                     /*  DUMP N WORDS IN 40A2 FORMAT
-     2        'DE',                                                     /* CONVERT FROM EBCDIC AND PRINT
-     3        'DL',                                                     /*  DUMP N  INT*4 WORDS IN I10 FORMAT
-     4        'CU',                                                     /*  CHANGE UNIT TO PLAY WITH
-     5        'DM',                                                     /*  DUMP IBM 360 FLOATING VALUES
-     6        'S1',                                                     /*  swap 16 bit integers
-     7        'S3',                                                     /*  swap 32 bit integers
-     8        'QU',                                                     /*  QUIT
-     9        'UN',                                                     /*  unassign the tape
-     *        'DZ'/                                                     /* dump in HEX or packed BCD
+      DATA JTYPE/ 'HE',                                                 ! /* HELP - LIST THE COMMANDS
+     2        'SF',                                                     ! /*  SKIP FILE     - MEANS BACKWARD
+     3        'SR',                                                     ! /*  SKIP RECORD
+     4        'RW',                                                     ! /*  REWIND
+     5        'WE',                                                     ! /*   WRITE EOF
+     6        'RD',                                                     ! /*    READ N RECORDS
+     7        'WR',                                                     ! /*   WRITE N RECORDS
+     8        'TT',                                                     ! /*  TEST TAPE OPTION
+     9        'DI',                                                     ! /*  DUMP N WORDS IN I FORMAT
+     *        'DF',                                                     ! /*  DUMP N WORDS IN F FORMAT
+     1        'DA',                                                     ! /*  DUMP N WORDS IN 40A2 FORMAT
+     2        'DE',                                                     ! /* CONVERT FROM EBCDIC AND PRINT
+     3        'DL',                                                     ! /*  DUMP N  INT*4 WORDS IN I10 FORMAT
+     4        'CU',                                                     ! /*  CHANGE UNIT TO PLAY WITH
+     5        'DM',                                                     ! /*  DUMP IBM 360 FLOATING VALUES
+     6        'S1',                                                     ! /*  swap 16 bit integers
+     7        'S3',                                                     ! /*  swap 32 bit integers
+     8        'QU',                                                     ! /*  QUIT
+     9        'UN',                                                     ! /*  unassign the tape
+     *        'DZ'/                                                     ! /* dump in HEX or packed BCD
       PRINT *,' MUTIL - A tape utilty program useful for manipulating'
       PRINT *,' and examining mag tapes.  The program is driven by two'
       PRINT *,' letter commands followed by the number of items to be'
@@ -54,23 +54,23 @@ C
       NWRDSS=NWRDS
   105 PRINT 110
   110 FORMAT(' Enter the device name: (/dev/rmt0)')
-      CALL RDLINE                                                        /* READ A LINE FROM THE USER
-      CALL GETOKE( token, NCHAR )                                       /* GET A TOKEN
-      IF(NCHAR.EQ.0) GO TO 105                                          /* DID THE USER GIVE ANYTHING?
+      CALL RDLINE                                                       ! /* READ A LINE FROM THE USER
+      CALL GETOKE( token, NCHAR )                                       ! /* GET A TOKEN
+      IF(NCHAR.EQ.0) GO TO 105                                          ! /* DID THE USER GIVE ANYTHING?
       IUNIT = 0
       CALL astapef77( iunit, token, istat )
   111 PRINT 1
     1 FORMAT (' ENTER A COMMAND - he dl di da de dm dz rd rw wr we sr',
      *     ' sf cu s1 s3 un qu')
-      CALL RDLINE                                                        /*  READ A LINE OF INPUT FROM THE USER
-      CALL GETOKE(ITYPE,NCHART)                                          /* GET THE FIRST TOKEN INTO STRING ITYPE
-      IF(NCHART.EQ.0) GO TO 111                                          /* TRY AGAIN IF NO CHARACTERS INPUT
-      CALL GETOKE(M,NCHAR)                                              /* GET THE NUMBER OF THINGS TO DO
-      N=1                                                               /* PRESET THE NUMBER OF THINGS TO DO
+      CALL RDLINE                                                       ! /*  READ A LINE OF INPUT FROM THE USER
+      CALL GETOKE(ITYPE,NCHART)                                         ! /* GET THE FIRST TOKEN INTO STRING ITYPE
+      IF(NCHART.EQ.0) GO TO 111                                         ! /* TRY AGAIN IF NO CHARACTERS INPUT
+      CALL GETOKE(M,NCHAR)                                              ! /* GET THE NUMBER OF THINGS TO DO
+      N=1                                                               ! /* PRESET THE NUMBER OF THINGS TO DO
       IF(NCHAR.EQ.0) GO TO 120
       CALL DCODE(M,NCHAR,AREAL,ISTAT)
-      IF(ISTAT.NE.2) GO TO 111                                          /* WAS THERE AN ERROR?
-      N=AREAL                                                           /* FIX THE RESULT
+      IF(ISTAT.NE.2) GO TO 111                                          ! /* WAS THERE AN ERROR?
+      N=AREAL                                                           ! /* FIX THE RESULT
   120 CALL upcase(itype,nchart)
       DO 121 I=1,NTYPES
       NUMBER=I
@@ -144,7 +144,7 @@ C
 C
  9999 STOP
 C
- 2100 CONTINUE                                                           /*  LIST ALL THE COMMANDS
+ 2100 CONTINUE                                                          ! /*  LIST ALL THE COMMANDS
       print *,' TUTIL operates with one memory buffer.  This buffer '
       PRINT *,' is filled with zeroes before each tape record is read.'
       PRINT 2101
@@ -174,7 +174,7 @@ C
       GO TO 111
 CC
 C
- 2200 CONTINUE                                                           /*  SKIP FILE
+ 2200 CONTINUE                                                          ! /*  SKIP FILE
       IFUN=22
       IF(N.LT.0) IFUN=24
       MM=IABS(N)
@@ -193,7 +193,7 @@ C
       GO TO 111
 C
 C
- 2300 CONTINUE                                                           /*  SKIP RECORDS
+ 2300 CONTINUE                                                          ! /*  SKIP RECORDS
       IFUN=23
       ISTAT=0
       IF(N.LT.0) IFUN=25
@@ -209,7 +209,7 @@ C
  2400 CONTINUE
       PRINT 2401
  2401 FORMAT(' REWINDING')
-      CALL MAGTAPf77(IUNIT,IDUM,IDUM,30,ISTAT)                              /* REWIND
+      CALL MAGTAPf77(IUNIT,IDUM,IDUM,30,ISTAT)                          ! /* REWIND
       if(istat.eq.0) go to 111
       IF(ISTAT.EQ.-3) GO TO 111
       PRINT 2410,ISTAT
@@ -218,7 +218,7 @@ C
 C
 C
 C
- 2500 CONTINUE                                                             /*  WRITE EOF
+ 2500 CONTINUE                                                          ! /*  WRITE EOF
       DO 2550 I=1,N
       CALL MAGTAPf77(IUNIT,IDUM,IDUM,32,ISTAT)
       IF(ISTAT.GE.0) GO TO 2550
@@ -232,7 +232,7 @@ C
 C
 C
 C
- 2600 CONTINUE                                                            /*   READ N RECORDS
+ 2600 CONTINUE                                                          ! /*   READ N RECORDS
       NWRD=NWRDS
       DO 2650 I=1,N
       IFUNC=21
@@ -246,16 +246,16 @@ C
  2610 FORMAT(' ***  ERROR  ***  THE',I4,' READ ABORTED WITH STATUS=',I6)
       GO TO 111
  2640 PRINT 2641,I,ISTAT
-      MWRDS=ISTAT                                                        /* SET UP THE NUMBER OF WORDS TO WRITE
+      MWRDS=ISTAT                                                       ! /* SET UP THE NUMBER OF WORDS TO WRITE
  2641 FORMAT(1X,' THE ',I4,' TAPE RECORD HAD ',I6,' WORDS')
  2650 CONTINUE
       GO TO 111
 C
 C
 C
- 2700 CONTINUE                                                           /* WRITE N RECORDS
+ 2700 CONTINUE                                                          ! /* WRITE N RECORDS
       NWRD=4000
-      IF(MWRDS.GT.0) NWRD=MWRDS                                          /* WRITE THE NUMBER OF WORDS LAST READ, THUS
+      IF(MWRDS.GT.0) NWRD=MWRDS                                         ! /* WRITE THE NUMBER OF WORDS LAST READ, THUS
 C     ALLOWING A ONE RECORD TAPE COPY BY DOING A RD FOLLOWED BY A CU BY A WR
       DO 2750 I=1,N
       ibuf5(1) = icount
@@ -292,7 +292,7 @@ C
 C    DUMP N WORDS IN 20A4 FORMAT
 C
  3040 CONTINUE
-      NN=N/4                                                            /* THE NUMBER OF 32 BIT WORDS
+      NN=N/4                                                            ! /* THE NUMBER OF 32 BIT WORDS
       PRINT 3050, (IBUF5(I),I=1,NN)
  3050 FORMAT(1X,20A4)
       GO TO 111
@@ -300,7 +300,7 @@ C
 C     CONVERT FROM EBCDIC AND PRINT IN 50A2 FORMAT
 C
  3070 CONTINUE
-      NN=N/4                                                            /* THE NUMBER OF INTEGER*4 WORDS TO DUMP
+      NN=N/4                                                            ! /* THE NUMBER OF INTEGER*4 WORDS TO DUMP
       CALL EBCASC(IBUF5,N,IBUF4)
       PRINT 3050, (IBUF4(I),I=1,NN)
       GO TO 111
@@ -308,8 +308,8 @@ C
 C
  3100 CONTINUE
       IUNIT=N
-      IF(IASGND(IUNIT+1).GE.0) GO TO 111                                 /* IS THE TAPE DRIVE ALREADY ASSIGNED?
-      CALL ASTAPEf77(IUNIT,m,1)                                             ! open it for read an write
+      IF(IASGND(IUNIT+1).GE.0) GO TO 111                                ! /* IS THE TAPE DRIVE ALREADY ASSIGNED?
+      CALL ASTAPEf77(IUNIT,m,1)                                         ! open it for read an write
       IASGND(IUNIT+1)=IUNIT
       GO TO 111
 C
@@ -334,7 +334,7 @@ c****   Unassign the tape drive
 c****
  3500 CONTINUE
       jstat = freetpf77(iunit)
-      iasgnd(iunit+1) = 0                                                /* clear the assignment table entry
+      iasgnd(iunit+1) = 0                                               ! /* clear the assignment table entry
       GOTO 111
 c****
 c****    Dump in HEX

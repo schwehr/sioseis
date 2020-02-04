@@ -31,9 +31,9 @@ c  mod 7 Jan 09 - Drop the window if the beginning is the same as the end
 c                 or the beginning = nsamps
 C
 C
-      PARAMETER (MAX=8)                                                  /* THE MAXIMUM NUMBER OF ELEMENTS OF THE USER ARRAY SETS
-      PARAMETER (MAX2=MAX+2)                                            /* TOO BAD FTN DOESN'T LIKE DIMENSION LEVS(MAX+2)
-      PARAMETER (NWRDS=18)                                              /* THE LENGTH OF EACH PARAMETER LIST
+      PARAMETER (MAX=8)                                                 ! /* THE MAXIMUM NUMBER OF ELEMENTS OF THE USER ARRAY SETS
+      PARAMETER (MAX2=MAX+2)                                            ! /* TOO BAD FTN DOESN'T LIKE DIMENSION LEVS(MAX+2)
+      PARAMETER (NWRDS=18)                                              ! /* THE LENGTH OF EACH PARAMETER LIST
       DIMENSION BUF(1111),LBUF(1111),IBUF(1111),SCR(1111),LSCR(1111)
       INTEGER*2 IBUF
       DIMENSION OLD(MAX),CUR(MAX),LEVS(MAX2),INDXS(MAX2)
@@ -49,44 +49,44 @@ C
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
       ndone = ndone + 1
       last = 0
       IF( hold .GT. 0 .AND. ndone .GT. hold ) last = hold
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE                                                          /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
-      CALL PODISC(MUNIT,1,0)                                            /* REWIND THE PARAMETER FILE
-      CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)                                /* READ THE FIRST PARAMETER LIST
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+      CALL PODISC(MUNIT,1,0)                                            ! /* REWIND THE PARAMETER FILE
+      CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)                                ! /* READ THE FIRST PARAMETER LIST
       ISIG=1
       FNO=LSCR(1)
       LNO=LSCR(2)
       MLISTS=1
    50 CONTINUE
-      LNUM=LBUF(3)                                                      /*  IS THE DATA ON TAPE SORTED BY SHOT
-      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     /*  OR BY RP
+      LNUM=LBUF(3)                                                      ! /*  IS THE DATA ON TAPE SORTED BY SHOT
+      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     ! /*  OR BY RP
       IF(LNUM.EQ.LLNUM) GO TO 1000
       LLNUM=LNUM
-   70 IF(LNUM.GE.FNO) GO TO 100                                         /* IS THIS SHOT BEFORE THIS PARAMETER LIST
-      IF(MLISTS.EQ.1) GO TO 500                                         /* IS IT BEFORE THE FIRST LIST
-      IF(LNUM.LE.LASTNO) GO TO 10                                       /* IS IT IN OR BEFORE THE LAST LIST
-      GO TO 500                                                         /* IT MUST BE BETWEEN THE 2 LISTS
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO) GO TO 500                                         /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.LT.NLISTS) GO TO 110                                    /* ANY MORE USER PARAM LISTS ON DISC
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! /* IS THIS SHOT BEFORE THIS PARAMETER LIST
+      IF(MLISTS.EQ.1) GO TO 500                                         ! /* IS IT BEFORE THE FIRST LIST
+      IF(LNUM.LE.LASTNO) GO TO 10                                       ! /* IS IT IN OR BEFORE THE LAST LIST
+      GO TO 500                                                         ! /* IT MUST BE BETWEEN THE 2 LISTS
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO) GO TO 500                                         ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.LT.NLISTS) GO TO 110                                    ! /* ANY MORE USER PARAM LISTS ON DISC
       IF(ISIG.EQ.0) GO TO 1000
       GO TO 500
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
-  110 CONTINUE                                                          /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
+  110 CONTINUE                                                          ! /* SET THE PRESENT LIST INTO OLD SO WE CAN GET A NEW ONE IN SCR
       IF(ISIG.EQ.1) GO TO 118
       DO 115 I=1,MAX
   115 OLD(I)=CUR(I)
       GO TO 130
   118 CONTINUE
-      DO 120 I=1,MAX                                                    /* SAVE THE CURRENT PARAMETER SET
+      DO 120 I=1,MAX                                                    ! /* SAVE THE CURRENT PARAMETER SET
   120 OLD(I)=SCR(I+4)
   130 CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)
       LASTNO=LNO
@@ -103,7 +103,7 @@ C****
       LPRINT=LSCR(4)
       vel = scr(5)
       hold = lscr(6)
-      IF(LNUM.LT.FNO) GO TO 600                                         /* DON'T BOTHER IF SPATIALLY VARYING
+      IF(LNUM.LT.FNO) GO TO 600                                         ! /* DON'T BOTHER IF SPATIALLY VARYING
       DO 510 I=1,8
   510 CUR(I)=SCR(I+6)
       DO 520 I=1,4
@@ -127,18 +127,18 @@ C****
 C****       APPLY THE NORMALIZE
 C****
  1000 CONTINUE
-c      NSAMPS=IBUF(58)                                                   /* THE NUMBER OF DATA SAMPLES IN THE TRACE
+c      NSAMPS=IBUF(58)                                                   ! /* THE NUMBER OF DATA SAMPLES IN THE TRACE
       nsamps = numdat
-      DELAY=BUF(46)                                                     /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
-      SI=BUF(49)                                                        /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
+      DELAY=BUF(46)                                                     ! /* THE FLOATING POINT DEEP WATER DELAY IN SECONDS
+      SI=BUF(49)                                                        ! /* THE FLOATING POINT SAMPLE INTERVAL IN SECONDS
       wbtime = buf(50)
       range = FLOAT(lbuf(10))
-      IOUT=1                                                            /* LEAVE THE DATA IN THE AP
-      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   /* PUT THE DATA IN THE AP
+      IOUT=1                                                            ! /* LEAVE THE DATA IN THE AP
+      CALL INAP(BUF(NUMHDR+1),NSAMPS)                                   ! /* PUT THE DATA IN THE AP
       DO 1005 I=1,MAX
          INDXS(I)=0
  1005 CONTINUE
-      NDOWS = 0                                                         /* THE NUMBER OF NORMALIZE WINDOWS
+      NDOWS = 0                                                         ! /* THE NUMBER OF NORMALIZE WINDOWS
       DO 1010 I = 1, max, 2
          time1 = cur(i)
          time2 = cur(i+1)

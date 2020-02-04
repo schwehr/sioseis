@@ -28,12 +28,12 @@ C****     FIND THE PARAMETER LIST (ON DISC)
 C****
       IF( FIRST ) THEN
           FIRST=.FALSE.
-          CALL PODISC(MUNIT,1,0)                                        /* REWIND THE PARAMETER FILE
+          CALL PODISC(MUNIT,1,0)                                        ! /* REWIND THE PARAMETER FILE
       ENDIF
       istop = 0
       nread = 0
       next = 1
-      CALL RDDISC(MUNIT,SCR,9,ISTAT)                                    /* READ A PARAMETER LIST INTO SCR
+      CALL RDDISC(MUNIT,SCR,9,ISTAT)                                    ! /* READ A PARAMETER LIST INTO SCR
       mlists = mlists + 1
       lprint = lscr(1)
       prewhi = scr(2)
@@ -53,36 +53,36 @@ C****
   100 CONTINUE
       CALL rddisc( munit, iatype, 1, istat)
       nread = nread + 1
-      IF( iatype .EQ. 9991 ) THEN                                        /* is it input data?
+      IF( iatype .EQ. 9991 ) THEN                                       ! /* is it input data?
           IF( inpts .EQ. 0 ) THEN
               inpts = next
               next = next + ninpts
           ENDIF
-          CALL rddisc( munit, scr(inpts), ninpts, istat )                /* read the input
+          CALL rddisc( munit, scr(inpts), ninpts, istat )               ! /* read the input
       ENDIF
-      IF( iatype .EQ. 9992 ) THEN                                        /* is it the desired output?
+      IF( iatype .EQ. 9992 ) THEN                                       ! /* is it the desired output?
           IF( idesir .EQ. 0 ) THEN
               idesir = next
               next = next + ndesir
           ENDIF
-          CALL rddisc( munit, scr(idesir), ndesir, istat )                        /* read the desired o
+          CALL rddisc( munit, scr(idesir), ndesir, istat )              ! /* read the desired o
           IF( nfpts .EQ. 0 ) nfpts = ndesir
       ENDIF
-      IF (iatype .EQ. 9993 ) THEN                                        /* is it the autocorrelation
+      IF (iatype .EQ. 9993 ) THEN                                       ! /* is it the autocorrelation
           IF( iauto .EQ. 0 ) THEN
               iauto = next
               next = next + nauto
           ENDIF
-          CALL rddisc( munit, scr(iauto), nauto, istat )                 /* read it and the next
+          CALL rddisc( munit, scr(iauto), nauto, istat )                ! /* read it and the next
       ENDIF
-      IF( iatype .EQ. 9994 ) THEN                                        /* is it the crosscorrelation
+      IF( iatype .EQ. 9994 ) THEN                                       ! /* is it the crosscorrelation
           IF( icross .EQ. 0 ) THEN
               icross = next
               next = next + ncross
           ENDIF
           CALL rddisc( munit, scr(icross), ncross, istat )
       ENDIF
-      IF( nread .LT. ntypes ) GO TO 100                                 /* any more data types to be read?
+      IF( nread .LT. ntypes ) GO TO 100                                 ! /* any more data types to be read?
 c****
 c****   set up the indices
 c****   assume that if input is given, there is a desired output
@@ -114,7 +114,7 @@ c****
 c****
 c****
 c****
-      IF( ninpts .NE. 0 ) THEN                                           /* make the cross and auto correlations
+      IF( ninpts .NE. 0 ) THEN                                          ! /* make the cross and auto correlations
           icross = idesir + ndesir
           ncross = nfpts
           IF( IAND(lprint,2) .NE. 0 ) print *,' idesir=',idesir,
@@ -125,9 +125,9 @@ c****
           next = nauto + nauto
           IF( iuseap .EQ. 0 ) THEN
               CALL convo(+2,scr(inpts),ndesir,scr(idesir),ninpts,
-     *             scr(icross),nfpts)                                    /* do the crosscorrelation
+     *             scr(icross),nfpts)                                   ! /* do the crosscorrelation
               CALL convo(+2,scr(inpts),ninpts,scr(inpts),ninpts,
-     *             scr(iauto),nfpts)                                     /* do the autocorrelation
+     *             scr(iauto),nfpts)                                    ! /* do the autocorrelation
           ELSE
               CALL APPUT(scr(inpts),inpts,ninpts,2)
               CALL APWD
@@ -151,7 +151,7 @@ c****
           IF( iuseap .EQ. 0 ) THEN
               scr(iauto) = scr(iauto)+scr(iauto)*prewhi/100.
           ELSE
-              CALL APPUT(prewhi/100.,next,1,2)                               /* put the prewhittener in the ap at n
+              CALL APPUT(prewhi/100.,next,1,2)                          ! /* put the prewhittener in the ap at n
               CALL APWD
               CALL VSMA(iauto,1,next,iauto,1,iauto,1,1)
           ENDIF
@@ -161,7 +161,7 @@ c****   print the cross and auto correlation
 c****
       IF( IAND(oprint,1) .NE. 0 ) THEN
           PRINT *,' The crosscorrelation is:'
-          IF( iuseap .NE. 0 ) THEN                                        /* get the data out of the ap
+          IF( iuseap .NE. 0 ) THEN                                      ! /* get the data out of the ap
               CALL APWR
               CALL APGET(scr(icross),icross,ncross,2)
               CALL APWD
@@ -174,7 +174,7 @@ c****
       ENDIF
       IF( IAND(oprint,2) .NE. 0 ) THEN
           PRINT *,' The autocorrelation is:'
-          IF( iuseap .NE. 0 ) THEN                                        /* get the data out of the ap
+          IF( iuseap .NE. 0 ) THEN                                      ! /* get the data out of the ap
               CALL APWR
               CALL APGET(scr(iauto),nauto,nauto,2)
               CALL APWD
@@ -188,7 +188,7 @@ c****
 c****
 c****    now do the wiener-levinson
 c****
-      ifilt = next                                                      /* figure out the ap addresses
+      ifilt = next                                                      ! /* figure out the ap addresses
       next = next + nfpts
       iprede = next
       next = next + nfpts
@@ -258,7 +258,7 @@ c****
                  j = j + 10
               ENDDO
           ENDIF
-          IF( IAND( oprint,32) .NE. 0 ) THEN                               /* compute the rms error
+          IF( IAND( oprint,32) .NE. 0 ) THEN                            ! /* compute the rms error
               IF( iuseap .EQ. 0 ) THEN
                   rms = 0.
                   DO 1000 i = 1, ninpts

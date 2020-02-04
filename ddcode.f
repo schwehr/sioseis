@@ -36,23 +36,23 @@ C
       nchar = nchars
       DO 100 I=1,NCHAR
 c      print *,' i=',i,' ichar=',ICHAR(alpha(i:i)),' c=',alpha(i:i)
-      IF(ALPHA(I:I).GE.'0'.AND.ALPHA(I:I).LE.'9') GO TO 50              /* ASSUME ASCII!!
-      IF(ALPHA(I:I).EQ.'.') GO TO 100                                    /* ALLOW A DECIMAL POINT
-      IF(ALPHA(I:I).EQ.'-'.OR.ALPHA(I:I).EQ.'+') GO TO 100              /* ALLOW SIGNED VALUES
-      IF(ALPHA(I:I).EQ.'E'.OR.ALPHA(I:I).EQ.'e') GO TO 100              /* ALLOW EXPONENTIALS
-      IF(ALPHA(I:I).EQ.'D'.OR.ALPHA(I:I).EQ.'d') GO TO 100              /* ALLOW EXPONENTIALS
-      ISTAT=1                                                            /* PRESET TO AN ERROR
+      IF(ALPHA(I:I).GE.'0'.AND.ALPHA(I:I).LE.'9') GO TO 50              ! /* ASSUME ASCII!!
+      IF(ALPHA(I:I).EQ.'.') GO TO 100                                   ! /* ALLOW A DECIMAL POINT
+      IF(ALPHA(I:I).EQ.'-'.OR.ALPHA(I:I).EQ.'+') GO TO 100              ! /* ALLOW SIGNED VALUES
+      IF(ALPHA(I:I).EQ.'E'.OR.ALPHA(I:I).EQ.'e') GO TO 100              ! /* ALLOW EXPONENTIALS
+      IF(ALPHA(I:I).EQ.'D'.OR.ALPHA(I:I).EQ.'d') GO TO 100              ! /* ALLOW EXPONENTIALS
+      ISTAT=1                                                           ! /* PRESET TO AN ERROR
       GO TO 200
 C
-   50 ISTAT=2                                                            /* THE CHARACTER IS A NUMERIC
+   50 ISTAT=2                                                           ! /* THE CHARACTER IS A NUMERIC
       IF(I.EQ.1.OR.ISTAT.EQ.JSTAT.AND.ISTART.EQ.0) GO TO 90
       IF(JSTAT.NE.0) GO TO 200
-   90 JSTAT=ISTAT                                                        /* SAVE THE TYPE OF STRING TO COMPARE THE NEXT CHARACTER WITH
+   90 JSTAT=ISTAT                                                       ! /* SAVE THE TYPE OF STRING TO COMPARE THE NEXT CHARACTER WITH
   100 CONTINUE
 C
 C   FINISHED SEARCH FOR ERRORS, NOW DECODE THE THING
 C
-      IF(ISTAT.EQ.1) RETURN                                              /* DON'T DECODE AN ALPHA STRING
+      IF(ISTAT.EQ.1) RETURN                                             ! /* DON'T DECODE AN ALPHA STRING
       CTEMP(1:30)=' '
       CTEMP(1:NCHAR)=ALPHA(1:NCHAR)
 c**** the following gyration is because VMS insists that there be a period

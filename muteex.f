@@ -37,8 +37,8 @@ c   mod 17 May 10 - Comment out creating real mute times in header words 47 & 48
 c  mod 13 Jul 12 - bad mute when the trace/range was < the first given.
 c                  (1 Apr 10 change was bad).
 c
-      PARAMETER (MAXTTP=500)                                             /* THE MAXIMUM NUMBER OF ELEMENTS THE USER ARRAY CAN BE
-      PARAMETER (NWRDS=MAXTTP+7)                                        /* THE LENGTH OF EACH PARAMETER LIST
+      PARAMETER (MAXTTP=500)                                            ! /* THE MAXIMUM NUMBER OF ELEMENTS THE USER ARRAY CAN BE
+      PARAMETER (NWRDS=MAXTTP+7)                                        ! /* THE LENGTH OF EACH PARAMETER LIST
       DIMENSION BUF(111),LBUF(111),IBUF(111),SCR(111),LSCR(111)
       INTEGER*2 IBUF
       SAVE
@@ -53,11 +53,11 @@ c
 C****
 C****     FIND THE PARAMETER LIST (ON DISC) FOR THIS SHOT (RP)
 C****
-      IF(IBUF(15).EQ.2) RETURN                                          /* IS IT A DEAD TRACE
+      IF(IBUF(15).EQ.2) RETURN                                          ! /* IS IT A DEAD TRACE
       ISIG=0
       IF(.NOT.FIRST) GO TO 50
       FIRST=.FALSE.
-   10 CONTINUE                                                           /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
+   10 CONTINUE                                                          ! /* GET THE FIRST PARAMETER LIST INT0 MEMORY ARRAY SCR
       CALL PODISC(MUNIT,1,0)
       CALL RDDISC(MUNIT,SCR,NWRDS,ISTAT)
       ISIG=1
@@ -65,23 +65,23 @@ C****
       LNO=LSCR(2)
       MLISTS=1
    50 CONTINUE
-      LNUM=LBUF(3)                                                      /*  IS THE DATA ON TAPE SORTED BY SHOT
-      TRNO=LBUF(4)                                                      /* THE TRACE NUMBER WITHIN THE SHOT
-      IF(LBUF(7).NE.0) TRNO=LBUF(7)                                      /* THE TRACE NUMBER WITH AN RP
-      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                      /*  OR BY RP
-   70 IF(LNUM.GE.FNO) GO TO 100                                           /* IS THIS SHOT BEFORE THIS PARAMETER LIST
-      IF(MLISTS.EQ.1) GO TO 500                                          /* IS IT BEFORE THE FIRST LIST
-      IF(LNUM.LE.LASTNO) GO TO 10                                        /* IS IT IN OR BEFORE THE LAST LIST
-      GO TO 500                                                          /* IT MUST BE BETWEEN THE 2 LISTS
-  100 CONTINUE                                                          /*  THE CURRENT SHOT (RP) IS >= LNO
-      IF(LNUM.LE.LNO) GO TO 500                                          /* USE THE PARAMETERS OF THIS LIST
-      IF(MLISTS.GE.NLISTS) GO TO 500                                    /* ANY MORE USER PARAM LISTS ON DISC
+      LNUM=LBUF(3)                                                      ! /*  IS THE DATA ON TAPE SORTED BY SHOT
+      TRNO=LBUF(4)                                                      ! /* THE TRACE NUMBER WITHIN THE SHOT
+      IF(LBUF(7).NE.0) TRNO=LBUF(7)                                     ! /* THE TRACE NUMBER WITH AN RP
+      IF(LBUF(7).NE.0) LNUM=LBUF(6)                                     ! /*  OR BY RP
+   70 IF(LNUM.GE.FNO) GO TO 100                                         ! /* IS THIS SHOT BEFORE THIS PARAMETER LIST
+      IF(MLISTS.EQ.1) GO TO 500                                         ! /* IS IT BEFORE THE FIRST LIST
+      IF(LNUM.LE.LASTNO) GO TO 10                                       ! /* IS IT IN OR BEFORE THE LAST LIST
+      GO TO 500                                                         ! /* IT MUST BE BETWEEN THE 2 LISTS
+  100 CONTINUE                                                          ! /*  THE CURRENT SHOT (RP) IS >= LNO
+      IF(LNUM.LE.LNO) GO TO 500                                         ! /* USE THE PARAMETERS OF THIS LIST
+      IF(MLISTS.GE.NLISTS) GO TO 500                                    ! /* ANY MORE USER PARAM LISTS ON DISC
 C****
 C****   GET ANOTHER USER PARAMETER LIST FROM DISC
 C****
       CALL RDDISC( MUNIT, LSCR, NWRDS, ISTAT )
       LASTNO=LNO
-      DO 120 I=1,MAXTTP                                                  /* SAVE THE CURRENT PARAMETER SET
+      DO 120 I=1,MAXTTP                                                 ! /* SAVE THE CURRENT PARAMETER SET
   120 OLDTTP(I) = curttp(i)
       MLISTS=MLISTS+1
       ISIG=1
@@ -91,7 +91,7 @@ C****
 C****
 C****    NOW FIND THE MUTE TIME FOR THE  TRACE NUMBER (OR RANGE)
 C****
-  500 IF(ISIG.EQ.0) GO TO 506                                            /* IS A LIST IN SCR
+  500 IF(ISIG.EQ.0) GO TO 506                                           ! /* IS A LIST IN SCR
       IADDWB=LSCR(3)
       NOTTPS=LSCR(4)
       LTYPE=LSCR(5)

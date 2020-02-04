@@ -50,19 +50,19 @@ C     PAUL HENKART, SCRIPPS INSTITUTION OF OCEANOGRAPHY, MARCH 1979
 C
       DIMENSION BUFIN(1),BUFOUT(1),SCRBUF(1),FILPTS(1),LISTL(1),
      *     WLIST(1),INDEXS(1)
-      INDEXF=1                                                            /* THE INDEX OF THE CURRENT FILTER
-      DO 50 I=1,NSAMPS                                                     /* ZERO THE OUTPUT SINCE WE MAY ADD INTO IT
+      INDEXF=1                                                          ! /* THE INDEX OF THE CURRENT FILTER
+      DO 50 I=1,NSAMPS                                                  ! /* ZERO THE OUTPUT SINCE WE MAY ADD INTO IT
    50 BUFOUT(I)=0.
-      NUMFIL=1                                                             /* THE CURRENT FILTER NUMBER
-      IST=1                                                             /*  THE START INDEX
+      NUMFIL=1                                                          ! /* THE CURRENT FILTER NUMBER
+      IST=1                                                             ! /*  THE START INDEX
   100 CONTINUE
-      IS=INDEXS(2*NUMFIL-1)                                             /* THE START INDEX OF THE CURRENT WINDOW
-      IE=INDEXS(2*NUMFIL)                                               /*  THE END INDEX OF THE CURRENT WINDOW
-      IE1=INDEXS(2*NUMFIL+1)                                               /*  THE START INDEX OF THE NEXT WINDOW OR THE
+      IS=INDEXS(2*NUMFIL-1)                                             ! /* THE START INDEX OF THE CURRENT WINDOW
+      IE=INDEXS(2*NUMFIL)                                               ! /*  THE END INDEX OF THE CURRENT WINDOW
+      IE1=INDEXS(2*NUMFIL+1)                                            ! /*  THE START INDEX OF THE NEXT WINDOW OR THE
 C          END OF THE MERGE ZONE AFTER THE CURRENT WINDOW.
       IF(NUMFIL.EQ.NDOWS) IE1=NSAMPS
-      NPTS=LISTL(NUMFIL)                                                   /*  THE NUMBER OF FILTER POINTS
-      N=IE1-IST+NPTS+1                                                    /*  THE NUMBER OF POINTS TO FILTER
+      NPTS=LISTL(NUMFIL)                                                ! /*  THE NUMBER OF FILTER POINTS
+      N=IE1-IST+NPTS+1                                                  ! /*  THE NUMBER OF POINTS TO FILTER
       NOUT=N+NPTS
 C****
 C****     FILTER THE WINDOW PLUS THE 2 MERGE ZONES WITH THE CURRENT FILTER
@@ -71,12 +71,12 @@ C****
 C****
 C****   DO THE UP RAMP OR THE MERGE ZONE PRIOR TO THE WINDOW
 C****
-      N=IS-IST                                                          /*  THE NUMBER OF POINTS IN THE MERGE ZONE
-      X=WLIST(NUMFIL)                                                   /* THE WEIGHT OF THE CURRENT WINDOW
-      K=IST                                                             /*  MAKES ADDING AN INDEX ONE ADD LESS
-      J=NPTS/2                                                            /* THE FILTER TAPER - GET TIME ZERO
-      IF(N.LE.1) GO TO 120                                               /* DON'T DO THE UP RAMP IF IT DOESN'T EXIST
-      RAMP=X/FLOAT(N+1)                                                 /*  THE RAMP STEP FOR THE FIRST MERGE
+      N=IS-IST                                                          ! /*  THE NUMBER OF POINTS IN THE MERGE ZONE
+      X=WLIST(NUMFIL)                                                   ! /* THE WEIGHT OF THE CURRENT WINDOW
+      K=IST                                                             ! /*  MAKES ADDING AN INDEX ONE ADD LESS
+      J=NPTS/2                                                          ! /* THE FILTER TAPER - GET TIME ZERO
+      IF(N.LE.1) GO TO 120                                              ! /* DON'T DO THE UP RAMP IF IT DOESN'T EXIST
+      RAMP=X/FLOAT(N+1)                                                 ! /*  THE RAMP STEP FOR THE FIRST MERGE
       DO 110 I=1,N
 C     ADD THE UP RAMP TO WHAT IS ALREADY IN THE OUTPUT SINCE A DOWN RAMP MIGHT
 C            BE THERE ALREADY.
@@ -84,19 +84,19 @@ C            BE THERE ALREADY.
 C****
 C****       DO THE WINDOW
 C****
-      J=J+N                                                             /* THE POINTER TO IS IN THE FILTERED DATA (TIME REFERENCE=0)
-  120 N=IE-IS+1                                                         /*  THE NUMBER OF POINTS IN THE WINDOW
-      K=IS-1                                                            /* THE START INDEX-1
+      J=J+N                                                             ! /* THE POINTER TO IS IN THE FILTERED DATA (TIME REFERENCE=0)
+  120 N=IE-IS+1                                                         ! /*  THE NUMBER OF POINTS IN THE WINDOW
+      K=IS-1                                                            ! /* THE START INDEX-1
       DO 130 I=1,N
   130 BUFOUT(K+I)=SCRBUF(J+I)*X
       IF(IE.GE.NSAMPS) RETURN
 C****
 C****          DO THE DOWN RAMP OR THE POST WINDOW MERGE
 C****
-      J=J+N                                                             /*  THE INDEX OF THE START OF THE REAR MERGE ZONE
-      N=IE1-IE                                                            /*  THE NUMBER OF POINTS IN THE MERGE
+      J=J+N                                                             ! /*  THE INDEX OF THE START OF THE REAR MERGE ZONE
+      N=IE1-IE                                                          ! /*  THE NUMBER OF POINTS IN THE MERGE
       K=IE
-      RAMP=X/FLOAT(N)                                                   /*  THE RAMP STEP BETWEEN SAMPLES
+      RAMP=X/FLOAT(N)                                                   ! /*  THE RAMP STEP BETWEEN SAMPLES
       DO 200 I=1,N
   200 BUFOUT(K+I)=SCRBUF(J+I)*(X-RAMP*FLOAT(I))
       INDEXF=INDEXF+LISTL(NUMFIL)

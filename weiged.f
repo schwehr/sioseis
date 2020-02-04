@@ -86,10 +86,10 @@ c                  twp 1 twp 2 twp 3 twp 4   passed edit.  ag geez.
 c  mod 11 Feb 05 - Allow ihdr/hdr/lhdr to be given with no other weights.
 c  mod 29 Jun 06 - Add type and type sdev
 C
-      PARAMETER (NPARS=13)                                              /* THE NUMBER OF USER PARAMETERS
-      PARAMETER (MULTIV=12)                                             /* POINT TO THE FIRST MULTI-VALUED PARAMETER
-      PARAMETER (MAXXWP=200)                                            /* THE MAXIMUM NUMBER OF TWPS OR XWPS THAT WEIGEX CAN HANDLE
-      PARAMETER (NWRDS=MAXXWP+NPARS)                                    /* THE NUMBER OF WORDS IN EVERY PARAMETER LIST ON DISC
+      PARAMETER (NPARS=13)                                              ! /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (MULTIV=12)                                             ! /* POINT TO THE FIRST MULTI-VALUED PARAMETER
+      PARAMETER (MAXXWP=200)                                            ! /* THE MAXIMUM NUMBER OF TWPS OR XWPS THAT WEIGEX CAN HANDLE
+      PARAMETER (NWRDS=MAXXWP+NPARS)                                    ! /* THE NUMBER OF WORDS IN EVERY PARAMETER LIST ON DISC
       EQUIVALENCE (VALS(1),LVALS(1))
       CHARACTER*7 NAMES(NPARS)
       CHARACTER*1 TYPES(NPARS)
@@ -154,22 +154,22 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-      CALL UPCASE(TOKEN,NCHARS)                                         /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF(NCHARS.GT.0) GO TO 150
       IF(NOW.EQ.1) PRINT 140
   140 FORMAT(' <  ENTER PARAMETERS  >')
-      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER USER PARAMETER LINE
       NTOKES=0
       GO TO 100
   150 CONTINUE
       NTOKES=NTOKES+1
-      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-      IPARAM=I                                                          /* SAVE THE INDEX
+      DO 190 I=1,NPARS                                                  ! /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                     ! /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          ! /* SAVE THE INDEX
       IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LIST?
       IF(NS.NE.0) GO TO 230
       PRINT 191, TOKEN(1:NCHARS)
   191 FORMAT(' ***  ERROR  *** WEIGHT DOES NOT HAVE A PARAMETER ',
@@ -182,13 +182,13 @@ C****
   200 CONTINUE
       ns = 0
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 230                                         /* END OF LINE?
-      IF(NOW.EQ.1) PRINT 140                                            /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      IF(NCHARS.GT.0) GO TO 230                                         ! /* END OF LINE?
+      IF(NOW.EQ.1) PRINT 140                                            ! /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 210
   230 CONTINUE
@@ -205,33 +205,33 @@ C****
           ENDIF
           GO TO 100
       ENDIF
-      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
-      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          ! /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                   ! /* DCODE PRINTED AN ERROR
       GO TO 100
   420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
       IF( names(nparam) .EQ. 'W' ) nparam = nparam - 1
-      IF(NPARAM.LT.MULTIV) GO TO 490                                     /*  IS IT A MULTIVALUED PARAMETER
-      NS=NS+1                                                           /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
+      IF(NPARAM.LT.MULTIV) GO TO 490                                    ! /*  IS IT A MULTIVALUED PARAMETER
+      NS=NS+1                                                           ! /*  THE TOKEN WAS A MULTI-VALUED PARAMETER
       nweigs = ns
       BUF(NS+NPARS)=AREAL
       IF( names(NPARAM) .EQ. 'XWP') LTYPE=1
       IF( names(NPARAM) .EQ. 'TWP') LTYPE=2
       GO TO 100
-  490 VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+  490 VALS(NPARAM)=AREAL                                                ! /*  FLOATING POINT VALUES
       GO TO 100
-  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+  500 CONTINUE                                                          ! /*  32 BIT INTEGER VALUES
       LVALS(NPARAM)=AREAL
       GO TO 100
 C****
 C****   FINISHED A LIST, NOW DO THE ERROR AND VALIDITY CHECKS
 C****
- 1000 CONTINUE                                                           /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
-      IF(FNO.GT.LLNO) GO TO 1020                                        /*  IS FNO LARGER THAN THE LAST LNO
+ 1000 CONTINUE                                                          ! /* MAKE SURE ALL SHOT & RP NUMBERS INCREASE
+      IF(FNO.GT.LLNO) GO TO 1020                                        ! /*  IS FNO LARGER THAN THE LAST LNO
       PRINT 1010
  1010 FORMAT(' ***  ERROR  ***  SHOT AND RP NUMBERS MUST INCREASE.')
       IERROR=IERROR+1
- 1020 IF(LNO.GE.FNO) GO TO 1030                                          /* DO THEY INCREASE IN THIS LIST
+ 1020 IF(LNO.GE.FNO) GO TO 1030                                         ! /* DO THEY INCREASE IN THIS LIST
       PRINT 1010
       IERROR=IERROR+1
  1030 LLNO=LNO
@@ -242,7 +242,7 @@ C****
       ENDIF
       IF(LTYPE.EQ.2) GO TO 1200
       DO 1130 I=1,nweigs,2
- 1130 BUF(NPARS+I)=ABS(BUF(NPARS+I))                                    /* USE THE ABS VALUE OF THE RANGES
+ 1130 BUF(NPARS+I)=ABS(BUF(NPARS+I))                                    ! /* USE THE ABS VALUE OF THE RANGES
       IF(nweigs.LE.2) GO TO 1300
       DO 1150 I=3,nweigs,2
       IF(BUF(NPARS+I).GT.BUF(NPARS+I-2)) GO TO 1150
@@ -251,7 +251,7 @@ C****
       IERROR=IERROR+1
  1150 CONTINUE
       GO TO 1300
- 1200 CONTINUE                                                          /*  CHECK THE TWP PARAMETER
+ 1200 CONTINUE                                                          ! /*  CHECK THE TWP PARAMETER
       DO i=1,nweigs,2
          IF( buf(npars+i) .LT. 0 ) THEN
              PRINT *,' ***  ERROR  ***  Illegal TWP trace number ',
@@ -268,7 +268,7 @@ C****
          ENDIF
       ENDDO
  1230 CONTINUE
- 1300 CONTINUE                                                           /*  MAKE CHECKS COMMON TO BOTH XWP AND TWP
+ 1300 CONTINUE                                                          ! /*  MAKE CHECKS COMMON TO BOTH XWP AND TWP
       IF(MOD(nweigs,2).EQ.0) GO TO 1320
       IF( ltype .EQ. 1 ) THEN
           token = 'XWP'
@@ -278,7 +278,7 @@ C****
       PRINT 1310,token
  1310 FORMAT(' ***  ERROR  ***  ',A4,' MUST BE IN PAIRS.')
       IERROR=IERROR+1
- 1320 CONTINUE                                                           /*  MAKE SURE THE TIMES ARE OK
+ 1320 CONTINUE                                                          ! /*  MAKE SURE THE TIMES ARE OK
 C****
 C****      WRITE THE PARAMETER LIST TO DISC
 C****
@@ -312,16 +312,16 @@ C****
       NS=0
       nweigs = 0
       LLNO=LNO
-      LNO=32768                                                          /* DEFAULT THE DEFAULTS
+      LNO=32768                                                         ! /* DEFAULT THE DEFAULTS
       weight = 1.
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NCHARS.GT.0) GO TO 2030                                        ! /* WAS IT THE END OF A LINE?
       IF(NOW.EQ.1) PRINT 140
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 2020
  2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
-      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE PARAMETERS!!!
       END

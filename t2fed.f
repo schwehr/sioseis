@@ -70,8 +70,8 @@ C  SUBROUTINE, BY COMPUTER OR OTHER MEANS, MAY BE OBTAINED ONLY FROM THE AUTHOR.
 C
 c  mod 2 Oct. 2008 - Add coords AMPL
 c
-      PARAMETER (NPARS = 12)                                             /* THE NUMBER OF USER PARAMETERS
-      PARAMETER (NWRDS = npars)                                          /* THE NUMBER OF WORDS IN EACH PARAMETER LIST
+      PARAMETER (NPARS = 12)                                            ! /* THE NUMBER OF USER PARAMETERS
+      PARAMETER (NWRDS = npars)                                         ! /* THE NUMBER OF WORDS IN EACH PARAMETER LIST
       CHARACTER*4 LWINDS(8)
       COMMON /T2F/ MUNIT,NLISTS
       INTEGER FFTLEN,FNO,FTR
@@ -132,22 +132,22 @@ C****   GET A PARAMETER LIST FROM THE USER.
 C****
       NTOKES=1
   100 CONTINUE
-      CALL GETOKE(TOKEN,NCHARS)                                          /* GET A TOKEN FROM THE USER PARAMETER LINE
-      CALL UPCASE(TOKEN,NCHARS)                                          /* CONVERT THE TOKEN TO UPPERCASE
+      CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET A TOKEN FROM THE USER PARAMETER LINE
+      CALL UPCASE(TOKEN,NCHARS)                                         ! /* CONVERT THE TOKEN TO UPPERCASE
       IF(NCHARS.GT.0) GO TO 150
       IF(NOW.EQ.1) PRINT 140
   140 FORMAT(' <  ENTER PARAMETERS  >')
-      CALL RDLINE                                                        /* GET ANOTHER USER PARAMETER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER USER PARAMETER LINE
       NTOKES=0
       GO TO 100
   150 CONTINUE
       NTOKES=NTOKES+1
-      DO 190 I=1,NPARS                                                  /* SEE IF IT IS A PARAMETER NAME
-      LEN=LENGTH(I)                                                      /* GET THE LEGAL PARAMETER NAME LENGTH
-      IPARAM=I                                                          /* SAVE THE INDEX
+      DO 190 I=1,NPARS                                                  ! /* SEE IF IT IS A PARAMETER NAME
+      LEN=LENGTH(I)                                                     ! /* GET THE LEGAL PARAMETER NAME LENGTH
+      IPARAM=I                                                          ! /* SAVE THE INDEX
       IF(TOKEN(1:NCHARS).EQ.NAMES(I)(1:LEN).AND.NCHARS.EQ.LEN) GO TO 200
-  190 CONTINUE                                                          /* STILL LOOKING FOR THE NAME
-      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000            /* END OF PARAM LIST?
+  190 CONTINUE                                                          ! /* STILL LOOKING FOR THE NAME
+      IF(TOKEN(1:NCHARS).EQ.'END'.AND.NCHARS.EQ.3) GO TO 1000           ! /* END OF PARAM LIST?
       IF(NS.NE.0) GO TO 230
       PRINT 191, TOKEN(1:NCHARS)
   191 FORMAT(' ***  ERROR  *** T2F DOES NOT HAVE A PARAMETER ',
@@ -160,13 +160,13 @@ C****
   200 CONTINUE
       NS=0
       NPARAM=IPARAM
-  210 CONTINUE                                                           /*  NOW FIND THE VALUE
+  210 CONTINUE                                                          ! /*  NOW FIND THE VALUE
       CALL GETOKE(TOKEN,NCHARS)
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 230                                         /* END OF LINE?
-      IF(NOW.EQ.1) PRINT 140                                            /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      IF(NCHARS.GT.0) GO TO 230                                         ! /* END OF LINE?
+      IF(NOW.EQ.1) PRINT 140                                            ! /* THIS ALLOWS A PARAMETER TO BE ON A DIFFERENT LINE FROM THE NAME
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 210
   230 CONTINUE
@@ -177,14 +177,14 @@ C****
       IF(NAMES(NPARAM).EQ.'WINDOW') WINDOW=TOKEN(1:NCHARS)
       GO TO 100
   240 CONTINUE
-      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              /* TRY AND DECODE IT
-      IF(ISTAT.EQ.2) GO TO 420                                          /* =2 MEANS IT IS A NUMERIC
-      IERROR=IERROR+1                                                    /* DCODE PRINTED AN ERROR
+      CALL DCODE(TOKEN,NCHARS,AREAL,ISTAT)                              ! /* TRY AND DECODE IT
+      IF(ISTAT.EQ.2) GO TO 420                                          ! /* =2 MEANS IT IS A NUMERIC
+      IERROR=IERROR+1                                                   ! /* DCODE PRINTED AN ERROR
       GO TO 100
   420 IF(TYPES(NPARAM).EQ.'L') GO TO 500
-      VALS(NPARAM)=AREAL                                                 /*  FLOATING POINT VALUES
+      VALS(NPARAM)=AREAL                                                ! /*  FLOATING POINT VALUES
       GO TO 100
-  500 CONTINUE                                                          /*  32 BIT INTEGER VALUES
+  500 CONTINUE                                                          ! /*  32 BIT INTEGER VALUES
       LVALS(NPARAM)=AREAL
       GO TO 100
 C****
@@ -247,16 +247,16 @@ c      ENDIF
       CALL WRDISC(MUNIT,SCR,NWRDS)
       NLISTS=NLISTS+1
       LLNO=LNO
-      LNO=9999999                                                        /* DEFAULT THE DEFAULTS
-      NS=0                                                              /* SET THE NUMBER OF MULTI-VALUED PARAMETER ENTRIES BACK TO ZER0
- 2020 CALL GETOKE(TOKEN,NCHARS)                                          /* GET THE NEXT TOKEN
+      LNO=9999999                                                       ! /* DEFAULT THE DEFAULTS
+      NS=0                                                              ! /* SET THE NUMBER OF MULTI-VALUED PARAMETER ENTRIES BACK TO ZER0
+ 2020 CALL GETOKE(TOKEN,NCHARS)                                         ! /* GET THE NEXT TOKEN
       CALL UPCASE(TOKEN,NCHARS)
       NTOKES=NTOKES+1
-      IF(NCHARS.GT.0) GO TO 2030                                        /* WAS IT THE END OF A LINE?
+      IF(NCHARS.GT.0) GO TO 2030                                        ! /* WAS IT THE END OF A LINE?
       IF(NOW.EQ.1) PRINT 140
-      CALL RDLINE                                                        /* GET ANOTHER LINE
+      CALL RDLINE                                                       ! /* GET ANOTHER LINE
       NTOKES=0
       GO TO 2020
  2030 IF(TOKEN(1:NCHARS).NE.'END'.OR.NCHARS.NE.3) GO TO 150
-      RETURN                                                             /*  FINISHED ALL OF THE PARAMETERS!!!
+      RETURN                                                            ! /*  FINISHED ALL OF THE PARAMETERS!!!
       END

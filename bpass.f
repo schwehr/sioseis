@@ -31,9 +31,9 @@ c  mod 6 Oct 09 - hange the documentation - sample interval, not sample rate.
 c
       DIMENSION FILT(*),SCR(*)
       PI2=6.283197
-      N=NPTS/2+1                                                         /* THE CENTRE POINT OF A ZERO PHASE FILTER
-      W1=(FL+FH)/2.                                                     /* FIND THE CENTRE FREQUENCY
-      WC=(FH-FL)/2.                                                     /* THE WIDTH OF THE BANDPASS
+      N=NPTS/2+1                                                        ! /* THE CENTRE POINT OF A ZERO PHASE FILTER
+      W1=(FL+FH)/2.                                                     ! /* FIND THE CENTRE FREQUENCY
+      WC=(FH-FL)/2.                                                     ! /* THE WIDTH OF THE BANDPASS
 C****
 C****    GENERATE A COSINE WAVE
 C****

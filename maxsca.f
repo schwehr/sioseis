@@ -33,26 +33,26 @@ C****
       TROUGH=0.
       DEF=DEFF*RNIBS
       IADDR1=LAPSIZ-4
-      IADDR2=IADDR1+2                                                    /* THE AP ADDRESS OF DEF
+      IADDR2=IADDR1+2                                                   ! /* THE AP ADDRESS OF DEF
       IADDR3=IADDR2+1
       CALL APWR
       IF(RMULT.LE.0.) GO TO 100
-      CALL APPUT(RMULT,IADDR3,IONE,IFMT)                                 /* PUT THE USER'S MULTIPLIER IN THE AP
+      CALL APPUT(RMULT,IADDR3,IONE,IFMT)                                ! /* PUT THE USER'S MULTIPLIER IN THE AP
       CALL APWD
       GO TO 400
-  100 CALL APPUT(DEF,IADDR2,IONE,IFMT)                                  /* PUT DEF IN THE AP
+  100 CALL APPUT(DEF,IADDR2,IONE,IFMT)                                  ! /* PUT DEF IN THE AP
       IF(ITYPE.EQ.2) GO TO 200
-      CALL MAXV(IN,IONE,IADDR1,NSAMPS)                                  /* FIND THE MAXIMUM VALUE OF THE TRACE
+      CALL MAXV(IN,IONE,IADDR1,NSAMPS)                                  ! /* FIND THE MAXIMUM VALUE OF THE TRACE
       GO TO 300
-  200 CALL MAXMGV(IN,IONE,IADDR1,NSAMPS)                                /*   FIND THE MAXIMUM MAGNITUDE VALUE
+  200 CALL MAXMGV(IN,IONE,IADDR1,NSAMPS)                                ! /*   FIND THE MAXIMUM MAGNITUDE VALUE
   300 CALL APWD
-      CALL VDIV(IADDR1,IONE,IADDR2,IONE,IADDR3,IONE,IONE)                /* DIVIDE DEF BY THE MAX
-  400 CALL VSMUL(IN,IONE,IADDR3,IN,IONE,NSAMPS)                          /* VECTOR SCALAR MULTIPLY
+      CALL VDIV(IADDR1,IONE,IADDR2,IONE,IADDR3,IONE,IONE)               ! /* DIVIDE DEF BY THE MAX
+  400 CALL VSMUL(IN,IONE,IADDR3,IN,IONE,NSAMPS)                         ! /* VECTOR SCALAR MULTIPLY
       N=N+1
       IF(RMULT.LT.0.) GO TO 450
       IF(NPRMUL.EQ.0) GO TO 600
       IF(NPRMUL.LT.N) GO TO 600
-  450 CALL APGET(TEMP,IADDR3,IONE,IFMT)                                  /* GET THE MULTIPLIER FROM THE AP
+  450 CALL APGET(TEMP,IADDR3,IONE,IFMT)                                 ! /* GET THE MULTIPLIER FROM THE AP
       CALL APWD
       PRINT 500,TEMP
   500 FORMAT(' THE PLOT MULTIPLIER IS ',G10.4)

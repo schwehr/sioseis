@@ -62,17 +62,17 @@ c***** DEC VMS goes 2**8,2**9,..2**15, 2**0,2**1,....2**7
 C
       inc = si * (vscale+.001) * rnibs
       NBITS=IFIX(TIMEL*VSCALE*RNIBS)+1
-      DO 10 I=1,NWRDS                                                   /*  CLEAR THE BUFFER
+      DO 10 I=1,NWRDS                                                   ! /*  CLEAR THE BUFFER
    10 IBUF(I)=0
       IPOINT=0
       NDONE=0
       joff = xoff * rnibs
       OFF=XOFF*RNIBS
-      IF( idir .LT. 0 ) off = off + nbits                               /* start at the bottom!
+      IF( idir .LT. 0 ) off = off + nbits                               ! /* start at the bottom!
       IOFF=OFF
   100 NDONE=NDONE+1
       IBIT=IFIX(OFF)
-      MBIT=IFIX(TLINES(NDONE)*VSCALE*RNIBS+.5)                          /* THE INC BETWEEN TLINES
+      MBIT=IFIX(TLINES(NDONE)*VSCALE*RNIBS+.5)                          ! /* THE INC BETWEEN TLINES
       print *,' oldmbit=',mbit
       mbit = (NINT(tlines(ndone)/si)) * inc
       itemp = NINT(tlines(ndone)/si)
@@ -83,18 +83,18 @@ C
       IF( idir .LT. 0 .AND. ibit .LT. joff ) GOTO 300
       print *,' ibit=',ibit
       IWORD=IBIT/16
-      JBIT=IBIT-IWORD*16                                                  /* THE BIT WITHIN IWORD
+      JBIT=IBIT-IWORD*16                                                ! /* THE BIT WITHIN IWORD
       IF( JBIT .EQ. 0 )THEN
           IWORD = IWORD - 1
           JBIT = 16
       ENDIF
-      IF( ICOMPT .EQ. 2 ) THEN                                          /* IS IT A DEC UNIX COMPUTER?
+      IF( ICOMPT .EQ. 2 ) THEN                                          ! /* IS IT A DEC UNIX COMPUTER?
           IBUF(IWORD) = OR(IBUF(IWORD),DUTABLE(JBIT))
-      ELSEIF( ICOMPT .EQ. 4 ) THEN                                      /* IS IT A DEC VMS COMPUTER?
+      ELSEIF( ICOMPT .EQ. 4 ) THEN                                      ! /* IS IT A DEC VMS COMPUTER?
 
-          IBUF(IWORD) = OR(IBUF(IWORD),DVTABLE(JBIT))                    /* IT'S A DEC
+          IBUF(IWORD) = OR(IBUF(IWORD),DVTABLE(JBIT))                   ! /* IT'S A DEC
       ELSE
-          IBUF(IWORD) = OR(IBUF(IWORD),ITABLE(JBIT))                    /* IT'S not DEC
+          IBUF(IWORD) = OR(IBUF(IWORD),ITABLE(JBIT))                    ! /* IT'S not DEC
       ENDIF
       IF( idir .GT. 0 ) THEN
           IBIT=IBIT+MBIT
@@ -106,15 +106,15 @@ C
 C    MAKE SURE THE NEXT SET OF TIME LINES IS DARKER
   300 CONTINUE
       IF( NDONE .EQ. 1) THEN
-          OFF = OFF + 1.                                                /* CHANGE THE OFFSET BY 1 DOT
+          OFF = OFF + 1.                                                ! /* CHANGE THE OFFSET BY 1 DOT
           GO TO 100
       ENDIF
       IF( NDONE .EQ. 2 ) THEN
-          OFF = OFF - 2.                                                /* 1 DOT BEFORE THE ORIGINAL OFFSET
+          OFF = OFF - 2.                                                ! /* 1 DOT BEFORE THE ORIGINAL OFFSET
           GOTO 100
       ENDIF
       IF( NDONE .EQ. 3 ) THEN
-          OFF = OFF + 3.                                                /* 2 DOTS AFTER THE ORIGINAL OFFSET
+          OFF = OFF + 3.                                                ! /* 2 DOTS AFTER THE ORIGINAL OFFSET
           GOTO 100
       ENDIF
       END

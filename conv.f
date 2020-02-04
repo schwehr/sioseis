@@ -38,7 +38,7 @@ c
 c   mod 28 Feb 2011 - correlation was (itype +2) was wrong.
 c
       DIMENSION BUFIN(nsamps),FILTER(npts),OBUF(nout)
-      NEXTM=1                                                           /* THE INDEX TO THE FIRST FILTER POINT
+      NEXTM=1                                                           ! /* THE INDEX TO THE FIRST FILTER POINT
       I=0
       IF( IABS(ITYPE) .EQ. 1 ) THEN
 C****
@@ -46,11 +46,11 @@ C****    DO THE FRONT TAPER IF A FULL CONVOLUTION/CORRELATION
 C****
           M = NPTS - 1
           IF( ITYPE .LE. 0 ) THEN
-              DO 50 N1 = 1, M                                               ! convolution
+              DO 50 N1 = 1, M                                           ! convolution
                  I = I + 1
                  TEMP = 0.
                  DO 40 N2 = 1, N1
-                    TEMP = TEMP + BUFIN(N2) * FILTER(N1+1-N2)               /*  CONVOLUTION
+                    TEMP = TEMP + BUFIN(N2) * FILTER(N1+1-N2)           ! /*  CONVOLUTION
    40            CONTINUE
                  obuf(i) = temp
    50         CONTINUE
