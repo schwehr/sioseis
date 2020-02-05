@@ -733,6 +733,154 @@ if(BUILD_CAL2JUL)
   list(APPEND ALL_APPLICATIONS cal2jul)
 endif(BUILD_CAL2JUL)
 
+##### SEG ####
+
+option(BUILD_SEG "Compile seg executable" FALSE)
+
+if(BUILD_SEG)
+  # Set source and include prefix if needed
+  set(SEG_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
+#  set(SEG_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+  # Bring the headers into the project
+#  include_directories(${SEG_INCLUDE_DIR})
+
+  # Define headers for seg executable
+#  list(APPEND SEG_INCLUDES "${SEG_INCLUDE_DIR}/DoesNotExist.hpp")
+
+# Define Fortran sources for seg executable
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/ascii2segy.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/biggetoke.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bigrdline.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bigrline.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/dcode.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/swap16.f")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/swap32.f")
+# Define C sources for seg executable
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bldgname.c")
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/diskio.c")
+
+  # # Define modules (built) for library
+  # list(APPEND SEG_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SEG.mod")
+
+  add_executable(seg ${SEG_SOURCES})
+  # add_dependencies(seg zzz)
+
+  # Set compilation options for library target
+#  target_compile_options(seg PUBLIC)
+
+  # Add to installation list
+  list(APPEND ALL_APPLICATIONS seg)
+endif(BUILD_SEG)
+
+##### ATLANTEK ####
+
+option(BUILD_ATLANTEK "Compile atlantek executable" FALSE)
+
+if(BUILD_ATLANTEK)
+  # Set source and include prefix if needed
+  set(ATLANTEK_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
+#  set(ATLANTEK_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+  # Bring the headers into the project
+#  include_directories(${ATLANTEK_INCLUDE_DIR})
+
+  # Define headers for atlantek executable
+#  list(APPEND ATLANTEK_INCLUDES "${ATLANTEK_INCLUDE_DIR}/DoesNotExist.hpp")
+
+# Define Fortran sources for atlantek executable
+  list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/atlantek.f")
+# Define C sources for atlantek executable
+  list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/diskio.c")
+  list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/v.c")
+
+  # # Define modules (built) for library
+  # list(APPEND ATLANTEK_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/ATLANTEK.mod")
+
+  add_executable(atlantek ${ATLANTEK_SOURCES})
+  # TODO: Add required libraries for linking to ATLANTEK_REQ_LIBRARIES
+  #  target_link_libraries(atlantek ${ATLANTEK_REQ_LIBRARIES})
+  # add_dependencies(atlantek zzz)
+
+  # Set compilation options for library target
+#  target_compile_options(atlantek PUBLIC)
+
+  # Add to installation list
+  list(APPEND ALL_APPLICATIONS atlantek)
+endif(BUILD_ATLANTEK)
+
+##### DISTANCE ####
+
+option(BUILD_DISTANCE "Compile distance executable" FALSE)
+
+if(BUILD_DISTANCE)
+  # Set source and include prefix if needed
+  set(DISTANCE_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
+#  set(DISTANCE_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+  # Bring the headers into the project
+#  include_directories(${DISTANCE_INCLUDE_DIR})
+
+  # Define headers for distance executable
+#  list(APPEND DISTANCE_INCLUDES "${DISTANCE_INCLUDE_DIR}/DoesNotExist.hpp")
+
+# Define Fortran sources for distance executable
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/ddcode.f")
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/distance.f")
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/getoke.f")
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/lendeg.f")
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/rdline.f")
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/rline.f")
+# Define C sources for distance executable
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/diskio.c")
+
+  # # Define modules (built) for library
+  # list(APPEND DISTANCE_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/DISTANCE.mod")
+
+  add_executable(distance ${DISTANCE_SOURCES})
+  # add_dependencies(distance zzz)
+
+  # Set compilation options for library target
+#  target_compile_options(distance PUBLIC)
+
+  # Add to installation list
+  list(APPEND ALL_APPLICATIONS distance)
+endif(BUILD_DISTANCE)
+
+##### VERSATEC ####
+
+option(BUILD_VERSATEC "Compile versatec executable" FALSE)
+
+if(BUILD_VERSATEC)
+  # Set source and include prefix if needed
+  set(VERSATEC_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
+#  set(VERSATEC_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
+  # Bring the headers into the project
+#  include_directories(${VERSATEC_INCLUDE_DIR})
+
+  # Define headers for versatec executable
+#  list(APPEND VERSATEC_INCLUDES "${VERSATEC_INCLUDE_DIR}/DoesNotExist.hpp")
+
+# Define Fortran sources for versatec executable
+  list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/versatec.f")
+  list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/dummies.f")
+# Define C sources for versatec executable
+  list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/diskio.c")
+
+  # # Define modules (built) for library
+  # list(APPEND VERSATEC_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/VERSATEC.mod")
+
+  add_executable(versatec ${VERSATEC_SOURCES})
+  # add_dependencies(versatec zzz)
+
+  # Set compilation options for library target
+#  target_compile_options(versatec PUBLIC)
+
+  # Add to installation list
+  list(APPEND ALL_APPLICATIONS versatec)
+endif(BUILD_VERSATEC)
+
 ###############################################################################
 ## Analysis ###################################################################
 ###############################################################################
