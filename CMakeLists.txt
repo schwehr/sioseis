@@ -52,7 +52,7 @@ get_filename_component(Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME)
 get_filename_component(C_COMPILER_NAME ${CMAKE_C_COMPILER} NAME)
 
 # Set up Doxygen for documenting library
-# include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/SetupDoxygen.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/SetupDoxygen.cmake")
 
 option(USE_GPROF "Apply compile/link flags for gprof analysis" FALSE)
 set(GPROF_FLAGS "-pg")

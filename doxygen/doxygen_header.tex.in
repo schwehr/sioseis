@@ -1,0 +1,511 @@
+% Latex header for doxygen 1.8.13
+%DOXYGEN \documentclass[twoside]{book}
+%VENDOR 
+%FATE \documentclass[titlepage,letterpaper,11pt]{article}
+%PROD
+\documentclass[titlepage,letterpaper,11pt]{report}
+%DRAFT \documentclass[titlepage,letterpaper,11pt,draft]{report}
+
+%%%%% START OF DOCUMENT PREAMBLE %%%%%
+
+% Packages required by doxygen
+\usepackage{amsmath}
+%z \usepackage[title,titletoc]{appendix}
+\usepackage[titletoc]{appendix}
+%z \usepackage{biblatex}
+\usepackage{fixltx2e}
+\usepackage{booktabs} %VENDOR
+%z \usepackage{cancel}
+\usepackage{color} %VENDOR
+\usepackage{geometry}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{fancybox} %VENDOR
+\usepackage{fancyvrb} %VENDOR 
+\usepackage{fancyhdr} \pagestyle{fancy}
+%DOXYGEN \usepackage{fancyhdr} \pagestyle{fancyplain}
+\usepackage{doxygen}
+\usepackage[export]{adjustbox} % also loads graphicx
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{lastpage}
+%z \usepackage{longtable}
+\usepackage{mathtools} %VENDOR
+%z \usepackage[version=3]{mhchem}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{multirow}
+\PassOptionsToPackage{warn}{textcomp}
+% \usepackage[full]{textcomp}
+\usepackage[redefsymbols,decimalsymbol={.}]{siunitx} %VENDOR
+\usepackage{setspace} %VENDOR
+\usepackage{tabularx} %VENDOR
+\usepackage[rm]{titlesec} %VENDOR
+% \usepackage{verbatim} %VENDOR
+% \usepackage[strings]{underscore} %VENDOR
+\usepackage[nointegrals]{wasysym}
+
+\usepackage{tikz}
+%z \usepackage{gnuplot-lua-tikz}
+\usepackage[framemethod=tikz]{mdframed}
+
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[table]{xcolor}
+
+% Font selection
+\usepackage[T1]{fontenc}
+\usepackage[scaled=.90]{helvet}
+%DOXYGEN \usepackage{courier}
+\usepackage{amssymb}
+\usepackage{sectsty}
+
+\usepackage{droid}
+% Only use Droid Serif for title page, section headers
+\renewcommand*\familydefault{\rmdefault}
+\usepackage{newtxtext,newtxmath} % Fixes broken UTF8 characters in .bib entries
+
+\usepackage{inconsolata}
+
+\usepackage{microtype}
+
+%DOXYGEN \renewcommand{\familydefault}{\sfdefault}
+\allsectionsfont{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\renewcommand{\DoxyLabelFont}{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+
+% Page & text layout
+
+% Title page:
+% These are the dimensions I want for title page "body"
+%% \geometry{top=1.5in, left=1.75in, right=1.75in, bottom=1in}
+% These are hacked to put the headers where headers ought to go
+%ORIGOK \geometry{top=1.25in, left=1.75in, right=1.75in, bottom=1.25in}
+\geometry{top=1.0in, left=1.75in, right=1.75in, bottom=1.25in}
+\savegeometry{titlepage}
+
+% Nominal body pages:
+\geometry{margin=1in}
+\savegeometry{body}
+
+\fancypagestyle{titlepage}{
+  %Set header dimensions. This doesn't seem to do anything here either
+%  \setlength{\headheight}{1.5in}
+%  \setlength{\headwidth}{8.5in}
+
+%a  \setlength{\footskip}{1in}
+
+  %invoke title page geometry by name
+  \loadgeometry{titlepage}
+
+  % Set header dimensions. This doesn't seem to do anything to the width but
+  % pushes the title off the header. It's a start.
+  \setlength{\headheight}{1.5in}
+  % This is apparently a cruel joke
+  \setlength{\footskip}{0.5in}
+%  \setlength{\headwidth}{8.5in}
+  \fancyhfoffset{1.75in}
+
+  % Set header and footer images
+  \fancyhead{}
+  %% Original image size is 712 x 78
+%  \chead{\includegraphics[resolution=96,keepaspectratio,height=0.8125in]{../_img/fsl_title_head}}
+  \fancyhead[C]{
+% \REPORTPROPRIETARY{} \\
+%  \includegraphics[resolution=96,keepaspectratio,height=0.8125in]{\stockimgpath/fsl_title_head}}
+%OK  \includegraphics[keepaspectratio,height=0.8125in]{fsl_title_head}
+  }
+  \renewcommand\headrulewidth{0pt}
+
+  \fancyfoot{}
+  %% Original size image is 628 x 29
+%  \cfoot{\includegraphics[resolution=96,keepaspectratio,width=6.541667in]{../_img/fsl_title_foot}}
+%  \cfoot{\includegraphics[resolution=96,keepaspectratio,width=6.541667in]{\stockimgpath/fsl_title_foot}}
+%OK  \cfoot{\includegraphics[keepaspectratio,width=6.541667in]{fsl_title_foot}}
+  \renewcommand\footrulewidth{0pt}
+}
+
+\tolerance=750
+\hfuzz=15pt
+\hbadness=750
+\setlength{\emergencystretch}{15pt}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3ex plus 2ex minus 2ex}
+\makeatletter
+
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@parafont%
+  }%
+}
+\renewcommand{\subparagraph}{%
+  \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@subparafont%
+  }%
+}
+\makeatother
+
+% Headers & footers
+% \fancyhead[LE]{\fancyplain{}{\bfseries\thepage}}
+% \fancyhead[CE]{\fancyplain{}{DRAFT}}
+% \fancyhead[RE]{\fancyplain{}{\bfseries\leftmark}}
+% \fancyhead[LO]{\fancyplain{}{\bfseries\rightmark}}
+% \fancyhead[CO]{\fancyplain{}{DRAFT}}
+% \fancyhead[RO]{\fancyplain{}{\bfseries\thepage}}
+% \fancyfoot[LE]{\fancyplain{}{}}
+% \fancyfoot[CE]{\fancyplain{}{}}
+% \fancyfoot[RE]{\fancyplain{}{\bfseries\scriptsize ATS/2019-0001, Rev. A }}
+% \fancyfoot[LO]{\fancyplain{}{\bfseries\scriptsize ATS/2019-0001, Rev. A }}
+% \fancyfoot[CO]{\fancyplain{}{}}
+% \fancyfoot[RO]{\fancyplain{}{}}
+% \renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{%
+  \markboth{#1}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+  \markright{\thesection\ #1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Set normal header contents
+%VENDOR
+
+\setlength{\headheight}{72pt}
+\fancyhead{}
+%\lhead{\REPORTNUMBER{} \\ Rev. \REPORTREVISION{}}
+\lhead{SIOSEIS Users and Developers Guide \\ v\CODEVERSION{}}
+\chead{\textbf{\textit{\REPORTSTATUS{}}} \\ }
+% Uncomment PROD line for final; disabling LastPage greatly speeds drafts
+%DRAFT \rhead{Page \thepage\ of TBD \\ \REPORTMONTH{}, \REPORTYYYY{}}
+%PROD
+\rhead{Page \thepage\ of \pageref{LastPage} \\ \REPORTMONTH{}, \REPORTYYYY{}}
+\renewcommand\headrulewidth{0pt}
+
+\fancyfoot{}
+\cfoot{\REPORTPROPRIETARY{}}
+\renewcommand\footrulewidth{0pt}
+
+% 3.a Set ToC, LoF, LoT page headers and footers
+\fancypagestyle{plain}{
+  \fancyfoot{}
+  \cfoot{\REPORTPROPRIETARY{}}
+  \renewcommand\footrulewidth{0pt}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Doxygen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Indices & bibliography
+\usepackage{natbib}
+\usepackage[titles]{tocloft}
+\setcounter{tocdepth}{1} % Chapter, Section, (but nothing lower)
+% \setcounter{tocdepth}{2} % Chapter, Section, Subsection (but nothing lower)
+\setcounter{secnumdepth}{5}
+\makeindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1.d Adjust how SI unit translator behaves (siunitx)
+\sisetup{output-decimal-marker=\textrm{.}}% Works around Adobe colon issue
+\sisetup{per-mode=symbol-or-fraction}%
+\DeclareSIUnit\kgmole{kgmole}%
+
+% 1.e. Define standard colors
+
+%\definecolor{VendorBlue}{HTML}{336699}
+\definecolor{VendorBlue}{HTML}{3366ff}
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{mediumgray}{gray}{0.7}
+
+% Hyperlinks (required, but should be loaded last)
+\definecolor{NavyBlue}{HTML}{000080}
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex,pagebackref=true]{hyperref}
+\else
+  \usepackage[ps2pdf,pagebackref=true]{hyperref}
+\fi
+\hypersetup{%
+  colorlinks=true,%
+  linkcolor=black,%
+  citecolor=black,%
+  urlcolor=NavyBlue,%
+  unicode%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Set report metadata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Change these fields as needed. Add authors and reviewers/verifiers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\CODENAME}{@CPACK_PACKAGE_NAME@}
+\newcommand{\CODEVERSION}{@CPACK_PACKAGE_VERSION@}
+
+% \newcommand{\REPORTNUMBER}{}
+% \newcommand{\REPORTVOLUME}{3}
+\newcommand{\REPORTTITLE}{SIOSEIS Version \CODEVERSION{} User and Developer Guide}
+\newcommand{\REPORTPURPOSE}{Describe design and operation of \CODENAME{}~\CODEVERSION{}}
+\newcommand{\REPORTSUMMARY}{TBD}
+\newcommand{\REPORTMONTH}{February}
+\newcommand{\REPORTDAY}{5}
+\newcommand{\REPORTYYYY}{2020}
+% Draft only
+%\newcommand{\REPORTREVISION}{C}
+%\newcommand{\REPORTSTATUS}{\textcolor{red}{DRAFT}}
+% Release
+\newcommand{\REPORTREVISION}{0}
+\newcommand{\REPORTSTATUS}{}
+
+\newcommand{\PROJECTNUMBER}{TBD}
+\newcommand{\PROJECTTITLE}{TBD}
+\newcommand{\PROJECTCLIENT}{TBD}
+\newcommand{\PROJECTLOCATION}{TBD}
+
+\newcommand{\AUTHORA}{TBD}
+%\newcommand{\AUTHORB}{AUTHORB - TBD}
+\newcommand{\AUTHORB}{}
+\newcommand{\AUTHORC}{}
+%\newcommand{\AUTHORC}{AUTHORC - TBD}
+
+\newcommand{\VERIFIERA}{TBD}
+%\newcommand{\VERIFIERB}{TBD}
+%\newcommand{\VERIFIERC}{TBD}
+
+\newcommand{\ANALYSISMETHOD}{N/A}
+\newcommand{\ACCEPTANCECRITERIA}{N/A}
+
+\newcommand{\EDITOR}{TBD}
+\newcommand{\EDITMONTH}{February}
+\newcommand{\EDITDAY}{5}
+\newcommand{\EDITYYYY}{2020}
+
+\newcommand{\MANAGER}{TBD}
+
+% Twitchy legal garbage
+%\newcommand{\REPORTPROPRIETARY}{\textcolor{VendorBlue}{{\small \textit{Proprietary Property of Vendor/Client}}}}
+%\newcommand{\REPORTPROPFOOT}{\textcolor{VendorBlue}{{\small \textit{*This document is the property of and contains Proprietary Information owned by Vendor/Client and/or its subcontractors or suppliers. It is transmitted to you in confidence and trust, and you agree to treat this document in strict accordance with the terms and conditions of the agreement under which it was provided to you.}}}}
+\newcommand{\REPORTPROPRIETARY}{}
+\newcommand{\REPORTPROPFOOT}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 7. Define common structures/environments
+
+\newenvironment{myCambria}{\fdrfamily}{\par}
+% \newenvironment{myCambria}{\rmfamily}{\par}
+\newmdenv[
+  linecolor=VendorBlue,
+  linewidth=0.75pt,
+  skipabove=1pt,
+  skipbelow=1pt,
+  leftmargin=1pt,
+  rightmargin=1pt,
+  innertopmargin=8pt,
+  innerbottommargin=0pt,
+  innerleftmargin=8pt,
+  innerrightmargin=8pt]{titleboxinner}
+%innerbottommargin=0pt,
+\newmdenv[
+  linecolor=VendorBlue,
+  linewidth=4.5pt,
+  innertopmargin=13pt,
+  innerbottommargin=2pt,
+  innerleftmargin=1pt,
+  innerrightmargin=1pt]{titleboxouter}
+%inner*margins were 1pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
+% Set table/figure caption format
+\usepackage{caption}
+\captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+
+%===== C O N T E N T S =====
+
+\begin{document}
+
+% Titlepage & ToC
+\hypersetup{
+  pageanchor=false,
+  bookmarksnumbered=true,
+  pdfencoding=unicode
+}
+\begin{titlepage}
+  \loadgeometry{titlepage}
+  \thispagestyle{titlepage}
+
+  \begin{titleboxouter}
+    \vspace{1mm} % Forces a gap at top
+    \begin{titleboxinner}
+      \begin{center}
+        \begin{spacing}{1.2}
+          \begin{myCambria}
+%            \textbf{\Large{Report No.: \REPORTNUMBER{}, Rev. \REPORTREVISION{} }} \\
+%            \vspace{4mm}
+            \textbf{\textit{\Large{\REPORTTITLE{} }}}% \\
+%            \vspace{2mm}
+%            \textbf{\Large{Project No.: \PROJECTNUMBER{} }}%
+          \end{myCambria}
+        \end{spacing}
+      \end{center}
+    \end{titleboxinner}
+  \end{titleboxouter}
+
+  \vspace{0.15in}
+
+  \begin{center}
+    \textbf{\textit{\Large{ \REPORTSTATUS{} }}}%
+  \end{center}
+
+  \vspace{1.0in}
+
+%  \vspace{0.15in}
+%
+%  \begin{center}
+%    \begin{spacing}{1.2}
+%      \begin{myCambria}
+%        \textbf{\Large{Submitted to:} } \\
+%        \textbf{\textit{\Large{\PROJECTCLIENT{} \\
+%                               \PROJECTTITLE{} \\
+%                               \vspace{2mm}
+%                               \PROJECTLOCATION{} }}}
+%      \end{myCambria}
+%    \end{spacing}
+%  \end{center}
+%
+%  \vspace{0.1in}
+
+%   \begin{center}
+%     \begin{spacing}{1.2}
+%       \begin{myCambria}
+%         \textbf{\Large{Prepared by:} } \\
+%         \textbf{\textit{\Large{
+%           \AUTHORA{} % \\
+% %          \AUTHORB{} \\
+% %          \vspace{2mm}          
+% %          \AUTHORC{} 
+%         }}}
+%       \end{myCambria}
+%     \end{spacing}
+%   \end{center}
+
+%   \vspace{0.1in}
+
+%   \begin{center}
+%     \begin{spacing}{1.2}
+%       \begin{myCambria}
+%         \textbf{\Large{Reviewed by:} } \\
+%         \textbf{\textit{\Large{
+%           \VERIFIERA{} % \\
+% %          \vspace{2mm}
+% %          \VERIFIERB{} 
+%         }}}
+%       \end{myCambria}
+%     \end{spacing}
+%   \end{center}
+
+%   \vspace{0.1in}
+
+  \begin{center}
+    \begin{myCambria}
+      \textbf{\textit{\Large{\REPORTMONTH{} \REPORTDAY{}, \REPORTYYYY{}}}}
+    \end{myCambria}
+  \end{center}
+
+  \vspace{0.1in}
+
+  \REPORTPROPFOOT{}
+
+\end{titlepage}
+
+%%%%% END OF TITLE PAGE
+
+\thispagestyle{fancy} 
+\setcounter{page}{2}
+
+\loadgeometry{body}
+
+%Set header dimensions. Funny, this seems to work. Why?
+\setlength{\headwidth}{\textwidth}
+
+\clearpage
+
+\newpage
+
+%%%%% START OF TABLE OF CONTENTS %%%%%
+
+\clearpage %% needed by tocloft
+\tableofcontents
+% \clearemptydoublepage
+% \pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+
+\newpage
+
+%%%%% START OF REVISION HISTORY TABLE %%%%%
+
+\section*{Revision History}
+
+\begin{tabularx}{\textwidth}{cll}
+\toprule
+Revision & Date & Description \\
+\midrule
+A & February 5, 2020 & Initial draft \\
+% \REPORTREVISION{} \REPORTSTATUS{} & \REPORTMONTH{} \REPORTDAY{}, \REPORTYYYY{} & Initial revision addressing review comments \\
+\bottomrule
+\end{tabularx}
+
+\newpage
+
+% Manually-composed file containing requirements for design specification
+\include{overview}
+
+% % References
+% \newpage
+% \phantomsection
+% \bibliographystyle{plain}
+% \bibliography{sioseis}
+% \addcontentsline{toc}{chapter}{References}
+
+% % Index
+% \newpage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{Index}
+% \printindex
+
+%%% These sections are typically autogenerated; remove from refman.tex before processing %%%
+%--- Begin manually relocated generated contents ---
+% \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+% \newpage
+% \chapter*{Namespace Index}
+% \addcontentsline{toc}{chapter}{Namespace Index}
+% \input{namespaces}
+
+% \newpage
+% \chapter*{Hierarchical Index}
+% \addcontentsline{toc}{chapter}{Hierarchical Index}
+% \input{hierarchy}
+
+% \newpage
+% \chapter*{Class Index}
+% \addcontentsline{toc}{chapter}{Class Index}
+% \input{annotated}
+
+% \newpage
+% \chapter*{File Index}
+% \addcontentsline{toc}{chapter}{File Index}
+% \input{files}
+%--- End manually relocated generated contents ---
+
+% \begin{appendices}
+% \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+%--- Begin generated contents ---

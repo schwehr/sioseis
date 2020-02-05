@@ -1,0 +1,18 @@
+% Latex footer for doxygen 1.8.13
+%--- End generated contents ---
+% \end{appendices}
+
+% References
+\newpage
+\phantomsection
+\bibliographystyle{plain}
+\bibliography{sioseis}
+\addcontentsline{toc}{chapter}{References}
+
+% Index
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document}

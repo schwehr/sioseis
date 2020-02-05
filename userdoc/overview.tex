@@ -1,0 +1,249 @@
+\chapter{Introduction}
+
+SIOSEIS is a software package for enhancing and manipulating marine
+seismic reflection and refraction data, sponsored by the National 
+Science Foundation (NSF) and the Scripps Industrial Associates.
+
+See \url{http://sioseis.ucsd.edu} for details.
+
+\section{Project Goals}
+
+Kurt Schwehr forked the 2018.2.2 version to git from the
+point release tar.  The goals of the fork are:
+
+\begin{itemize}
+\item Modernize the code.  e.g. K\&R C to C99
+\item Add tests and setup CI
+\item Modernize the build system
+\item Remove dead code
+\item Remove version commit messages from the code
+\item Copy the documentation from the web to git
+\item Provide a place to track bugs and hopefully take pull requests
+\end{itemize}
+
+\chapter{License}
+
+SIOSEIS is released under a 3-Clause BSD license; see \texttt{LICENSE}.
+
+\chapter{Development Environment}
+%  1. Define the development environment necessary to implement the program.
+%  2. The definition shall include:
+%    * the operating system the program will be developed in,
+%    * applicable hardware configuration requirements,
+%    * required development tools,
+%    * third party libraries that are to be embedded in the program,
+%    * the directory structure for source code and libraries, and
+%    * the instructions for compiling and linking the program.
+
+\section{Operating Environment}
+Any operating system which supports the following tools is suitable.
+
+\section{Requirements}
+The following software and libraries are required for building SIOSEIS:
+
+\begin{itemize}
+    \item A C compiler which supports both K\&R C and the C99 standard
+    \item A Fortran compiler which supports both FORTRAN 77 and the Fortran 2008 standard
+\end{itemize}
+
+\section{Optional Tools}
+The following tools are optional:
+
+\begin{itemize}
+    \item The CMake build automation system (version 3.14 or later), available at \url{https://cmake.org/}.
+    \item Doxygen, available at \url{http://www.doxygen.nl/}
+    \item LaTeX, preferably the TeXLive distribution, available at \url{https://www.tug.org/texlive/}. Used for generating PDF documentation.
+    \item GraphViz, available at \url{https://www.graphviz.org/}. Used for generating call/caller graphs and software dependency diagrams.
+\end{itemize}
+
+\chapter{Build Process}
+
+The build system will hopefully be replaced soon. At present, the primary build
+process uses \texttt{make} and a CMake configuration is currently under
+development. CMake successfully builds and packages SIOSEIS but should be
+considered experimental.
+
+\section{make}
+
+To build all SIOSEIS executables, use \texttt{make all}.
+
+The available \texttt{make} targets are:
+\begin{itemize}
+\item \texttt{clean}   - remove all objects and executables
+\item \texttt{all}     - build everything
+\item \texttt{tar}     - create a release source tar using VERSION
+\item \texttt{sioseis} - build just \texttt{sioseis}
+\item \texttt{sio2sun} - build just \texttt{sio2sun}
+\item \texttt{sio2hp}  - build just \texttt{sio2hp}
+\item \texttt{lsd}     - build just \texttt{lsd}
+\item \texttt{lsh}     - build just \texttt{lsd}
+\item \texttt{dutil}   - build just \texttt{dutil}
+\end{itemize}
+
+By default, the makefile uses \texttt{FC=gfortran} and \texttt{CC=gcc}.
+Many compiler flags are currently commented out in an effort to discover what
+compiles on ``every'' machine (the least common denominator.)
+
+\section{CMake}
+
+The build process follows the basic CMake model:
+\begin{enumerate}
+\item Retrieve/unpack the source code. Let's call the top-most directory containing the \texttt{CMakeLists.txt} file the \textit{base directory}.
+\item Open a terminal session in the base directory
+\item \texttt{mkdir build}
+\item \texttt{cd build}
+\item \texttt{cmake ..}
+\item Note that you may need to explicitly specify the C and Fortran compilers
+      if they are not properly detected by CMake by using (\textit{e.g.})
+      \texttt{FC=gfortran CC=gcc cmake ..}
+\item \texttt{make}
+\item (optional) To build the documentation, run \texttt{make docs}
+\item For extra fancy documentation, run \texttt{cd docs/latex \&\& make} and
+      you should get \texttt{<base directory>/build/doc/latex/refman.pdf}
+      (what you are probably reading right now)
+\end{enumerate}
+
+If everything works, you should find a \texttt{sioseis} executable in the
+\texttt{build} directory.
+
+\subsection{Packaging}
+
+Once the software has been built with \texttt{make}, executable installers and
+archives may be created by running \texttt{cpack}. This should generate
+archives in \texttt{.zip}, \texttt{.tar.gz}, and \texttt{.tar.bz2} formats as
+well as a \texttt{.deb} Debian installation package if Debian packaging tools
+are available (this presupposes you are on a Debian-compatible linux system
+such as Debian, Ubuntu, or Linux Mint.) By default this packages the
+\texttt{sioseis}, \texttt{sio2sun}, \texttt{sio2hp}, \texttt{lsd},
+\texttt{lsh}, \texttt{dutil}, \texttt{jul2cal}, and \texttt{cal2jul} utilities.
+Review the \texttt{CMakeLists.txt} file for details on what is packaged and
+where files are installed. Note that this packaging configuration is specific
+to Debian-based Linux systems but could be extended to produce RPM packages for
+Red Hat-based systems, or packages and installers for OSX and Windows systems
+with minor modification to the \texttt{CMakeLists.txt} configuration file.
+
+% \subsection{Windows}
+
+% The build process on Windows is slightly different:
+
+% \begin{enumerate}
+% \item Retrieve/unpack the source code. Again, let's call the top-most directory
+%       containing the \texttt{CMakeLists.txt} file the \textit{base directory}.
+% \item Open a terminal session in the base directory
+% \item \texttt{mkdir build}
+% \item \texttt{cd build}
+% \item \texttt{cmake -A "x64" ..}
+% \item Run \texttt{sioseis.sln}. It doesn't look like it will do anything but
+%       it should launch Visual Studio and open up a project/solution where you
+%       can build SIOSEIS.
+% \end{enumerate}
+
+% If everything works, you should find a \texttt{sioseis.exe} executable
+% somewhere in/under the \texttt{build} directory, probably in a folder named
+% \texttt{Debug} or \texttt{Release}. Either should work; \texttt{Release} should
+% be faster than \texttt{Debug} but will give you less info if it crashes.
+
+% \section{Packaging}
+
+% For convenience of deployment, SIOSEIS may be packaged using CPack
+% (see \url{https://cmake.org/cmake/help/latest/module/CPack.html}). On
+% Debian-like systems (Debian, Ubuntu, Linux Mint, \textit{etc.}, CPack will
+% generate \texttt{.zip}, \texttt{.tar.bz2}, and \texttt{.tar.gz} archives along
+% with a \texttt{.deb} installer. There is support in \texttt{CMakeLists.txt} for
+% creating \texttt{.rpm} (Red Hat Package Manager) installers for RPM-based
+% systems. Similarly, there is support for NSIS (Nullsoft Scriptable Install
+% System - see \url{https://nsis.sourceforge.io/Main_Page}) on Windows;
+% unfortunately neither of these have been tested and are therefore commented
+% out. However there is no known reason why installers for other systems should
+% not be possible; only a single binary and a few text documents are installed.
+
+% % The build process is as follows on Microsoft Windows using Visual Studio and MSVC as the C++ compiler:
+% % \begin{enumerate}
+% % \item Install Visual Studio and CMake
+% % \item Copy the SIOSEIS project tree to a local directory (unpack from zip file, retrieve from source control with \texttt{git clone}, Team Foundation Server, or Visual Studio)
+% % \item Unpack the required software dependencies within the \texttt{ext\_lib} directory beneath the project root and compile any which require compilation (typically SIOSEIS)
+% % \item Create a directory named \texttt{build} beneath the local project root
+% % \item Run \texttt{cmake -A x64 ..} from a command line within the \texttt{build} directory. CMake should warn if any of the required dependencies could not be found (SIOSEIS, csv-parser). Additional options to cmake may be needed if dependencies are not found in the expected locations in \texttt{ext\_lib}
+% % \item If CMake is successful, the file \texttt{sioseis.sln} should be generated; open this file with Visual Studio, build the \texttt{BUILD\_ALL} project to compile the library and the test applications.
+% % \item To run the unit tests, build the \texttt{ALL\_TESTS} project or run \texttt{ctest -C Debug} from within the \texttt{build} directory.
+% % \item To build the documentation, build the \texttt{doc\_doxygen} project (requires Doxygen and LaTeX)
+% % \item To package the software for application development (libraries, C++ headers, test applications and reference data only; no source code), run \texttt{cpack} from the \texttt{build} directory.
+% % \end{enumerate}
+% % 
+% % All compiler and linker options are configured by CMake as defined within the file \texttt{CMakeLists.txt}.
+% % 
+% % The SIOSEIS project directory is organized as follows:
+% % 
+% % \VerbatimInput{sioseis_directory_tree.txt}
+% % 
+% % \clearpage
+% % 
+% % where:
+% % 
+% % \begin{itemize}
+% % \item \texttt{build} is an initially empty directory used by CMake to build the project.
+% % \item \texttt{cmake} contains cmake utilities which find and configure dependencies (XLNT, csv-parser, ChemStation \texttt{usradd}) and assist with test coverage analysis.
+% % \item \texttt{contrib} contains auxiliary scripts and data used for maintaining the code base.
+% % \item \texttt{doxygen} contains Doxygen configuration files for customizing PDF output.
+% % \item \texttt{ext\_lib} contains documentation explaining how to configure software dependencies used by SIOSEIS.
+% % \item \texttt{img} contains images and logos to be used in documentation and installers.
+% % \item \texttt{RefData} contains reference data files used by unit test to verify the library.
+% % \item \texttt{StaticVenting/include} contains C++ header files with the extension \texttt{.hpp}.
+% % \item \texttt{StaticVenting/src} contains C++ source code with the extension \texttt{.cpp}.
+% % \item \texttt{Test/src} contains C++ source files for unit tests with the extension \texttt{.cpp}.
+% % \item \texttt{userdoc} contains static documentation files, bibliographic information, \textit{etc.} to include in the generated documentation.
+% % \end{itemize}
+
+% \chapter{Program Structure}
+
+\chapter{Coding Conventions}
+
+\section{Language Standard}
+
+C99 and Fortran 2008, with all vendor extensions explicitly documented.
+Existing code is typically in FORTRAN 77 or K\&R C, however new code should
+adhere to the more recent standards.
+
+% \section{Numeric Precision}
+
+% Floating-point calculations are expected to be performed using \texttt{double}
+% floating point values rather than single-precision \texttt{float} types.  
+
+% \section{Inline Documentation}
+
+% Doxygen is used for generating API documentation; all program elements (code,
+% types, data structures) should have associated Doxygen-compatible comments
+% associated providing a description, references/citations, and equations as
+% applicable. Function arguments should be documented with data flow direction
+% (in, out, both). Variables containing physical quantities should be labeled
+% with units of measure or noted as being dimensionless. Unless otherwise
+% justified, all quantities should be provided in SI units.
+
+% \section{External Dependencies}
+
+% Code from external developers incorporated in the project should be kept
+% separate from internal code, ideally imported and built via CMake's
+% \texttt{ExternalProject} or \texttt{FetchContent} facilities. External code
+% should not be changed unless absolutely necessary and any local changes should
+% be communicated back to the original maintainers to minimize the number of
+% customizations required.
+
+% \section{Dynamic Memory Use}
+
+% Memory usage should be periodically checked with a tool such as
+% \texttt{valgrind}.
+
+% \section{Code Format and Style}
+
+% Coding style is maintained by the \texttt{uncrustify} tool using the formatting
+% rules listed in \texttt{uncrustify.atsc.cfg}. This configuration file is stored
+% in the \texttt{contrib/uncrustify} directory under the main project directory
+% and is retained in version control as part of the project.
+% See \texttt{contrib/ftmcpp.zsh} for an example of how to use
+% \texttt{uncrustify}.
+
+\chapter{Known Issues}
+
+As of 2010, tape I/O probably will not work on non-Sun computers
+(\texttt{mtio.h} and other issues)
+
