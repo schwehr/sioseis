@@ -2,7 +2,9 @@
 # Doxygen is recommended but not required
 # Add a target to generate API documentation with Doxygen
 find_package(Doxygen)
-if(DOXYGEN_FOUND)
+if(!DOXYGEN_FOUND)
+  message(STATUS "!! Cannot find doxygen - skipping documentation production")
+else()
   message("-- Found Doxygen: setting up configuration files")
   # FYI: CMake variables to be substituted into Doxyfile.in
   # CPACK_PACKAGE_NAME
@@ -61,7 +63,4 @@ if(DOXYGEN_FOUND)
                ${CMAKE_CURRENT_BINARY_DIR}/doxygen.sty
                ${CMAKE_CURRENT_BINARY_DIR}/doxygen_warnings.txt
   )
-else()
-  message(STATUS "!! Cannot find doxygen - skipping documentation production")
 endif()
-

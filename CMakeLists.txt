@@ -30,7 +30,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR "0")
 set(CPACK_PACKAGE_VERSION_MINOR "0")
 set(CPACK_PACKAGE_VERSION_PATCH "1")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "TBD")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Package for enhancing and manipulating marine seismic reflection and refraction data, sponsored by the National Science Foundation (NSF) and the Scripps Industrial Associates.")
 set(CPACK_PACKAGE_VENDOR "TBD")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
@@ -40,6 +40,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSI
 # set(CPACK_INSTALL_PREFIX /opt/${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION})
 
 # ### Build tool discovery
+# Note: Only needed if external projects are built using make/gmake/nmake
 # if (MSVC)
 #   find_program(NMAKE_EXECUTABLE NAMES nmake)
 # else (MSVC)
@@ -58,6 +59,7 @@ option(USE_GPROF "Apply compile/link flags for gprof analysis" FALSE)
 set(GPROF_FLAGS "-pg")
 
 # Add compiler flags
+# Note: Fold this into the structures below if/when Windows build is supported
 #! if(MSVC) # MSVC-specific options
 #!   message(STATUS "MSVC detected, adding compile flags")
 #!   add_compile_options("/W3"
@@ -83,16 +85,17 @@ set(GPROF_FLAGS "-pg")
 # Default (no coverage analysis)
 #  set(CMAKE_Fortran_FLAGS_DEBUG   "-fbounds-check -Og -g")
 # Default with underflow trap (no coverage analysis, with gprof)
-#    set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow -fbounds-check -Og -pg -g")
+#  set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow -fbounds-check -Og -pg -g")
 # Default with underflow trap (no coverage analysis, without gprof [for valgrind analysis])
-#   set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow -fbounds-check -Og -g")
+#  set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow -fbounds-check -Og -g")
 # Extended numerical trapping (no coverage analysis)
-#    set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow,denormal -fbounds-check -Og -pg -g")
+#  set(CMAKE_Fortran_FLAGS_DEBUG   "-ffpe-trap=underflow,denormal -fbounds-check -Og -pg -g")
 # (with coverage analysis)
-#    set(CMAKE_Fortran_FLAGS_DEBUG   "-fbounds-check -Og -fprofile-arcs -ftest-coverage -pg -g")
+#  set(CMAKE_Fortran_FLAGS_DEBUG   "-fbounds-check -Og -fprofile-arcs -ftest-coverage -pg -g")
   if (${USE_GPROF})
     set(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} ${GPROF_FLAGS}") 
   endif()
+# elseif(<each additional compiler as necessary...>)
 #OK else()
 #OK   message(FATAL_ERROR "Only gfortran supported at present")
 #OK endif ()
@@ -114,6 +117,7 @@ set(GPROF_FLAGS "-pg")
   if (${USE_GPROF})
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${GPROF_FLAGS}") 
   endif()
+# elseif(<each additional compiler as necessary...>)
 #OK else()
 #OK   message(FATAL_ERROR "Only gcc supported at present")
 #OK endif ()
@@ -123,10 +127,10 @@ set(GPROF_FLAGS "-pg")
 #   # Configure code test coverage analysis
 # #    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CodeCoverage.cmake")
 #   include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/FortranCoverage.cmake")
-#   if(LCOV_PATH)
-#     APPEND_COVERAGE_COMPILER_FLAGS()
-#   else()
+#   if(!LCOV_PATH)
 #     message(STATUS "lcov not detected; not setting code coverage compilation flags")
+#   else()
+#     APPEND_COVERAGE_COMPILER_FLAGS()
 #   endif()
 # else ()
 #   message("** Linux build configured for Release")
@@ -136,9 +140,11 @@ set(GPROF_FLAGS "-pg")
 #OK set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/finclude)
 
 # Adjust compiled code extensions to simplify test coverage analysis
-#OK set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
+#? I believe these are necessary to undo CMake extension weirdness for code
+# coverage analysis
 set(CMAKE_C_OUTPUT_EXTENSION_REPLACE ON)
-set(CMAKE_Fortran_OUTPUT_EXTENSION_REPLACE ON) #? I believe this is necessary to undo CMake extension weirdness
+set(CMAKE_Fortran_OUTPUT_EXTENSION_REPLACE ON)
+#OK set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 ##### SIOSEIS ####
 
@@ -147,15 +153,16 @@ option(BUILD_SIOSEIS "Compile sioseis executable" TRUE)
 if(BUILD_SIOSEIS)
   # Set source and include prefix if needed
   set(SIOSEIS_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
-#  set(SIOSEIS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+  set(SIOSEIS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
   # Bring the headers into the project
-#  include_directories(${SIOSEIS_INCLUDE_DIR})
+  include_directories(${SIOSEIS_INCLUDE_DIR})
 
   # Define headers for sioseis executable
-#  list(APPEND SIOSEIS_INCLUDES "${SIOSEIS_INCLUDE_DIR}/DoesNotExist.hpp")
+  list(APPEND SIOSEIS_INCLUDES "${SIOSEIS_INCLUDE_DIR}/mtio.h")
 
-# Define Fortran sources for sioseis executable
+  # Define Fortran sources for sioseis executable
+  list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/contro.f") # main
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/acored.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/acorex.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/agcap.f")
@@ -182,7 +189,6 @@ if(BUILD_SIOSEIS)
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/chkpra.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/chkprc.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/clvplt.f")
-  list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/contro.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/conv.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/convol.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/cross.f")
@@ -430,7 +436,7 @@ if(BUILD_SIOSEIS)
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/xstarex.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/zcmute.f")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/zero.f")
-# Define C sources for sioseis executable
+  # Define C sources for sioseis executable
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/bldgname.c")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/diskio.c")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/getdate.c")
@@ -470,11 +476,11 @@ if(BUILD_SIO2SUN)
   # Define headers for sio2sun executable
 #  list(APPEND SIO2SUN_INCLUDES "${SIO2SUN_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for sio2sun executable
-# Define C sources for sio2sun executable
+  # Define Fortran sources for sio2sun executable
+  # Define C sources for sio2sun executable
+  list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/sio2sun.c") # main
   list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/get_nbytes_sio.c")
   list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/planes_to_pixels.c")
-  list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/sio2sun.c")
   list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/swap32c.c")
 
   # # Define modules (built) for library
@@ -505,17 +511,17 @@ if(BUILD_SIO2HP)
   # Define headers for sio2hp executable
 #  list(APPEND SIO2HP_INCLUDES "${SIO2HP_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for sio2hp executable
+  # Define Fortran sources for sio2hp executable
+  list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/sio2hp.f") # main
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/dcode.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/getoke.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/getparams.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/rdline.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/rline.f")
-  list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/sio2hp.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/sio2hp_version.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/swap16.f")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/upcase.f")
-# Define C sources for sio2hp executable
+  # Define C sources for sio2hp executable
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/diskio.c")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/is_big_endian.c")
 
@@ -547,12 +553,12 @@ if(BUILD_LSD)
   # Define headers for lsd executable
 #  list(APPEND LSD_INCLUDES "${LSD_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for lsd executable
-  list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/lsd.f")
+  # Define Fortran sources for lsd executable
+  list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/lsd.f") # main
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/secsdms.f")
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/swap16.f")
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/swap32.f")
-# Define C sources for lsd executable
+  # Define C sources for lsd executable
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/diskio.c")
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/is_big_endian.c")
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/unsigned.c")
@@ -585,12 +591,12 @@ if(BUILD_LSH)
   # Define headers for lsh executable
 #  list(APPEND LSH_INCLUDES "${LSH_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for lsh executable
-  list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/lsh.f")
+  # Define Fortran sources for lsh executable
+  list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/lsh.f") # main
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/secsdms.f")
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/swap16.f")
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/swap32.f")
-# Define C sources for lsh executable
+  # Define C sources for lsh executable
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/diskio.c")
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/is_big_endian.c")
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/unsigned.c")
@@ -623,11 +629,11 @@ if(BUILD_DUTIL)
   # Define headers for dutil executable
 #  list(APPEND DUTIL_INCLUDES "${DUTIL_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for dutil executable
+  # Define Fortran sources for dutil executable
+  list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/dutil.f") # main
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/dcode.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/dd2ieee.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/dr2iee.f")
-  list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/dutil.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/ebcasc.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/getoke.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/ibm2fp.f")
@@ -639,7 +645,7 @@ if(BUILD_DUTIL)
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/swap64.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/tohex.f")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/upcase.f")
-# Define C sources for dutil executable
+  # Define C sources for dutil executable
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/complement.c")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/diskio.c")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/shifts.c")
@@ -672,14 +678,14 @@ if(BUILD_JUL2CAL)
   # Define headers for jul2cal executable
 #  list(APPEND JUL2CAL_INCLUDES "${JUL2CAL_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for jul2cal executable
+  # Define Fortran sources for jul2cal executable
+  list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/julcal.f") # main
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/dcode.f")
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/getoke.f")
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/jul2cal.f")
-  list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/julcal.f")
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/rdline.f")
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/rline.f")
-# Define C sources for jul2cal executable
+  # Define C sources for jul2cal executable
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/diskio.c")
 
   # # Define modules (built) for library
@@ -710,14 +716,14 @@ if(BUILD_CAL2JUL)
   # Define headers for cal2jul executable
 #  list(APPEND CAL2JUL_INCLUDES "${CAL2JUL_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for cal2jul executable
-  list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/cal2jul.f")
+  # Define Fortran sources for cal2jul executable
+  list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/cal2jul.f") # main
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/caljul.f")
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/dcode.f")
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/getoke.f")
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/rdline.f")
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/rline.f")
-# Define C sources for cal2jul executable
+  # Define C sources for cal2jul executable
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/diskio.c")
 
   # # Define modules (built) for library
@@ -748,15 +754,15 @@ if(BUILD_SEG)
   # Define headers for seg executable
 #  list(APPEND SEG_INCLUDES "${SEG_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for seg executable
-  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/ascii2segy.f")
+  # Define Fortran sources for seg executable
+  list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/ascii2segy.f") # main
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/biggetoke.f")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bigrdline.f")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bigrline.f")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/dcode.f")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/swap16.f")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/swap32.f")
-# Define C sources for seg executable
+  # Define C sources for seg executable
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bldgname.c")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/diskio.c")
 
@@ -780,17 +786,17 @@ option(BUILD_ATLANTEK "Compile atlantek executable" FALSE)
 if(BUILD_ATLANTEK)
   # Set source and include prefix if needed
   set(ATLANTEK_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
-#  set(ATLANTEK_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+  set(ATLANTEK_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
   # Bring the headers into the project
-#  include_directories(${ATLANTEK_INCLUDE_DIR})
+  include_directories(${ATLANTEK_INCLUDE_DIR})
 
   # Define headers for atlantek executable
-#  list(APPEND ATLANTEK_INCLUDES "${ATLANTEK_INCLUDE_DIR}/DoesNotExist.hpp")
+  list(APPEND ATLANTEK_INCLUDES "${ATLANTEK_INCLUDE_DIR}/ihcp_io.h")
 
-# Define Fortran sources for atlantek executable
-  list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/atlantek.f")
-# Define C sources for atlantek executable
+  # Define Fortran sources for atlantek executable
+  list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/atlantek.f") # main
+  # Define C sources for atlantek executable
   list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/diskio.c")
   list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/v.c")
 
@@ -824,14 +830,14 @@ if(BUILD_DISTANCE)
   # Define headers for distance executable
 #  list(APPEND DISTANCE_INCLUDES "${DISTANCE_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for distance executable
+  # Define Fortran sources for distance executable
+  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/distance.f") # main
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/ddcode.f")
-  list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/distance.f")
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/getoke.f")
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/lendeg.f")
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/rdline.f")
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/rline.f")
-# Define C sources for distance executable
+  # Define C sources for distance executable
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/diskio.c")
 
   # # Define modules (built) for library
@@ -862,10 +868,10 @@ if(BUILD_VERSATEC)
   # Define headers for versatec executable
 #  list(APPEND VERSATEC_INCLUDES "${VERSATEC_INCLUDE_DIR}/DoesNotExist.hpp")
 
-# Define Fortran sources for versatec executable
-  list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/versatec.f")
+  # Define Fortran sources for versatec executable
+  list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/versatec.f") # main
   list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/dummies.f")
-# Define C sources for versatec executable
+  # Define C sources for versatec executable
   list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/diskio.c")
 
   # # Define modules (built) for library
@@ -1072,11 +1078,11 @@ set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}")
     TYPE DOC
   )
 
-#ok   # Databases
-#ok #  install(DIRECTORY "${CMAKE_SOURCE_DIR}/data"
-#ok   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data/"
-#ok       TYPE DATA
-#ok   )
+#OK   # Databases
+#OK #  install(DIRECTORY "${CMAKE_SOURCE_DIR}/data"
+#OK   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data/"
+#OK       TYPE DATA
+#OK   )
 # endif()
 
 if (WIN32 AND NOT UNIX)

@@ -1,4 +1,4 @@
-% Latex footer for doxygen 1.8.13
+% Latex footer for doxygen 1.8.18
 %--- End generated contents ---
 % \end{appendices}
 
@@ -12,7 +12,8 @@
 % Index
 \newpage
 \phantomsection
-\addcontentsline{toc}{chapter}{Index}
+\clearemptydoublepage
+\addcontentsline{toc}{chapter}{\indexname}
 \printindex
 
 \end{document}

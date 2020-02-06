@@ -1,4 +1,5 @@
-% Latex header for doxygen 1.8.13
+% Latex header for doxygen 1.8.18
+\let\mypdfximage\pdfximage\def\pdfximage{\immediate\mypdfximage}
 %DOXYGEN \documentclass[twoside]{book}
 %VENDOR 
 %FATE \documentclass[titlepage,letterpaper,11pt]{article}
@@ -8,7 +9,16 @@
 
 %%%%% START OF DOCUMENT PREAMBLE %%%%%
 
+%% moved from doxygen.sty due to workaround for LaTex 2019 version and unmaintained tabu package
+\usepackage{ifthen}
+\ifx\requestedLaTeXdate\undefined
+\usepackage{array}
+\else
+\usepackage{array}[=2016-10-06]
+\fi
+%%
 % Packages required by doxygen
+\usepackage[export]{adjustbox} % also loads graphicx
 \usepackage{amsmath}
 %z \usepackage[title,titletoc]{appendix}
 \usepackage[titletoc]{appendix}
@@ -20,21 +30,24 @@
 \usepackage{geometry}
 \usepackage{calc}
 \usepackage{enumitem}
+\usepackage{etoc}
 \usepackage{fancybox} %VENDOR
 \usepackage{fancyvrb} %VENDOR 
 \usepackage{fancyhdr} \pagestyle{fancy}
 %DOXYGEN \usepackage{fancyhdr} \pagestyle{fancyplain}
 \usepackage{doxygen}
-\usepackage[export]{adjustbox} % also loads graphicx
 \usepackage{graphicx}
+\usepackage{ifpdf}
+\usepackage{ifxetex}
 \usepackage[utf8]{inputenc}
-\usepackage{lastpage}
+%SIMPLE \usepackage{lastpage}
 %z \usepackage{longtable}
 \usepackage{mathtools} %VENDOR
 %z \usepackage[version=3]{mhchem}
 \usepackage{makeidx}
 \usepackage{multicol}
 \usepackage{multirow}
+\usepackage{newunicodechar}
 \PassOptionsToPackage{warn}{textcomp}
 % \usepackage[full]{textcomp}
 \usepackage[redefsymbols,decimalsymbol={.}]{siunitx} %VENDOR
@@ -51,7 +64,6 @@
 
 %\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage[table]{xcolor}
-
 % Font selection
 \usepackage[T1]{fontenc}
 \usepackage[scaled=.90]{helvet}
@@ -79,6 +91,13 @@
 }
 \newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
 
+% Arguments of doxygenemoji:
+% 1) ':<text>:' form of the emoji, already "LaTeX"-escaped
+% 2) file with the name of the emoji without the .png extension
+% in case image exist use this otherwise use the ':<text>:' form
+\newcommand{\doxygenemoji}[2]{%
+  \IfFileExists{./#2.png}{\raisebox{-0.1em}{\includegraphics[height=0.9em]{./#2.png}}}{#1}%
+}
 % Page & text layout
 
 % Title page:
@@ -129,15 +148,16 @@
 %OK  \cfoot{\includegraphics[keepaspectratio,width=6.541667in]{fsl_title_foot}}
   \renewcommand\footrulewidth{0pt}
 }
-
 \tolerance=750
 \hfuzz=15pt
 \hbadness=750
 \setlength{\emergencystretch}{15pt}
 \setlength{\parindent}{0cm}
-\setlength{\parskip}{3ex plus 2ex minus 2ex}
+%Dold \setlength{\parskip}{3ex plus 2ex minus 2ex}
+\newcommand{\doxynormalparskip}{\setlength{\parskip}{3ex plus 2ex minus 2ex}}
+\newcommand{\doxytocparskip}{\setlength{\parskip}{1ex plus 0ex minus 0ex}}
+\doxynormalparskip
 \makeatletter
-
 \renewcommand{\paragraph}{%
   \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
     \normalfont\normalsize\bfseries\SS@parafont%
@@ -148,6 +168,10 @@
     \normalfont\normalsize\bfseries\SS@subparafont%
   }%
 }
+\makeatother
+
+\makeatletter
+\newcommand\hrulefilll{\leavevmode\leaders\hrule\hskip 0pt plus 1filll\kern\z@}
 \makeatother
 
 % Headers & footers
@@ -182,8 +206,9 @@
 \chead{\textbf{\textit{\REPORTSTATUS{}}} \\ }
 % Uncomment PROD line for final; disabling LastPage greatly speeds drafts
 %DRAFT \rhead{Page \thepage\ of TBD \\ \REPORTMONTH{}, \REPORTYYYY{}}
-%PROD
-\rhead{Page \thepage\ of \pageref{LastPage} \\ \REPORTMONTH{}, \REPORTYYYY{}}
+%PROD \rhead{Page \thepage\ of \pageref{LastPage} \\ \REPORTMONTH{}, \REPORTYYYY{}}
+%SIMPLE
+\rhead{Page \thepage \\ \REPORTMONTH{}, \REPORTYYYY{}}
 \renewcommand\headrulewidth{0pt}
 
 \fancyfoot{}
@@ -208,6 +233,10 @@
 \setcounter{secnumdepth}{5}
 \makeindex
 
+\newunicodechar{⁻}{${}^{-}$}% Superscript minus
+\newunicodechar{²}{${}^{2}$}% Superscript two
+\newunicodechar{³}{${}^{3}$}% Superscript three
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 1.d Adjust how SI unit translator behaves (siunitx)
 \sisetup{output-decimal-marker=\textrm{.}}% Works around Adobe colon issue
@@ -223,11 +252,14 @@
 
 % Hyperlinks (required, but should be loaded last)
 \definecolor{NavyBlue}{HTML}{000080}
-\usepackage{ifpdf}
 \ifpdf
   \usepackage[pdftex,pagebackref=true]{hyperref}
 \else
-  \usepackage[ps2pdf,pagebackref=true]{hyperref}
+  \ifxetex
+    \usepackage[pagebackref=true]{hyperref}
+  \else
+    \usepackage[ps2pdf,pagebackref=true]{hyperref}
+  \fi
 \fi
 \hypersetup{%
   colorlinks=true,%
@@ -247,7 +279,7 @@
 
 % \newcommand{\REPORTNUMBER}{}
 % \newcommand{\REPORTVOLUME}{3}
-\newcommand{\REPORTTITLE}{SIOSEIS Version \CODEVERSION{} User and Developer Guide}
+\newcommand{\REPORTTITLE}{SIOSEIS Version \CODEVERSION{} Users and Developers Guide}
 \newcommand{\REPORTPURPOSE}{Describe design and operation of \CODENAME{}~\CODEVERSION{}}
 \newcommand{\REPORTSUMMARY}{TBD}
 \newcommand{\REPORTMONTH}{February}
@@ -328,6 +360,8 @@
 \usepackage{caption}
 \captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
 
+\etocsettocstyle{\doxytocparskip}{\doxynormalparskip}
+\renewcommand{\numberline}[1]{#1~}
 %===== C O N T E N T S =====
 
 \begin{document}
