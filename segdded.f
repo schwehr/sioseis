@@ -1,4 +1,4 @@
-       SUBROUTINE segdded( ibuf, buf, lbuf, scr )
+      SUBROUTINE segdded( ibuf, buf, lbuf, scr )
 c
 c
 c  Copyright (C) University of California

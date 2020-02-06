@@ -1,4 +1,4 @@
-       SUBROUTINE INEDIT(BUF1,LBUF1,IBUF,ISCR)
+      SUBROUTINE INEDIT(BUF1,LBUF1,IBUF,ISCR)
 c
 C                             PROCESS INPUT (READS MAGNETIC TAPE)
 C                             ------- -----

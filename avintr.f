@@ -1,4 +1,4 @@
-          subroutine avintrp (bufi, bufa, bufb, size, intrp, ctrlin,
+      subroutine avintrp(bufi, bufa, bufb, size, intrp, ctrlin,
      +                     list, inlen, sh, adscr1, adscr2, cursr)
 c-------------------------------------------------------------------------------
 c  av_____: perform control point (shot or crb) interpolation.
