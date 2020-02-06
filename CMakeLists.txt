@@ -36,21 +36,6 @@ set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 # RAA: What is this? Base installation directory for NSIS installer?
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}")
-# set(CPACK_SET_DESTDIR true)
-# set(CPACK_INSTALL_PREFIX /opt/${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION})
-
-# ### Build tool discovery
-# Note: Only needed if external projects are built using make/gmake/nmake
-# if (MSVC)
-#   find_program(NMAKE_EXECUTABLE NAMES nmake)
-# else (MSVC)
-#   find_program(MAKE_EXECUTABLE NAMES make gmake)
-# endif (MSVC)
-
-# Get the name of the actual Fortran compiler (gfortran, g95, ifort, etc.)
-get_filename_component(Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME)
-# Get the name of the actual C compiler (gcc, icc, etc.)
-get_filename_component(C_COMPILER_NAME ${CMAKE_C_COMPILER} NAME)
 
 # Set up Doxygen for documenting library
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/SetupDoxygen.cmake")
@@ -58,20 +43,10 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/SetupDoxygen.cmake")
 option(USE_GPROF "Apply compile/link flags for gprof analysis" FALSE)
 set(GPROF_FLAGS "-pg")
 
-# Add compiler flags
-# Note: Fold this into the structures below if/when Windows build is supported
-#! if(MSVC) # MSVC-specific options
-#!   message(STATUS "MSVC detected, adding compile flags")
-#!   add_compile_options("/W3"
-#!                       "/permissive-")
-#! #  add_compile_options("/Wall")
-#! 
-#!   if(CMAKE_BUILD_TYPE MATCHES "Debug")
-#!       message("** Windows build configured for Debug")
-#!   else()
-#!       message("** Windows build configured for Release")
-#!   endif()
-#! else() # Not MSVC
+### Set up Fortran compiler configuration
+
+# Get the name of the actual Fortran compiler (gfortran, g95, ifort, etc.)
+get_filename_component(Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME)
 
 #OK if (Fortran_COMPILER_NAME MATCHES "gfortran.*")
   # gfortran
@@ -100,6 +75,11 @@ set(GPROF_FLAGS "-pg")
 #OK   message(FATAL_ERROR "Only gfortran supported at present")
 #OK endif ()
 
+### Set up C compiler configuration
+
+# Get the name of the actual C compiler (gcc, icc, etc.)
+get_filename_component(C_COMPILER_NAME ${CMAKE_C_COMPILER} NAME)
+
 #OK if (C_COMPILER_NAME MATCHES "gcc.*")
   # gcc
   set(CMAKE_C_FLAGS         "-Wall -pedantic")
@@ -121,20 +101,6 @@ set(GPROF_FLAGS "-pg")
 #OK else()
 #OK   message(FATAL_ERROR "Only gcc supported at present")
 #OK endif ()
-
-# if (CMAKE_BUILD_TYPE MATCHES "Debug")
-#   message("** Linux build configured for Debug")
-#   # Configure code test coverage analysis
-# #    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CodeCoverage.cmake")
-#   include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/FortranCoverage.cmake")
-#   if(!LCOV_PATH)
-#     message(STATUS "lcov not detected; not setting code coverage compilation flags")
-#   else()
-#     APPEND_COVERAGE_COMPILER_FLAGS()
-#   endif()
-# else ()
-#   message("** Linux build configured for Release")
-# endif ()
 
 # Define Fortran module directory (output location)
 #OK set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/finclude)
@@ -448,14 +414,11 @@ if(BUILD_SIOSEIS)
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/tlann.c")
   list(APPEND SIOSEIS_SOURCES "${SIOSEIS_SOURCE_DIR}/unsigned.c")
 
-  # # Define modules (built) for library
+  # Define modules (built) for library (F90 modules)
   # list(APPEND SIOSEIS_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SIOSEIS.mod")
 
   add_executable(sioseis ${SIOSEIS_SOURCES})
   # add_dependencies(sioseis zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(sioseis PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS sioseis)
@@ -483,14 +446,11 @@ if(BUILD_SIO2SUN)
   list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/planes_to_pixels.c")
   list(APPEND SIO2SUN_SOURCES "${SIO2SUN_SOURCE_DIR}/swap32c.c")
 
-  # # Define modules (built) for library
-  # list(APPEND SIO2SUN_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SIO2SUN.mod")
+  # Define modules (built) for library
+#  list(APPEND SIO2SUN_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SIO2SUN.mod")
 
   add_executable(sio2sun ${SIO2SUN_SOURCES})
   # add_dependencies(sio2sun zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(sio2sun PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS sio2sun)
@@ -525,14 +485,11 @@ if(BUILD_SIO2HP)
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/diskio.c")
   list(APPEND SIO2HP_SOURCES "${SIO2HP_SOURCE_DIR}/is_big_endian.c")
 
-  # # Define modules (built) for library
-  # list(APPEND SIO2HP_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SIO2HP.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND SIO2HP_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SIO2HP.mod")
 
   add_executable(sio2hp ${SIO2HP_SOURCES})
   # add_dependencies(sio2hp zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(sio2hp PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS sio2hp)
@@ -563,14 +520,11 @@ if(BUILD_LSD)
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/is_big_endian.c")
   list(APPEND LSD_SOURCES "${LSD_SOURCE_DIR}/unsigned.c")
 
-  # # Define modules (built) for library
-  # list(APPEND LSD_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/LSD.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND LSD_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/LSD.mod")
 
   add_executable(lsd ${LSD_SOURCES})
   # add_dependencies(lsd zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(lsd PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS lsd)
@@ -601,14 +555,11 @@ if(BUILD_LSH)
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/is_big_endian.c")
   list(APPEND LSH_SOURCES "${LSH_SOURCE_DIR}/unsigned.c")
 
-  # # Define modules (built) for library
-  # list(APPEND LSH_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/LSH.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND LSH_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/LSH.mod")
 
   add_executable(lsh ${LSH_SOURCES})
   # add_dependencies(lsh zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(lsh PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS lsh)
@@ -650,14 +601,11 @@ if(BUILD_DUTIL)
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/diskio.c")
   list(APPEND DUTIL_SOURCES "${DUTIL_SOURCE_DIR}/shifts.c")
 
-  # # Define modules (built) for library
-  # list(APPEND DUTIL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/DUTIL.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND DUTIL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/DUTIL.mod")
 
   add_executable(dutil ${DUTIL_SOURCES})
   # add_dependencies(dutil zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(dutil PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS dutil)
@@ -688,14 +636,11 @@ if(BUILD_JUL2CAL)
   # Define C sources for jul2cal executable
   list(APPEND JUL2CAL_SOURCES "${JUL2CAL_SOURCE_DIR}/diskio.c")
 
-  # # Define modules (built) for library
-  # list(APPEND JUL2CAL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/JUL2CAL.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND JUL2CAL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/JUL2CAL.mod")
 
   add_executable(jul2cal ${JUL2CAL_SOURCES})
   # add_dependencies(jul2cal zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(jul2cal PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS jul2cal)
@@ -726,14 +671,11 @@ if(BUILD_CAL2JUL)
   # Define C sources for cal2jul executable
   list(APPEND CAL2JUL_SOURCES "${CAL2JUL_SOURCE_DIR}/diskio.c")
 
-  # # Define modules (built) for library
-  # list(APPEND CAL2JUL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/CAL2JUL.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND CAL2JUL_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/CAL2JUL.mod")
 
   add_executable(cal2jul ${CAL2JUL_SOURCES})
   # add_dependencies(cal2jul zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(cal2jul PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS cal2jul)
@@ -766,14 +708,11 @@ if(BUILD_SEG)
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/bldgname.c")
   list(APPEND SEG_SOURCES "${SEG_SOURCE_DIR}/diskio.c")
 
-  # # Define modules (built) for library
-  # list(APPEND SEG_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SEG.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND SEG_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/SEG.mod")
 
   add_executable(seg ${SEG_SOURCES})
   # add_dependencies(seg zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(seg PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS seg)
@@ -800,16 +739,13 @@ if(BUILD_ATLANTEK)
   list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/diskio.c")
   list(APPEND ATLANTEK_SOURCES "${ATLANTEK_SOURCE_DIR}/v.c")
 
-  # # Define modules (built) for library
-  # list(APPEND ATLANTEK_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/ATLANTEK.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND ATLANTEK_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/ATLANTEK.mod")
 
   add_executable(atlantek ${ATLANTEK_SOURCES})
   # TODO: Add required libraries for linking to ATLANTEK_REQ_LIBRARIES
   #  target_link_libraries(atlantek ${ATLANTEK_REQ_LIBRARIES})
   # add_dependencies(atlantek zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(atlantek PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS atlantek)
@@ -840,14 +776,11 @@ if(BUILD_DISTANCE)
   # Define C sources for distance executable
   list(APPEND DISTANCE_SOURCES "${DISTANCE_SOURCE_DIR}/diskio.c")
 
-  # # Define modules (built) for library
-  # list(APPEND DISTANCE_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/DISTANCE.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND DISTANCE_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/DISTANCE.mod")
 
   add_executable(distance ${DISTANCE_SOURCES})
   # add_dependencies(distance zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(distance PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS distance)
@@ -874,14 +807,11 @@ if(BUILD_VERSATEC)
   # Define C sources for versatec executable
   list(APPEND VERSATEC_SOURCES "${VERSATEC_SOURCE_DIR}/diskio.c")
 
-  # # Define modules (built) for library
-  # list(APPEND VERSATEC_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/VERSATEC.mod")
+  # Define modules (built) for library (F90 modules)
+#  list(APPEND VERSATEC_MODULES "${CMAKE_Fortran_MODULE_DIRECTORY}/VERSATEC.mod")
 
   add_executable(versatec ${VERSATEC_SOURCES})
   # add_dependencies(versatec zzz)
-
-  # Set compilation options for library target
-#  target_compile_options(versatec PUBLIC)
 
   # Add to installation list
   list(APPEND ALL_APPLICATIONS versatec)
@@ -922,7 +852,7 @@ add_custom_target(dependency_map ALL
 # add_custom_target(profile
 #   COMMENT "Run profiling tests"
 #   COMMAND ${CMAKE_CTEST_COMMAND} -C Profile --output-on-failures
-#   DEPENDS binnuc sioseis
+#   DEPENDS sioseis
 #   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 # )
 # 
@@ -930,7 +860,7 @@ add_custom_target(dependency_map ALL
 # add_custom_target(valgrind
 #   COMMENT "Run memory and performance checks"
 #   COMMAND ${CMAKE_CTEST_COMMAND} -C Valgrind --output-on-failures
-#   DEPENDS binnuc sioseis
+#   DEPENDS sioseis
 #   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 # )
 
@@ -1008,23 +938,7 @@ add_custom_target(dependency_map ALL
 #          CONFIGURATIONS Valgrind
 # )
 
-# Non-functional and regressions tests
-
-# if(LCOV_PATH)
-#   if(CMAKE_BUILD_TYPE MATCHES "Debug")
-#     SETUP_TARGET_FOR_COVERAGE_LCOV(
-#         NAME coverage
-# #        EXECUTABLE ctest -C Release -j ${N_CORES} # Executable in PROJECT_BINARY_DIR
-#         EXECUTABLE ctest -C Debug -j ${N_CORES} # Executable in PROJECT_BINARY_DIR
-# ## General ctest use (no -C)
-# #        EXECUTABLE ctest -j ${N_CORES} # Executable in PROJECT_BINARY_DIR
-# #        LCOV_ARGS --no-external
-#         DEPENDENCIES
-#             binnuc
-#             sioseis
-#     )
-#   endif()
-# endif()
+# Non-functional and regression tests
 
 ###############################################################################
 ## Packaging ##################################################################
@@ -1059,8 +973,9 @@ set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}")
 # if(APPLE)
 # message("OSX installation package not supported yet")
 # else()
-  # For SIOSEIS executable and any libraries
-  install(TARGETS sioseis sio2sun sio2hp lsd lsh dutil jul2cal cal2jul
+  # For SIOSEIS executables and any libraries
+#  install(TARGETS sioseis sio2sun sio2hp lsd lsh dutil jul2cal cal2jul
+  install(TARGETS ${ALL_APPLICATIONS}
     RUNTIME
       DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY
@@ -1079,15 +994,17 @@ set(CMAKE_INSTALL_DATADIR "${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}")
   )
 
 #OK   # Databases
-#OK #  install(DIRECTORY "${CMAKE_SOURCE_DIR}/data"
 #OK   install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data/"
 #OK       TYPE DATA
 #OK   )
 # endif()
 
+# Generic archives (every platform gets a .zip archive)
+list(APPEND CPACK_GENERATOR "ZIP")
+
 if (WIN32 AND NOT UNIX)
   # Windows systems
-  set(CPACK_GENERATOR "ZIP" "NSIS")
+  list(APPEND CPACK_GENERATOR "NSIS")
 
   # NSIS-specific settings
   set(CPACK_NSIS_DISPLAY_NAME "Sioseis")
@@ -1097,17 +1014,24 @@ if (WIN32 AND NOT UNIX)
   set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/img/sioseis_logo_32.ico")
   set(CPACK_NSIS_MUI_UNIICON "${PROJECT_SOURCE_DIR}/img/sioseis_logo_32.ico")
 
-  # NuGet-specific settings -- TBD
+  # NuGet-specific settings
+  # Enable once NuGet is installed/available
+#  list(APPEND CPACK_GENERATOR "NuGet")
 
-  # Enable once NuGet and WIX are installed/available
-#  set(CPACK_GENERATOR "ZIP" "NSIS" "NuGet" "WIX")
+  # WIX-specific settings
+  # Enable once WIX is installed/available
+#  list(APPEND CPACK_GENERATOR "WIX")
 else ()
+  # Generic UNIX archives
+  list(APPEND CPACK_GENERATOR "TGZ")
+  list(APPEND CPACK_GENERATOR "TBZ2")
+
   # Debian-like systems
   set(CPACK_DEBIAN_PACKAGE_MAINTAINER "TBD")
-  set(CPACK_GENERATOR "ZIP" "TGZ" "TBZ2" "DEB")
+  list(APPEND CPACK_GENERATOR "DEB")
 
   # Red Hat-like systems
-  # set(CPACK_GENERATOR "ZIP" "TGZ" "TBZ2" "RPM")
+  # list(APPEND CPACK_GENERATOR "RPM")
 endif ()
 
 # This must be last
